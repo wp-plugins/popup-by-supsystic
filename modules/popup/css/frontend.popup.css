@@ -1,0 +1,39 @@
+.ppsPopupShell {
+	position: fixed;
+	display: none;
+	z-index: 1000001;
+	top: 0;
+	left: 0;
+}
+#ppsPopupBgOverlay {
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	z-index: 1000000;
+	background-color: #000;
+	opacity: 0.5;
+}
+.ppsSubFlexLoader {
+	position: fixed;
+	display: none;
+	z-index: 1000002;
+	width: 40px;
+	height: 8px;
+}
+.ppsPopupShell .ppsInputError {
+	border: 1px solid #fa4e7f !important;
+	color: #fa4e7f !important;
+}
+.ppsPopupShell .ppsErrorMsg {
+	border: 1px solid #fa4e7f !important;
+	color: #fa4e7f !important;
+	padding: 5px;
+	margin: 5px 0;
+}
+.ppsPopupShell .ppsSuccessMsg {
+	padding: 5px;
+	margin: 5px 0;
+}

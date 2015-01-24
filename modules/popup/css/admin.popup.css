@@ -1,0 +1,122 @@
+.popup-list .popup-list-item {
+	max-width: 400px;
+	border: 1px solid transparent;
+	padding: 10px;
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	overflow: hidden;
+}
+/*.popup-list .popup-list-item:hover {
+	border: 1px solid #000;
+}*/
+.popup-list .popup-list-item:active {
+	border: 1px solid #4ae8ea;
+}
+.popup-list .popup-list-item img {
+	max-width: 400px;
+	height: auto;
+}
+.ppsNewPopupDesc {
+	background-color: #fff;
+    bottom: 10px;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+	display: none;
+}
+#ppsPopupPreview {
+	/*float: left;
+	width: calc(100% - 560px);*/
+}
+#ppsPopupEditTabs {
+	/*float: right;
+	width: 560px;*/
+}
+#ppsPopupEditTabs .ppsOptTxtCheck {
+	width: calc(100% - 25px);
+}
+#ppsPopupEditForm textarea {
+	width: 100%;
+}
+.ppsTabContent section {
+	padding-bottom: 20px;
+}
+.ppsPopupOptRow {
+	padding-left: 7px;
+}
+.supsystic-plugin fieldset, .ppsPopupOptRow {
+	margin-bottom: 10px;
+}
+/*additional*/
+.ppsBgTypeShell {
+	display: none;
+}
+.ppsPopupMainOptSect {
+	float: left;
+	padding-right: 30px;
+}
+.ppsListItems li {
+	float: left;
+	margin-right: 5px;
+	/*min-height: 50px;*/
+	line-height: 35px;
+	cursor: pointer;
+	border: 1px solid transparent;
+	padding: 3px;
+}
+.ppsListItems li:hover {
+	border-color: #4ae8ea;
+}
+.ppsListItems li.selected {
+	border-color: #000;
+}
+#ppsPopupPreviewUpdatingMsg {
+	position: fixed;
+	top: 0;
+	left: 50%;
+	z-index: 999999;
+	display: none;
+	padding: 5px;
+	color: #4ae8ea;
+	background-color: #000;
+}
+.ppoPopupSubFields label {
+	padding-right: 10px;
+}
+#ppsPopupTpl .form-table {
+	vertical-align: top;
+}
+#ppsPopupEditForm label {
+	padding-bottom: 25px;
+}
+/*animations setup*/
+.ppsPopupAnimEff {
+	float: left;
+	min-height: 150px;
+	min-width: 150px;
+	position: relative;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+.ppsPopupAnimEff:hover, 
+.ppsPopupAnimEff.selected {
+	border: 1px solid #4ae8ea;
+}
+.ppsPopupAnimEffLabel {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 90%;
+	height: 90%;
+	line-height: 130px;
+	text-align: center;
+	/*font-size: 20px;*/
+	background-color: #000;
+	color: #fff;
+	/*cursor: pointer;*/
+}

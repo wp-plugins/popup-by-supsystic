@@ -1,0 +1,52 @@
+<?php
+/**
+ * Plugin Name: PopUp by Supsystic
+ * Plugin URI: 
+ * Description: The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
+ * Version: 1.0.1
+ * Author: supsystic.com
+ * Author URI: http://supsystic.com
+ **/
+	/**
+	 * Base config constants and functions
+	 */
+    require_once(dirname(__FILE__). DIRECTORY_SEPARATOR. 'config.php');
+    require_once(dirname(__FILE__). DIRECTORY_SEPARATOR. 'functions.php');
+	/**
+	 * Connect all required core classes
+	 */
+    importClassPps('dbPps');
+    importClassPps('installerPps');
+    importClassPps('baseObjectPps');
+    importClassPps('modulePps');
+    importClassPps('modelPps');
+    importClassPps('viewPps');
+    importClassPps('controllerPps');
+    importClassPps('helperPps');
+    importClassPps('dispatcherPps');
+    importClassPps('fieldPps');
+    importClassPps('tablePps');
+    importClassPps('framePps');
+    importClassPps('langPps');
+    importClassPps('reqPps');
+    importClassPps('uriPps');
+    importClassPps('htmlPps');
+    importClassPps('responsePps');
+    importClassPps('fieldAdapterPps');
+    importClassPps('validatorPps');
+    importClassPps('errorsPps');
+    importClassPps('utilsPps');
+    importClassPps('modInstallerPps');
+	importClassPps('installerDbUpdaterPps');
+	importClassPps('datePps');
+	/**
+	 * Check plugin version - maybe we need to update database, and check global errors in request
+	 */
+    installerPps::update();
+    errorsPps::init();
+    /**
+	 * Start application
+	 */
+    framePps::_()->parseRoute();
+    framePps::_()->init();
+    framePps::_()->exec();
