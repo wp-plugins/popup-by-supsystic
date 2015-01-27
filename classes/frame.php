@@ -98,7 +98,6 @@ class framePps {
     }
     public function init() {
         //$startTime = microtime(true);
-        langPps::init();
         reqPps::init();
         $this->_extractTables();
         $this->_extractModules();

@@ -27,7 +27,7 @@ class validatorPps {
     }
     static public function validLen($field, $label = '', $validate = array()) {
         if( !(bool) (strlen($field->value) <= $field->maxlen)) {
-			self::addError(langPps::_(array('Invalid length for', $field->label, ', max length is', $field->maxlen)), $field->name);
+			self::addError(sprintf(__('Invalid length for %s, max length is %s'), $field->label, $field->maxlen), $field->name);
 			return false;
 		}
 		return true;
@@ -40,7 +40,7 @@ class validatorPps {
     }
     static public function numeric($field) {
         if(!is_numeric($field->value) && !empty($field->value)) {
-            self::addError(langPps::_(array('Invalid numeric value for', $field->label)), $field->name);
+            self::addError(sprintf(__('Invalid numeric value for %s'), $field->label), $field->name);
             return false;
         }
         return true;
@@ -68,24 +68,24 @@ class validatorPps {
     }
     static public function notEmpty($field) {
         if(!self::_notEmpty($field->value)) {
-            self::addError(langPps::_(array('Please enter', $field->label)), $field->name);
+            self::addError(sprintf(__('Please enter %s'), $field->label), $field->name);
             return false;
         }
         return true;
     }
     static public function selectNotEmpty($field) {
         if(empty($field->value)) {
-            self::addError(langPps::_(array('Please select', $field->label)), $field->name);
+            self::addError(sprintf(__('Please select %s'), $field->label), $field->name);
             return false;
         }
         return true;
     }
     static public function email($field) {
         if(!is_email($field->value)) {
-            self::addError(langPps::_(array('Invalid', $field->label)), $field->name);
+            self::addError(sprintf(__('Invalid %s'), $field->label), $field->name);
             return false;
         } elseif(email_exists($field->value)) {
-            self::addError(langPps::_(array($field->label, 'is already registered')), $field->name);
+            self::addError(sprintf(__('%s is already registered'), $field->label), $field->name);
             return false;
         }
         return true;
@@ -98,7 +98,7 @@ class validatorPps {
     }
     static public function string($field) {
         if (preg_match('/([0-9].*)/', $field->value)) {
-            self::addError(langPps::_(array('Invalid', $field->label)), $field->name);
+            self::addError(sprintf(__('Invalid %s'), $field->label), $field->name);
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ class validatorPps {
         $all = get_class_methods('validatorPps');
         foreach($all as $m) {
             if(in_array($m, array('int', 'none', 'string'))) {
-                $res[$m] = langPps::_($m);
+                $res[$m] = __($m);
             }
         }
         return $res;
@@ -126,7 +126,7 @@ class validatorPps {
         $all = get_class_methods('validatorPps');
         foreach($all as $m) {
             if(in_array($m, array('int', 'none', 'string', 'email', 'validLen'))) {
-                $res[$m] = langPps::_($m);
+                $res[$m] = __($m);
             }
         }
         return $res;

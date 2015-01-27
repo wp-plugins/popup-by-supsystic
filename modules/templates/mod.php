@@ -38,7 +38,6 @@ class templatesPps extends modulePps {
 			'loader'					=> PPS_LOADER_IMG, 
 			'close'						=> PPS_IMG_PATH. 'cross.gif', 
 			'ajaxurl'					=> $ajaxurl,
-			//'siteLang'					=> langPps::getData(),
 			//'options'					=> framePps::_()->getModule('options')->getAllowedPublicOptions(),
 			'PPS_CODE'					=> PPS_CODE,
 			//'ball_loader'				=> PPS_IMG_PATH. 'ajax-loader-ball.gif',

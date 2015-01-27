@@ -3,11 +3,11 @@
 ?>
 <html>
     <head>
-        <title><?php langPps::_e( $title )?></title>
+        <title><?php _e( $title )?></title>
     </head>
     <body>
 <div style="position: fixed; margin-left: 40%; margin-right: auto; text-align: center; background-color: #fdf5ce; padding: 10px; margin-top: 10%;">
-    <div><?php langPps::_e( $title )?></div>
+    <div><?php _e( $title )?></div>
     <?php echo htmlPps::formStart('deactivatePlugin', array('action' => $this->REQUEST_URI, 'method' => $this->REQUEST_METHOD))?>
     <?php
         $formData = array();

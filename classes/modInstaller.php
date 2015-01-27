@@ -28,17 +28,11 @@ class modInstallerPps {
                     self::_runModuleInstall($module);
                     self::_installTables($module);
                     return true;
-                    /*if(framePps::_()->getTable('modules')->insert($module)) {
-                        self::_installTables($module);
-                        return true;
-                    } else {
-                        errorsPps::push(langPps::_(array('Install', $module['code'], 'failed ['. mysql_error(). ']')), errorsPps::MOD_INSTALL);
-                    }*/
                 } else {
-                    errorsPps::push(langPps::_(array('Move files for', $module['code'], 'failed')), errorsPps::MOD_INSTALL);
+                    errorsPps::push(sprintf(__('Move files for %s failed'), $module['code']), errorsPps::MOD_INSTALL);
                 }
             } else
-                errorsPps::push(langPps::_(array($module['code'], 'is not plugin module')), errorsPps::MOD_INSTALL);
+                errorsPps::push(sprintf(__('%s is not plugin module'), $module['code']), errorsPps::MOD_INSTALL);
         }
         return false;
     }
@@ -78,7 +72,6 @@ class modInstallerPps {
                 errorsPps::push(__('Can not create module directory. Try to set permission to '. PPS_MODULES_DIR. ' directory 755 or 777', PPS_LANG_CODE), errorsPps::MOD_INSTALL);
         } else
             return true;
-            //errorsPps::push(langPps::_(array('Directory', $code, 'already exists')), errorsPps::MOD_INSTALL);
         return false;
     }
     static private function _getPluginLocations() {
@@ -129,7 +122,7 @@ class modInstallerPps {
                         self::activate($modDataArr);
                     } else {                                           //  if not - install it
                         if(!self::install($modDataArr, $locations['plugDir'])) {
-                            errorsPps::push(langPps::_(array('Install', $modDataArr['code'], 'failed')), errorsPps::MOD_INSTALL);
+                            errorsPps::push(sprintf(__('Install %s failed'), $modDataArr['code']), errorsPps::MOD_INSTALL);
                         }
                     }
 					$modulesData[] = $modDataArr;
@@ -178,8 +171,7 @@ class modInstallerPps {
 				if(strpos($siteUrl, 'http://localhost/') !== 0) {
 					foreach($checkPlugs as $plugName => $url) {
 						if($url != $siteUrl) {	// Registered url don't mach current
-							// Just email me about this
-							wp_mail('ukrainecmk@ukr.net', 'Plug was moved', 'Plug '. $plugName. ' was moved from '. $url. ' to '. $siteUrl);
+							// TODO: create some additional action in this case
 						}
 					}
 				}
@@ -270,7 +262,7 @@ class modInstallerPps {
 		if(!isset($currentMessages[ $plugName ])) {
 			$pluginData = get_plugin_data($locations['plugMainFile']);
 			$newMessage = __('You need to activate', PPS_LANG_CODE);
-			$newMessage .= ' '. $pluginData['Name']. ' '. langPps::_(array('plugin', 'before start usage.'));
+			$newMessage .= ' '. $pluginData['Name']. ' '. __('plugin before start usage.');
 			$newMessage .= ' '. __('Just click', PPS_LANG_CODE);
 			$newMessage .= ' <a href="#" onclick="toeShowModuleActivationPopupPps(\''. $plugName. '\'); return false;" class="toePlugActivationNoteLink">'. __('here', PPS_LANG_CODE). '</a> ';
 			$newMessage .= __('and enter your activation code.', PPS_LANG_CODE);

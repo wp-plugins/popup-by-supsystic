@@ -166,26 +166,6 @@ abstract class modulePps extends baseObjectPps {
 	public function onAdmin() {
 		return $this->_onAdmin;
 	}
-	/*public function __call($name, $arguments) {
-		$controller = $this->getController();
-		if(method_exists($controller, $name)) {     //try to find this method in controller
-			return $this->getController()->$name(
-						isset($arguments[0]) ? $arguments[0] : NULL,
-						isset($arguments[0]) ? $arguments[0] : NULL,
-						isset($arguments[0]) ? $arguments[0] : NULL
-					);
-		} elseif($controller) {                                    //try to find this method in model
-			$model = $controller->getModel();
-			if(method_exists($model, $name)) {
-				return $this->getController()->$name(
-						isset($arguments[0]) ? $arguments[0] : NULL,
-						isset($arguments[0]) ? $arguments[0] : NULL,
-						isset($arguments[0]) ? $arguments[0] : NULL
-					);
-			}
-		}
-		errorsPps::push(langPps::_(array('Module', $this->_code, 'method', $name, 'undefined')), errorsPps::FATAL);
-	}*/
 	public function getModel($modelName = '') {
 		return $this->getController()->getModel($modelName);
 	}

@@ -1,18 +1,20 @@
+.popup-list {
+	margin-top: 40px;
+}
 .popup-list .popup-list-item {
 	max-width: 400px;
 	border: 1px solid transparent;
-	padding: 10px;
+	padding: 5px;
+	margin: 6px;
 	cursor: pointer;
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
 	overflow: hidden;
 }
-/*.popup-list .popup-list-item:hover {
-	border: 1px solid #000;
-}*/
-.popup-list .popup-list-item:active {
-	border: 1px solid #4ae8ea;
+.popup-list .popup-list-item.active ,
+.popup-list .popup-list-item:active  {
+	outline: 5px solid rgba(0, 0, 0, 0.52);
 }
 .popup-list .popup-list-item img {
 	max-width: 400px;
@@ -20,7 +22,7 @@
 }
 .ppsNewPopupDesc {
 	background-color: #fff;
-    bottom: 10px;
+    bottom: 5px;
     font-size: 20px;
     line-height: 30px;
     padding: 10px;

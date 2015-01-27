@@ -475,9 +475,9 @@ class fieldPps {
 						 $htmlParams = array_merge($htmlParams, $configOptions[$key]['htmlParams']);
 					 }
 				  // output label and html element
-					 $output .= '<label>'.langPps::_($configOptions[$key]['label']);
+					 $output .= '<label>'.__($configOptions[$key]['label']);
 					 if ($configOptions[$key]['description'] != '') {
-						 $output .= '<a class="toeOptTip" tip="'.langPps::_($configOptions[$key]['description']).'"></a>';
+						 $output .= '<a class="toeOptTip" tip="'.__($configOptions[$key]['description']).'"></a>';
 					 }
 					 $output .= '</label><br />';
 					 $output .= htmlPps::$method($name,$htmlParams).'<br />';

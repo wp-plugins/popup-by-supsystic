@@ -8,36 +8,41 @@
 			}?>
 		</h3>
 		<hr />
-		<div id="containerWrapper" class="popup-list">
-			<?php foreach($this->list as $popup) { ?>
-				<div class="popup-list-item" data-id="<?php echo $popup['id']?>">
-					<a href="#" class="ppsCreatePopupFromTplBtn">
-						<img src="<?php echo $popup['img_preview_url']?>" />
-					</a>
-					<div class="ppsNewPopupDesc">
-						<span class="ppsTplLabel"><?php echo $popup['label']?></span><br />
-						<?php echo $this->types[ $popup['type_id'] ]['label']?>&nbsp;<?php _e('type')?>
-					</div>
-				</div>
+		<div id="containerWrapper" style="width: 90%; margin: 40px auto;">
+			<?php if(!$this->changeFor) { ?>
+				<form id="ppsCreatePopupForm">
+					<label>
+						<h3 style="float: left; margin: 10px;"><?php _e('PopUp Name', PPS_LANG_CODE)?>:</h3>
+						<?php echo htmlPps::text('label', array('attrs' => 'style="float: left; width: 60%;"'))?>
+					</label>
+					<?php echo htmlPps::hidden('original_id')?>
+					<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>
+					<?php echo htmlPps::hidden('action', array('value' => 'createFromTpl'))?>
+					<button class="button button-primary" style="margin-top: 1px;">
+						<i class="fa fa-check"></i>
+						<?php _e('Save', PPS_LANG_CODE)?>
+					</button>
+				</form>
+				<div style="clear: both;"></div>
+				<div id="ppsCreatePopupMsg"></div>
 			<?php }?>
-			<div style="clear: both;"></div>
+			<div  class="popup-list">
+				<?php foreach($this->list as $popup) { ?>
+					<div class="popup-list-item" data-id="<?php echo $popup['id']?>">
+						<a href="#" class="ppsCreatePopupFromTplBtn">
+							<img src="<?php echo $popup['img_preview_url']?>" />
+						</a>
+						<div class="ppsNewPopupDesc">
+							<span class="ppsTplLabel"><?php echo $popup['label']?></span><br />
+							<?php echo $this->types[ $popup['type_id'] ]['label']?>&nbsp;<?php _e('type')?>
+						</div>
+					</div>
+				<?php }?>
+				<div style="clear: both;"></div>
+			</div>
 		</div>
 	</div>
 </section>
-<!--Create popup wnd-->
-<div id="ppsCreatePopupWnd" title="<?php _e('Create new popup', PPS_LANG_CODE)?>" style="display: none;">
-	<form id="ppsCreatePopupForm">
-		<label>
-			<?php _e('Enter popup label')?>:
-			<?php echo htmlPps::text('label')?>
-		</label>
-		<?php echo htmlPps::hidden('original_id')?>
-		<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>
-		<?php echo htmlPps::hidden('action', array('value' => 'createFromTpl'))?>
-	</form>
-	<div id="ppsCreatePopupMsg"></div>
-</div>
-<!---->
 <!--Change tpl wnd-->
 <div id="ppsChangeTplWnd" title="<?php _e('Change Template', PPS_LANG_CODE)?>" style="display: none;">
 	<form id="ppsChangeTplForm">

@@ -47,7 +47,7 @@
 	define('PPS_EOL', "\n");    
     
     define('PPS_PLUGIN_INSTALLED', true);
-    define('PPS_VERSION', '1.0.1');
+    define('PPS_VERSION', '1.0.2');
     define('PPS_USER', 'user');
     
     define('PPS_CLASS_PREFIX', 'ppsc');     
@@ -75,7 +75,7 @@
 	/**
 	 * Plugin name
 	 */
-	define('PPS_WP_PLUGIN_NAME', 'Popup Supsystic');
+	define('PPS_WP_PLUGIN_NAME', 'PopUp by Supsystic');
 	/**
 	 * Custom defined for plugin
 	 */

@@ -8,13 +8,13 @@
 				</button>
 			</li>
 			<li>
-				<button style="position: absolute; top: -32px; left: 350px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupPreviewBtn">
+				<button style="position: absolute; top: -32px; left: 380px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupPreviewBtn">
 					<i class="fa fa-fw fa-eye"></i>
 					<?php _e('Preview', PPS_LANG_CODE)?>
 				</button>
 			</li>
 			<li>
-				<button style="position: absolute; top: -32px; left: 460px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupRemoveBtn">
+				<button style="position: absolute; top: -32px; left: 490px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupRemoveBtn">
 					<i class="fa fa-fw fa-trash-o"></i>
 					<?php _e('Delete', PPS_LANG_CODE)?>
 				</button>

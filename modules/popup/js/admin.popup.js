@@ -69,7 +69,7 @@ function ppsInitChangePopupDialog() {
 	});
 }
 function ppsInitCreatePopupDialog() {
-	var $container = jQuery('#ppsCreatePopupWnd').dialog({
+	/*var $container = jQuery('#ppsCreatePopupWnd').dialog({
 		modal:    true
 	,	autoOpen: false
 	,	width: 460
@@ -82,16 +82,18 @@ function ppsInitCreatePopupDialog() {
 				$container.dialog('close');
 			}
 		}
-	});
+	});*/
 	jQuery('.popup-list-item').click(function(){
+		jQuery('.popup-list-item').removeClass('active');
+		jQuery(this).addClass('active');
 		jQuery('#ppsCreatePopupForm').find('[name=original_id]').val( jQuery(this).data('id') );
-		jQuery('#ppsCreatePopupMsg').html('');
-		$container.dialog('open');
+		//jQuery('#ppsCreatePopupMsg').html('');
 		return false;
 	});
 	jQuery('#ppsCreatePopupForm').submit(function(){
 		jQuery(this).sendFormPps({
 			msgElID: 'ppsCreatePopupMsg'
+		,	btn: jQuery(this).find('button')
 		,	onSuccess: function(res) {
 				if(!res.error && res.data.edit_link) {
 					toeRedirect( res.data.edit_link );

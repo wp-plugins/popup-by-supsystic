@@ -73,11 +73,12 @@ jQuery.fn.sendFormPps = function(params) {
 	if(sentFromForm && form) {
         jQuery(form).find('*').removeClass('ppsInputError');
     }
-	if(msgEl) {
+	if(msgEl && !params.btn) {
 		jQuery(msgEl).removeClass('ppsSuccessMsg')
 			.removeClass('ppsErrorMsg')
 			.showLoaderPps();
-	} else if(params.btn) {
+	} 
+	if(params.btn) {
 		jQuery(params.btn).attr('disabled', 'disabled');
 		// Font awesome usage
 		params.btnIconElement = jQuery(params.btn).find('.fa').size() ? jQuery(params.btn).find('.fa') : jQuery(params.btn);

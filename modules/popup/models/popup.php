@@ -86,7 +86,7 @@ class popupModelPps extends modelPps {
 			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('create_from_tpl.'. strtolower(str_replace(' ', '-', $original['label'])));
 			return $this->insert( $original );
 		} else
-			$this->pushError (__('Please enter label', PPS_LANG_CODE), 'label');
+			$this->pushError (__('Please enter Name', PPS_LANG_CODE), 'label');
 		return false;
 	}
 	public function remove($id) {
