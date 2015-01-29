@@ -30,9 +30,10 @@
 				<?php foreach($this->list as $popup) { ?>
 					<div class="popup-list-item" data-id="<?php echo $popup['id']?>">
 						<a href="#" class="ppsCreatePopupFromTplBtn">
-							<img src="<?php echo $popup['img_preview_url']?>" />
+							<img src="<?php echo $popup['img_preview_url']?>" class="ppsTplPrevImg" />
 						</a>
 						<div class="ppsNewPopupDesc">
+							<button class="ppsSelectTpl button button-primary"><?php _e('Select', PPS_LANG_CODE)?></button>
 							<span class="ppsTplLabel"><?php echo $popup['label']?></span><br />
 							<?php echo $this->types[ $popup['type_id'] ]['label']?>&nbsp;<?php _e('type')?>
 						</div>

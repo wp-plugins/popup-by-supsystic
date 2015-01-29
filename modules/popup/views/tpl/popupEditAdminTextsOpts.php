@@ -1,3 +1,12 @@
+<?php if(in_array($this->popup['type'], array(PPS_COMMON, PPS_VIDEO))) {?>
+	<div class="ppsPopupOptRow">
+		<?php echo htmlPps::checkbox('params[tpl][enb_label]', array('checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'enb_label')))?>
+		<?php echo htmlPps::text('params[tpl][label]', array(
+			'value' => esc_html($this->popup['params']['tpl']['label']),
+			'attrs' => 'class="ppsOptTxtCheck"',
+		))?>
+	</div>
+<?php }?>
 <?php for($i = 0; $i < $this->popup['params']['opts_attrs']['txt_block_number']; $i++) { ?>
 	<fieldset>
 		<legend>

@@ -8,11 +8,17 @@ jQuery(document).ready(function(){
 		var desc = jQuery(this).find('.ppsNewPopupDesc');
 		if(!desc.hasClass('perspectiveDownRetourn')) {
 			desc.removeClass('perspectiveDown').addClass('magictime perspectiveDownRetourn').show();
+			jQuery(this).find('.ppsTplPrevImg').stop(true, true).animate({
+				opacity: 0.15
+			}, 500);
 		}
-	}).mouseout(function(){
+	}).mouseleave(function(e){
 		var desc = jQuery(this).find('.ppsNewPopupDesc');
 		if(!desc.hasClass('perspectiveDown')) {
 			desc.removeClass('perspectiveDownRetourn').addClass('perspectiveDown');
+			jQuery(this).find('.ppsTplPrevImg').stop(true, true).animate({
+				opacity: 1
+			}, 500);
 		}
 	}).animationDuration(0.5);
 });

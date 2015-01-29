@@ -83,8 +83,6 @@ class popupControllerPps extends controllerPps {
 		foreach($popupList as $popup) {
 			$arr = array();
 			foreach($popup as $k => $v) {
-				//if(empty($v))
-					
 				$arr[] = '"'. mysql_real_escape_string($v). '"';
 			}
 			$valuesArr[] = '('. implode(',', $arr). ')';

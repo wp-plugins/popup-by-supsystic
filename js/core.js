@@ -337,12 +337,6 @@ function toeSliderMove(event, ui) {
     jQuery('#toeSliderDisplay_'+ id).html( ui.value );
     jQuery('#toeSliderInput_'+ id).val( ui.value ).change();
 }
-function ppsGetBookEditLink(id) {
-	return str_replace(PPS_DATA.bookEditUrlPattern, 'DYNAMIC_BOOK_ID', id);
-}
-jQuery(document).ready(function(){
-	
-});
 /**
  * Add data to jqGrid object post params search
  * @param {object} param Search params to set

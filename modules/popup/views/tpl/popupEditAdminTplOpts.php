@@ -2,15 +2,6 @@
 	<?php _e('Change PopUp Template', PPS_LANG_CODE)?>
 </button><br />
 <hr />
-<?php if(in_array($this->popup['type'], array(PPS_COMMON, PPS_VIDEO))) {?>
-	<div class="ppsPopupOptRow">
-		<?php echo htmlPps::checkbox('params[tpl][enb_label]', array('checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'enb_label')))?>
-		<?php echo htmlPps::text('params[tpl][label]', array(
-			'value' => esc_html($this->popup['params']['tpl']['label']),
-			'attrs' => 'class="ppsOptTxtCheck"',
-		))?>
-	</div>
-<?php }?>
 <table class="form-table" style="width: auto;">
 	<?php if(in_array($this->popup['type'], array(PPS_VIDEO))) {?>
 	<tr>
