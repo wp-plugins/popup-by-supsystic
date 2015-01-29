@@ -21,7 +21,7 @@
 			</li>
 		</ul>
 		<h3 class="nav-tab-wrapper" style="margin-bottom: 0px; margin-top: 12px;">
-			<?php $i == 0;?>
+			<?php $i = 0;?>
 			<?php foreach($this->tabs as $tKey => $tData) { ?>
 				<a class="nav-tab <?php if($i == 0) { echo 'nav-tab-active'; }?>" href="#<?php echo $tKey?>">
 					<?php echo $tData['title']?>

@@ -54,7 +54,8 @@ class popupModelPps extends modelPps {
 		return $data;
 	}
 	protected function _afterGetFromTbl($row) {
-		$row['params'] = $this->_prepareParamsAfterDb( utilsPps::unserialize( base64_decode($row['params']) ) );
+		if(isset($row['params']))
+			$row['params'] = $this->_prepareParamsAfterDb( utilsPps::unserialize( base64_decode($row['params']) ) );
 		if(empty($row['img_preview'])) {
 			$row['img_preview'] = str_replace(' ', '-', strtolower( trim($row['label']) )). '.jpg';
 		}
@@ -65,7 +66,7 @@ class popupModelPps extends modelPps {
 		$row['type'] = isset($row['type_id']) && isset($this->_types[ $row['type_id'] ]) ? $this->_types[ $row['type_id'] ]['code'] : 'common';
 		return $row;
 	}
-	protected function _dataSave($data) {
+	protected function _dataSave($data, $update = false) {
 		$data = $this->_beforeDbReplace($data);
 		$data['params'] = base64_encode(utilsPps::serialize( $data['params'] ));
 		return $data;

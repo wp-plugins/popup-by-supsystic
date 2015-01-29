@@ -9,4 +9,3 @@
 		<?php }?>
 	<?php }?>
 </nav>
-<?php breadcrumbsList?>

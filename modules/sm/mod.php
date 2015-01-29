@@ -33,8 +33,8 @@ class smPps extends modulePps {	//sm == socialmedia
 	public function getAvailableDesigns() {
 		if(empty($this->_availableDesigns)) {
 			$this->_availableDesigns = array(
-				'simple' => array('label' => __('Simple', DPR_LANG_CODE)),
-				'boxy' => array('label' => __('Boxy', DPR_LANG_CODE)),
+				'simple' => array('label' => __('Simple', PPS_LANG_CODE)),
+				'boxy' => array('label' => __('Boxy', PPS_LANG_CODE)),
 			);
 		}
 		return $this->_availableDesigns;

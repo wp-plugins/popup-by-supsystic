@@ -12,7 +12,7 @@ class statisticsPps extends modulePps {
 		}
 		return $this->_types;
 	}
-	public function getTypeId($code) {
+	public function getTypeIdByCode($code) {
 		$this->getTypes();
 		return isset($this->_types[ $code ]) ? $this->_types[ $code ]['id'] : false;
 	}

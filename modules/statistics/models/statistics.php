@@ -7,7 +7,7 @@ class statisticsModelPps extends modelPps {
 		$d['id'] = isset($d['id']) ? (int) $d['id'] : 0;
 		$d['type'] = isset($d['type']) ? $d['type'] : '';
 		if(!empty($d['id']) && !empty($d['type'])) {
-			$typeId = $this->getModule()->getTypeId( $d['type'] );
+			$typeId = $this->getModule()->getTypeIdByCode( $d['type'] );
 			return $this->insert(array(
 				'popup_id' => $d['id'],
 				'type' => $typeId,

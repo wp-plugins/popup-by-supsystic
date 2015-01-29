@@ -231,7 +231,7 @@ class htmlPps {
 				if($params['labeled']) {
 					$out .= '<label>'. $val. '&nbsp;';
 				}
-				$out .= self::input($name, array('attrs' => $attrs.' '.$checked, 'type' => 'radio', 'value' => $key));
+				$out .= self::input($name, array('attrs' => $params['attrs'].' '.$checked, 'type' => 'radio', 'value' => $key));
 				if($params['labeled']) {
 					$out .= '</label>';
 				}
@@ -244,6 +244,7 @@ class htmlPps {
     }
     static public function radiobutton($name, $params = array('attrs' => '', 'value' => '', 'checked' => '')) {
         $params['type'] = 'radio';
+		$params['attrs'] = isset($params['attrs']) ? $params['attrs'] : '';
         if($params['checked'])
             $params['attrs'] .= ' checked';
         return self::input($name, $params);
@@ -470,7 +471,7 @@ class htmlPps {
     static public function slider($name, $params = array('value' => 0, 'min' => 0, 'max' => 0, 'step' => 1, 'slide' => '')) {
         $id = self::nameToClassId($name, $params);
         $paramsStr = '';
-        if(empty($params['slide']) && $params['slide'] !== false) { //Can be set to false to ignore function onSlide event binding
+        if(!isset($params['slide']) || (empty($params['slide']) && $params['slide'] !== false)) { //Can be set to false to ignore function onSlide event binding
             $params['slide'] = 'toeSliderMove';
         }
         if(!empty($params)) {
