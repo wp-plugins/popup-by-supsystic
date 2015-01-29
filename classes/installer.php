@@ -39,16 +39,6 @@ class installerPps {
 				
 				(NULL, 'mail',1,1,'mail');");
 		}
-		// !!!! REMOVE THIS !!!!
-		dbPps::query("INSERT INTO `@__modules` (id, code, active, type_id, label) VALUES
-				(NULL, 'popup',1,1,'popup');");
-		dbPps::query("INSERT INTO `@__modules` (id, code, active, type_id, label) VALUES
-				(NULL, 'subscribe',1,1,'subscribe');");
-		dbPps::query("INSERT INTO `@__modules` (id, code, active, type_id, label) VALUES
-				(NULL, 'sm',1,1,'sm');");
-		dbPps::query("INSERT INTO `@__modules` (id, code, active, type_id, label) VALUES
-				(NULL, 'statistics',1,1,'statistics');");
-
 		/**
 		 *  modules_type 
 		 */
