@@ -1,6 +1,6 @@
 === PopUp by Supsystic ===
 Contributors: supsystic.com
-Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, pop up, modal, modal window
+Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1
 Stable tag: 1.0.6
 
@@ -27,6 +27,14 @@ Popup maker with live preview let you customize pop-up templates without program
 * Pictures and Video Galleries
 * Iframes, Forms, Subscriptions
 
+Whether you use WordPress for your business or even just as blog or hobby site, one thing remains true, getting people to opt in to your mailing list or newsletter is essential.
+
+Using popup windows was once frowned on as a ploy used by marketers who were just out to grab your cash, but it has entered the mainstream, with large scale and legitimate business and website owners using popups to gather email addresses, ask for social network shares such as Facebook likes, or to promote the latest and greatest product/service.
+
+= Delayed Pop-Ups =
+
+Not all popups are necessary as soon as a page loads. Consider a delayed pop-up for your site. There are a variety of options for this, including pop ups that only show on scroll, on click, or after a certain amount of time on the WordPress site.
+
 == Installation ==
 
 To install Popup by Supsystic and start increase conversion:
@@ -39,6 +47,12 @@ To install Popup by Supsystic and start increase conversion:
 == Screenshots ==
 
 1. PopUp plugin admin area
+
+2. Subscription Pop-up templates
+
+3. Facebook like popup
+
+4. Popups with YouTube video
 
 == Changelog ==
 
