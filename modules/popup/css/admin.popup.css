@@ -79,7 +79,7 @@
 .ppsListItems li:hover {
 	border-color: #4ae8ea;
 }
-.ppsListItems li.selected {
+.ppsListItems li.active {
 	border-color: #000;
 }
 #ppsPopupPreviewUpdatingMsg {
@@ -111,7 +111,7 @@
 	cursor: pointer;
 }
 .ppsPopupAnimEff:hover, 
-.ppsPopupAnimEff.selected {
+.ppsPopupAnimEff.active {
 	border: 1px solid #4ae8ea;
 }
 .ppsPopupAnimEffLabel {

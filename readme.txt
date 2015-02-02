@@ -2,7 +2,7 @@
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, pop up, modal, modal window
 Tested up to: 4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -41,6 +41,25 @@ To install Popup by Supsystic and start increase conversion:
 1. PopUp plugin admin area
 
 == Changelog ==
+
+= 1.0.6 = 
+ * MailChimp integration
+ * Video PopUps - Autoplay option added
+ * Correct position set for Facebook Like PopUp - depend position on widget size after it will be loaded
+ * Re-calculate position for each PopUp - after window was resized
+ * Fix issue with Facebook Like PopUp array options
+ * Disable clicking and submitting forms inside preview iFrame in admin area
+ * Fix images load as background - added load WordPress media gallery
+ * List Building and Video List templates - fix subscribe Submit button name option
+ * Fastest and Easiest template - fix subscribe enable/disabler name option
+ * Fix PopUp for smaller window size - responsive from now!
+ * Correct "none" animation selection
+ * Rename admin area menu items - make it more intuitive and user-friendly
+ * Fix preview iFrame issue in admin area - when for some cases scripts with "ppsHidePreviewUpdating" was not loaded when iFrame was already loaded
+ * Tooltip functionality in admin area optimization
+ * Some wording changes in admin area
+ * Compress some javascript libraries and remove unused files to make plugin lighter
+ * Admin UI design minor optimizations - make it's usage more comfortable for You
 
 = 1.0.5 =
  * Fixed activation warning with DEBUG mode enabled

@@ -23,7 +23,7 @@
 			<table id="ppsPopupTbl"></table>
 			<div id="ppsPopupTblNav"></div>
 			<div id="ppsPopupTblEmptyMsg" style="display: none;">
-				<h3><?php _e('No data found', PPS_LANG_CODE)?></h3>
+				<h3><?php printf(__('You have no PopUps for now. <a href="%s" style="font-style: italic;">Create</a> your PopUp!', PPS_LANG_CODE), $this->addNewLink)?></h3>
 			</div>
 		</div>
 		<div style="clear: both;"></div>

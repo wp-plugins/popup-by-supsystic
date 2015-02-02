@@ -432,13 +432,13 @@ jQuery.fn.zoom = function(level) {
 	return jQuery(this).css({
 		'zoom': level
 	,	'-moz-transform': 'scale('+ level+ ')'
-	,	'-moz-transform-origin': '0 0'
+	,	'-moz-transform-origin': 'center center'
 	,	'-o-transform': 'scale('+ level+ ')'
-	,	'-o-transform-origin': '0 0'
+	,	'-o-transform-origin': 'center center'
 	,	'-webkit-transform': 'scale('+ level+ ')'
-	,	'-webkit-transform-origin': '0 0'
+	,	'-webkit-transform-origin': 'center center'
 	,	'transform': 'scale('+ level+ ')'
-	,	'transform-origin': '0 0'
+	,	'transform-origin': 'center center'
 	});
 };
 jQuery.fn.scrollWidth = function() {

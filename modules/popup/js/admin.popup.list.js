@@ -8,7 +8,7 @@ jQuery(document).ready(function(){
 	,	colNames:[toeLangPps('ID'), toeLangPps('Label'), toeLangPps('Date'), toeLangPps('Action')]
 	,	colModel:[
 			{name: 'id', index: 'id', searchoptions: {sopt: ['eq']}, width: '30', align: 'center'}
-		,	{name: 'label', index: 'ip', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'label', index: 'label', searchoptions: {sopt: ['eq']}, align: 'center'}
 		,	{name: 'date_created', index: 'date_created', searchoptions: {sopt: ['eq']}, align: 'center'}
 		,	{name: 'action', index: 'action', sortable: false, search: false, align: 'center'}
 		]
@@ -24,9 +24,9 @@ jQuery(document).ready(function(){
 	,	viewrecords: true
 	,	sortorder: 'desc'
 	,	jsonReader: { repeatitems : false, id: '0' }
-	,	caption: toeLangPps('Current Blacklist')
+	,	caption: toeLangPps('Current PopUp')
 	,	height: '100%' 
-	,	emptyrecords: toeLangPps('You have no data in blacklist for now.')
+	,	emptyrecords: toeLangPps('You have no PopUps for now.')
 	,	multiselect: true
 	,	onSelectRow: function(rowid, e) {
 			var tblId = jQuery(this).attr('id')
@@ -101,7 +101,7 @@ jQuery(document).ready(function(){
 		}
 		var confirmMsg = listIds.length > 1
 			? toeLangPps('Are you sur want to remove '+ listIds.length+ ' Pop-Ups?')
-			: toeLangPps('Are you sur want to remove Pop-Up?')
+			: toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(listIds[0], 'label', 'ppsPopupTbl')+ '" Pop-Up?')
 		if(confirm(confirmMsg)) {
 			jQuery.sendFormPps({
 				btn: this
@@ -133,7 +133,7 @@ jQuery(document).ready(function(){
 	ppsInitCustomCheckRadio('#'+ tblId+ '_cb');
 });
 function ppsPopupRemoveRow(id, link) {
-	if(confirm(toeLangPps('Are you sure want to remove this Pop-Up?'))) {
+	if(confirm(toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(id, 'label', 'ppsPopupTbl')+ '" Pop-Up?'))) {
 		jQuery.sendFormPps({
 			btn: link
 		,	data: {mod: 'popup', action: 'remove', id: id}

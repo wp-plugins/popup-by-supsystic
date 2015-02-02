@@ -464,7 +464,8 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 	background-color: transparent !important;
 }
 /*tooltip*/
-.supsystic-plugin .fa-question.supsystic-tooltip {
+.supsystic-plugin .fa-question.supsystic-tooltip,
+.supsystic-plugin .fa-question.supsystic-tooltip-bottom {
 	border: 1px solid #28282a;
 	border-radius: 50%;
 	margin-top: 1px;
@@ -609,6 +610,9 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 }
 .supsystic-plugin .chosen-container-active .chosen-choices {
 	border-color: #4ae8ea;
+}
+.supsystic-plugin .chosen-container.chosen-container-multi {
+	min-width: 300px;	/*As if select is hidden on chosen init action - it will be with width: 0 - and this is really bad*/
 }
 /*back to top*/
 #ppsPopupGoToTop {

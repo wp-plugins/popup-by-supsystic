@@ -101,16 +101,28 @@ jQuery(document).ready(function(){
 			return false;
 		});
 	}
-	
-	jQuery('.supsystic-tooltip').tooltipster({
-		contentAsHTML: true
-	,	interactive: true
-	,	speed: 250
-	,	delay: 0
-	,	animation: 'swing'
-	,	position: 'top-left'
-	,	maxWidth: 450
-	});
+	if(jQuery('.supsystic-tooltip').size()) {
+		jQuery('.supsystic-tooltip').tooltipster({
+			contentAsHTML: true
+		,	interactive: true
+		,	speed: 250
+		,	delay: 0
+		,	animation: 'swing'
+		,	position: 'top-left'
+		,	maxWidth: 450
+		});
+	}
+	if(jQuery('.supsystic-tooltip-bottom').size()) {
+		jQuery('.supsystic-tooltip-bottom').tooltipster({
+			contentAsHTML: true
+		,	interactive: true
+		,	speed: 250
+		,	delay: 0
+		,	animation: 'swing'
+		,	position: 'bottom-left'
+		,	maxWidth: 450
+		});
+	}
 });
 function toeShowModuleActivationPopupPps(plugName, action, goto) {
 	action = action ? action : 'activatePlugin';
@@ -291,4 +303,66 @@ function ppsSetTxtEditorVal(id, content) {
 		tinyMCE.get( id ).setContent(content);
 	else
 		jQuery('#'+ id).val( content );
+}
+/**
+ * Add data to jqGrid object post params search
+ * @param {object} param Search params to set
+ * @param {string} gridSelectorId ID of grid table html element
+ */
+function ppsGridSetListSearch(param, gridSelectorId) {
+	jQuery('#'+ gridSelectorId).setGridParam({
+		postData: {
+			search: param
+		}
+	});
+}
+/**
+ * Set data to jqGrid object post params search and trigger search
+ * @param {object} param Search params to set
+ * @param {string} gridSelectorId ID of grid table html element
+ */
+function ppsGridDoListSearch(param, gridSelectorId) {
+	ppsGridSetListSearch(param, gridSelectorId);
+	jQuery('#'+ gridSelectorId).trigger( 'reloadGrid' );
+}
+/**
+ * Get row data from jqGrid
+ * @param {number} id Item ID (from database for example)
+ * @param {string} gridSelectorId ID of grid table html element
+ * @return {object} Row data
+ */
+function ppsGetGridDataById(id, gridSelectorId) {
+	var rowId = getGridRowId(id, gridSelectorId);
+	if(rowId) {
+		return jQuery('#'+ gridSelectorId).jqGrid ('getRowData', rowId);
+	}
+	return false;
+}
+/**
+ * Get cell data from jqGrid
+ * @param {number} id Item ID (from database for example)
+ * @param {string} column Column name
+ * @param {string} gridSelectorId ID of grid table html element
+ * @return {string} Cell data
+ */
+function ppsGetGridColDataById(id, column, gridSelectorId) {
+	var rowId = getGridRowId(id, gridSelectorId);
+	if(rowId) {
+		return jQuery('#'+ gridSelectorId).jqGrid ('getCell', rowId, column);
+	}
+	return false;
+}
+/**
+ * Get grid row ID (ID of table row) from item ID (from database ID for example)
+ * @param {number} id Item ID (from database for example)
+ * @param {string} gridSelectorId ID of grid table html element
+ * @return {number} Table row ID
+ */
+function getGridRowId(id, gridSelectorId) {
+	var rowId = parseInt(jQuery('#'+ gridSelectorId).find('[aria-describedby='+ gridSelectorId+ '_id][title='+ id+ ']').parent('tr:first').index());
+	if(!rowId) {
+		console.log('CAN NOT FIND ITEM WITH ID  '+ id);
+		return false;
+	}
+	return rowId;
 }

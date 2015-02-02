@@ -75,13 +75,6 @@ class optionsPps extends modulePps {
 		if(empty($mainUrl)) {
 			$mainUrl = framePps::_()->getModule('adminmenu')->getMainLink();
 		}
-		if(!empty($tab)) {
-			switch($tab) {
-				case 'htaccess':
-					$tab = 'system#ppsHtaccessBlock';
-					break;
-			}
-		}
 		return empty($tab) ? $mainUrl : $mainUrl. '&tab='. $tab;
 	}
 	public function getAll() {

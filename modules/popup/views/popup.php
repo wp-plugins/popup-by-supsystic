@@ -10,6 +10,7 @@ class popupViewPps extends viewPps {
 		framePps::_()->addScript('admin.popup.list', $this->getModule()->getModPath(). 'js/admin.popup.list.js');
 		framePps::_()->addJSVar('admin.popup.list', 'ppsTblDataUrl', uriPps::mod('popup', 'getListForTbl', array('reqType' => 'ajax')));
 		
+		$this->assign('addNewLink', framePps::_()->getModule('options')->getTabUrl('popup_add_new'));
 		return parent::getContent('popupAdmin');
 	}
 	public function getAddNewTabContent() {
@@ -207,6 +208,7 @@ class popupViewPps extends viewPps {
 		return parent::getContent('popupEditAdminTextsOpts');
 	}
 	public function getMainPopupSubTab() {
+		framePps::_()->getModule('subscribe')->loadAdminEditAssets();
 		return parent::getContent('popupEditAdminSubOpts');
 	}
 	public function getMainPopupSmTab() {
@@ -318,6 +320,7 @@ class popupViewPps extends viewPps {
 	private function _generateVideoHtml($popup) {
 		$res = '';
 		if(isset($popup['params']['tpl']['video_url']) && !empty($popup['params']['tpl']['video_url'])) {
+			add_filter('oembed_result', array($this,'modifyEmbRes'), 10, 3);
 			$attrs = array();
 			if(isset($popup['params']['opts_attrs']['video_width_as_popup']) && $popup['params']['opts_attrs']['video_width_as_popup']) {
 				$attrs['width'] = $popup['params']['tpl']['width'];
@@ -325,9 +328,22 @@ class popupViewPps extends viewPps {
 			if(isset($popup['params']['opts_attrs']['video_height_as_popup']) && $popup['params']['opts_attrs']['video_height_as_popup']) {
 				$attrs['height'] = $popup['params']['tpl']['height'];
 			}
+			if(isset($popup['params']['tpl']['video_autoplay']) && $popup['params']['tpl']['video_autoplay']) {
+				$attrs['autoplay'] = 1;
+			}
 			$res = wp_oembed_get($popup['params']['tpl']['video_url'], $attrs);
 		}
 		return $res;
+	}
+	public function modifyEmbRes($html, $url, $attrs) {
+		if(isset($attrs['autoplay']) && $attrs['autoplay']) {
+			preg_match('/\<iframe.+src\=\"(?<SRC>.+)\"/iUs', $html, $matches);
+			if($matches && isset($matches['SRC']) && !empty($matches['SRC'])) {
+				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'autoplay=1';
+				$html = str_replace($matches['SRC'], $newSrc, $html);
+			}
+		}
+		return $html;
 	}
 	public function generateHtml($popup) {
 		if(is_numeric($popup)) {
@@ -400,8 +416,15 @@ class popupViewPps extends viewPps {
 		$replaceTo = array($popup['view_id'], '{% endif %}', '{% else %}');
 		if(isset($popup['params']) && isset($popup['params']['tpl'])) {
 			foreach($popup['params']['tpl'] as $key => $val) {
-				$replaceFrom[] = $key;
-				$replaceTo[] = $val;
+				if(is_array($val)) {
+					foreach($val as $key2 => $val2) {
+						$replaceFrom[] = $key. '_'. $key2;
+						$replaceTo[] = $val2;
+					}
+				} else {
+					$replaceFrom[] = $key;
+					$replaceTo[] = $val;
+				}
 			}
 		}
 		foreach($replaceFrom as $i => $v) {

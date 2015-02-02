@@ -337,24 +337,3 @@ function toeSliderMove(event, ui) {
     jQuery('#toeSliderDisplay_'+ id).html( ui.value );
     jQuery('#toeSliderInput_'+ id).val( ui.value ).change();
 }
-/**
- * Add data to jqGrid object post params search
- * @param {object} param Search params to set
- * @param {string} gridSelectorId ID of grid table html element
- */
-function ppsGridSetListSearch(param, gridSelectorId) {
-	jQuery('#'+ gridSelectorId).setGridParam({
-		postData: {
-			search: param
-		}
-	});
-}
-/**
- * Set data to jqGrid object post params search and trigger search
- * @param {object} param Search params to set
- * @param {string} gridSelectorId ID of grid table html element
- */
-function ppsGridDoListSearch(param, gridSelectorId) {
-	ppsGridSetListSearch(param, gridSelectorId);
-	jQuery('#'+ gridSelectorId).trigger( 'reloadGrid' );
-}

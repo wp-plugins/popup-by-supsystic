@@ -51,15 +51,7 @@ class popupControllerPps extends controllerPps {
 		$id = (int) reqPps::getVar('id', 'get');
 		if($id) {
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-			<html><head>
-				<style type="text/css">
-					.ppsPopupShell {
-						/*position: absolute;
-						top: 0;
-						left: 0;*/
-						/*max-width: calc(100% - 610px) !important;*/
-					}
-				</style></head><body>';
+			<html><head></head><body>';
 			echo $this->getView()->generateHtml($id);
 			echo '<body></html>';
 		}

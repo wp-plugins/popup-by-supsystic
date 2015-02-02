@@ -8,6 +8,13 @@ jQuery(document).ready(function(){
 			ppsBindPopupActions( ppsPopups[ i ] );
 			ppsBindPopupSubscribers( ppsPopups[ i ] );
 		}
+		jQuery(window).resize(function(){
+			for(var i = 0; i < ppsPopups.length; i++) {
+				if(ppsPopups[ i ].is_visible) {
+					_ppsPositionPopup({popup: ppsPopups[ i ]});
+				}
+			}
+		});
 	}
 });
 function ppsBindPopupShow( popup ) {
@@ -46,8 +53,8 @@ function ppsBindPopupSubscribers(popup) {
 	if(popup.params.tpl.enb_subscribe) {
 		var shell = ppsGetPopupShell( popup );
 		switch(popup.params.tpl.sub_dest) {
-			case 'wordpress':
-				shell.find('.ppsSubscribeForm_wordpress').submit(function(){
+			case 'wordpress': case 'mailchimp':
+				shell.find('.ppsSubscribeForm').submit(function(){
 					var submitBtn = jQuery(this).find('input[type=submit]')
 					,	self = this
 					,	msgEl = jQuery(this).find('.ppsSubMsg');
@@ -136,15 +143,55 @@ function ppsShowPopup( popup ) {
 		popup = ppsGetPopupById( popup );
 	ppsShowBgOverlay( popup );
 	var shell = ppsGetPopupShell( popup );
-	shell.css({
-		'top': (jQuery(window).height() - shell.height()) / 2
-	,	'left': (jQuery(window).width() - shell.width()) / 2
-	});
+	_ppsPositionPopup({shell: shell});
 	if(popup.params.tpl.anim) {
 		shell.animationDuration( popup.params.tpl.anim_duration );
 		shell.addClass('magictime '+ popup.params.tpl.anim.show_class).show();
 	} else {
 		shell.show();
+	}
+	popup.is_visible = true;
+}
+function _ppsPositionPopup( params ) {
+	params = params || {};
+	var shell = params.popup ? ppsGetPopupShell( params.popup ) : params.shell;
+	if(shell) {
+		var wndWidth = params.wndWidth ? params.wndWidth : jQuery(window).width()
+		,	wndHeight = params.wndHeight ? params.wndHeight : jQuery(window).height()
+		,	shellWidth = shell.width()
+		,	shellHeight = shell.height()
+		,	cmpareWidth = wndWidth - 0.1 * wndWidth	// less then 10%
+		,	compareHeight = wndHeight - 0.1 * wndHeight;	// less then 10%
+		
+		if(shellHeight >= compareHeight) {
+			var initialHeight = parseInt(shell.data('init-height'));
+			if(!initialHeight) {
+				initialHeight = shellHeight;
+				shell.data('init-height', initialHeight);
+			}
+			var division = compareHeight / initialHeight;
+			shell.zoom( division );
+			shellWidth = shell.width();
+			shellHeight = shell.height();
+		}
+		if(shellWidth >= cmpareWidth) {
+			var initialWidth = parseInt(shell.data('init-width'));
+			if(!initialWidth) {
+				initialWidth = shellWidth;
+				shell.data('init-width', initialWidth);
+			}
+			var division = cmpareWidth / initialWidth;
+			shell.zoom( division );
+			shellWidth = shell.width();
+			shellHeight = shell.height();
+		}
+
+		shell.css({
+			'left': (wndWidth - shellWidth) / 2
+		,	'top': (wndHeight - shellHeight) / 2
+		});
+	} else {
+		console.log('CAN NOT FIND POPUP SHELL TO RESIZE!');
 	}
 }
 function ppsClosePopup(popup) {
@@ -161,6 +208,7 @@ function ppsClosePopup(popup) {
 		shell.hide();
 		ppsHideBgOverlay();
 	}
+	popup.is_visible = false;
 }
 function ppsGetPopupShell(popup) {
 	if(jQuery.isNumeric( popup ))
@@ -224,6 +272,9 @@ function _ppsBindFbLikeBtnAction(popup) {
 	}
 	FB.Event.subscribe('edge.create', function(response) {
 		_ppsPopupSetActionDone(popup, 'fb_like');
+	});
+	FB.Event.subscribe('xfbml.render', function(response) {
+		_ppsPositionPopup({popup: popup});
 	});
 }
 function ppsPopupSubscribeSuccess(popup) {

@@ -39,7 +39,7 @@
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_to', 'first_time_visit')))?>
 		<?php _e('For first-time visitors', PPS_LANG_CODE)?>
 	</label><br />
-	<label class="supsystic-tooltip" title="<?php _e('Subscribe, share, like, etc.')?>">
+	<label class="supsystic-tooltip-bottom" title="<?php _e('Subscribe, share, like, etc.')?>" style="padding-bottom: 0px;">
 		<?php echo htmlPps::radiobutton('params[main][show_to]', array(
 			'value' => 'until_make_action',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_to', 'until_make_action')))?>
@@ -68,7 +68,7 @@
 		<?php _e('Show on next pages', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsPopupShowOnPages" style="display: none;">
-		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen"'))?>
+		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
 	</div><br />
 	<label>
 		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
@@ -77,6 +77,6 @@
 		<?php _e('Don\'t show on next pages', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsPopupNotShowOnPages" style="display: none;">
-		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen"'))?>
+		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
 	</div>
 </section>

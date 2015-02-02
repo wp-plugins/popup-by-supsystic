@@ -1,10 +1,5 @@
-<div class="ppsPopupOptRow">
-	<label>
-		<?php _e('Duration', PPS_LANG_CODE)?>
-		<?php echo htmlPps::text('params[tpl][anim_duration]', array('value' => $this->popup['params']['tpl']['anim_duration']))?>
-		<?php _e('seconds', PPS_LANG_CODE)?>
-	</label>
-</div>
+<span class="ppsOptLabel"><?php _e('Choose PopUp animation style', PPS_LANG_CODE)?></span>
+<hr /><div style="clear: both;"></div>
 <div class="ppsPopupOptRow">
 	<div id="ppsPopupAnimOptsShell">
 		<?php foreach($this->animationList as $aKey => $aData) { ?>
@@ -23,4 +18,11 @@
 		<div style="clear: both;"></div>
 	</div>
 	<?php echo htmlPps::hidden('params[tpl][anim_key]', array('value' => $this->popup['params']['tpl']['anim_key']))?>
+</div>
+<div class="ppsPopupOptRow">
+	<label>
+		<?php _e('Duration', PPS_LANG_CODE)?>
+		<?php echo htmlPps::text('params[tpl][anim_duration]', array('value' => $this->popup['params']['tpl']['anim_duration']))?>
+		<?php _e('seconds', PPS_LANG_CODE)?>
+	</label>
 </div>

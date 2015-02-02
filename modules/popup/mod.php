@@ -6,13 +6,13 @@ class popupPps extends modulePps {
 	}
 	public function addAdminTab($tabs) {
 		$tabs[ $this->getCode(). '_add_new' ] = array(
-			'label' => __('Add New', PPS_LANG_CODE), 'callback' => array($this, 'getAddNewTabContent'), 'fa_icon' => 'fa-plus-circle', 'sort_order' => 10, 'add_bread' => $this->getCode(),
+			'label' => __('Add New PopUp', PPS_LANG_CODE), 'callback' => array($this, 'getAddNewTabContent'), 'fa_icon' => 'fa-plus-circle', 'sort_order' => 10, 'add_bread' => $this->getCode(),
 		);
 		$tabs[ $this->getCode(). '_edit' ] = array(
 			'label' => __('Edit', PPS_LANG_CODE), 'callback' => array($this, 'getEditTabContent'), 'sort_order' => 20, 'child_of' => $this->getCode(), 'hidden' => 1, 'add_bread' => $this->getCode(),
 		);
 		$tabs[ $this->getCode() ] = array(
-			'label' => __('All Pop-Ups', PPS_LANG_CODE), 'callback' => array($this, 'getTabContent'), 'fa_icon' => 'fa-list', 'sort_order' => 20,
+			'label' => __('Show All PopUps', PPS_LANG_CODE), 'callback' => array($this, 'getTabContent'), 'fa_icon' => 'fa-list', 'sort_order' => 20, //'is_main' => true,
 		);
 		return $tabs;
 	}

@@ -9,7 +9,12 @@ class subscribeControllerPps extends controllerPps {
 			die('Some error with your request.........');
 		}
 		if($this->getModel()->subscribe(reqPps::get('post'), true)) {
-			$res->addMessage(__('Confirnation link was sent to your email address. Check your email!', PPS_LANG_CODE));
+			$dest = $this->getModel()->getDest();
+			$destData = $this->getModule()->getDestByKey( $dest );
+			if($destData && isset($destData['require_confirm']) && $destData['require_confirm'])
+				$res->addMessage(__('Confirnation link was sent to your email address. Check your email!', PPS_LANG_CODE));
+			else
+				$res->addMessage(__('Thank you for subscription!', PPS_LANG_CODE));
 		} else
 			$res->pushError ($this->getModel()->getErrors());
 		return $res->ajaxExec();
@@ -24,10 +29,18 @@ class subscribeControllerPps extends controllerPps {
 		$siteUrl = get_bloginfo('wpurl');
 		redirectPps($siteUrl);
 	}
+	public function getMailchimpLists() {
+		$res = new responsePps();
+		if(($lists = $this->getModel()->getMailchimpLists(reqPps::get('post'))) !== false) {
+			$res->addData('lists', $lists);
+		} else
+			$res->pushError ($this->getModel()->getErrors());
+		return $res->ajaxExec();
+	}
 	public function getPermissions() {
 		return array(
 			PPS_USERLEVELS => array(
-				PPS_ADMIN => array()
+				PPS_ADMIN => array('getMailchimpLists')
 			),
 		);
 	}

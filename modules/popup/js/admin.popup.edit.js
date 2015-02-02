@@ -94,22 +94,22 @@ jQuery(document).ready(function(){
 	}, 500);
 	// Close btn selection
 	jQuery('#ppsPopupCloseBtnList li').click(function(){
-		jQuery('#ppsPopupCloseBtnList li').removeClass('selected');
-		jQuery(this).addClass('selected');
+		jQuery('#ppsPopupCloseBtnList li').removeClass('active');
+		jQuery(this).addClass('active');
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][close_btn]"]').val( jQuery(this).data('key') ).trigger('change');
 	});
 	if(ppsPopup.params.tpl && ppsPopup.params.tpl.close_btn) {
-		jQuery('#ppsPopupCloseBtnList li[data-key="'+ ppsPopup.params.tpl.close_btn+ '"]').addClass('selected');
+		jQuery('#ppsPopupCloseBtnList li[data-key="'+ ppsPopup.params.tpl.close_btn+ '"]').addClass('active');
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][close_btn]"]').val( ppsPopup.params.tpl.close_btn );
 	}
 	// Bullets selection
 	jQuery('#ppsPopupBulletsList li').click(function(){
-		jQuery('#ppsPopupBulletsList li').removeClass('selected');
-		jQuery(this).addClass('selected');
+		jQuery('#ppsPopupBulletsList li').removeClass('active');
+		jQuery(this).addClass('active');
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][bullets]"]').val( jQuery(this).data('key') ).trigger('change');
 	});
 	if(ppsPopup.params.tpl && ppsPopup.params.tpl.bullets) {
-		jQuery('#ppsPopupBulletsList li[data-key="'+ ppsPopup.params.tpl.bullets+ '"]').addClass('selected');
+		jQuery('#ppsPopupBulletsList li[data-key="'+ ppsPopup.params.tpl.bullets+ '"]').addClass('active');
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][bullets]"]').val( ppsPopup.params.tpl.bullets );
 	}
 	// Show/hide on pages selection
@@ -123,21 +123,13 @@ jQuery(document).ready(function(){
 			checked ? boxElement.slideDown( 300, onFinishAnimate ) : boxElement.slideUp( 300 );
 			if(checked) {
 				boxElement.find('.chosen').chosen();
-			}	
+			}
 		}
 	}).change();
 	// Show/hide show delay options
 	jQuery('#ppsPopupEditForm').find('[name="params[main][show_on]"]').change(function(){
 		if(jQuery(this).val() == 'page_load') {
 			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnDelay').slideDown( 300 ) : jQuery('#ppsPopupShowOnDelay').slideUp( 300 );
-		}
-	}).change();
-	// Show/hide additonal subscribe options
-	jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_dest]"]').change(function(){
-		jQuery('.ppsPopupSubDestOpts:visible').slideUp( 300 );
-		var selectedShell = jQuery('#ppsPopupSubDestOpts_'+ jQuery(this).val());
-		if(selectedShell && selectedShell.size()) {
-			selectedShell.slideDown( 300 );
 		}
 	}).change();
 	// Animation effect change
@@ -157,15 +149,16 @@ jQuery(document).ready(function(){
 		}
 	});
 	jQuery('.ppsPopupAnimEff').click(function(){
-		jQuery('.ppsPopupAnimEff').removeClass('selected');
-		jQuery(this).addClass('selected');
+		jQuery('.ppsPopupAnimEff').removeClass('active');
+		jQuery(this).addClass('active');
 		var key = jQuery(this).find('.ppsPopupAnimEffLabel:first').data('key');
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][anim_key]"]').val( key ).trigger('change');
 		return false;
 	});
-	if(ppsPopup.params.tpl && ppsPopup.params.tpl.anim_key) {
-		jQuery('.ppsPopupAnimEffLabel[data-key="'+ ppsPopup.params.tpl.anim_key+ '"]').parents('.ppsPopupAnimEff:first').addClass('selected');
-		jQuery('#ppsPopupEditForm').find('[name="params[tpl][anim_key]"]').val( ppsPopup.params.tpl.anim_key );
+	var activeAnimKey = ppsPopup.params.tpl && ppsPopup.params.tpl.anim_key ? ppsPopup.params.tpl.anim_key : 'none';
+	if(activeAnimKey) {
+		jQuery('.ppsPopupAnimEffLabel[data-key="'+ activeAnimKey+ '"]').parents('.ppsPopupAnimEff:first').addClass('active');
+		jQuery('#ppsPopupEditForm').find('[name="params[tpl][anim_key]"]').val( activeAnimKey );
 	}
 	jQuery('.ppsPopupPreviewBtn').click(function(){
 		jQuery('html, body').animate({
@@ -250,14 +243,6 @@ function ppsHidePreviewUpdating() {
 	});
 	jQuery('#ppsPopupPreviewUpdatingMsg').slideUp( 100 );
 }
-/*function ppsAttachEndlessAnimation(element, showClass, hideClass) {
-	element.addClass(showClass);
-	var showFunc = function(){};
-	setTimeout(function(){
-		element.removeClass(showClass).addClass(hideClass);
-		setTimeout
-	}, 1000);
-}*/
 function ppsShowEndlessAnim(element, showClass, hideClass) {
 	if(!jQuery(element).data('anim-started')) {
 		element.removeClass(showClass).removeClass(hideClass);

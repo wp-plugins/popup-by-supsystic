@@ -8,13 +8,13 @@
 				</button>
 			</li>
 			<li>
-				<button style="position: absolute; top: -32px; left: 380px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupPreviewBtn">
+				<button style="position: absolute; top: -32px; left: 410px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupPreviewBtn">
 					<i class="fa fa-fw fa-eye"></i>
 					<?php _e('Preview', PPS_LANG_CODE)?>
 				</button>
 			</li>
 			<li>
-				<button style="position: absolute; top: -32px; left: 490px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupRemoveBtn">
+				<button style="position: absolute; top: -32px; left: 520px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupRemoveBtn">
 					<i class="fa fa-fw fa-trash-o"></i>
 					<?php _e('Delete', PPS_LANG_CODE)?>
 				</button>
@@ -52,16 +52,21 @@
 					<iframe id="ppsPopupPreviewFrame" width="" height="" frameborder="0" src="<?php echo $this->previewUrl?>" style="display: none;"></iframe>
 					<script type="text/javascript">
 					jQuery('#ppsPopupPreviewFrame').load(function(){
-						ppsHidePreviewUpdating();
+						if(typeof(ppsHidePreviewUpdating) === 'function')
+							ppsHidePreviewUpdating();
 						var paddingSize = 40;
 						jQuery(this).height( (jQuery(this).get(0).contentWindow.document.body.scrollHeight + paddingSize)+ 'px' );
 						jQuery(this).width( (jQuery(this).get(0).contentWindow.document.body.scrollWidth + paddingSize)+ 'px' );
 						<?php if(in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>
 							jQuery(this).height( '500px' );
 						<?php }?>
-						jQuery(jQuery(this).get(0).contentWindow.document).find('.ppsPopupShell').css({
+						var contentDoc = jQuery(this).contents();
+						contentDoc.find('.ppsPopupShell').css({
 							'position': 'absolute'
 						,	'top': '15px'
+						});
+						contentDoc.click(function(){
+							return false;
 						});
 					});
 					</script>

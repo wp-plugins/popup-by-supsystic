@@ -2,13 +2,17 @@
 class templatesPps extends modulePps {
     protected $_styles = array();
     public function init() {
-        if (is_admin() && ($isAdminPlugOptsPage = framePps::_()->isAdminPlugOptsPage())) {
-			$this->loadCoreJs();
-			$this->loadAdminCoreJs();
-			$this->loadCoreCss();
-			$this->loadChosenSelects();
-			framePps::_()->addScript('adminOptionsPps', PPS_JS_PATH. 'admin.options.js', array(), false, true);
-			//add_action('admin_enqueue_scripts', array($this, 'loadMediaScripts'));
+        if (is_admin()) {
+			if($isAdminPlugOptsPage = framePps::_()->isAdminPlugOptsPage()) {
+				$this->loadCoreJs();
+				$this->loadAdminCoreJs();
+				$this->loadCoreCss();
+				$this->loadChosenSelects();
+				framePps::_()->addScript('adminOptionsPps', PPS_JS_PATH. 'admin.options.js', array(), false, true);
+				add_action('admin_enqueue_scripts', array($this, 'loadMediaScripts'));
+			}
+			// Some common styles - that need to be on all admin pages - be careful with them
+			framePps::_()->addStyle('supsystic-for-all-admin-'. PPS_CODE, PPS_CSS_PATH. 'supsystic-for-all-admin.css');
 		}
         parent::init();
     }

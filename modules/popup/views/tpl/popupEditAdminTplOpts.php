@@ -48,6 +48,20 @@
 			<?php echo htmlPps::hidden('params[tpl][height_measure]', array('value' => 'px')); ?>
 		</td>
 	</tr>
+	<?php if(in_array($this->popup['type'], array(PPS_VIDEO))) {?>
+	<tr>
+		<th scope="row" class="col-w-1perc">
+			<?php _e('Video Autoplay', PPS_LANG_CODE)?>&nbsp;
+			<i class="fa fa-question supsystic-tooltip" title="<?php _e('Play video - right after PopUp show', PPS_LANG_CODE)?>"></i>
+		</th>
+		<td class="col-w-1perc">
+			<?php echo htmlPps::checkbox('params[tpl][video_autoplay]', array(
+				'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'video_autoplay')
+			))?>
+		</td>
+	</tr>
+	<?php }?>
+	
 		<?php if(in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>
 			<?php foreach($this->fbLikeOpts as $fKey => $fData) { ?>
 				<?php 
