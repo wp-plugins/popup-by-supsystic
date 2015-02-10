@@ -2,20 +2,20 @@
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
 == Description ==
 
-Popup by Supsystic lets you easily create elegant overlapping windows with unlimited features. Pop-ups with Slider, Lightbox, Contact and Subscription forms and more:
+[Popup by Supsystic](http://supsystic.com/plugins/popup-plugin/ "Popup WordPress plugin Supsystic") lets you easily create elegant overlapping windows with unlimited features. Pop-ups with Slider, Lightbox, Contact, Subscription forms and more:
 
 * Unlimited Content Customization
 * Auto Open Popups
 * Contact Form with pop-up
 * Popup Opening Animations
 * Customizable Popup Themes
-* Subscription pop up window
+* Subscription pop up window (WordPress, MailChimp and Aweber integration)
 * Theme Builder
 * Responsive Popups
 * Exit-intent popups allow you to capture lost visitors
@@ -35,14 +35,31 @@ Using popup windows was once frowned on as a ploy used by marketers who were jus
 
 Not all popups are necessary as soon as a page loads. Consider a delayed pop-up for your site. There are a variety of options for this, including pop ups that only show on scroll, on click, or after a certain amount of time on the WordPress site.
 
+= Subscription popup = 
+
+Popup email forms have huge potential when it comes to list building, and even if you hate them, there�s no doubt that they work. Professional bloggers unanimously agree that they increase subscription rates, and have had great success with them.
+
+= Support =
+
+If you have any problem or feature request for the Popup by Supsystic, please [let us know](http://supsystic.com/contact-us/ "Contact Us")!
+
 == Installation ==
 
-To install Popup by Supsystic and start increase conversion:
+= First time Popup Supsystic user =
 
-* Popup by Supsystic automatically or by uploading the ZIP file.
-* Activate the popup plugin through the 'Plugins' menu in WordPress.
-* Popup by Supsystic is now activated. 
-* Go to the New Pop-up menu and choose one of the pre-set templates. You can change it later
+Thank you for choosing  Popup Supsystic! Open page of our plug-in admin panel WordPress and you will see two menu items: "Add New", "All Pop-Ups". 
+
+In order to create your popup, simply click on "Add New" in your left menu. Choose pop-up template (you can change it later), then set the name of pop-up and click OK. Once the Popup Supsystic page loads, set the options for your pop-up. Here you can set when to show popup, whom to show, on what pages to show, add your content for popup. It is already possible to set your own design and choose the animation for pop-up, enable subscription and social buttons. Also you have the ability to edit the popup using the css and html code. 
+Don't forget to press the "Save" button. After all these points you can see the result on the bottom of the page. 
+
+= To install a plugin via FTP, you must =
+
+1. Download the plugin
+2. Unarchive the plugin
+3. Copy the folder with plugin
+4. Open ftp \wp-content\plugins\
+5. Paste the plug-ins folder in the folder
+6. Go to admin panel => open item "Plugins" => activate the plugin 
 
 == Screenshots ==
 
@@ -55,6 +72,13 @@ To install Popup by Supsystic and start increase conversion:
 4. Popups with YouTube video
 
 == Changelog ==
+
+= 1.0.7 =
+ * Accept shortcodes in PopUp's text areas, footer note and even label
+ * Possibility to show PopUp on Click on any element of the page
+ * Fix for case when no template was selected during PopUp creation
+ * Additional fixes for DEBUG mode
+ * Minor issue fixes on core code
 
 = 1.0.6 = 
  * MailChimp integration

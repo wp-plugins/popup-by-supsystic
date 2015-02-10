@@ -39,6 +39,22 @@ function ppsBindPopupShow( popup ) {
 				}
 			});
 			break;
+		case 'click_on_element':
+			console.log(popup);
+			jQuery('[href^=#ppsShowPopUp_]').each(function(){
+				jQuery(this).click(function(){
+					var popupId = jQuery(this).attr('href');
+					if(popupId && popupId != '') {
+						popupId = popupId.split('_');
+						popupId = popupId[1] ? parseInt(popupId[1]) : 0;
+						if(popupId) {
+							ppsShowPopup( popupId );
+						}
+					}
+					return false;
+				});
+			});
+			break;
 	}
 }
 function ppsBindPopupClose( popup ) {
@@ -93,7 +109,6 @@ function ppsCheckShowPopup( popup ) {
 	var actionDone = _ppsPopupGetActionDone( popup );
 	if(popup.params.main.show_to == 'until_make_action' && actionDone)
 		return;
-	_ppsPopupAddStat( popup, 'show' );
 	ppsShowPopup( popup );
 }
 /**
@@ -141,6 +156,7 @@ function _ppsPopupAddStat( popup, action ) {
 function ppsShowPopup( popup ) {
 	if(jQuery.isNumeric( popup ))
 		popup = ppsGetPopupById( popup );
+	_ppsPopupAddStat( popup, 'show' );	// Save show popup statistics
 	ppsShowBgOverlay( popup );
 	var shell = ppsGetPopupShell( popup );
 	_ppsPositionPopup({shell: shell});

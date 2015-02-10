@@ -22,7 +22,24 @@
 			'value' => 'click_on_page',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'click_on_page')))?>
 		<?php _e('User click on the page', PPS_LANG_CODE)?>
+	</label><br />
+	<label>
+		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
+			'value' => 'click_on_element',
+			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'click_on_element')))?>
+		<?php _e('Click on certain link / button / other element', PPS_LANG_CODE)?>
 	</label>
+	<div id="ppsPopupShowOnElClick" style="display: none;">
+		<span>
+			<?php _e('Copy & paste next code - into required link to open PopUp on Click', PPS_LANG_CODE)?>:<br />
+			<span class="sup-shortcode supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Check screenshot with details - <a target="_blank" href="%s">here</a>.', PPS_LANG_CODE), 'https://supsystic.com/download/show-on-element-click.png'))?>">
+				[<?php echo PPS_SHORTCODE_CLICK?> id=<?php echo $this->popup['id']?>]
+			</span>
+		</span>
+		<br />
+		<?php _e('Or, if you know HTML basics, - you can insert "onclick" attribute to any of your element from code below')?>:<br />
+		<span class="sup-shortcode">onclick="ppsShowPopup(<?php echo $this->popup['id']?>); return false;"</span>
+	</div><br />
 </section>
 <section class="ppsPopupMainOptSect">
 	<span class="ppsOptLabel"><?php _e('Whom to show', PPS_LANG_CODE)?></span>

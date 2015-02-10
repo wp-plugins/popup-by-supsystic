@@ -527,7 +527,7 @@ function replaceWords(html, words) {
 }
 /*****/
 function toeSelectText(element) {
-   var doc = document
+    var doc = document
 	,	text = jQuery(element).get(0)
 	,	range, selection;    
     if (doc.body.createTextRange) { //ms

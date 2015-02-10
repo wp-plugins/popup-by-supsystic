@@ -465,7 +465,9 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 }
 /*tooltip*/
 .supsystic-plugin .fa-question.supsystic-tooltip,
-.supsystic-plugin .fa-question.supsystic-tooltip-bottom {
+.supsystic-plugin .fa-question.supsystic-tooltip-bottom,
+.supsystic-plugin .fa-question.supsystic-tooltip-left,
+.supsystic-plugin .fa-question.supsystic-tooltip-right {
 	border: 1px solid #28282a;
 	border-radius: 50%;
 	margin-top: 1px;
@@ -628,6 +630,21 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 #ppsPopupGoToTopBtn:active {
 	color: #000;
 	text-decoration: none;
+}
+/*shortcode text*/
+.sup-shortcode {
+	background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    color: #333333;
+    font-size: 13px;
+    line-height: 3.42857;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    word-break: break-all;
+    word-wrap: break-word;
+	font-family: monospace;
+	cursor: pointer;
 }
 /*additional styles*/
 .ppsOptLabel {

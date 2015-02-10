@@ -2,6 +2,7 @@
 class popupModelPps extends modelPps {
 	private $_showToList = array();
 	private $_showPagesList = array();
+	private $_showOnList = array();
 	private $_types = array();
 	public function __construct() {
 		$this->_setTbl('popup');
@@ -78,14 +79,18 @@ class popupModelPps extends modelPps {
 	}
 	public function createFromTpl($d = array()) {
 		$d['label'] = isset($d['label']) ? trim($d['label']) : '';
+		$d['original_id'] = isset($d['original_id']) ? (int) $d['original_id'] : 0;
 		if(!empty($d['label'])) {
-			$original = $this->getById($d['original_id']);
-			unset($original['id']);
-			$original['label'] = $d['label'];
-			$original['original_id'] = $d['original_id'];
-			$original = $this->_escTplData( $original );
-			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('create_from_tpl.'. strtolower(str_replace(' ', '-', $original['label'])));
-			return $this->insert( $original );
+			if(!empty($d['original_id'])) {
+				$original = $this->getById($d['original_id']);
+				unset($original['id']);
+				$original['label'] = $d['label'];
+				$original['original_id'] = $d['original_id'];
+				$original = $this->_escTplData( $original );
+				framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('create_from_tpl.'. strtolower(str_replace(' ', '-', $original['label'])));
+				return $this->insert( $original );
+			} else
+				$this->pushError (__('Please select PopUp template from list below', PPS_LANG_CODE), 'label');
 		} else
 			$this->pushError (__('Please enter Name', PPS_LANG_CODE), 'label');
 		return false;
@@ -135,8 +140,11 @@ class popupModelPps extends modelPps {
 				}
 			}
 		}
+		$this->getShowOnList();
 		$this->getShowToList();
 		$this->getShowPagesList();
+		
+		$d['show_on'] = isset($d['params']['main']['show_on']) ? $this->_showOnList[ $d['params']['main']['show_on'] ]['id'] : 0;
 		$d['show_to'] = isset($d['params']['main']['show_to']) ? $this->_showToList[ $d['params']['main']['show_to'] ]['id'] : 0;
 		$d['show_pages'] = isset($d['params']['main']['show_pages']) ? $this->_showPagesList[ $d['params']['main']['show_pages'] ]['id'] : 0;
 		
@@ -189,6 +197,16 @@ class popupModelPps extends modelPps {
 				'all' => array('id' => 1),
 				'show_on_pages' => array('id' => 2),
 				'not_show_on_pages' => array('id' => 3),
+			);
+		}
+		return $this->_showPagesList;
+	}
+	public function getShowOnList() {
+		if(empty($this->_showOnList)) {
+			$this->_showOnList = array(
+				'page_load' => array('id' => 1),
+				'click_on_page' => array('id' => 2),
+				'click_on_element' => array('id' => 3),
 			);
 		}
 		return $this->_showPagesList;
@@ -293,7 +311,7 @@ class popupModelPps extends modelPps {
 		$difs = array();
 		if(is_array($popup)) {
 			$excludeKey = array('id', 'label', 'active', 'original_id', 'img_preview', 'type_id', 
-				'date_created', 'view_id', 'img_preview_url', 'show_to', 'show_pages');
+				'date_created', 'view_id', 'img_preview_url', 'show_on', 'show_to', 'show_pages');
 			if(!empty($key))
 				$keysImplode[] = $key;
 			foreach($popup as $k => $v) {

@@ -126,10 +126,15 @@ jQuery(document).ready(function(){
 			}
 		}
 	}).change();
-	// Show/hide show delay options
+	
 	jQuery('#ppsPopupEditForm').find('[name="params[main][show_on]"]').change(function(){
+		// Show/hide show delay options
 		if(jQuery(this).val() == 'page_load') {
 			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnDelay').slideDown( 300 ) : jQuery('#ppsPopupShowOnDelay').slideUp( 300 );
+		}
+		// Show/hide click-on-element show options
+		if(jQuery(this).val() == 'click_on_element') {
+			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnElClick').slideDown( 300 ) : jQuery('#ppsPopupShowOnElClick').slideUp( 300 );
 		}
 	}).change();
 	// Animation effect change

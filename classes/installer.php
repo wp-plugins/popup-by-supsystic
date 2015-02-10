@@ -65,6 +65,7 @@ class installerPps {
 				`html` TEXT NOT NULL,
 				`css` TEXT NOT NULL,
 				`img_preview` VARCHAR(128) NULL DEFAULT NULL,
+				`show_on` TINYINT(1) NOT NULL DEFAULT '0',
 				`show_to` TINYINT(1) NOT NULL DEFAULT '0',
 				`show_pages` TINYINT(1) NOT NULL DEFAULT '0',
 				`type_id` TINYINT(1) NOT NULL DEFAULT '1',
@@ -72,6 +73,9 @@ class installerPps {
 				PRIMARY KEY (`id`)
 			) DEFAULT CHARSET=utf8;"));
 			self::initBasePopups();
+		}
+		if(!dbPps::exist("@__popup", "show_on")) {
+			dbPps::query("ALTER TABLE `@__popup` ADD COLUMN `show_on` TINYINT(1) NOT NULL DEFAULT '0';");
 		}
 		if (!dbPps::exist("@__popup_show_pages")) {
 			dbDelta(dbPps::prepareQuery("CREATE TABLE `@__popup_show_pages` (

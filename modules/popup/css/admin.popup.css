@@ -66,6 +66,7 @@
 .ppsPopupMainOptSect {
 	float: left;
 	padding-right: 30px;
+	max-width: 30%;
 }
 .ppsListItems li {
 	float: left;

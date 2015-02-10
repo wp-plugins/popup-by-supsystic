@@ -32,9 +32,9 @@ class userPps extends modulePps {
 	protected function _loadUserData() {
 		if(!$this->_dataLoaded) {
 			if(!function_exists('wp_get_current_user')) framePps::_()->loadPlugins();
-			$user = wp_get_current_user();
+				$user = wp_get_current_user();
 			$this->_data = $user->data;
-			$this->_curentID = $this->_data->ID;
+			$this->_curentID = $user->ID;
 			$this->_dataLoaded = true;
 		}
 	}

@@ -13,6 +13,7 @@ class tablePopupPps extends tablePps {
 				->_addField('css', 'text', 'text')
 				->_addField('img_preview', 'text', 'text')
 				
+				->_addField('show_on', 'text', 'int')
 				->_addField('show_to', 'text', 'int')
 				->_addField('show_pages', 'text', 'int')
 				->_addField('type_id', 'text', 'int')

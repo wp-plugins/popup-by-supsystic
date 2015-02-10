@@ -422,6 +422,10 @@ class popupViewPps extends viewPps {
 						$replaceTo[] = $val2;
 					}
 				} else {
+					// Do shortcodes for all text type data in popup
+					if(strpos($key, 'txt_') === 0 || strpos($key, 'label') === 0 || strpos($key, 'foot_note')) {
+						$val = do_shortcode( $val );
+					}
 					$replaceFrom[] = $key;
 					$replaceTo[] = $val;
 				}
