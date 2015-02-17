@@ -1,35 +1,26 @@
 <div id="ppsPopupEditTabs">
-	<section class="supsystic-bar supsystic-sticky sticky-save-width sticky-padd-next">
-		<ul class="supsystic-bar-controls" style="float: left; width: 90px;">
-			<li title="<?php _e('Save all changes', PPS_LANG_CODE)?>">
-				<button class="button button-primary ppsPopupSaveBtn">
-					<i class="fa fa-fw fa-save"></i>
-					<?php _e('Save', PPS_LANG_CODE)?>
-				</button>
-			</li>
-			<li>
-				<button style="position: absolute; top: -32px; left: 410px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupPreviewBtn">
-					<i class="fa fa-fw fa-eye"></i>
-					<?php _e('Preview', PPS_LANG_CODE)?>
-				</button>
-			</li>
-			<li>
-				<button style="position: absolute; top: -32px; left: 520px; height: 30px; line-height: 26px;" class="button button-primary ppsPopupRemoveBtn">
-					<i class="fa fa-fw fa-trash-o"></i>
-					<?php _e('Delete', PPS_LANG_CODE)?>
-				</button>
-			</li>
-		</ul>
+	<section class="supsystic-bar supsystic-always-top" style="top: 70px; width: calc(100% - 290px);">
 		<h3 class="nav-tab-wrapper" style="margin-bottom: 0px; margin-top: 12px;">
 			<?php $i = 0;?>
 			<?php foreach($this->tabs as $tKey => $tData) { ?>
+				<?php
+					$iconClass = 'pps-edit-icon';
+					if(isset($tData['avoid_hide_icon']) && $tData['avoid_hide_icon']) {
+						$iconClass .= '-not-hide';	// We will just exclude it from selector to hide, jQuery.not() - make browser slow down in this case - so better don't use it
+					}
+				?>
 				<a class="nav-tab <?php if($i == 0) { echo 'nav-tab-active'; }?>" href="#<?php echo $tKey?>">
-					<?php echo $tData['title']?>
+					<?php if(isset($tData['fa_icon'])) { ?>
+						<i class="<?php echo $iconClass?> fa <?php echo $tData['fa_icon']?>"></i>
+					<?php } elseif(isset($tData['icon_content'])) { ?>
+						<i class="<?php echo $iconClass?> fa"><?php echo $tData['icon_content']?></i>
+					<?php }?>
+					<span class="ppsPopupTabTitle"><?php echo $tData['title']?></span>
 				</a>
 			<?php $i++; }?>
 		</h3>
 	</section>
-	<section>
+	<section style="padding-top: 92px;">
 		<div class="supsystic-item supsystic-panel" style="padding-left: 10px;">
 			<div id="containerWrapper">
 				<form id="ppsPopupEditForm">
@@ -54,9 +45,15 @@
 					jQuery('#ppsPopupPreviewFrame').load(function(){
 						if(typeof(ppsHidePreviewUpdating) === 'function')
 							ppsHidePreviewUpdating();
-						var paddingSize = 40;
-						jQuery(this).height( (jQuery(this).get(0).contentWindow.document.body.scrollHeight + paddingSize)+ 'px' );
-						jQuery(this).width( (jQuery(this).get(0).contentWindow.document.body.scrollWidth + paddingSize)+ 'px' );
+						var paddingSize = 40
+						,	newWidth = (jQuery(this).get(0).contentWindow.document.body.scrollWidth + paddingSize)
+						,	newHeight = (jQuery(this).get(0).contentWindow.document.body.scrollHeight + paddingSize)
+						,	parentWidth = jQuery('#ppsPopupPreview').width();
+						if(newWidth > parentWidth) {
+							newWidth = parentWidth;
+						}
+						jQuery(this).width( newWidth+ 'px' );
+						jQuery(this).height( newHeight+ 'px' );
 						<?php if(in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>
 							jQuery(this).height( '500px' );
 						<?php }?>

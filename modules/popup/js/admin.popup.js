@@ -42,7 +42,7 @@ function ppsInitChangePopupDialog() {
 		if(ppsOriginalPopup.original_id == id) {
 			var dialog = jQuery('<div />').html(toeLangPps('This is same template that was used for Pop-Up before')).dialog({
 				modal:    true
-			,	width: 460
+			,	width: 480
 			,	height: 180
 			,	buttons: {
 					OK: function() {
@@ -75,20 +75,6 @@ function ppsInitChangePopupDialog() {
 	});
 }
 function ppsInitCreatePopupDialog() {
-	/*var $container = jQuery('#ppsCreatePopupWnd').dialog({
-		modal:    true
-	,	autoOpen: false
-	,	width: 460
-	,	height: 180
-	,	buttons:  {
-			OK: function() {
-				jQuery('#ppsCreatePopupForm').submit();
-			}
-		,	Cancel: function() {
-				$container.dialog('close');
-			}
-		}
-	});*/
 	jQuery('.popup-list-item').click(function(){
 		jQuery('.popup-list-item').removeClass('active');
 		jQuery(this).addClass('active');
@@ -108,4 +94,18 @@ function ppsInitCreatePopupDialog() {
 		});
 		return false;
 	});
+}
+function ppsPopupRemoveRow(id, link) {
+	var tblId = jQuery(link).parents('table.ui-jqgrid-btable:first').attr('id');
+	if(confirm(toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(id, 'label', tblId)+ '" Pop-Up?'))) {
+		jQuery.sendFormPps({
+			btn: link
+		,	data: {mod: 'popup', action: 'remove', id: id}
+		,	onSuccess: function(res) {
+				if(!res.error) {
+					jQuery('#'+ tblId).trigger( 'reloadGrid' );
+				}
+			}
+		});
+	}
 }

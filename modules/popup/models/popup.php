@@ -7,6 +7,12 @@ class popupModelPps extends modelPps {
 	public function __construct() {
 		$this->_setTbl('popup');
 	}
+	public function abDeactivated() {
+		if(framePps::_()->licenseDeactivated()) {
+			return (bool) dbPps::exist('@__'. $this->_tbl, 'ab_id');
+		}
+		return false;
+	}
 	/**
 	 * Exclude some data from list - to avoid memory overload
 	 */
@@ -86,14 +92,17 @@ class popupModelPps extends modelPps {
 				unset($original['id']);
 				$original['label'] = $d['label'];
 				$original['original_id'] = $d['original_id'];
-				$original = $this->_escTplData( $original );
 				framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('create_from_tpl.'. strtolower(str_replace(' ', '-', $original['label'])));
-				return $this->insert( $original );
+				return $this->insertFromOriginal( $original );
 			} else
 				$this->pushError (__('Please select PopUp template from list below', PPS_LANG_CODE), 'label');
 		} else
 			$this->pushError (__('Please enter Name', PPS_LANG_CODE), 'label');
 		return false;
+	}
+	public function insertFromOriginal($original) {
+		$original = $this->_escTplData( $original );
+		return $this->insert( $original );
 	}
 	public function remove($id) {
 		$id = (int) $id;

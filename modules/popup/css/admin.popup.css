@@ -108,12 +108,12 @@
 	min-height: 150px;
 	min-width: 150px;
 	position: relative;
-	border: 1px solid transparent;
+	border: 3px solid transparent;
 	cursor: pointer;
 }
 .ppsPopupAnimEff:hover, 
 .ppsPopupAnimEff.active {
-	border: 1px solid #4ae8ea;
+	border: 3px solid #4ae8ea;
 }
 .ppsPopupAnimEffLabel {
 	position: absolute;
@@ -127,4 +127,24 @@
 	background-color: #000;
 	color: #fff;
 	/*cursor: pointer;*/
+}
+#supsystic-breadcrumbs .button, 
+#supsystic-breadcrumbs * {
+	height: 30px; 
+	line-height: 26px;
+}
+.supsystic-always-top {
+	position: fixed;
+	z-index: 99;
+}
+.popup-bread-nav-fixed {
+	top: 32px; 
+	background-color: #f1f1f1;
+	width: 100%;
+}
+.popup-main-nav-correct {
+	top: 28px;
+}
+.popup-tick-label {
+	
 }

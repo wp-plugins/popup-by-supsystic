@@ -287,7 +287,7 @@ input[type="color"] {
 	color: #000;
 }
 
-.supsystic-breadcrumbs > a:last-child {
+.supsystic-breadcrumbs > a.supsystic-breadcrumb-el:last-child {
     color: #7f8c8d;
 }
 .supsystic-breadcrumbs .breadcrumbs-separator {
@@ -651,4 +651,9 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 	font-weight: bold;
 	display: block;
 	clear: both;
+}
+.supsistic-half-side-box {
+	float: left;
+	width: 48%;
+	padding-right: 2%;
 }

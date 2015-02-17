@@ -40,7 +40,6 @@ function ppsBindPopupShow( popup ) {
 			});
 			break;
 		case 'click_on_element':
-			console.log(popup);
 			jQuery('[href^=#ppsShowPopUp_]').each(function(){
 				jQuery(this).click(function(){
 					var popupId = jQuery(this).attr('href');
@@ -131,21 +130,22 @@ function _ppsPopupGetActionDone( popup ) {
  * @param {mixed} popup Popup object or it's ID
  * @param {type} action Action that was done
  */
-function _ppsPopupSetActionDone( popup, action ) {
+function _ppsPopupSetActionDone( popup, action, smType ) {
 	if(jQuery.isNumeric( popup ))
 		popup = ppsGetPopupById( popup );
+	smType = smType ? smType : '';
 	var actionsKey = 'pps_actions_'+ popup.id
 	,	actions = getCookiePps( actionsKey );
 	if(!actions)
 		actions = {};
 	actions[ action ] = (new Date()).toString();
 	setCookiePps(actionsKey, actions)
-	_ppsPopupAddStat( popup, action );
+	_ppsPopupAddStat( popup, action, smType );
 }
-function _ppsPopupAddStat( popup, action ) {
+function _ppsPopupAddStat( popup, action, smType ) {
 	jQuery.sendFormPps({
 		msgElID: 'noMessages'
-	,	data: {mod: 'statistics', action: 'add', id: popup.id, type: action, 'connect_hash': popup.connect_hash}
+	,	data: {mod: 'statistics', action: 'add', id: popup.id, type: action, sm_type: smType, 'connect_hash': popup.connect_hash}
 	});
 }
 
@@ -161,7 +161,7 @@ function ppsShowPopup( popup ) {
 	var shell = ppsGetPopupShell( popup );
 	_ppsPositionPopup({shell: shell});
 	if(popup.params.tpl.anim) {
-		shell.animationDuration( popup.params.tpl.anim_duration );
+		shell.animationDuration( popup.params.tpl.anim_duration, true );
 		shell.addClass('magictime '+ popup.params.tpl.anim.show_class).show();
 	} else {
 		shell.show();
@@ -219,7 +219,7 @@ function ppsClosePopup(popup) {
 		setTimeout(function(){
 			shell.hide();
 			ppsHideBgOverlay();
-		}, popup.params.tpl.anim_duration * 1000);
+		}, popup.params.tpl.anim_duration );
 	} else {
 		shell.hide();
 		ppsHideBgOverlay();
@@ -271,7 +271,7 @@ function ppsBindPopupActions(popup) {
 	}
 	if(shell.find('.ppsSmLink').size()) {
 		shell.find('.ppsSmLink').click(function(){
-			_ppsPopupSetActionDone(popup, 'share');
+			_ppsPopupSetActionDone(popup, 'share', jQuery(this).data('type'));
 		});
 	}
 	if(shell.find('.fb-like-box').size()) {

@@ -7,6 +7,7 @@ class tableStatisticsPps extends tablePps {
         $this->_addField('id', 'hidden', 'int')
 			->_addField('popup_id', 'text', 'int')
 			->_addField('type', 'text', 'int')
+			->_addField('sm_id', 'text', 'int')	// Social Media ID
 			->_addField('date_created', 'text', 'varchar');
     }
 }

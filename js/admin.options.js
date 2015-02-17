@@ -33,28 +33,6 @@ jQuery(document).ready(function(){
 		}
 	}, 1000);
 
-	jQuery('.toeRemovePlugActivationNoticePps').click(function(){
-		jQuery(this).parents('.info_box:first').animateRemovePps();
-		return false;
-	});
-	if(window.location && window.location.href && window.location.href.indexOf('plugins.php')) {
-		if(PPS_DATA.allCheckRegPlugs && typeof(PPS_DATA.allCheckRegPlugs) == 'object') {
-			for(var plugName in PPS_DATA.allCheckRegPlugs) {
-				var plugRow = jQuery('#'+ plugName.toLowerCase())
-				,	updateMsgRow = plugRow.next('.plugin-update-tr');
-				if(plugRow.size() && updateMsgRow.find('.update-message').size()) {
-					updateMsgRow.find('.update-message').find('a').each(function(){
-						if(jQuery(this).html() == 'update now') {
-							jQuery(this).click(function(){
-								toeShowModuleActivationPopupPps( plugName, 'activateUpdate', jQuery(this).attr('href') );
-								return false;
-							});
-						}
-					});
-				}
-			}
-		}
-	}
 	if(jQuery('.ppsInputsWithDescrForm').size()) {
 		jQuery('.ppsInputsWithDescrForm').find('input[type=checkbox][data-optkey]').change(function(){
 			var optKey = jQuery(this).data('optkey')
@@ -133,19 +111,6 @@ jQuery(document).ready(function(){
 		});
 	}*/
 });
-function toeShowModuleActivationPopupPps(plugName, action, goto) {
-	action = action ? action : 'activatePlugin';
-	goto = goto ? goto : '';
-	jQuery('#toeModActivationPopupFormPps').find('input[name=plugName]').val(plugName);
-	jQuery('#toeModActivationPopupFormPps').find('input[name=action]').val(action);
-	jQuery('#toeModActivationPopupFormPps').find('input[name=goto]').val(goto);
-	
-	tb_show(toeLangPps('Activate plugin'), '#TB_inline?width=710&height=220&inlineId=toeModActivationPopupShellPps', false);
-	var popupWidth = jQuery('#TB_ajaxContent').width()
-	,	docWidth = jQuery(document).width();
-	// Here I tried to fix usual worppsess popup displace to right side
-	jQuery('#TB_window').css({'left': Math.round((docWidth - popupWidth)/2)+ 'px', 'margin-left': '0'});
-}
 function changeAdminFormPps(formId) {
 	if(jQuery.inArray(formId, ppsAdminFormChanged) == -1)
 		ppsAdminFormChanged.push(formId);
@@ -190,10 +155,13 @@ function ppsInitStickyItem() {
 		,	docHeight = jQuery(document).height()
 		,	wasSticking = false
 		,	wasUnSticking = false;
+		if(jQuery('#wpbody-content .update-nag').size()) {
+			wpTollbarHeight += parseInt(jQuery('#wpbody-content .update-nag').outerHeight());
+		}
 		for(var i = 0; i < stickiItemsSelectors.length; i++) {
 			jQuery(stickiItemsSelectors[ i ]).each(function(){
 				var element = jQuery(this);
-				if(element && element.size()) {
+				if(element && element.size() && !element.hasClass('sticky-ignore')) {
 					var scrollMinPos = element.offset().top
 					,	prevScrollMinPos = parseInt(element.data('scrollMinPos'))
 					,	useNextElementPadding = toeInArray(stickiItemsSelectors[ i ], elementsUsePaddingNext) !== -1 || element.hasClass('sticky-padd-next');
@@ -218,7 +186,7 @@ function ppsInitStickyItem() {
 						wasSticking = true;
 					} else if(!isNaN(prevScrollMinPos) && wndScrollTop <= prevScrollMinPos) {	// Stop sticking
 						element.removeClass('supsystic-sticky-active').data('scrollMinPos', 0).css({
-							'top': 0
+							//'top': 0
 						});
 						if(element.hasClass('sticky-save-width')) {
 							element.removeClass('sticky-full-width');

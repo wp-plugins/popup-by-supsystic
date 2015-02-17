@@ -51,11 +51,14 @@ class popupPps extends modulePps {
 			// Check if show popup shortcode or at least it's show js function ppsShowPopup() - exists on any post content
 			foreach($wp_query->posts as $post) {
 				if(is_object($post) && isset($post->post_content)) {
-					if((preg_match('/\[\s*'. PPS_SHORTCODE_CLICK. '.+id\s*\=.*(?<POPUP_ID>\d+)\]/iUs', $post->post_content, $matches) 
-						|| preg_match('/ppsShowPopup\s*\(\s*(?<POPUP_ID>\d+)\s*\)\s*;*/iUs', $post->post_content, $matches)
+					if((preg_match_all('/\[\s*'. PPS_SHORTCODE_CLICK. '.+id\s*\=.*(?<POPUP_ID>\d+)\]/iUs', $post->post_content, $matches) 
+						|| preg_match_all('/ppsShowPopup\s*\(\s*(?<POPUP_ID>\d+)\s*\)\s*;*/iUs', $post->post_content, $matches)
 						) && isset($matches['POPUP_ID'])
 					) {
-						$allowForPosts[] = (int) $matches['POPUP_ID'];
+						if(!is_array($matches['POPUP_ID']))
+							$matches['POPUP_ID'] = array( $matches['POPUP_ID'] );
+						$matches['POPUP_ID'] = array_map('intval', $matches['POPUP_ID']);
+						$allowForPosts = array_merge($allowForPosts, $matches['POPUP_ID']);
 					}
 				}
 			}
@@ -64,8 +67,13 @@ class popupPps extends modulePps {
 			}
 		}
 		$condition .= ")";
+		$condition = dispatcherPps::applyFilters('popupCheckCondition', $condition);
+		if($this->getModel()->abDeactivated()) {
+			$condition .= ' AND ab_id = 0';
+		}
 		$popups = $this->getModel()->addWhere( $condition )->getFromTbl();
-		if(!empty($popups)) {
+ 		if(!empty($popups)) {
+			$popups = dispatcherPps::applyFilters('popupListBeforeRender', $popups);
 			$this->renderList( $popups );
 		}
 	}
@@ -78,7 +86,7 @@ class popupPps extends modulePps {
 				$popups[ $i ]['params']['tpl']['anim_duration'] = (float) $p['params']['tpl']['anim_duration'];
 			}
 			if(!isset($p['params']['tpl']['anim_duration']) || $p['params']['tpl']['anim_duration'] <= 0) {
-				$popups[ $i ]['params']['tpl']['anim_duration'] = 1;	// 1 second by default
+				$popups[ $i ]['params']['tpl']['anim_duration'] = 1000;	// 1 second by default
 			}
 			$popups[ $i ]['rendered_html'] = $this->getView()->generateHtml( $p );
 			$popups[ $i ]['connect_hash'] = md5(date('m-d-Y'). $popups[ $i ]['id']. NONCE_KEY);

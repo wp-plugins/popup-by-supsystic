@@ -28,7 +28,12 @@ class popupControllerPps extends controllerPps {
 	}
 	protected function _prepareModelBeforeListSelect($model) {
 		//$model->setSelectFields('id, label, date_created');
-		$model->addWhere('original_id != 0');
+		$where = 'original_id != 0';
+		if($this->getModel()->abDeactivated()) {
+			$where .= ' AND ab_id = 0';
+		}
+		$model->addWhere( $where );
+		dispatcherPps::doAction('popupModelBeforeGetList', $model);
 		return $model;
 	}
 	public function remove() {

@@ -5,7 +5,7 @@
         </header><?php */?>
 		<?php echo $this->breadcrumbs?>
         <section class="supsystic-content">
-            <nav class="supsystic-navigation supsystic-sticky">
+            <nav class="supsystic-navigation supsystic-sticky <?php dispatcherPps::doAction('adminMainNavClassAdd')?>">
                 <ul>
 					<?php foreach($this->tabs as $tabKey => $tab) { ?>
 						<?php if(isset($tab['hidden']) && $tab['hidden']) continue;?>

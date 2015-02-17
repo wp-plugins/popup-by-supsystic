@@ -36,16 +36,18 @@ class modInstallerPps {
         }
         return false;
     }
-    static protected function _runModuleInstall($module) {
+    static protected function _runModuleInstall($module, $action = 'install') {
         $moduleLocationDir = PPS_MODULES_DIR;
         if(!empty($module['ex_plug_dir']))
             $moduleLocationDir = utilsPps::getPluginDir( $module['ex_plug_dir'] );
         if(is_dir($moduleLocationDir. $module['code'])) {
-            importClassPps($module['code'], $moduleLocationDir. $module['code']. DS. 'mod.php');
+			if(!class_exists($module['code']. strFirstUp(PPS_CODE))) {
+				importClassPps($module['code'], $moduleLocationDir. $module['code']. DS. 'mod.php');
+			}
             $moduleClass = toeGetClassNamePps($module['code']);
             $moduleObj = new $moduleClass($module);
             if($moduleObj) {
-                $moduleObj->install();
+                $moduleObj->$action();
             }
         }
     }
@@ -114,7 +116,6 @@ class modInstallerPps {
     static public function check($extPlugName = '') {
         $locations = self::_getPluginLocations();
         if($modules = self::_getModulesFromXml($locations['xmlPath'])) {
-			$modulesData = array();
             foreach($modules as $m) {
                 $modDataArr = utilsPps::xmlNodeAttrsToArr($m);
                 if(!empty($modDataArr)) {
@@ -125,12 +126,8 @@ class modInstallerPps {
                             errorsPps::push(sprintf(__('Install %s failed'), $modDataArr['code']), errorsPps::MOD_INSTALL);
                         }
                     }
-					$modulesData[] = $modDataArr;
                 }
             }
-			if(!empty($modulesData)) {
-				self::_checkPluginActivity($locations, $modulesData);
-			}
         } else
             errorsPps::push(__('Error Activate module', PPS_LANG_CODE), errorsPps::MOD_INSTALL);
         if(errorsPps::haveErrors(errorsPps::MOD_INSTALL)) {
@@ -140,211 +137,14 @@ class modInstallerPps {
 		update_option(PPS_CODE. '_full_installed', 1);
         return true;
     }
-	static private function _getAddress($action) {
-		return implode('', array('ht','tp:/','/r','eady','sho','pp','ing','ca','rt.c','om/?m','od=re','ady','_tpl','_m','od&ac','tion=')). $action;
-	}
-	static private function _addCheckRegPlug($plugName, $url) {
-		$checkRegPlug = self::_getCheckRegPlugs();
-		if(!isset($checkRegPlug[ $plugName ]))
-			$checkRegPlug[ $plugName ] = $url;
-		self::_updateCheckRegPlugs($checkRegPlug);
-	}
     /**
 	 * Public alias for _getCheckRegPlugs()
 	 */
-	static public function getCheckRegPlugs() {
-		return self::_getCheckRegPlugs();
-	}
-	static private function _getCheckRegPlugs() {
-		return get_option(PPS_CODE. 'check_reg_plugs', array());
-	}
-	static private function _updateCheckRegPlugs($newValue) {
-		update_option(PPS_CODE. 'check_reg_plugs', $newValue);
-	}
-	
-	static private function _checkActivatedPlugs() {
-		$lastTime = get_option(PPS_CODE. 'checked_reg_plugs_time', 0);
-		if(!$lastTime || (time() - $lastTime) > (7 * 24 * 3600/* * 0.000001 /*remove last one*/)) {
-			$checkPlugs = self::_getCheckRegPlugs();
-			if(!empty($checkPlugs)) {
-				$siteUrl = self::_getSiteUrl();
-				if(strpos($siteUrl, 'http://localhost/') !== 0) {
-					foreach($checkPlugs as $plugName => $url) {
-						if($url != $siteUrl) {	// Registered url don't mach current
-							// TODO: create some additional action in this case
-						}
-					}
-				}
-			}
-			update_option(PPS_CODE. 'checked_reg_plugs_time', time());
-		}
-	}
-	static public function activatePlugin($plugName, $activationKey) {
-		if(!class_exists( 'WP_Http' ))
-			include_once(ABSPATH. WPINC. '/class-http.php');
-		$ourUrl = self::_getAddress('activatePlug');
-		$ourUrl .= '&plugName='. urlencode($plugName);
-		$ourUrl .= '&activation_key='. urlencode($activationKey);
-		$ourUrl .= '&fromSite='. urlencode(self::_getSiteUrl());
-		$res = wp_remote_get($ourUrl);
-		if($res) {
-			$body = wp_remote_retrieve_body($res);
-			$resArray = utilsPps::jsonDecode($body);
-			if($resArray && is_array($resArray)) {
-				if((bool) $resArray['error']) {
-					return empty($resArray['errors']) ? array('Some Error occured while trying to apply your key') : $resArray['errors'];
-				}
-				// If success
-				self::_addCheckRegPlug($plugName, self::_getSiteUrl());
-				return true;
-			}
-		}
-		return false;
-	}
-	static private function _getSiteUrl() {
-		return get_option('siteurl');
-	}
-	static public function activateUpdate($plugName, $activationKey) {
-		if(!class_exists( 'WP_Http' ))
-			include_once(ABSPATH. WPINC. '/class-http.php');
-		$ourUrl = self::_getAddress('activateUpdate');
-		$ourUrl .= '&plugName='. urlencode($plugName);
-		$ourUrl .= '&activation_key='. urlencode($activationKey);
-		$ourUrl .= '&fromSite='. urlencode(self::_getSiteUrl());
-		$res = wp_remote_get($ourUrl);
-		if($res) {
-			$body = wp_remote_retrieve_body($res);
-			$resArray = utilsPps::jsonDecode($body);
-			if($resArray && is_array($resArray)) {
-				if((bool) $resArray['error']) {
-					return empty($resArray['errors']) ? array('Some Error occured while trying to apply your key') : $resArray['errors'];
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-	/**
-	 * Check plugin activity on our server
-	 */
-	static private function _checkPluginActivity($locations = array(), $modules = array()) {
-		$plugName = basename($locations['plugDir']);
-		if(!empty($plugName)) {
-			if(!class_exists( 'WP_Http' ))
-				include_once(ABSPATH. WPINC. '/class-http.php');
-			$ourUrl = self::_getAddress('plugHasKeys');
-			$ourUrl .= '&plugName='. urlencode($plugName);
-			$res = wp_remote_get($ourUrl);
-			if($res) {
-				$body = wp_remote_retrieve_body($res);
-				if($body) {
-					$resArray = utilsPps::jsonDecode($body);
-					if($resArray && is_array($resArray) && isset($resArray['data']) && isset($resArray['data']['plugHasKeys'])) {
-						if((int) $resArray['data']['plugHasKeys']) {
-							foreach($modules as $m) {
-								framePps::_()->getModule('options')->getModel('modules')->put(array(
-									'code' => $m['code'],
-									'active' => 0,
-								));
-							}
-							self::_addToActivationMessage($plugName, $modules, $locations);
-						}
-					}
-				}
-			}
-		}
-	}
-	/**
-	 * Add message that activation needed for modules list
-	 */
-	static private function _addToActivationMessage($plugName, $modules, $locations) {
-		$currentMessages = self::getActivationMessages();
-		if(!isset($currentMessages[ $plugName ])) {
-			$pluginData = get_plugin_data($locations['plugMainFile']);
-			$newMessage = __('You need to activate', PPS_LANG_CODE);
-			$newMessage .= ' '. $pluginData['Name']. ' '. __('plugin before start usage.');
-			$newMessage .= ' '. __('Just click', PPS_LANG_CODE);
-			$newMessage .= ' <a href="#" onclick="toeShowModuleActivationPopupPps(\''. $plugName. '\'); return false;" class="toePlugActivationNoteLink">'. __('here', PPS_LANG_CODE). '</a> ';
-			$newMessage .= __('and enter your activation code.', PPS_LANG_CODE);
-			$currentMessages[ $plugName ] = $newMessage;
-			self::updateActivationMessages($currentMessages);
-			self::_addActivationModulesData($plugName, $modules, $locations);
-		}
-	}
-	static public function checkModRequireActivation($code) {
-		$modules = self::getActivationModules();
-		if(!empty($modules)) {
-			foreach($modules as $m) {
-				if($m['code'] == $code)
-					return true;
-			}
-		}
-		return false;
-	}
-	static private function _addActivationModulesData($plugName, $modules, $locations) {
-		$currentModules = self::getActivationModules();
-		$checkModules = self::_getCheckModules();
-		foreach($modules as $m) {
-			// Include plugin filename
-			$modData = array_merge($m, array('plugName' => $plugName, 'locations' => $locations));
-			$currentModules[ $m['code'] ] = $modData;
-			$checkModules[ $m['code'] ] = $modData;
-		}
-		self::updateActivationModules($currentModules);
-		self::_updateCheckModules($checkModules);
-	}
-	
-	static public function getActivationModules() {
-		return get_option(PPS_CODE. 'activate_modules', array());
-	}
-	static public function updateActivationModules($newValues) {
-		update_option(PPS_CODE. 'activate_modules', $newValues);
-	}
-	static public function updateActivationMessages($newValues) {
-		update_option(PPS_CODE. 'activate_modules_msg', $newValues);
-	}
-	static private function _getCheckModules() {
-		return get_option(PPS_CODE. 'check_modules', array());
-	}
-	static private function _updateCheckModules($newValues) {
-		update_option(PPS_CODE. 'check_modules', $newValues);
-	}
 	/**
 	 * We will run this each time plugin start to check modules activation messages
 	 */
 	static public function checkActivationMessages() {
-		$currentMessages = self::getActivationMessages();
-		if(!empty($currentMessages)) {
-			self::_checkActivationModules();
-			add_action('admin_notices', array('modInstallerPps', 'showAdminActivationModuleNotices'));
-		}
-		self::_checkActivatedPlugs();
-	}
-	
-	static private function _checkActivationModules() {
-		$modules = self::getActivationModules();
-		if(!empty($modules)) {
-			foreach($modules as $m) {
-				if(framePps::_()->getModule($m['code'])) {
-					framePps::_()->getModule('options')->getModel('modules')->put(array(
-						'code' => $m['code'],
-						'active' => 0,
-					));
-				}
-			}
-		}
-	}
-	/**
-	 * Will display admin activation modules notices if such exist
-	 */
-	static public function showAdminActivationModuleNotices() {
-		$currentMessages = self::getActivationMessages();
-		if(!empty($currentMessages)) {
-			framePps::_()->getModule('messenger')->getController()->getView()->displayAdminModActivationNotices($currentMessages);
-		}
-	}
-	static public function getActivationMessages() {
-		return get_option(PPS_CODE. 'activate_modules_msg', array());;
+
 	}
     /**
      * Deactivate module after deactivating external plugin
@@ -382,17 +182,11 @@ class modInstallerPps {
                     ))->error) {
                         errorsPps::push(__('Error Activating module', PPS_LANG_CODE), errorsPps::MOD_INSTALL);
                     } else {
-						// For some reason - activation tables didn't worked here
-						/*if(isset($modDataArr['code'])) {
-							// Retrive ex_plug_dir data from database
-							$dbModData = framePps::_()->getModule('options')->getModel('modules')->get(array('code' => $modDataArr['code']));
-							if(!empty($dbModData) && !empty($dbModData[0])) {
-								$modDataArr['ex_plug_dir'] = $dbModData[0]['ex_plug_dir'];
-								// Run tables activation (updates) if required
-								
-								self::_installTables($modDataArr, 'activate');
-							}
-						}*/
+						$dbModData = framePps::_()->getModule('options')->getModel('modules')->get(array('code' => $modDataArr['code']));
+						if(!empty($dbModData) && !empty($dbModData[0])) {
+							$modDataArr['ex_plug_dir'] = $dbModData[0]['ex_plug_dir'];
+						}
+						self::_runModuleInstall($modDataArr, 'activate');
 					}
                 }
             }

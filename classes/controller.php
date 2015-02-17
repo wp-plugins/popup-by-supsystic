@@ -189,6 +189,7 @@ abstract class controllerPps {
 		$res->addData('total', $totalPages);
 		$res->addData('rows', $data);
 		$res->addData('records', $model->getLastGetCount());
+		$res = dispatcherPps::applyFilters($this->getCode(). '_getListForTblResults', $res);
 		$res->ajaxExec();
 	}
 	public function removeGroup() {

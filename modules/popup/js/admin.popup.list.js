@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 	var tblId = 'ppsPopupTbl';
-	jQuery('#ppsPopupTbl').jqGrid({ 
+	jQuery('#'+ tblId).jqGrid({ 
 		url: ppsTblDataUrl
 	,	datatype: 'json'
 	,	autowidth: true
@@ -100,8 +100,8 @@ jQuery(document).ready(function(){
 			listIds.push( rowData.id );
 		}
 		var confirmMsg = listIds.length > 1
-			? toeLangPps('Are you sur want to remove '+ listIds.length+ ' Pop-Ups?')
-			: toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(listIds[0], 'label', 'ppsPopupTbl')+ '" Pop-Up?')
+			? toeLangPps('Are you sur want to remove '+ listIds.length+ ' PopUps?')
+			: toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(listIds[0], 'label', 'ppsPopupTbl')+ '" PopUp?')
 		if(confirm(confirmMsg)) {
 			jQuery.sendFormPps({
 				btn: this
@@ -132,16 +132,3 @@ jQuery(document).ready(function(){
 	
 	ppsInitCustomCheckRadio('#'+ tblId+ '_cb');
 });
-function ppsPopupRemoveRow(id, link) {
-	if(confirm(toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(id, 'label', 'ppsPopupTbl')+ '" Pop-Up?'))) {
-		jQuery.sendFormPps({
-			btn: link
-		,	data: {mod: 'popup', action: 'remove', id: id}
-		,	onSuccess: function(res) {
-				if(!res.error) {
-					jQuery('#ppsPopupTbl').trigger( 'reloadGrid' );
-				}
-			}
-		});
-	}
-}

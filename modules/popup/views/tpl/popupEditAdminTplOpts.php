@@ -60,6 +60,17 @@
 			))?>
 		</td>
 	</tr>
+	<tr>
+		<th scope="row" class="col-w-1perc">
+			<?php _e('Hide controls', PPS_LANG_CODE)?>&nbsp;
+			<i class="fa fa-question supsystic-tooltip" title="<?php _e('Hide standard video player controls', PPS_LANG_CODE)?>"></i>
+		</th>
+		<td class="col-w-1perc">
+			<?php echo htmlPps::checkbox('params[tpl][vide_hide_controls]', array(
+				'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'vide_hide_controls')
+			))?>
+		</td>
+	</tr>
 	<?php }?>
 	
 		<?php if(in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>

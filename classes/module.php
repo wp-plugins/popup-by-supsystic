@@ -207,6 +207,9 @@ abstract class modulePps extends baseObjectPps {
 	public function uninstall() {
 
 	}
+	public function activate() {
+		
+	}
 	/**
 	 * Returns the available tabs
 	 * @return array of tab

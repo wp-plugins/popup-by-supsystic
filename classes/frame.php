@@ -120,7 +120,7 @@ class framePps {
         //$operationTime = microtime(true) - $startTime;
     }
 	public function connectLang() {
-		load_plugin_textdomain(PPS_CODE, false, PPS_DIR. 'lang');
+		load_plugin_textdomain(PPS_LANG_CODE, false, PPS_DIR. 'lang');
 	}
     /**
      * Check permissions for action in controller by $code and made corresponding action
@@ -360,8 +360,6 @@ class framePps {
     //Very interesting thing going here.............
     public function loadPlugins() {
         require_once(ABSPATH. 'wp-includes/pluggable.php'); 
-        //require_once(ABSPATH.'wp-load.php');
-        //load_plugin_textdomain('some value');
     }
     public function loadWPSettings() {
         require_once(ABSPATH. 'wp-settings.php'); 
@@ -391,11 +389,12 @@ class framePps {
 		return false;
 	}
 	public function isAdminPlugPage() {
-		if($this->isAdminPlugOptsPage()
-
-		) {
+		if($this->isAdminPlugOptsPage()) {
 			return true;
 		}
 		return false;
+	}
+	public function licenseDeactivated() {
+		return (!$this->getModule('license') && $this->moduleExists('license'));
 	}
 }

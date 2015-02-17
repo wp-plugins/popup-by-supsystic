@@ -327,8 +327,7 @@ class utilsPps {
      * 
      * @return NULL Check if it's site or multisite and activate.
      */
-    public function activatePlugin() 
-    {
+    static public function activatePlugin() {
         global $wpdb;
         if (function_exists('is_multisite') && is_multisite()) {
             $orig_id = $wpdb->blogid;
@@ -350,8 +349,7 @@ class utilsPps {
      * 
      * @return NULL Check if it's site or multisite and decativate it.
      */
-    public function deletePlugin() 
-    {
+    static public function deletePlugin() {
         global $wpdb;
         if (function_exists('is_multisite') && is_multisite()) {
             $orig_id = $wpdb->blogid;

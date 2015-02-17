@@ -32,7 +32,7 @@
 	<div id="ppsPopupShowOnElClick" style="display: none;">
 		<span>
 			<?php _e('Copy & paste next code - into required link to open PopUp on Click', PPS_LANG_CODE)?>:<br />
-			<span class="sup-shortcode supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Check screenshot with details - <a target="_blank" href="%s">here</a>.', PPS_LANG_CODE), 'https://supsystic.com/download/show-on-element-click.png'))?>">
+			<span class="sup-shortcode supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Check screenshot with details - <a onclick="ppsShowTipScreenPopUp(this); return false;" href="%s">here</a>.', PPS_LANG_CODE), $this->getModule()->getModPath(). 'img/show-on-element-click.png'))?>">
 				[<?php echo PPS_SHORTCODE_CLICK?> id=<?php echo $this->popup['id']?>]
 			</span>
 		</span>

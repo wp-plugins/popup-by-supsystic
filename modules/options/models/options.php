@@ -40,7 +40,7 @@ class optionsModelPps extends modelPps {
 				// Retrive value from saved options
 				if(isset($this->_values[ $optKey ])) {
 					$value = $this->_values[ $optKey ]['value'];
-					$changedOn = $this->_values[ $optKey ]['changed_on'];
+					$changedOn = isset($this->_values[ $optKey ]['changed_on']) ? $this->_values[ $optKey ]['changed_on'] : '';
 				} elseif(isset($optData['def'])) {	// If there were no saved data - set it as default
 					$value = $optData['def'];
 				}

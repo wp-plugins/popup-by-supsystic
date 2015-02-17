@@ -34,13 +34,26 @@ class popupViewPps extends viewPps {
 		
 		return parent::getContent('popupAddNewAdmin');
 	}
+	public function adminBreadcrumbsClassAdd() {
+		echo ' popup-bread-nav-fixed supsystic-always-top ';
+	}
+	public function adminMainNavClassAdd() {
+		echo ' popup-main-nav-correct ';
+	}
 	public function getEditTabContent($id) {
-		global $wpdb;	
+		global $wpdb;
 		$popup = $this->getModel()->getById($id);
+		if(empty($popup)) {
+			return __('Can not find required PopUp', PPS_LANG_CODE);
+		}
+		dispatcherPps::addAction('afterAdminBreadcrumbs', array($this, 'showEditPopupFormControls'));
+		dispatcherPps::addAction('adminBreadcrumbsClassAdd', array($this, 'adminBreadcrumbsClassAdd'));
+		dispatcherPps::addAction('adminMainNavClassAdd', array($this, 'adminMainNavClassAdd'));
+		
 		// !remove this!!!!
 		/*$popup['params']['opts_attrs'] = array(
-			'bg_number' => 3,
-			'txt_block_number' => 0,
+			'bg_number' => 2,
+			'txt_block_number' => 1,
 			'video_height_as_popup' => 1,
 		);*/
 		/*$popup['params']['opts_attrs']['txt_block_number'] = 0;
@@ -126,37 +139,48 @@ class popupViewPps extends viewPps {
 			'ppsPopupMainOpts' => array(
 				'title' => __('Main', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupOptsTab(),
+				'fa_icon' => 'fa-tachometer',
 				'sort_order' => 0),
 			'ppsPopupTpl' => array(
 				'title' => __('Design', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupTplTab(),
+				'fa_icon' => 'fa-picture-o',
 				'sort_order' => 10),
 			'ppsPopupAnimation' => array(
 				'title' => __('Animation', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupAnimationTab(),
+				'fa_icon' => 'fa-cog fa-spin',
 				'sort_order' => 50),
 			'ppsPopupEditors' => array(
 				'title' => __('Code', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupCodeTab(),
-				'sort_order' => 99),
+				'fa_icon' => 'fa-code',
+				'sort_order' => 999),
 		);
 		if(in_array($popup['type'], array(PPS_COMMON, PPS_VIDEO))) {
 			$tabs['ppsPopupTexts'] = array(
 				'title' => __('Texts', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupTextsTab(),
+				'fa_icon' => 'fa-pencil-square-o',
 				'sort_order' => 20);
 			$tabs['ppsPopupSubscribe'] = array(
 				'title' => __('Subscribe', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupSubTab(),
+				'fa_icon' => 'fa-users',
 				'sort_order' => 30);
 			$tabs['ppsPopupSm'] = array(
 				'title' => __('Social', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupSmTab(),
+				'fa_icon' => 'fa-thumbs-o-up',
 				'sort_order' => 40);
 		}
+		$tabs = dispatcherPps::applyFilters('popupEditTabs', $tabs, $popup);
 		uasort($tabs, array($this, 'sortEditPopupTabsClb'));
 		$this->assign('tabs', $tabs);
 		return parent::getContent('popupEditAdmin');
+	}
+	public function showEditPopupFormControls() {
+		parent::display('popupEditFormControls');
 	}
 	public function sortEditPopupTabsClb($a, $b) {
 		if($a['sort_order'] > $b['sort_order'])
@@ -331,6 +355,9 @@ class popupViewPps extends viewPps {
 			if(isset($popup['params']['tpl']['video_autoplay']) && $popup['params']['tpl']['video_autoplay']) {
 				$attrs['autoplay'] = 1;
 			}
+			if(isset($popup['params']['tpl']['vide_hide_controls']) && $popup['params']['tpl']['vide_hide_controls']) {
+				$attrs['vide_hide_controls'] = 1;
+			}
 			$res = wp_oembed_get($popup['params']['tpl']['video_url'], $attrs);
 		}
 		return $res;
@@ -343,6 +370,13 @@ class popupViewPps extends viewPps {
 				$html = str_replace($matches['SRC'], $newSrc, $html);
 			}
 		}
+		if(isset($attrs['vide_hide_controls']) && $attrs['vide_hide_controls']) {
+			preg_match('/\<iframe.+src\=\"(?<SRC>.+)\"/iUs', $html, $matches);
+			if($matches && isset($matches['SRC']) && !empty($matches['SRC'])) {
+				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'controls=0';
+				$html = str_replace($matches['SRC'], $newSrc, $html);
+			}
+		}		
 		return $html;
 	}
 	public function generateHtml($popup) {
@@ -443,6 +477,8 @@ class popupViewPps extends viewPps {
 				'none' => array('label' => __('None', PPS_LANG_CODE)),
 				'classy_grey' => array('img' => 'classy_grey.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'lists_black' => array('img' => 'lists_black.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '25px', 'height' => '25px')),
+				'while_close' => array('img' => 'while_close.png', 'add_style' => array('width' => '25px', 'height' => '25px')),
+				'sqr_close' => array('img' => 'sqr-close.png', 'add_style' => array('top' => '25px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),
 			);
 			foreach($this->_closeBtns as $key => $data) {
 				if(isset($data['img'])) {
@@ -459,6 +495,7 @@ class popupViewPps extends viewPps {
 				'none' => array('label' => __('None (standard)', PPS_LANG_CODE)),
 				'classy_blue' => array('img' => 'classy_blue.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '38px')),
 				'lists_green' => array('img' => 'lists_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '38px')),
+				'circle_green' => array('img' => 'circle_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
 			);
 			foreach($this->_bullets as $key => $data) {
 				if(isset($data['img']) && !isset($data['img_url'])) {

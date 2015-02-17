@@ -5,6 +5,7 @@ abstract class modelPps extends baseObjectPps {
     
 	protected $_orderBy = '';
 	protected $_sortOrder = '';
+	protected $_groupBy = '';
 	protected $_limit = '';
 	protected $_where = array();
 	protected $_stringWhere = '';
@@ -64,11 +65,11 @@ abstract class modelPps extends baseObjectPps {
 		return $this;
 	}
 	public function addWhere($where) {
-		if(empty($this->_where)) {
+		if(empty($this->_where) && !is_string($where)) {
 			$this->setWhere( $where );
 		} elseif(is_array($this->_where) && is_array($where)) {
 			$this->_where = array_merge($this->_where, $where);
-		} elseif(is_string($this->_where) && is_string($where)) {
+		} elseif(is_string($where)) {
 			if(!isset($this->_where['additionalCondition']))
 				$this->_where['additionalCondition'] = '';
 			if(!empty($this->_where['additionalCondition']))
@@ -80,6 +81,10 @@ abstract class modelPps extends baseObjectPps {
 	}
 	public function setSelectFields($selectFields) {
 		$this->_selectFields = $selectFields;
+		return $this;
+	}
+	public function groupBy($groupBy) {
+		$this->_groupBy = $groupBy;
 		return $this;
 	}
 	public function getLastGetCount() {
@@ -126,6 +131,8 @@ abstract class modelPps extends baseObjectPps {
 			$this->_where = '';
 		if(empty($clear) || in_array('selectFields', $clear))
 			$this->_selectFields = '*';
+		if(empty($clear) || in_array('groupBy', $clear))
+			$this->_groupBy = '';
 	}
 	public function getCount($params = array()) {
 		$tbl = isset($params['tbl']) ? $params['tbl'] : $this->_tbl;
@@ -147,7 +154,9 @@ abstract class modelPps extends baseObjectPps {
 			if(!empty($this->_sortOrder))
 				$order .= ' '. strtoupper($this->_sortOrder);
 			$table->orderBy( $order );
-			
+		}
+		if(!empty($this->_groupBy)) {
+			$table->groupBy( $this->_groupBy );
 		}
 		if(!empty($this->_limit)) {
 			$table->setLimit( $this->_limit );
@@ -168,7 +177,10 @@ abstract class modelPps extends baseObjectPps {
 		return false;
 	}
 	public function clear() {
-		if(framePps::_()->getTable( $this->_tbl )->delete()) {
+		return $this->delete();	// Just delete all
+	}
+	public function delete($params = array()) {
+		if(framePps::_()->getTable( $this->_tbl )->delete( $params )) {
 			return true;
 		} else 
 			$this->pushError (__('Database error detected', PPS_LANG_CODE));

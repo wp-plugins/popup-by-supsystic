@@ -14,8 +14,8 @@
 </div>
 <div id="ppsPopupSubDestOpts_aweber" class="ppsPopupOptRow ppsPopupSubDestOpts" style="display: none;">
 	<label>
-		<?php _e('Aweber Listname', PPS_LANG_CODE)?>
-		<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('Check <a href="%" target="_blank">this page</a> for more details', PPS_LANG_CODE), 'https://help.aweber.com/hc/en-us/articles/204028426-What-Is-The-Unique-List-ID-'))?>"></i>
+		<?php _e('Aweber Unique List ID', PPS_LANG_CODE)?>
+		<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('Check <a href="%s" target="_blank">this page</a> for more details', PPS_LANG_CODE), 'https://help.aweber.com/hc/en-us/articles/204028426-What-Is-The-Unique-List-ID-'))?>"></i>
 		<?php echo htmlPps::text('params[tpl][sub_aweber_listname]', array(
 			'value' => (isset($this->popup['params']['tpl']['sub_aweber_listname']) ? $this->popup['params']['tpl']['sub_aweber_listname'] : '')))?>
 	</label>

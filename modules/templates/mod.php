@@ -47,8 +47,6 @@ class templatesPps extends modulePps {
 			//'ball_loader'				=> PPS_IMG_PATH. 'ajax-loader-ball.gif',
 			//'ok_icon'					=> PPS_IMG_PATH. 'ok-icon.png',
 		);
-		$jsData['allCheckRegPlugs']	= modInstallerPps::getCheckRegPlugs();
-
 		$jsData = dispatcherPps::applyFilters('jsInitVariables', $jsData);
 		framePps::_()->addJSVar('corePps', 'PPS_DATA', $jsData);
 	}
@@ -111,5 +109,6 @@ class templatesPps extends modulePps {
 		framePps::_()->addScript('jqplot.barRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.barRenderer.min.js');
 		framePps::_()->addScript('jqplot.categoryAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.categoryAxisRenderer.min.js');
 		framePps::_()->addScript('jqplot.pointLabels', PPS_JS_PATH. $jqplotDir. 'jqplot.pointLabels.min.js');
+		framePps::_()->addScript('jqplot.pieRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.pieRenderer.min.js');
 	}
 }

@@ -542,7 +542,10 @@ function toeSelectText(element) {
         selection.addRange(range);
     }
 }
-jQuery.fn.animationDuration = function(seconds) {
+jQuery.fn.animationDuration = function(seconds, isMili) {
+	if(isMili) {
+		seconds = parseFloat(seconds) / 1000;
+	}
 	var secondsStr = seconds+ 's';
 	return jQuery(this).css({
 		'webkit-animation-duration': secondsStr

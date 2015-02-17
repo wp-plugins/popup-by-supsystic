@@ -15,13 +15,13 @@
 						<h3 style="float: left; margin: 10px;"><?php _e('PopUp Name', PPS_LANG_CODE)?>:</h3>
 						<?php echo htmlPps::text('label', array('attrs' => 'style="float: left; width: 60%;"'))?>
 					</label>
-					<?php echo htmlPps::hidden('original_id')?>
-					<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>
-					<?php echo htmlPps::hidden('action', array('value' => 'createFromTpl'))?>
 					<button class="button button-primary" style="margin-top: 1px;">
 						<i class="fa fa-check"></i>
 						<?php _e('Save', PPS_LANG_CODE)?>
 					</button>
+					<?php echo htmlPps::hidden('original_id')?>
+					<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>
+					<?php echo htmlPps::hidden('action', array('value' => 'createFromTpl'))?>
 				</form>
 				<div style="clear: both;"></div>
 				<div id="ppsCreatePopupMsg"></div>

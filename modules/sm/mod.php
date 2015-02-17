@@ -13,7 +13,7 @@ class smPps extends modulePps {	//sm == socialmedia
 		$res .= '<div class="ppsSmLinksShell ppsSmLinksShell_'. $designKey. '">';
 		foreach($this->_availableLinks as $lKey => $lData) {
 			if(isset($popup['params']['tpl']['enb_sm_'. $lKey]) && !empty($popup['params']['tpl']['enb_sm_'. $lKey])) {
-				$res .= '<a class="ppsSmLink '. $lKey. ' '. $designKey. '" href="'. $lData['share_link']. urlencode($currFullUrl). '"></a>';
+				$res .= '<a target="_blank" class="ppsSmLink '. $lKey. ' '. $designKey. '" data-type="'. $lKey. '" href="'. $lData['share_link']. urlencode($currFullUrl). '"></a>';
 			}
 		}
 		$res .= '<div style="clear: both;"></div>';
@@ -23,12 +23,28 @@ class smPps extends modulePps {	//sm == socialmedia
 	public function getAvailableLinks() {
 		if(empty($this->_availableLinks)) {
 			$this->_availableLinks = array(
-				'facebook' => array('label' => __('Facebook', PPS_LANG_CODE), 'share_link' => 'https://www.facebook.com/sharer/sharer.php?u='),
-				'googleplus' => array('label' => __('Google+', PPS_LANG_CODE), 'share_link' => 'https://plus.google.com/share?url='),
-				'twitter' => array('label' => __('Twitter', PPS_LANG_CODE), 'share_link' => 'https://twitter.com/home?status='),
+				'facebook' => array('label' => __('Facebook', PPS_LANG_CODE), 'share_link' => 'https://www.facebook.com/sharer/sharer.php?u=', 'id' => 1),
+				'googleplus' => array('label' => __('Google+', PPS_LANG_CODE), 'share_link' => 'https://plus.google.com/share?url=', 'id' => 2),
+				'twitter' => array('label' => __('Twitter', PPS_LANG_CODE), 'share_link' => 'https://twitter.com/home?status=', 'id' => 3),
 			);
 		}
 		return $this->_availableLinks;
+	}
+	public function getTypeIdByCode($code) {
+		$this->getAvailableLinks();
+		return isset($this->_availableLinks[ $code ]) ? $this->_availableLinks[ $code ]['id'] : 0;
+	}
+	public function getTypeById($id) {
+		$this->getAvailableLinks();
+		$res = array();
+		foreach($this->_availableLinks as $code => $type) {
+			if($type['id'] == $id) {
+				$res = $type;
+				$res['code'] = $code;
+				return $res;
+			}
+		}
+		return false;
 	}
 	public function getAvailableDesigns() {
 		if(empty($this->_availableDesigns)) {

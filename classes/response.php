@@ -10,15 +10,15 @@ class responsePps {
 	 * Marker to set data not in internal $data var, but set it as object parameters
 	 */
 	private $_ignoreShellData = false;
-    public function ajaxExec() {
+    public function ajaxExec($forceAjax = false) {
         $reqType = reqPps::getVar('reqType');
         $redirect = reqPps::getVar('redirect');
         if(count($this->errors) > 0)
             $this->error = true;
-        if($reqType == 'ajax')
+        if($reqType == 'ajax' || $forceAjax)
             exit( json_encode($this) );
-        if($redirect)
-            redirectPps($redirect);
+        /*if($redirect)
+            redirectPps($redirect);*/
         return $this;
     }
     public function error() {

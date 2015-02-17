@@ -46,7 +46,9 @@ abstract class tablePps {
 	
     static public function getInstance($table = '') {
         static $instances = array();
-        if(!$table) $table = $this->_table;
+		if(!$table) {
+			throw new Exception('Unknown table ['. $table. ']');
+		}
         if(!isset($instances[$table])) {
             $class = 'table'. strFirstUp($table). strFirstUp(PPS_CODE);
             if(class_exists($class)) 
@@ -338,7 +340,7 @@ abstract class tablePps {
             foreach($data as $k => $v) {
                 if(array_key_exists($k, $this->_fields) || $k == $this->_id) {
                     $val = $v;
-                    if($this->_fields[$k]->adapt['dbTo']) 
+                    if(isset($this->_fields[$k]) && $this->_fields[$k]->adapt['dbTo']) 
                         $val = fieldAdapterPps::_($val, $this->_fields[$k]->adapt['dbTo'], fieldAdapterPps::DB);
                     if($validate) {
                         if (is_object($this->_fields[$k])) {
@@ -349,25 +351,27 @@ abstract class tablePps {
                             }
                         }
                     }
-                    /*if(empty($val))
-                        $val = $this->_fields[$k]->default;*/
-					switch($this->_fields[$k]->type) {
-						case 'int':
-						case 'tinyint':
-							$res .= $k. ' = '. (int)$val. ' '. $delim. ' ';
-							break;
-						case 'float':
-							$res .= $k. ' = '. (float)$val. ' '. $delim. ' ';
-							break;
-						case 'decimal':
-							$res .= $k. ' = '. (double)$val. ' '. $delim. ' ';
-							break;
-						case 'free':    //Just set it as it is
-							$res .= $k. ' = '. $val. ' '. $delim. ' ';
-							break;
-						default:
-							$res .= $k. ' = \''. $val. '\' '. $delim. ' ';
-							break;
+					if(isset($this->_fields[$k])) {
+						switch($this->_fields[$k]->type) {
+							case 'int':
+							case 'tinyint':
+								$res .= $k. ' = '. (int)$val. ' '. $delim. ' ';
+								break;
+							case 'float':
+								$res .= $k. ' = '. (float)$val. ' '. $delim. ' ';
+								break;
+							case 'decimal':
+								$res .= $k. ' = '. (double)$val. ' '. $delim. ' ';
+								break;
+							case 'free':    //Just set it as it is
+								$res .= $k. ' = '. $val. ' '. $delim. ' ';
+								break;
+							default:
+								$res .= $k. ' = \''. $val. '\' '. $delim. ' ';
+								break;
+						}
+					} else {
+						$res .= $k. ' = \''. $val. '\' '. $delim. ' ';
 					}
                 } elseif($k == 'additionalCondition') {    //just add some string to query
                     $res .= $v. ' '. $delim. ' ';
@@ -391,6 +395,13 @@ abstract class tablePps {
         $this->_fields[$name] = toeCreateObjPps('fieldPps', array($name, $html, $type, $default, $label, $maxlen, $dbAdapt, $htmlAdapt, $description));
         return $this;
     }
+	/**
+	 * Public alias for _addField() method
+	 */
+	public function addField() {
+		$args = func_get_args();
+		return call_user_func_array(array($this, '_addField'), $args);
+	}
     public function getFields() {
         return $this->_fields;
     }

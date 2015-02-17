@@ -2,7 +2,7 @@
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -37,7 +37,7 @@ Not all popups are necessary as soon as a page loads. Consider a delayed pop-up 
 
 = Subscription popup = 
 
-Popup email forms have huge potential when it comes to list building, and even if you hate them, there�s no doubt that they work. Professional bloggers unanimously agree that they increase subscription rates, and have had great success with them.
+Popup email forms have huge potential when it comes to list building, and even if you hate them, there's no doubt that they work. Professional bloggers unanimously agree that they increase subscription rates, and have had great success with them.
 
 = Support =
 
@@ -71,7 +71,81 @@ Don't forget to press the "Save" button. After all these points you can see the 
 
 4. Popups with YouTube video
 
+== Other Notes ==
+
+Popup by Supsystic is very simple to install and use. The plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image/video, or links from “YouTube” and “Vimeo”. The Popup has its merits, as in:
+
+1. Immediate operation after activation, no need for additional image/video configurations or short coding
+
+2. Wide range of settings to configure the plugin and make it work for different tasks.
+More options of the Popup by Supsystic plugin:
+* modal window templates customization
+* font size customization
+* color customization,
+* wide range of styles set in the General Options section to make look the site more attractive
+* make a very peculiar look to the images and videos,
+* choose Popup by Suspstic future look and behavior right on the open page.
+
+= Main Features =
+
+Content Customization
+
+Use Popup Builder to compile different popups using varied content. Using Short Codes, HTML, and other codes provides popups with vide range of options. Popup Maker is similar in a way to WordPress when talking about adding content and popups.
+
+Using Popups
+
+Targeting Conditions feature is designed especially to connect the modal window to a specific user and show up at a given time and place. To improve the popups' effectiveness it is better to use Auto Open or Exit Intent Popup Extensions.
+
+A Popup Template Customization
+
+A default theme can be customized to meet all the requirements such as “Google Fonts colors”. To create unlimited themes for the plugin, just update the Unlimited Themes Extension.
+
+Auto Open Popups
+
+Auto Open Popups are the critical plugin that Modal Window uses when working with the WordPress Popup Plugins. The plugin has the following features:
+* Removing old conversion rates
+* Setting time delay before opening
+* Customizing cookies settings
+
+Popup Opening Animations
+
+WordPress Popup Plugin has a popup customization feature to make the final set based on several different opening animations.
+
+Theme Builder
+Theme has many options to use to the advantage to make the website popups look good, like:
+* Background Overlay,
+* Popup Container,
+* Close Button,
+* Background colors
+
+To add more content to the popups and make sure that this very content is visible to those, who are supposed to see it.
+
+Responsive Popups
+
+Responsive Popups tool set is used to create popups ready to be used for any device in no time, just by selecting the right option in this tool`s menu.
+
+Small size, Reliable with wide option range
+
+The plugin is as light. The website work will not be damaged. Popups will operate at a very high level with optimal uptime using optimization techniques and program enhancement. 
+
 == Changelog ==
+
+= 1.0.8 =
+ * Added PopuUp Statistics - now you can view charts for your PopUps in admin area
+ * Video PopUps - Hide Controls option
+ * New PopUp Templates - 4 additional templates
+ * Fix php notice for enabled debug mode for some php versions on activation
+ * Added localization .pot file - in plugin folder lang/pps_lng.po
+ * Change Aweber listname - "Unique List ID" field label - to make it more clearer
+ * Fix issue for "Click on certain link / button / other element" - when there are more then one PopUp in post/page inserted
+ * Make PopUp admin tabs edit - responsive (usability)
+ * Make Animation selection - more obviously
+ * Admin popup system messages - make it design according to main admin design
+ * Animation duration - now in milliseconds (instead of seconds)
+ * Helper screen - for option 
+ * PRO version integration
+ * Core code API improvements
+ * Minor issues fix
 
 = 1.0.7 =
  * Accept shortcodes in PopUp's text areas, footer note and even label
