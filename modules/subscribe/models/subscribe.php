@@ -89,6 +89,7 @@ class subscribeModelPps extends modelPps {
 							'username' => $username,
 							'email' => $email,
 							'hash' => $confirmHash,
+							'popup_id' => $popup['id'],
 						))) {
 							$this->sendWpUserConfirm($username, $email, $confirmHash);
 							return true;
@@ -129,6 +130,17 @@ class subscribeModelPps extends modelPps {
 				if($userId && !is_wp_error($userId)) {
 					if(!function_exists('wp_new_user_notification')) {
 						framePps::_()->loadPlugins();
+					}
+					// If there was selected some special role - check it here
+					if(isset($subscriber['popup_id']) && !empty($subscriber['popup_id'])) {
+						$popup = framePps::_()->getModule('popup')->getModel()->getById($subscriber['popup_id']);
+						if(isset($popup['params']['tpl']['sub_wp_create_user_role']) 
+							&& !empty($popup['params']['tpl']['sub_wp_create_user_role']) 
+							&& $popup['params']['tpl']['sub_wp_create_user_role'] != 'subscriber'
+						) {
+							$user = new WP_User($userId);
+							$user->set_role( $popup['params']['tpl']['sub_wp_create_user_role'] );
+						}
 					}
 					wp_new_user_notification($userId, $password);
 					$this->update(array('activated' => 1), array('id' => $subscriber['id']));

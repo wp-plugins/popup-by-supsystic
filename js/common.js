@@ -430,8 +430,8 @@ function callUserFuncArray(cb, parameters) {
 jQuery.fn.zoom = function(level) {
 	jQuery(this).data('zoom', level);
 	return jQuery(this).css({
-		'zoom': level
-	,	'-moz-transform': 'scale('+ level+ ')'
+	/*	'zoom': level	// Didn't worked correctly for mobiles
+	,*/	'-moz-transform': 'scale('+ level+ ')'
 	,	'-moz-transform-origin': 'center center'
 	,	'-o-transform': 'scale('+ level+ ')'
 	,	'-o-transform-origin': 'center center'

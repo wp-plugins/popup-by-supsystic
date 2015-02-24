@@ -12,6 +12,15 @@
 			'value' => (isset($this->popup['params']['tpl']['sub_dest']) ? $this->popup['params']['tpl']['sub_dest'] : '')))?>
 	</label>
 </div>
+<div id="ppsPopupSubDestOpts_wordpress" class="ppsPopupOptRow ppsPopupSubDestOpts" style="display: none;">
+	<label>
+		<?php _e('Create user after subscribe with role', PPS_LANG_CODE)?>
+		<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Use this only if you are really need it. Remember! After you change this option - your new subscriber will have more privileges than usual subscribers, so be careful with this option!', PPS_LANG_CODE)?>"></i>
+		<?php echo htmlPps::selectbox('params[tpl][sub_wp_create_user_role]', array(
+			'options' => $this->availableUserRoles,
+			'value' => (isset($this->popup['params']['tpl']['sub_wp_create_user_role']) ? $this->popup['params']['tpl']['sub_wp_create_user_role'] : 'subscriber')))?>
+	</label>
+</div>
 <div id="ppsPopupSubDestOpts_aweber" class="ppsPopupOptRow ppsPopupSubDestOpts" style="display: none;">
 	<label>
 		<?php _e('Aweber Unique List ID', PPS_LANG_CODE)?>

@@ -35,10 +35,7 @@ class popupViewPps extends viewPps {
 		return parent::getContent('popupAddNewAdmin');
 	}
 	public function adminBreadcrumbsClassAdd() {
-		echo ' popup-bread-nav-fixed supsystic-always-top ';
-	}
-	public function adminMainNavClassAdd() {
-		echo ' popup-main-nav-correct ';
+		echo ' supsystic-sticky';
 	}
 	public function getEditTabContent($id) {
 		global $wpdb;
@@ -46,9 +43,10 @@ class popupViewPps extends viewPps {
 		if(empty($popup)) {
 			return __('Can not find required PopUp', PPS_LANG_CODE);
 		}
+		dispatcherPps::doAction('beforePopupEdit', $popup);
+		
 		dispatcherPps::addAction('afterAdminBreadcrumbs', array($this, 'showEditPopupFormControls'));
 		dispatcherPps::addAction('adminBreadcrumbsClassAdd', array($this, 'adminBreadcrumbsClassAdd'));
-		dispatcherPps::addAction('adminMainNavClassAdd', array($this, 'adminMainNavClassAdd'));
 		
 		// !remove this!!!!
 		/*$popup['params']['opts_attrs'] = array(
@@ -89,10 +87,13 @@ class popupViewPps extends viewPps {
 			'img' => __('Image', PPS_LANG_CODE),
 			'color' => __('Color', PPS_LANG_CODE),
 		);
-		// Shoul depends from tpl type
-		//$this->assign('bgNumber', $bgNumber);
-		//$this->assign('textBlockNumber', $txtBlockNumber);
 		
+		$hideForList = array(
+			'mobile' => __('Mobile', PPS_LANG_CODE),
+			'tablet' => __('Tablet', PPS_LANG_CODE),
+			'desktop' => __('Desktop PC', PPS_LANG_CODE),
+		);
+
 		$subDestList = framePps::_()->getModule('subscribe')->getDestList();
 		$subDestListForSelect = array();
 		foreach($subDestList as $key => $data) {
@@ -134,6 +135,8 @@ class popupViewPps extends viewPps {
 		
 		$this->assign('smLinks', framePps::_()->getModule('sm')->getAvailableLinks());
 		$this->assign('smDesigns', framePps::_()->getModule('sm')->getAvailableDesigns());
+		
+		$this->assign('hideForList', $hideForList);
 		
 		$tabs = array(
 			'ppsPopupMainOpts' => array(
@@ -233,6 +236,7 @@ class popupViewPps extends viewPps {
 	}
 	public function getMainPopupSubTab() {
 		framePps::_()->getModule('subscribe')->loadAdminEditAssets();
+		$this->assign('availableUserRoles', framePps::_()->getModule('subscribe')->getAvailableUserRolesForSelect());
 		return parent::getContent('popupEditAdminSubOpts');
 	}
 	public function getMainPopupSmTab() {
@@ -291,7 +295,7 @@ class popupViewPps extends viewPps {
 		// Normalize into a six character long hex string
 		$hex = str_replace('#', '', $hex);
 		if (strlen($hex) == 3) {
-			$hex = str_repeat(substr($hex,0,1), 2).str_repeat(substr($hex,1,1), 2).str_repeat(substr($hex,2,1), 2);
+			$hex = str_repeat(substr($hex, 0, 1), 2). str_repeat(substr($hex, 1, 1), 2). str_repeat(substr($hex, 2, 1), 2);
 		}
 
 		// Split into three parts: R, G and B
@@ -300,7 +304,7 @@ class popupViewPps extends viewPps {
 
 		foreach ($color_parts as $color) {
 			$color   = hexdec($color); // Convert to decimal
-			$color   = max(0,min(255,$color + $steps)); // Adjust color
+			$color   = max(0, min(255, $color + $steps)); // Adjust color
 			$return .= str_pad(dechex($color), 2, '0', STR_PAD_LEFT); // Make two char hex code
 		}
 

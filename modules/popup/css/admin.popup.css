@@ -100,7 +100,11 @@
 	vertical-align: top;
 }
 #ppsPopupEditForm label {
-	padding-bottom: 25px;
+	padding-bottom: 30px;
+}
+/*Too long for this particular input - make it smaller*/
+.supsystic-plugin #ppsHideForDevicesLabel .chosen-container.chosen-container-multi {
+	min-width: 210px;
 }
 /*animations setup*/
 .ppsPopupAnimEff {
@@ -137,13 +141,9 @@
 	position: fixed;
 	z-index: 99;
 }
-.popup-bread-nav-fixed {
-	top: 32px; 
+#supsystic-breadcrumbs.supsystic-sticky {
 	background-color: #f1f1f1;
 	width: 100%;
-}
-.popup-main-nav-correct {
-	top: 28px;
 }
 .popup-tick-label {
 	

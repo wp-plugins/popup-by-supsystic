@@ -146,8 +146,8 @@ function isAdminFormChanged(formId) {
 /*Some items should be always on users screen*/
 function ppsInitStickyItem() {
 	jQuery(window).scroll(function(){
-		var stickiItemsSelectors = ['.ui-jqgrid-hdiv', '.supsystic-sticky']
-		,	elementsUsePaddingNext = ['.ui-jqgrid-hdiv', '.supsystic-bar']	// For example - if we stick row - then all other should not offest to top after we will place element as fixed
+		var stickiItemsSelectors = [/*'.ui-jqgrid-hdiv', */'.supsystic-sticky']
+		,	elementsUsePaddingNext = [/*'.ui-jqgrid-hdiv', */'.supsystic-bar']	// For example - if we stick row - then all other should not offest to top after we will place element as fixed
 		,	wpTollbarHeight = 32
 		,	wndScrollTop = jQuery(window).scrollTop() + wpTollbarHeight
 		,	footer = jQuery('.ppsAdminFooterShell')
@@ -155,20 +155,28 @@ function ppsInitStickyItem() {
 		,	docHeight = jQuery(document).height()
 		,	wasSticking = false
 		,	wasUnSticking = false;
-		if(jQuery('#wpbody-content .update-nag').size()) {
+		/*if(jQuery('#wpbody-content .update-nag').size()) {	// Not used for now
 			wpTollbarHeight += parseInt(jQuery('#wpbody-content .update-nag').outerHeight());
-		}
+		}*/
 		for(var i = 0; i < stickiItemsSelectors.length; i++) {
 			jQuery(stickiItemsSelectors[ i ]).each(function(){
 				var element = jQuery(this);
 				if(element && element.size() && !element.hasClass('sticky-ignore')) {
 					var scrollMinPos = element.offset().top
 					,	prevScrollMinPos = parseInt(element.data('scrollMinPos'))
-					,	useNextElementPadding = toeInArray(stickiItemsSelectors[ i ], elementsUsePaddingNext) !== -1 || element.hasClass('sticky-padd-next');
-					
-					if(wndScrollTop > scrollMinPos && !element.hasClass('supsystic-sticky-active')) {	// Start sticking
+					,	useNextElementPadding = toeInArray(stickiItemsSelectors[ i ], elementsUsePaddingNext) !== -1 || element.hasClass('sticky-padd-next')
+					,	currentScrollTop = wndScrollTop
+					,	calcPrevHeight = element.data('prev-height')
+					,	currentBorderHeight = wpTollbarHeight
+					,	usePrevHeight = 0;
+					if(calcPrevHeight) {
+						usePrevHeight = jQuery(calcPrevHeight).outerHeight();
+						
+						currentBorderHeight += usePrevHeight;
+					}
+					if(currentScrollTop > scrollMinPos && !element.hasClass('supsystic-sticky-active')) {	// Start sticking
 						element.addClass('supsystic-sticky-active').data('scrollMinPos', scrollMinPos).css({
-							'top': wpTollbarHeight
+							'top': currentBorderHeight
 						});
 						if(element.hasClass('sticky-save-width')) {
 							element.addClass('sticky-full-width');
@@ -178,13 +186,15 @@ function ppsInitStickyItem() {
 							var nextElement = element.next();
 							if(nextElement && nextElement.size()) {
 								nextElement.data('prevPaddingTop', nextElement.css('padding-top'));
+								var addToNextPadding = parseInt(element.data('next-padding-add'));
+								addToNextPadding = addToNextPadding ? addToNextPadding : 0;
 								nextElement.css({
-									'padding-top': element.height()
+									'padding-top': element.height() + usePrevHeight  + addToNextPadding
 								});
 							}
 						}
 						wasSticking = true;
-					} else if(!isNaN(prevScrollMinPos) && wndScrollTop <= prevScrollMinPos) {	// Stop sticking
+					} else if(!isNaN(prevScrollMinPos) && currentScrollTop <= prevScrollMinPos) {	// Stop sticking
 						element.removeClass('supsystic-sticky-active').data('scrollMinPos', 0).css({
 							//'top': 0
 						});
@@ -209,14 +219,14 @@ function ppsInitStickyItem() {
 							if(footerHeight) {
 								var elementHeight = element.height()
 								,	heightCorrection = 32
-								,	topDiff = docHeight - footerHeight - (wndScrollTop + elementHeight + heightCorrection);
+								,	topDiff = docHeight - footerHeight - (currentScrollTop + elementHeight + heightCorrection);
 								if(topDiff < 0) {
 									element.css({
-										'top': wpTollbarHeight + topDiff
+										'top': currentBorderHeight + topDiff
 									});
 								} else {
 									element.css({
-										'top': wpTollbarHeight
+										'top': currentBorderHeight
 									});
 								}
 							}

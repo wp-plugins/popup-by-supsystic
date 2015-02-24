@@ -2,7 +2,7 @@
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -78,7 +78,9 @@ Popup by Supsystic is very simple to install and use. The plugin has a very pecu
 1. Immediate operation after activation, no need for additional image/video configurations or short coding
 
 2. Wide range of settings to configure the plugin and make it work for different tasks.
+
 More options of the Popup by Supsystic plugin:
+
 * modal window templates customization
 * font size customization
 * color customization,
@@ -86,33 +88,36 @@ More options of the Popup by Supsystic plugin:
 * make a very peculiar look to the images and videos,
 * choose Popup by Suspstic future look and behavior right on the open page.
 
-= Main Features =
+Main Features:
 
-Content Customization
+= Content Customization =
 
 Use Popup Builder to compile different popups using varied content. Using Short Codes, HTML, and other codes provides popups with vide range of options. Popup Maker is similar in a way to WordPress when talking about adding content and popups.
 
-Using Popups
+= Using Popups =
 
 Targeting Conditions feature is designed especially to connect the modal window to a specific user and show up at a given time and place. To improve the popups' effectiveness it is better to use Auto Open or Exit Intent Popup Extensions.
 
-A Popup Template Customization
+= A Popup Template Customization =
 
 A default theme can be customized to meet all the requirements such as “Google Fonts colors”. To create unlimited themes for the plugin, just update the Unlimited Themes Extension.
 
-Auto Open Popups
+= Auto Open Popups =
 
 Auto Open Popups are the critical plugin that Modal Window uses when working with the WordPress Popup Plugins. The plugin has the following features:
+
 * Removing old conversion rates
 * Setting time delay before opening
 * Customizing cookies settings
 
-Popup Opening Animations
+= Popup Opening Animations =
 
 WordPress Popup Plugin has a popup customization feature to make the final set based on several different opening animations.
 
-Theme Builder
+= Theme Builder =
+
 Theme has many options to use to the advantage to make the website popups look good, like:
+
 * Background Overlay,
 * Popup Container,
 * Close Button,
@@ -120,15 +125,30 @@ Theme has many options to use to the advantage to make the website popups look g
 
 To add more content to the popups and make sure that this very content is visible to those, who are supposed to see it.
 
-Responsive Popups
+= Responsive Popups =
 
 Responsive Popups tool set is used to create popups ready to be used for any device in no time, just by selecting the right option in this tool`s menu.
 
-Small size, Reliable with wide option range
+Small size, Reliable with wide option range.
 
 The plugin is as light. The website work will not be damaged. Popups will operate at a very high level with optimal uptime using optimization techniques and program enhancement. 
 
 == Changelog ==
+
+= 1.0.9 / 24.02.2015 =
+ * Allow to assign new subscribers - special roles
+ * Option to disable PopUp for: Mobile, Tablet or Desktop PC
+ * Additional fix for mobile devices
+ * Small fix for latest added PopUps new templates
+ * Main PopUp edit tabs sticky functionality - make it work with some standard notifications
+ * Show PopUp label always on top of edit tabs on PopUp edit screen - more user-friendly
+ * Option to show PopUp - after scroll window - right after scroll or with delay
+ * Layered PopUps integration - http://supsystic.com/plugins/popup-plugin/
+ * Additional modification for "Click On" show mode - to make sure it work with more content editor systems
+ * A/B testing - tests should stay tests even after whole design change - fixed - http://supsystic.com/plugins/popup-plugin/
+ * Admin PopUps list table - do not stick header line (call too much problems and don't need this)
+ * Correct show PopUps on mobile devices - every size, every type
+ * Fix sticky edit PopUp tabs scroll position
 
 = 1.0.8 =
  * Added PopuUp Statistics - now you can view charts for your PopUps in admin area

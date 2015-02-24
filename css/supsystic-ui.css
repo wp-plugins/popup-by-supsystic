@@ -645,6 +645,7 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     word-wrap: break-word;
 	font-family: monospace;
 	cursor: pointer;
+	white-space: nowrap;
 }
 /*additional styles*/
 .ppsOptLabel {

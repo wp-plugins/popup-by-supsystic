@@ -24,6 +24,8 @@ class modInstallerPps {
                     if(framePps::_()->getTable('modules')->exists($module['code'], 'code')) {
                         framePps::_()->getTable('modules')->delete(array('code' => $module['code']));
                     }
+					if($module['code'] != 'license')
+						$module['active'] = 0;
                     framePps::_()->getTable('modules')->insert($module);
                     self::_runModuleInstall($module);
                     self::_installTables($module);

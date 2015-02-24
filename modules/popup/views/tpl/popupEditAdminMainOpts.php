@@ -40,6 +40,22 @@
 		<?php _e('Or, if you know HTML basics, - you can insert "onclick" attribute to any of your element from code below')?>:<br />
 		<span class="sup-shortcode">onclick="ppsShowPopup(<?php echo $this->popup['id']?>); return false;"</span>
 	</div><br />
+	<label>
+		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
+			'value' => 'scroll_window',
+			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'scroll_window')))?>
+		<?php _e('Scroll window', PPS_LANG_CODE)?>
+	</label>
+	<div id="ppsPopupShowOnScrollDelay" style="display: none;">
+		<label>
+			<?php echo htmlPps::checkbox('params[main][show_on_scroll_window_enb_delay]', array('checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on_scroll_window_enb_delay')))?>
+			<?php _e('Delay for', PPS_LANG_CODE)?>
+		</label>
+		<label>
+			<?php echo htmlPps::text('params[main][show_on_scroll_window_delay]', array('value' => isset($this->popup['params']['main']['show_on_scroll_window_delay']) ? $this->popup['params']['main']['show_on_scroll_window_delay'] : 0));?>
+			<?php _e('seconds after first scroll', PPS_LANG_CODE)?>
+		</label>
+	</div><br />
 </section>
 <section class="ppsPopupMainOptSect">
 	<span class="ppsOptLabel"><?php _e('Whom to show', PPS_LANG_CODE)?></span>
@@ -56,12 +72,20 @@
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_to', 'first_time_visit')))?>
 		<?php _e('For first-time visitors', PPS_LANG_CODE)?>
 	</label><br />
-	<label class="supsystic-tooltip-bottom" title="<?php _e('Subscribe, share, like, etc.')?>" style="padding-bottom: 0px;">
+	<label class="supsystic-tooltip-left" title="<?php _e('Subscribe, share, like, etc.')?>" style="">
 		<?php echo htmlPps::radiobutton('params[main][show_to]', array(
 			'value' => 'until_make_action',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_to', 'until_make_action')))?>
 		<?php _e('Until user will not make an action', PPS_LANG_CODE)?>
-	</label><?php /*?><br />
+	</label><br />
+	<label id="ppsHideForDevicesLabel">
+		<?php _e('Hide for', PPS_LANG_CODE)?>:
+		<?php echo htmlPps::selectlist('params[main][hide_for_devices][]', array(
+			'options' => $this->hideForList, 
+			'value' => (isset($this->popup['params']['main']['hide_for_devices']) ? $this->popup['params']['main']['hide_for_devices'] : array()), 
+			'attrs' => 'class="chosen" data-placeholder="'. __('Choose devices', PPS_LANG_CODE). '"'))?>
+	</label>
+	<?php /*?><br />
 	<label>
 		<?php echo htmlPps::radiobutton('params[main][show_to]', array(
 			'value' => 'for_countries',

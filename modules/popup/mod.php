@@ -53,6 +53,7 @@ class popupPps extends modulePps {
 				if(is_object($post) && isset($post->post_content)) {
 					if((preg_match_all('/\[\s*'. PPS_SHORTCODE_CLICK. '.+id\s*\=.*(?<POPUP_ID>\d+)\]/iUs', $post->post_content, $matches) 
 						|| preg_match_all('/ppsShowPopup\s*\(\s*(?<POPUP_ID>\d+)\s*\)\s*;*/iUs', $post->post_content, $matches)
+						|| preg_match_all('/\"\#ppsShowPopUp_(?<POPUP_ID>\d+)\"/iUs', $post->post_content, $matches)
 						) && isset($matches['POPUP_ID'])
 					) {
 						if(!is_array($matches['POPUP_ID']))
@@ -71,11 +72,48 @@ class popupPps extends modulePps {
 		if($this->getModel()->abDeactivated()) {
 			$condition .= ' AND ab_id = 0';
 		}
-		$popups = $this->getModel()->addWhere( $condition )->getFromTbl();
+		$popups = $this->_beforeRender( $this->getModel()->addWhere( $condition )->getFromTbl() );
  		if(!empty($popups)) {
 			$popups = dispatcherPps::applyFilters('popupListBeforeRender', $popups);
 			$this->renderList( $popups );
 		}
+	}
+	private function _beforeRender($popups) {
+		if(!empty($popups)) {
+			$dataRemoved = false;
+			$mobileDetect = NULL;
+			$isMobile = false;
+			$isTablet = false;
+			$isDesktop = false;
+			
+			foreach($popups as $i => $p) {
+				if(isset($p['params']['main']['hide_for_devices']) 
+					&& !empty($p['params']['main']['hide_for_devices'])
+				) {
+					if(!$mobileDetect) {
+						importClassPps('Mobile_Detect', PPS_HELPERS_DIR. 'mobileDetect.php');
+						$mobileDetect = new Mobile_Detect();
+						$isMobile = $mobileDetect->isMobile();
+						$isTablet = $mobileDetect->isTablet();
+						$isDesktop = !$isMobile && !$isTablet;
+					}
+					if(in_array('mobile', $p['params']['main']['hide_for_devices']) && $isMobile) {
+						unset($popups[ $i ]);
+						$dataRemoved = true;
+					} elseif(in_array('tablet', $p['params']['main']['hide_for_devices']) && $isTablet) {
+						unset($popups[ $i ]);
+						$dataRemoved = true;
+					} elseif(in_array('desktop', $p['params']['main']['hide_for_devices']) && $isDesktop) {
+						unset($popups[ $i ]);
+						$dataRemoved = true;
+					}
+				}
+			}
+		}
+		if($dataRemoved) {
+			$popups = array_values( $popups );
+		}
+		return $popups;
 	}
 	public function renderList($popups) {
 		foreach($popups as $i => $p) {
@@ -98,7 +136,12 @@ class popupPps extends modulePps {
 		framePps::_()->addStyle('magic.min', PPS_CSS_PATH. 'magic.min.css');
 	}
 	public function showPopupOnClick($params) {
-		return '#ppsShowPopUp_'. $params['id'];
+		$id = isset($params['id']) ? (int) $params['id'] : 0;
+		if(!$id && isset($params[0]) && !empty($params[0])) {	// For some reason - for some cases it convert space in shortcode - to %20 im this place
+			$id = explode('=', $params[0]);
+			$id = isset($id[1]) ? (int) $id[1] : 0;
+		}
+		return '#ppsShowPopUp_'. $id;
 	}
 }
 

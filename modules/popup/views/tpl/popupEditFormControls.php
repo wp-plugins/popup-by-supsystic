@@ -1,3 +1,4 @@
+<?php echo $this->popup['label']?>&nbsp;
 <button class="button button-primary ppsPopupSaveBtn" title="<?php _e('Save all changes', PPS_LANG_CODE)?>">
 	<i class="fa fa-fw fa-save"></i>
 	<?php _e('Save', PPS_LANG_CODE)?>

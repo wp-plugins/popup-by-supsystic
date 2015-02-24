@@ -216,6 +216,7 @@ class popupModelPps extends modelPps {
 				'page_load' => array('id' => 1),
 				'click_on_page' => array('id' => 2),
 				'click_on_element' => array('id' => 3),
+				'scroll_window' => array('id' => 4),
 			);
 		}
 		return $this->_showPagesList;
@@ -267,6 +268,7 @@ class popupModelPps extends modelPps {
 			$newTpl['original_id'] = $newTpl['id'];	// It will be our new original
 			$newTpl['id'] = $currentPopup['id'];
 			$newTpl['label'] = $currentPopup['label'];
+			$newTpl = dispatcherPps::applyFilters('popupChangeTpl', $newTpl, $currentPopup);
 			$newTpl = $this->_escTplData( $newTpl );
 			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('change_to_tpl.'. strtolower(str_replace(' ', '-', $newTpl['label'])));
 			return $this->update( $newTpl, array('id' => $newTpl['id']) );

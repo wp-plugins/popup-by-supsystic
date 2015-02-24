@@ -119,4 +119,13 @@ class dbPps {
 		global $wpdb;
 		return $wpdb->_escape($data);
 	}
+	static public function getAutoIncrement($table) {
+		return (int) self::get('SELECT AUTO_INCREMENT
+			FROM information_schema.tables
+			WHERE table_name = "'. $table. '"
+			AND table_schema = DATABASE( );', 'one');
+	}
+	static public function setAutoIncrement($table, $autoIncrement) {
+		return self::query("ALTER TABLE `". $table. "` AUTO_INCREMENT = ". $autoIncrement. ";");
+	}
 }

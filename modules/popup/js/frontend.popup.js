@@ -1,6 +1,7 @@
 jQuery(document).ready(function(){
 	if(typeof(ppsPopups) !== 'undefined' && ppsPopups && ppsPopups.length) {
 		ppsInitBgOverlay();
+		jQuery(document).trigger('ppsBeforePopupsInit', ppsPopups);
 		for(var i = 0; i < ppsPopups.length; i++) {
 			jQuery('body').append( ppsPopups[ i ].rendered_html );
 			ppsBindPopupShow( ppsPopups[ i ] );
@@ -27,9 +28,13 @@ function ppsBindPopupShow( popup ) {
 					delay = popup.params.main.show_on_page_load_delay * 1000;
 				}
 			}
-			setTimeout(function(){
+			if(delay) {
+				setTimeout(function(){
+					ppsCheckShowPopup( popup );
+				}, delay);
+			} else {
 				ppsCheckShowPopup( popup );
-			}, delay);
+			}
 			break;
 		case 'click_on_page':
 			jQuery(document).click(function(){
@@ -52,6 +57,27 @@ function ppsBindPopupShow( popup ) {
 					}
 					return false;
 				});
+			});
+			break;
+		case 'scroll_window':
+			jQuery(window).scroll(function(){
+				if(!popup.scroll_window_displayed) {
+					var delay = 0;
+					if(popup.params.main.show_on_scroll_window_enb_delay && parseInt(popup.params.main.show_on_scroll_window_enb_delay)) {
+						popup.params.main.show_on_scroll_window_delay = parseInt( popup.params.main.show_on_scroll_window_delay );
+						if(popup.params.main.show_on_scroll_window_delay) {
+							delay = popup.params.main.show_on_scroll_window_delay * 1000;
+						}
+					}
+					if(delay) {
+						setTimeout(function(){
+							ppsCheckShowPopup( popup );
+						}, delay);
+					} else {
+						ppsCheckShowPopup( popup );
+					}
+					popup.scroll_window_displayed = true;
+				}
 			});
 			break;
 	}
@@ -159,8 +185,8 @@ function ppsShowPopup( popup ) {
 	_ppsPopupAddStat( popup, 'show' );	// Save show popup statistics
 	ppsShowBgOverlay( popup );
 	var shell = ppsGetPopupShell( popup );
-	_ppsPositionPopup({shell: shell});
-	if(popup.params.tpl.anim) {
+	_ppsPositionPopup({shell: shell, popup: popup});
+	if(popup.params.tpl.anim && !popup.resized_for_wnd) {
 		shell.animationDuration( popup.params.tpl.anim_duration, true );
 		shell.addClass('magictime '+ popup.params.tpl.anim.show_class).show();
 	} else {
@@ -170,15 +196,16 @@ function ppsShowPopup( popup ) {
 }
 function _ppsPositionPopup( params ) {
 	params = params || {};
-	var shell = params.popup ? ppsGetPopupShell( params.popup ) : params.shell;
+	var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );
 	if(shell) {
 		var wndWidth = params.wndWidth ? params.wndWidth : jQuery(window).width()
 		,	wndHeight = params.wndHeight ? params.wndHeight : jQuery(window).height()
-		,	shellWidth = shell.width()
-		,	shellHeight = shell.height()
-		,	cmpareWidth = wndWidth - 0.1 * wndWidth	// less then 10%
-		,	compareHeight = wndHeight - 0.1 * wndHeight;	// less then 10%
-		
+		,	shellWidth = shell.outerWidth()
+		,	shellHeight = shell.outerHeight()
+		,	resized = false
+		,	compareWidth = wndWidth - 10	// less then 10px
+		,	compareHeight = wndHeight - 10;	// less then 10px
+		//alert(jQuery(window).outerHeight()+ ';'+ window.screen.availHeight+ ';'+ jQuery('body').outerHeight());
 		if(shellHeight >= compareHeight) {
 			var initialHeight = parseInt(shell.data('init-height'));
 			if(!initialHeight) {
@@ -187,25 +214,30 @@ function _ppsPositionPopup( params ) {
 			}
 			var division = compareHeight / initialHeight;
 			shell.zoom( division );
-			shellWidth = shell.width();
-			shellHeight = shell.height();
+			shellWidth = shell.outerWidth();
+			shellHeight = shell.outerHeight();
+			resized = true;
 		}
-		if(shellWidth >= cmpareWidth) {
+		if(shellWidth >= compareWidth) {
 			var initialWidth = parseInt(shell.data('init-width'));
 			if(!initialWidth) {
 				initialWidth = shellWidth;
 				shell.data('init-width', initialWidth);
 			}
-			var division = cmpareWidth / initialWidth;
+			var division = compareWidth / initialWidth;
 			shell.zoom( division );
-			shellWidth = shell.width();
-			shellHeight = shell.height();
+			shellWidth = shell.outerWidth();
+			shellHeight = shell.outerHeight();
+			resized = true;
 		}
-
-		shell.css({
-			'left': (wndWidth - shellWidth) / 2
-		,	'top': (wndHeight - shellHeight) / 2
-		});
+		params.popup.resized_for_wnd = resized;
+		jQuery(document).trigger('ppsResize', {popup: params.popup, shell: shell, wndWidth: wndWidth, wndHeight: wndHeight});
+		if(!shell.positioned_outside) {	// Make available - re-position popup from outside modules
+			shell.css({
+				'left': (wndWidth - shellWidth) / 2
+			,	'top': (wndHeight - shellHeight) / 2
+			});
+		}
 	} else {
 		console.log('CAN NOT FIND POPUP SHELL TO RESIZE!');
 	}
@@ -218,11 +250,11 @@ function ppsClosePopup(popup) {
 		shell.removeClass(popup.params.tpl.anim.show_class).addClass(popup.params.tpl.anim.hide_class);
 		setTimeout(function(){
 			shell.hide();
-			ppsHideBgOverlay();
+			ppsHideBgOverlay( popup );
 		}, popup.params.tpl.anim_duration );
 	} else {
 		shell.hide();
-		ppsHideBgOverlay();
+		ppsHideBgOverlay( popup );
 	}
 	popup.is_visible = false;
 }
@@ -244,6 +276,8 @@ function ppsInitBgOverlay() {
 function ppsShowBgOverlay(popup) {
 	if(popup && jQuery.isNumeric( popup ))
 		popup = ppsGetPopupById( popup );
+	if(popup.ignore_background)	// For some types - we will not be require background - so we can manipulate it using this key
+		return;
 	if(popup && typeof(popup.params.tpl.bg_overlay_opacity) !== 'undefined') {
 		if(!popup.params.tpl.bg_overlay_opacity || popup.params.tpl.bg_overlay_opacity == '')
 			popup.params.tpl.bg_overlay_opacity = 0;
@@ -256,7 +290,11 @@ function ppsShowBgOverlay(popup) {
 	}
 	jQuery('#ppsPopupBgOverlay').show();
 }
-function ppsHideBgOverlay() {
+function ppsHideBgOverlay(popup) {
+	if(popup && jQuery.isNumeric( popup ))
+		popup = ppsGetPopupById( popup );
+	if(popup.ignore_background)	// For some types - we will not be require background - so we can manipulate it using this key
+		return;
 	jQuery('#ppsPopupBgOverlay').hide();
 }
 function ppsBindPopupActions(popup) {

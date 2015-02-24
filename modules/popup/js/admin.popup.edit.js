@@ -1,6 +1,3 @@
-if(jQuery('#wpbody-content .update-nag').size()) {
-	jQuery('#wpbody-content .update-nag').remove();	// Remove it but only for this page
-}
 var ppsPopupSaveTimeout = null
 ,	ppsPopupIsSaving = false
 ,	ppsTinyMceEditorUpdateBinded = false;
@@ -127,21 +124,27 @@ jQuery(document).ready(function(){
 			,	onFinishAnimate = function() {
 					boxElement.find('.chosen').chosen();
 				};
-			checked ? boxElement.slideDown( 300, onFinishAnimate ) : boxElement.slideUp( 300 );
+			checked ? boxElement.slideDown( g_ppsAnimationSpeed, onFinishAnimate ) : boxElement.slideUp( g_ppsAnimationSpeed );
 			if(checked) {
 				boxElement.find('.chosen').chosen();
 			}
 		}
 	}).change();
 	
+	jQuery('.chosen').chosen();
+	
 	jQuery('#ppsPopupEditForm').find('[name="params[main][show_on]"]').change(function(){
 		// Show/hide show delay options
 		if(jQuery(this).val() == 'page_load') {
-			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnDelay').slideDown( 300 ) : jQuery('#ppsPopupShowOnDelay').slideUp( 300 );
+			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnDelay').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnDelay').slideUp( g_ppsAnimationSpeed );
 		}
 		// Show/hide click-on-element show options
 		if(jQuery(this).val() == 'click_on_element') {
-			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnElClick').slideDown( 300 ) : jQuery('#ppsPopupShowOnElClick').slideUp( 300 );
+			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnElClick').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnElClick').slideUp( g_ppsAnimationSpeed );
+		}
+		// Show/hide scroll window show options
+		if(jQuery(this).val() == 'scroll_window') {
+			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnScrollDelay').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnScrollDelay').slideUp( g_ppsAnimationSpeed );
 		}
 	}).change();
 	// Animation effect change
@@ -230,17 +233,6 @@ jQuery(document).ready(function(){
 });
 jQuery(window).load(function(){
 	ppsAdjustPopupsEditTabs();
-	/*var tabsHeight = parseInt(jQuery('.supsystic-bar.supsystic-always-top').height())
-	,	mainContentOffset = jQuery('#ppsPopupEditTabs .supsystic-item.supsystic-panel').offset();
-	if(mainContentOffset.top) {
-		var newTopForTabs = mainContentOffset.top - tabsHeight - 15
-		jQuery('.supsystic-bar.supsystic-always-top').css({
-			'top': newTopForTabs
-		});
-		jQuery('#supsystic-breadcrumbs').css({
-			'top': newTopForTabs - jQuery('#supsystic-breadcrumbs').height() - 10
-		});
-	}*/
 });
 /**
  * Make popup edit tabs - responsive
@@ -333,7 +325,7 @@ function ppsShowPreviewUpdating() {
 	jQuery('#ppsPopupPreviewFrame').css({
 		'opacity': 0.5
 	});
-	jQuery('#ppsPopupPreviewUpdatingMsg').slideDown( 300 );
+	jQuery('#ppsPopupPreviewUpdatingMsg').slideDown( g_ppsAnimationSpeed );
 }
 function ppsHidePreviewUpdating() {
 	jQuery('#ppsPopupPreviewFrame').show().css({

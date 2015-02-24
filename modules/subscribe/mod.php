@@ -40,5 +40,23 @@ class subscribePps extends modulePps {
 	public function loadAdminEditAssets() {
 		framePps::_()->addScript('admin.subscribe', $this->getModPath(). 'js/admin.subscribe.js');
 	}
+	public function getAvailableUserRolesForSelect() {
+		global $wp_roles;
+		$res = array();
+		$allRoles = $wp_roles->roles;
+		$editableRoles = apply_filters('editable_roles', $allRoles);
+		
+		if(!empty($editableRoles)) {
+			foreach($editableRoles as $role => $data) {
+				if(in_array($role, array('administrator', 'editor'))) continue;
+				if($role == 'subscriber') {	// Subscriber - at the begining of array
+					$res = array($role => $data['name']) + $res;
+				} else {
+					$res[ $role ] = $data['name'];
+				}
+			}
+		}
+		return $res;
+	}
 }
 

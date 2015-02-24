@@ -1,5 +1,5 @@
 <div id="ppsPopupEditTabs">
-	<section class="supsystic-bar supsystic-always-top" style="top: 70px; width: calc(100% - 290px);">
+	<section class="supsystic-bar supsystic-sticky sticky-padd-next sticky-save-width" data-prev-height="#supsystic-breadcrumbs" data-next-padding-add="15">
 		<h3 class="nav-tab-wrapper" style="margin-bottom: 0px; margin-top: 12px;">
 			<?php $i = 0;?>
 			<?php foreach($this->tabs as $tKey => $tData) { ?>
@@ -20,7 +20,7 @@
 			<?php $i++; }?>
 		</h3>
 	</section>
-	<section style="padding-top: 92px;">
+	<section>
 		<div class="supsystic-item supsystic-panel" style="padding-left: 10px;">
 			<div id="containerWrapper">
 				<form id="ppsPopupEditForm">
@@ -58,9 +58,13 @@
 							jQuery(this).height( '500px' );
 						<?php }?>
 						var contentDoc = jQuery(this).contents();
+						var top = 15;
+						if(typeof(ppsPopup) !== 'undefined' && ppsPopup.original_id == 11 /*START popup*/) {
+							top = 30;
+						}
 						contentDoc.find('.ppsPopupShell').css({
 							'position': 'absolute'
-						,	'top': '15px'
+						,	'top': top+ 'px'
 						});
 						contentDoc.click(function(){
 							return false;
