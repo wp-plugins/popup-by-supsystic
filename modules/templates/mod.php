@@ -72,20 +72,28 @@ class templatesPps extends modulePps {
 		$this->loadFontAwesome();
 	}
 	public function loadJqueryUi() {
-		framePps::_()->addStyle('jquery-ui', PPS_CSS_PATH. 'jquery-ui.min.css');
-		framePps::_()->addStyle('jquery-ui.structure', PPS_CSS_PATH. 'jquery-ui.structure.min.css');
-		framePps::_()->addStyle('jquery-ui.theme', PPS_CSS_PATH. 'jquery-ui.theme.min.css');
-		framePps::_()->addStyle('jquery-slider', PPS_CSS_PATH. 'jquery-slider.css');
+		static $loaded = false;
+		if(!$loaded) {
+			framePps::_()->addStyle('jquery-ui', PPS_CSS_PATH. 'jquery-ui.min.css');
+			framePps::_()->addStyle('jquery-ui.structure', PPS_CSS_PATH. 'jquery-ui.structure.min.css');
+			framePps::_()->addStyle('jquery-ui.theme', PPS_CSS_PATH. 'jquery-ui.theme.min.css');
+			framePps::_()->addStyle('jquery-slider', PPS_CSS_PATH. 'jquery-slider.css');
+			$loaded = true;
+		}
 	}
 	public function loadJqGrid() {
-		$this->loadJqueryUi();
-		framePps::_()->addScript('jq-grid', PPS_JS_PATH. 'jquery.jqGrid.min.js');
-		framePps::_()->addStyle('jq-grid', PPS_CSS_PATH. 'ui.jqgrid.css');
-		$langToLoad = utilsPps::getLangCode2Letter();
-		if(!file_exists(PPS_JS_DIR. 'i18n'. DS. 'grid.locale-'. $langToLoad. '.js')) {
-			$langToLoad = 'en';
+		static $loaded = false;
+		if(!$loaded) {
+			$this->loadJqueryUi();
+			framePps::_()->addScript('jq-grid', PPS_JS_PATH. 'jquery.jqGrid.min.js');
+			framePps::_()->addStyle('jq-grid', PPS_CSS_PATH. 'ui.jqgrid.css');
+			$langToLoad = utilsPps::getLangCode2Letter();
+			if(!file_exists(PPS_JS_DIR. 'i18n'. DS. 'grid.locale-'. $langToLoad. '.js')) {
+				$langToLoad = 'en';
+			}
+			framePps::_()->addScript('jq-grid-lang', PPS_JS_PATH. 'i18n/grid.locale-'. $langToLoad. '.js');
+			$loaded = true;
 		}
-		framePps::_()->addScript('jq-grid-lang', PPS_JS_PATH. 'i18n/grid.locale-'. $langToLoad. '.js');
 	}
 	public function loadFontAwesome() {
 		framePps::_()->addStyle('font-awesomePps', PPS_CSS_PATH. 'font-awesome.css');
@@ -94,21 +102,28 @@ class templatesPps extends modulePps {
 		framePps::_()->addStyle('jquery.chosen', PPS_CSS_PATH. 'chosen.min.css');
 		framePps::_()->addScript('jquery.chosen', PPS_JS_PATH. 'chosen.jquery.min.js');
 	}
+	public function loadDatePicker() {
+		framePps::_()->addScript('jquery-ui-datepicker');
+	}
 	public function loadJqplot() {
-		$jqplotDir = 'jqplot/';
-		
-		framePps::_()->addStyle('jquery.jqplot', PPS_CSS_PATH. 'jquery.jqplot.min.css');
-		
-		framePps::_()->addScript('jplot', PPS_JS_PATH. $jqplotDir. 'jquery.jqplot.min.js');
-		framePps::_()->addScript('jqplot.canvasAxisLabelRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasAxisLabelRenderer.min.js');
-		framePps::_()->addScript('jqplot.canvasTextRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasTextRenderer.min.js');
-		framePps::_()->addScript('jqplot.dateAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.dateAxisRenderer.min.js');
-		framePps::_()->addScript('jqplot.canvasAxisTickRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasAxisTickRenderer.min.js');
-		framePps::_()->addScript('jqplot.highlighter', PPS_JS_PATH. $jqplotDir. 'jqplot.highlighter.min.js');
-		framePps::_()->addScript('jqplot.cursor', PPS_JS_PATH. $jqplotDir. 'jqplot.cursor.min.js');
-		framePps::_()->addScript('jqplot.barRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.barRenderer.min.js');
-		framePps::_()->addScript('jqplot.categoryAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.categoryAxisRenderer.min.js');
-		framePps::_()->addScript('jqplot.pointLabels', PPS_JS_PATH. $jqplotDir. 'jqplot.pointLabels.min.js');
-		framePps::_()->addScript('jqplot.pieRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.pieRenderer.min.js');
+		static $loaded = false;
+		if(!$loaded) {
+			$jqplotDir = 'jqplot/';
+
+			framePps::_()->addStyle('jquery.jqplot', PPS_CSS_PATH. 'jquery.jqplot.min.css');
+
+			framePps::_()->addScript('jplot', PPS_JS_PATH. $jqplotDir. 'jquery.jqplot.min.js');
+			framePps::_()->addScript('jqplot.canvasAxisLabelRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasAxisLabelRenderer.min.js');
+			framePps::_()->addScript('jqplot.canvasTextRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasTextRenderer.min.js');
+			framePps::_()->addScript('jqplot.dateAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.dateAxisRenderer.min.js');
+			framePps::_()->addScript('jqplot.canvasAxisTickRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasAxisTickRenderer.min.js');
+			framePps::_()->addScript('jqplot.highlighter', PPS_JS_PATH. $jqplotDir. 'jqplot.highlighter.min.js');
+			framePps::_()->addScript('jqplot.cursor', PPS_JS_PATH. $jqplotDir. 'jqplot.cursor.min.js');
+			framePps::_()->addScript('jqplot.barRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.barRenderer.min.js');
+			framePps::_()->addScript('jqplot.categoryAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.categoryAxisRenderer.min.js');
+			framePps::_()->addScript('jqplot.pointLabels', PPS_JS_PATH. $jqplotDir. 'jqplot.pointLabels.min.js');
+			framePps::_()->addScript('jqplot.pieRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.pieRenderer.min.js');
+			$loaded = true;
+		}
 	}
 }

@@ -27,12 +27,17 @@ class popupViewPps extends viewPps {
 			$this->assign('originalPopup', $originalPopup);
 			$this->assign('editLink', $editLink);
 			framePps::_()->addJSVar('admin.popup', 'ppsOriginalPopup', $originalPopup);
+			dispatcherPps::addFilter('mainBreadcrumbs', array($this, 'modifyBreadcrumbsForChangeTpl'));
 		}
 		$this->assign('types', $this->getModel()->getTypes());
 		$this->assign('list', $this->getModel()->getSimpleList(array('active' => 1, 'original_id' => 0)));
 		$this->assign('changeFor', $changeFor);
 		
 		return parent::getContent('popupAddNewAdmin');
+	}
+	public function modifyBreadcrumbsForChangeTpl($crumbs) {
+		$crumbs[ count($crumbs) - 1 ]['label'] = __('Modify PopUp Template', PPS_LANG_CODE);
+		return $crumbs;
 	}
 	public function adminBreadcrumbsClassAdd() {
 		echo ' supsystic-sticky';
@@ -48,6 +53,7 @@ class popupViewPps extends viewPps {
 		dispatcherPps::addAction('afterAdminBreadcrumbs', array($this, 'showEditPopupFormControls'));
 		dispatcherPps::addAction('adminBreadcrumbsClassAdd', array($this, 'adminBreadcrumbsClassAdd'));
 		
+		$useCommonTabs = in_array($popup['type'], array(PPS_COMMON, PPS_VIDEO));
 		// !remove this!!!!
 		/*$popup['params']['opts_attrs'] = array(
 			'bg_number' => 2,
@@ -74,11 +80,12 @@ class popupViewPps extends viewPps {
 		framePps::_()->addScript('codemirror-mode-css', PPS_JS_PATH. 'codemirror/mode/css/css.js');
 		framePps::_()->addScript('codemirror-mode-htmlmixed', PPS_JS_PATH. 'codemirror/mode/htmlmixed/htmlmixed.js');
 		
+		$ppsAddNewUrl = framePps::_()->getModule('options')->getTabUrl('popup_add_new');
 		framePps::_()->addStyle('admin.popup', $this->getModule()->getModPath(). 'css/admin.popup.css');
 		framePps::_()->addScript('admin.popup', $this->getModule()->getModPath(). 'js/admin.popup.js');
 		framePps::_()->addScript('admin.popup.edit', $this->getModule()->getModPath(). 'js/admin.popup.edit.js');
 		framePps::_()->addJSVar('admin.popup.edit', 'ppsPopup', $popup);
-		framePps::_()->addJSVar('admin.popup.edit', 'ppsAddNewUrl', framePps::_()->getModule('options')->getTabUrl('popup_add_new'));
+		framePps::_()->addJSVar('admin.popup.edit', 'ppsAddNewUrl', $ppsAddNewUrl);
 		
 		framePps::_()->addScript('wp.tabs', PPS_JS_PATH. 'wp.tabs.js');
 		
@@ -121,6 +128,7 @@ class popupViewPps extends viewPps {
 		if(in_array($popup['type'], array(PPS_FB_LIKE))) {
 			$this->assign('fbLikeOpts', $this->getFbLikeOpts());
 		}
+		$this->assign('ppsAddNewUrl', $ppsAddNewUrl);
 		$this->assign('bgTypes', $bgType);
 		$this->assign('previewUrl', uriPps::mod('popup', 'getPreviewHtml', array('id' => $id)));
 		$this->assign('popup', $popup);
@@ -137,6 +145,33 @@ class popupViewPps extends viewPps {
 		$this->assign('smDesigns', framePps::_()->getModule('sm')->getAvailableDesigns());
 		
 		$this->assign('hideForList', $hideForList);
+		$designTabs = array(	// Used in $this->getMainPopupTplTab()
+			'ppsPopupDesign' => array(
+				'title' => __('Appearance', PPS_LANG_CODE), 
+				'content' => $this->getMainPopupDesignTab(),
+				'fa_icon' => 'fa-picture-o',
+				'sort_order' => 0),
+			'ppsPopupAnimation' => array(
+				'title' => __('Animation', PPS_LANG_CODE), 
+				'content' => $this->getMainPopupAnimationTab(),
+				'fa_icon' => 'fa-cog fa-spin',
+				'sort_order' => 50),
+		);
+		if($useCommonTabs) {
+			$designTabs['ppsPopupSubscribe'] = array(
+				'title' => __('Subscribe', PPS_LANG_CODE), 
+				'content' => $this->getMainPopupSubTab(),
+				'fa_icon' => 'fa-users',
+				'sort_order' => 30);
+			$designTabs['ppsPopupSm'] = array(
+				'title' => __('Social', PPS_LANG_CODE), 
+				'content' => $this->getMainPopupSmTab(),
+				'fa_icon' => 'fa-thumbs-o-up',
+				'sort_order' => 40);
+		}
+		$designTabs = dispatcherPps::applyFilters('popupEditDesignTabs', $designTabs, $popup);
+		uasort($designTabs, array($this, 'sortEditPopupTabsClb'));
+		$this->assign('designTabs', $designTabs);
 		
 		$tabs = array(
 			'ppsPopupMainOpts' => array(
@@ -149,39 +184,25 @@ class popupViewPps extends viewPps {
 				'content' => $this->getMainPopupTplTab(),
 				'fa_icon' => 'fa-picture-o',
 				'sort_order' => 10),
-			'ppsPopupAnimation' => array(
-				'title' => __('Animation', PPS_LANG_CODE), 
-				'content' => $this->getMainPopupAnimationTab(),
-				'fa_icon' => 'fa-cog fa-spin',
-				'sort_order' => 50),
 			'ppsPopupEditors' => array(
 				'title' => __('Code', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupCodeTab(),
 				'fa_icon' => 'fa-code',
 				'sort_order' => 999),
 		);
-		if(in_array($popup['type'], array(PPS_COMMON, PPS_VIDEO))) {
+		if($useCommonTabs) {
 			$tabs['ppsPopupTexts'] = array(
 				'title' => __('Texts', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupTextsTab(),
 				'fa_icon' => 'fa-pencil-square-o',
 				'sort_order' => 20);
-			$tabs['ppsPopupSubscribe'] = array(
-				'title' => __('Subscribe', PPS_LANG_CODE), 
-				'content' => $this->getMainPopupSubTab(),
-				'fa_icon' => 'fa-users',
-				'sort_order' => 30);
-			$tabs['ppsPopupSm'] = array(
-				'title' => __('Social', PPS_LANG_CODE), 
-				'content' => $this->getMainPopupSmTab(),
-				'fa_icon' => 'fa-thumbs-o-up',
-				'sort_order' => 40);
 		}
 		$tabs = dispatcherPps::applyFilters('popupEditTabs', $tabs, $popup);
 		uasort($tabs, array($this, 'sortEditPopupTabsClb'));
 		$this->assign('tabs', $tabs);
 		return parent::getContent('popupEditAdmin');
 	}
+	
 	public function showEditPopupFormControls() {
 		parent::display('popupEditFormControls');
 	}
@@ -224,6 +245,9 @@ class popupViewPps extends viewPps {
 				'html' => 'checkbox', 
 				'desc' => __('Specifies whether to display a stream of the latest posts by the Page.', PPS_LANG_CODE)),
 		);
+	}
+	public function getMainPopupDesignTab() {
+		return parent::getContent('popupEditAdminDesignOpts');
 	}
 	public function getMainPopupOptsTab() {
 		return parent::getContent('popupEditAdminMainOpts');
@@ -480,8 +504,12 @@ class popupViewPps extends viewPps {
 			$this->_closeBtns = array(
 				'none' => array('label' => __('None', PPS_LANG_CODE)),
 				'classy_grey' => array('img' => 'classy_grey.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
+				'close-orange' => array('img' => 'close-orange.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
+				'close-red-in-circle' => array('img' => 'close-red-in-circle.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'lists_black' => array('img' => 'lists_black.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '25px', 'height' => '25px')),
-				'while_close' => array('img' => 'while_close.png', 'add_style' => array('width' => '25px', 'height' => '25px')),
+				'while_close' => array('img' => 'while_close.png', 'add_style' => array('top' => '15px', 'right' => '10px', 'width' => '25px', 'height' => '25px')),
+				'red_close' => array('img' => 'close-red.png', 'add_style' => array('top' => '15px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),
+				'yellow_close' => array('img' => 'close-yellow.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'sqr_close' => array('img' => 'sqr-close.png', 'add_style' => array('top' => '25px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),
 			);
 			foreach($this->_closeBtns as $key => $data) {
@@ -498,8 +526,11 @@ class popupViewPps extends viewPps {
 			$this->_bullets = array(
 				'none' => array('label' => __('None (standard)', PPS_LANG_CODE)),
 				'classy_blue' => array('img' => 'classy_blue.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '38px')),
-				'lists_green' => array('img' => 'lists_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '38px')),
 				'circle_green' => array('img' => 'circle_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
+				'lists_green' => array('img' => 'lists_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '38px')),
+				'tick' => array('img' => 'tick.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
+				'tick_blue' => array('img' => 'tick_blue.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
+				'ticks' => array('img' => 'ticks.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
 			);
 			foreach($this->_bullets as $key => $data) {
 				if(isset($data['img']) && !isset($data['img_url'])) {

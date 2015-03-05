@@ -12,7 +12,7 @@ class subscribeControllerPps extends controllerPps {
 			$dest = $this->getModel()->getDest();
 			$destData = $this->getModule()->getDestByKey( $dest );
 			if($destData && isset($destData['require_confirm']) && $destData['require_confirm'])
-				$res->addMessage(__('Confirnation link was sent to your email address. Check your email!', PPS_LANG_CODE));
+				$res->addMessage(__('Confirmation link was sent to your email address. Check your email!', PPS_LANG_CODE));
 			else
 				$res->addMessage(__('Thank you for subscription!', PPS_LANG_CODE));
 		} else

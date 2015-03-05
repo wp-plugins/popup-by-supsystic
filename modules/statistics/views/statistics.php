@@ -2,9 +2,13 @@
 class statisticsViewPps extends viewPps {
 	public function getPopupEditTab($popup) {
 		framePps::_()->getModule('templates')->loadJqplot();
+		framePps::_()->getModule('templates')->loadJqGrid();
+		framePps::_()->getModule('templates')->loadDatePicker();
+		
 		framePps::_()->addScript('admin.statistics.popup.edit', $this->getModule()->getModPath(). 'js/admin.statistics.popup.edit.js');
 		
-		$allStats = $this->getModel()->getAllForPopupId($popup['id']);
+		$group = isset($_COOKIE['pps_stat_group']) ? $_COOKIE['pps_stat_group'] : 'day';
+		$allStats = $this->getModel()->getAllForPopupId($popup['id'], array('group' => $group));
 		$allStats = dispatcherPps::applyFilters('popupStatsAdminData', $allStats, $popup);
 		$haveData = $allStats ? true : false;
 		if($haveData) {

@@ -220,4 +220,7 @@ abstract class modelPps extends baseObjectPps {
 	protected function _dataSave($data, $update = false) {
 		return $data;
 	}
+	public function getTbl() {
+		return $this->_tbl;
+	}
 }

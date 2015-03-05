@@ -352,46 +352,11 @@ input[type="color"] {
 .ppsSmallTbl tr {
 	height: auto !important;
 }
-/*** custom checkboxes ***/
-/*input[type=checkbox] { display:none; }
-input[type=checkbox] + label:before {
-  font-family: FontAwesome;
-  display: inline-block;
-}
-
-input[type=checkbox] + label:before { content: "\f096"; } 
-input[type=checkbox] + label:before { letter-spacing: 10px; } 
-
-input[type=checkbox]:checked + label:before { content: "\f046"; } 
-input[type=checkbox]:checked + label:before { letter-spacing: 5px; } */
-
 .ppsHtaccessPre {
 	background-color: #eef;
 	padding: 10px;
 }
 /*tabs*/
-/*h3 .nav-tab {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 24px;
-    padding: 9px 10px;
-	color: #28282a;
-	border: none;
-	background-color: transparent;
-}
-h3 .nav-tab.nav-tab-active, .nav-tab:hover{
-	background-color: #fff;
-	border: none;
-}
-h2.nav-tab-wrapper, h3.nav-tab-wrapper {
-	border: none;
-}
-.supsystic-item.supsystic-panel .nav-tab-active, 
-.supsystic-item.supsystic-panel .nav-tab-active:hover {
-    color: #000;
-	border: none;
-}
-*/
 .supsystic-plugin .nav-tab {
 	margin-left: -3px;
 	margin-right: -3px;
@@ -462,6 +427,9 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 	color: #a4aaac !important;
 	border-color: #a4aaac !important;
 	background-color: transparent !important;
+}
+.button.button-small.wp-picker-default {
+	margin: 10px 0 0 10px;
 }
 /*tooltip*/
 .supsystic-plugin .fa-question.supsystic-tooltip,
@@ -657,4 +625,35 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 	float: left;
 	width: 48%;
 	padding-right: 2%;
+}
+/*datepicker*/
+.ui-datepicker {
+	border: 1px solid #000;
+}
+.ui-datepicker .ui-datepicker-header .ui-icon {
+	width: 18px;
+	height: 21px;
+	margin-top: -5px;
+	cursor: pointer;
+	font-size: 1.5em;
+}
+.ui-datepicker .ui-datepicker-header .ui-state-hover .ui-icon {
+	color: #4ae8ea !important;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
+	left: 2px;
+	top: 2px;
+}
+.ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+	right: 2px;
+	top: 2px;
+}
+.ui-icon-circle-triangle-w:before {
+	content: "\f060";
+}
+.ui-icon-circle-triangle-e:before {
+	content: "\f061";
+}
+.ui-datepicker td span, .ui-datepicker td a {
+	text-align: center !important;
 }

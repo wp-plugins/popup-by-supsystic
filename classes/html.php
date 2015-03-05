@@ -26,6 +26,12 @@ class htmlPps {
     static public function input($name, $params = array('attrs' => '', 'type' => 'text', 'value' => '')) {
 		$params['attrs'] = isset($params['attrs']) ? $params['attrs'] : '';
 		$params['attrs'] .= self::_dataToAttrs($params);
+		if(isset($params['required']) && $params['required']) {
+			$params['attrs'] .= ' required ';	// HTML5 "required" validation attr
+		}
+		if(isset($params['placeholder']) && $params['placeholder']) {
+			$params['attrs'] .= ' placeholder="'. $params['placeholder']. '"';	// HTML5 "required" validation attr
+		}
 		$params['value'] = isset($params['value']) ? $params['value'] : '';
         return '<input type="'. $params['type']. '" name="'. $name. '" value="'. $params['value']. '" '. (isset($params['attrs']) ? $params['attrs'] : ''). ' />';
     }
@@ -40,6 +46,10 @@ class htmlPps {
 	}
     static public function text($name, $params = array('attrs' => '', 'value' => '')) {
         $params['type'] = 'text';
+        return self::input($name, $params);
+    }
+	static public function email($name, $params = array('attrs' => '', 'value' => '')) {
+        $params['type'] = 'email';
         return self::input($name, $params);
     }
 	static public function reset($name, $params = array('attrs' => '', 'value' => '')) {

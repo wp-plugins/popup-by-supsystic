@@ -21,7 +21,25 @@ jQuery(document).ready(function(){
 			}, 500);
 		}
 	}).animationDuration(0.5);
+	if(jQuery('.ppsTplPrevImg').size()) {	// If on creation page
+		ppsAdjustPreviewSize();
+		jQuery(window).resize(function(){
+			ppsAdjustPreviewSize();
+		});
+	}
 });
+
+function ppsAdjustPreviewSize() {
+	var shellWidth = parseInt(jQuery('.popup-list').width())
+	,	initialMaxWidth = 400
+	,	startFrom = 860
+	,	endFrom = 500;
+	if(shellWidth < startFrom && shellWidth > endFrom) {
+		jQuery('.ppsTplPrevImg').css('max-width', initialMaxWidth - Math.floor((startFrom - shellWidth) / 2));
+	} else if(shellWidth < endFrom || shellWidth > startFrom) {
+		jQuery('.ppsTplPrevImg').css('max-width', initialMaxWidth);
+	}
+}
 function ppsInitChangePopupDialog() {
 	var $container = jQuery('#ppsChangeTplWnd').dialog({
 		modal:    true
@@ -84,8 +102,7 @@ function ppsInitCreatePopupDialog() {
 	});
 	jQuery('#ppsCreatePopupForm').submit(function(){
 		jQuery(this).sendFormPps({
-			msgElID: 'ppsCreatePopupMsg'
-		,	btn: jQuery(this).find('button')
+			btn: jQuery(this).find('button')
 		,	onSuccess: function(res) {
 				if(!res.error && res.data.edit_link) {
 					toeRedirect( res.data.edit_link );

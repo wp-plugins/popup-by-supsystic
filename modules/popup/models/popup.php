@@ -346,4 +346,87 @@ class popupModelPps extends modelPps {
 	private function _prepareDiffKeys($key, $keysImplode) {
 		return empty($keysImplode) ? $key : implode('.', $keysImplode). '.'. $key;
 	}
+	public function clearCachedStats($id) {
+		$tbl = $this->getTbl();
+		$id = (int) $id;
+		return dbPps::query("UPDATE @__$tbl SET `views` = 0, `unique_views` = 0, `actions` = 0 WHERE `id` = $id");
+	}
+	public function addCachedStat($id, $statColumn) {
+		$tbl = $this->getTbl();
+		$id = (int) $id;
+		return dbPps::query("UPDATE @__$tbl SET `$statColumn` = `$statColumn` + 1 WHERE `id` = $id");
+	}
+	public function addViewed($id) {
+		return $this->addCachedStat($id, 'views');
+	}
+	public function addUniqueViewed($id) {
+		return $this->addCachedStat($id, 'unique_views');
+	}
+	public function addActionDone($id) {
+		return $this->addCachedStat($id, 'actions');
+	}
+	public function recalculateStatsForPopups() {
+		$recalculated = (int)get_option('pps_stats_recalculated');
+		if(!$recalculated) {
+			update_option('pps_stats_recalculated', 1);
+			$allPopups = $this->getSimpleList();
+			if(!empty($allPopups)) {
+				$statsModel = framePps::_()->getModule('statistics')->getModel();
+				foreach($allPopups as $p) {
+					if(empty($p['original_id'])) continue;
+					$stats = $statsModel->getPreparedStats(array('id' => $p['id']));
+					if(!empty($stats)) {
+						$total = array_shift($stats);
+						foreach($stats as $s) {
+							foreach($s as $statKey => $statData) {
+								if(is_numeric($statData)) {
+									$total[ $statKey ] += $statData;
+								}
+							}
+						}
+						$tbl = $this->getTbl();
+						framePps::_()->getTable($tbl)->update(array(
+							'views' => $total['views'],
+							'unique_views' => $total['unique_requests'],
+							'actions' => $total['actions'],
+						), array(
+							'id' => $p['id']
+						));
+					}
+				}
+			}
+		}
+	}
+	public function saveAsCopy($d = array()) {
+		$d['copy_label'] = isset($d['copy_label']) ? trim($d['copy_label']) : '';
+		$d['id'] = isset($d['id']) ? (int) $d['id'] : 0;
+		if(!empty($d['copy_label'])) {
+			if(!empty($d['id'])) {
+				$original = $this->getById($d['id']);
+				unset($original['id']);
+				unset($original['date_created']);
+				$original['label'] = $d['copy_label'];
+				$original['views'] = $original['unique_views'] = $original['actions'] = 0;
+				framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('save_as_copy');
+				return $this->insertFromOriginal( $original );
+			} else
+				$this->pushError (__('Invalid ID', PPS_LANG_CODE));
+		} else
+			$this->pushError (__('Please enter Name', PPS_LANG_CODE), 'copy_label');
+		return false;
+	}
+	public function switchActive($d = array()) {
+		$d['active'] = isset($d['active']) ? (int)$d['active'] : 0;
+		$d['id'] = isset($d['id']) ? (int) $d['id'] : 0;
+		if(!empty($d['id'])) {
+			$tbl = $this->getTbl();
+			return framePps::_()->getTable($tbl)->update(array(
+				'active' => $d['active'],
+			), array(
+				'id' => $d['id'],
+			));
+		} else
+			$this->pushError (__('Invalid ID', PPS_LANG_CODE));
+		return false;
+	}
 }

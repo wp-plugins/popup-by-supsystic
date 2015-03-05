@@ -134,7 +134,9 @@ function ppsCheckShowPopup( popup ) {
 	var actionDone = _ppsPopupGetActionDone( popup );
 	if(popup.params.main.show_to == 'until_make_action' && actionDone)
 		return;
-	ppsShowPopup( popup );
+	ppsShowPopup(popup, {
+		isUnique: prevShow ? 0 : 1
+	});
 }
 /**
  * Check - was action done in this popup or not (any action will be checked)
@@ -168,10 +170,10 @@ function _ppsPopupSetActionDone( popup, action, smType ) {
 	setCookiePps(actionsKey, actions)
 	_ppsPopupAddStat( popup, action, smType );
 }
-function _ppsPopupAddStat( popup, action, smType ) {
+function _ppsPopupAddStat( popup, action, smType, isUnique ) {
 	jQuery.sendFormPps({
 		msgElID: 'noMessages'
-	,	data: {mod: 'statistics', action: 'add', id: popup.id, type: action, sm_type: smType, 'connect_hash': popup.connect_hash}
+	,	data: {mod: 'statistics', action: 'add', id: popup.id, type: action, sm_type: smType, is_unique: isUnique, 'connect_hash': popup.connect_hash}
 	});
 }
 
@@ -179,10 +181,11 @@ function _ppsPopupAddStat( popup, action, smType ) {
  * Show popup
  * @param {mixed} popup Popup object or it's ID
  */
-function ppsShowPopup( popup ) {
+function ppsShowPopup( popup, params ) {
+	params = params || {};
 	if(jQuery.isNumeric( popup ))
 		popup = ppsGetPopupById( popup );
-	_ppsPopupAddStat( popup, 'show' );	// Save show popup statistics
+	_ppsPopupAddStat( popup, 'show', 0, params.isUnique );	// Save show popup statistics
 	ppsShowBgOverlay( popup );
 	var shell = ppsGetPopupShell( popup );
 	_ppsPositionPopup({shell: shell, popup: popup});

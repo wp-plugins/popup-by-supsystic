@@ -1,8 +1,8 @@
 === PopUp by Supsystic ===
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
-Tested up to: 4.1
-Stable tag: 1.0.9
+Tested up to: 4.1.1
+Stable tag: 1.1.0
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -19,6 +19,8 @@ The Best WordPress PopUp optin plugin to help you gain more subscribers, social 
 * Theme Builder
 * Responsive Popups
 * Exit-intent popups allow you to capture lost visitors
+
+>Only this week. [Get PRO version for FREE!](http://supsystic.com/get-pro-version-of-any-plugin-for-free/ "Get PRO version for FREE")
 
 Popup maker with live preview let you customize pop-up templates without programming skills. Plugin allows you to create popups with any type of content:
 
@@ -133,7 +135,29 @@ Small size, Reliable with wide option range.
 
 The plugin is as light. The website work will not be damaged. Popups will operate at a very high level with optimal uptime using optimization techniques and program enhancement. 
 
+*Check other WordPress plugins:*
+
+* [Backup by Supsystic](https://wordpress.org/plugins/backup-by-supsystic/ "Backup and Restoration plugin")
+* [Grid Gallery](https://wordpress.org/plugins/gallery-by-supsystic/ "Grid Gallery plugin")
+* [Google Maps](https://wordpress.org/plugins/google-maps-easy/ "Google Maps plugin")
+* [Slider by Supsystic](https://wordpress.org/plugins/slider-by-supsystic/ "Slider plugin")
+* [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
+
 == Changelog ==
+
+= 1.1.0 / 05.03.2015 =
+ * Added 5 new popup templates
+ * Statistics - added table view in admin area
+ * Statistics - added CSV export in admin area
+ * Statistics - added date range selection in admin area
+ * Statistics - added Unique views parameters and Conversion calculation
+ * Possibility to disable PopUps (not delete, but just disable)
+ * Clone PopUp functionality added
+ * Admin UI style improvements - make it more pretty and comfortable for usage
+ * After change measure type for With - from px to % - make sure that width value - is not more then 100
+ * Additional core improvements
+ * AB testing - test list modification according to main PopUps list
+ * Installer improve
 
 = 1.0.9 / 24.02.2015 =
  * Allow to assign new subscribers - special roles

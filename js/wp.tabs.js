@@ -6,7 +6,7 @@
 				this._options = options || {};
 				if (!$this.hasClass('ppsWpTabs')) {
 					$this.addClass('ppsWpTabs');
-					var navigations = $this.find('.nav-tab-wrapper').find('a.nav-tab:not(.notTab)')
+					var navigations = $this.find('.nav-tab-wrapper:first').find('a.nav-tab:not(.notTab)')
 					,	firstNavigation = null;
 					navigations.each(function(){
 						if(!firstNavigation)
@@ -19,6 +19,16 @@
 					var locationHash = document.location.hash;
 					if(locationHash && locationHash != '' && $this.find(locationHash)) {
 						$this.wpTabs('activate', locationHash);
+						if(jQuery(locationHash).size()) {
+							// Avoid scrolling to hashes
+							jQuery(window).load(function(){
+								setTimeout(function(){
+									jQuery('html, body').animate({
+										scrollTop: 0
+									}, 100);
+								}, 1);
+							});
+						}
 					} else {
 						$this.wpTabs('activate', firstNavigation.attr('href'));
 					}
@@ -29,8 +39,16 @@
 			return this.each(function(){
 				var $this = $(this);
 				if($this.find(selector).size()) {
-					var navigations = $this.find('.nav-tab-wrapper').find('a.nav-tab:not(.notTab)');
-					$this.find('.ppsTabContent').hide();
+					var navigations = $this.find('.nav-tab-wrapper:first').find('a.nav-tab:not(.notTab)');
+					if(!this._firstInit) {
+						if(this._options.uniqId)
+							$this.find('.ppsTabContent').attr('data-tabs-for', this._options.uniqId);
+						this._firstInit = 1;
+					}
+					var allTabsContent = this._options.uniqId 
+						? $this.find('.ppsTabContent[data-tabs-for="'+ this._options.uniqId + '"]')
+						: $this.find('.ppsTabContent');
+					allTabsContent.hide();
 					$this.find(selector).show();
 					navigations.removeClass('nav-tab-active');
 					$this.find('[href="'+ selector+ '"]').addClass('nav-tab-active');

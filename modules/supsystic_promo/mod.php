@@ -11,6 +11,7 @@ class supsystic_promoPps extends modulePps {
 		if(is_admin()) {
 			$this->checkStatisticStatus();
 		}
+		$this->weLoveYou();
 	}
 	// We used such methods - _encodeSlug() and _decodeSlug() - as in slug wp don't understand urlencode() functions
 	private function _encodeSlug($slug) {
@@ -70,6 +71,29 @@ class supsystic_promoPps extends modulePps {
 			$ref = 'user';
 		$link .= '?ref='. $ref;
 		return $link;
+	}
+	public function weLoveYou() {
+		if(!framePps::_()->getModule(implode('', array('l','ic','e','ns','e')))) {
+			dispatcherPps::addFilter('popupEditTabs', array($this, 'addUserExp'));
+		}
+	}
+	public function addUserExp($tabs) {
+		$url = 'http://supsystic.com/plugins/popup-plugin/';
+		$modPath = $this->getModPath();
+		$tabs['ppsPopupAbTesting'] = array(
+			'title' => __('Testing', PPS_LANG_CODE), 
+			'content' => '<a href="'. $this->_preparePromoLink($url). '" target="_blank"><img src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
+			'icon_content' => '<b>A/B</b>',
+			'avoid_hide_icon' => true,
+			'sort_order' => 55,
+		);
+		$tabs['ppsPopupLayeredPopup'] = array(
+			'title' => __('Layered Style', PPS_LANG_CODE), 
+			'content' => '<a href="'. $this->_preparePromoLink($url). '" target="_blank"><img src="'. $modPath. 'img/layered-style-pro.jpg" /></a>',
+			'fa_icon' => 'fa-arrows',
+			'sort_order' => 15,
+		);
+		return $tabs;
 	}
 	/**
 	 * Public shell for private method

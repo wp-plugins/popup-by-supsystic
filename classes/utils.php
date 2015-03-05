@@ -329,6 +329,9 @@ class utilsPps {
      */
     static public function activatePlugin() {
         global $wpdb;
+		if(PPS_TEST_MODE) {
+			add_action('activated_plugin', array(framePps::_(), 'savePluginActivationErrors'));
+		}
         if (function_exists('is_multisite') && is_multisite()) {
             $orig_id = $wpdb->blogid;
             $blog_id = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");

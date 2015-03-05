@@ -397,4 +397,10 @@ class framePps {
 	public function licenseDeactivated() {
 		return (!$this->getModule('license') && $this->moduleExists('license'));
 	}
+	public function savePluginActivationErrors() {
+		update_option(PPS_CODE. '_plugin_activation_errors',  ob_get_contents());
+	}
+	public function getActivationErrors() {
+		return get_option(PPS_CODE. '_plugin_activation_errors');
+	}
 }

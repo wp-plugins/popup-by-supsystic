@@ -27,9 +27,12 @@ class popupPps extends modulePps {
 		$id = (int) reqPps::getVar('id', 'get');
 		return $this->getView()->getEditTabContent( $id );
 	}
-	public function getEditLink($id) {
+	public function getEditLink($id, $popupTab = '') {
 		$link = framePps::_()->getModule('options')->getTabUrl( $this->getCode(). '_edit' );
 		$link .= '&id='. $id;
+		if(!empty($popupTab)) {
+			$link .= '#'. $popupTab;
+		}
 		return $link;
 	}
 	public function checkPopupShow() {
@@ -37,7 +40,7 @@ class popupPps extends modulePps {
 		$currentPageId = (int) get_the_ID();
 		/*show_pages = 1 -> All, 2 -> show on selected, 3 -> do not show on selected*/
 		/*show_on = 1 -> Page load, 2 -> click on page, 3 -> click on certain element (shortcode)*/
-		$condition = "original_id != 0 AND (show_pages = 1";
+		$condition = "original_id != 0 AND active = 1 AND (show_pages = 1";
 		// Check if we can show popup on this page
 		if($currentPageId) {
 			$condition .= " OR (show_pages = 2 AND id IN (SELECT popup_id FROM @__popup_show_pages WHERE post_id = $currentPageId AND not_show = 0))
@@ -79,8 +82,8 @@ class popupPps extends modulePps {
 		}
 	}
 	private function _beforeRender($popups) {
+		$dataRemoved = false;
 		if(!empty($popups)) {
-			$dataRemoved = false;
 			$mobileDetect = NULL;
 			$isMobile = false;
 			$isTablet = false;

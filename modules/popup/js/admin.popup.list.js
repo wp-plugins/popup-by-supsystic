@@ -5,12 +5,15 @@ jQuery(document).ready(function(){
 	,	datatype: 'json'
 	,	autowidth: true
 	,	shrinkToFit: true
-	,	colNames:[toeLangPps('ID'), toeLangPps('Label'), toeLangPps('Date'), toeLangPps('Action')]
+	,	colNames:[toeLangPps('ID'), toeLangPps('Label'), toeLangPps('Views'), toeLangPps('Unique Views'), toeLangPps('Actions'), toeLangPps('Conversion'), toeLangPps('Active')]
 	,	colModel:[
-			{name: 'id', index: 'id', searchoptions: {sopt: ['eq']}, width: '30', align: 'center'}
+			{name: 'id', index: 'id', searchoptions: {sopt: ['eq']}, width: '50', align: 'center'}
 		,	{name: 'label', index: 'label', searchoptions: {sopt: ['eq']}, align: 'center'}
-		,	{name: 'date_created', index: 'date_created', searchoptions: {sopt: ['eq']}, align: 'center'}
-		,	{name: 'action', index: 'action', sortable: false, search: false, align: 'center'}
+		,	{name: 'views', index: 'views', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'unique_views', index: 'unique_views', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'actions', index: 'actions', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'conversion', index: 'conversion', searchoptions: {sopt: ['eq']}, align: 'center'}
+		,	{name: 'active', index: 'active', searchoptions: {sopt: ['eq']}, align: 'center'}
 		]
 	,	postData: {
 			search: {
@@ -99,9 +102,14 @@ jQuery(document).ready(function(){
 			var rowData = jQuery('#ppsPopupTbl').jqGrid('getRowData', selectedRowIds[ i ]);
 			listIds.push( rowData.id );
 		}
+		var popupLabel = '';
+		if(listIds.length == 1) {	// In table label cell there can be some additional links
+			var labelCellData = ppsGetGridColDataById(listIds[0], 'label', 'ppsPopupTbl');
+			popupLabel = jQuery(labelCellData).text();
+		}
 		var confirmMsg = listIds.length > 1
 			? toeLangPps('Are you sur want to remove '+ listIds.length+ ' PopUps?')
-			: toeLangPps('Are you sure want to remove "'+ ppsGetGridColDataById(listIds[0], 'label', 'ppsPopupTbl')+ '" PopUp?')
+			: toeLangPps('Are you sure want to remove "'+ popupLabel+ '" PopUp?')
 		if(confirm(confirmMsg)) {
 			jQuery.sendFormPps({
 				btn: this

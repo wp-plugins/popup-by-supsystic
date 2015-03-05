@@ -14,7 +14,7 @@
 		</label>
 		<label>
 			<?php echo htmlPps::text('params[main][show_on_page_load_delay]', array('value' => $this->popup['params']['main']['show_on_page_load_delay']));?>
-			<?php _e('seconds', PPS_LANG_CODE)?>
+			<span class="supsystic-tooltip" title="<?php _e('Seconds', PPS_LANG_CODE)?>"><?php _e('sec', PPS_LANG_CODE)?></span>
 		</label>
 	</div><br />
 	<label>

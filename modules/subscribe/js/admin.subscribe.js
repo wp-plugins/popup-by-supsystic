@@ -1,10 +1,10 @@
 jQuery(document).ready(function(){
 	// Show/hide additonal subscribe options
 	jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_dest]"]').change(function(){
-		jQuery('.ppsPopupSubDestOpts:visible').slideUp( 300 );
+		jQuery('.ppsPopupSubDestOpts:visible').slideUp( g_ppsAnimationSpeed );
 		var selectedShell = jQuery('#ppsPopupSubDestOpts_'+ jQuery(this).val());
 		if(selectedShell && selectedShell.size()) {
-			selectedShell.slideDown( 300 );
+			selectedShell.slideDown( g_ppsAnimationSpeed );
 		}
 	}).change();
 	_ppsUpdateMailchimpLists();

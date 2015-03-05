@@ -34,7 +34,7 @@
 .ppsSelectTpl {
 	position: absolute;
 	top: -50px;
-	left: 160px;
+	/*left: 160px;*/
 }
 #ppsPopupPreview {
 	/*float: left;
@@ -147,4 +147,19 @@
 }
 .popup-tick-label {
 	
+}
+[data-block-to-switch] {
+	width: 100%;
+}
+/*Design tabs*/
+#ppsPopupEditDesignTabs .nav-tab-wrapper {
+	padding-left: 230px; 
+	margin-top: 0px; 
+	margin-bottom: 0px;
+}
+#ppsPopupEditDesignTabs .nav-tab {
+	padding-bottom: 14px;
+}
+#ppsPopupEditDesignTabs .ppsPopupSelectTpl {
+	float: left;
 }

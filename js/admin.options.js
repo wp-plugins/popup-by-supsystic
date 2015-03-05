@@ -194,6 +194,7 @@ function ppsInitStickyItem() {
 							}
 						}
 						wasSticking = true;
+						element.trigger('startSticky');
 					} else if(!isNaN(prevScrollMinPos) && currentScrollTop <= prevScrollMinPos) {	// Stop sticking
 						element.removeClass('supsystic-sticky-active').data('scrollMinPos', 0).css({
 							//'top': 0
@@ -213,6 +214,7 @@ function ppsInitStickyItem() {
 								});
 							}
 						}
+						element.trigger('stopSticky');
 						wasUnSticking = true;
 					} else {	// Check new stick position
 						if(element.hasClass('supsystic-sticky-active')) {
@@ -352,4 +354,15 @@ function getGridRowId(id, gridSelectorId) {
 		return false;
 	}
 	return rowId;
+}
+function prepareToPlotDate(data) {
+	if(typeof(data) === 'string') {
+		if(data) {
+			
+			data = str_replace(data, '/', '-');
+			console.log(data, new Date(data));
+			return (new Date(data)).getTime();
+		}
+	}
+	return data;
 }

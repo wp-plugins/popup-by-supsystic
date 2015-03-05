@@ -10,12 +10,26 @@ class statisticsModelPps extends modelPps {
 			$typeId = $this->getModule()->getTypeIdByCode( $d['type'] );
 			$smId = 0;
 			if($d['type'] == 'share' && isset($d['sm_type']) && !empty($d['sm_type'])) {
-				$smId = framePps::_()->getModule('sm')->getTypeIdByCode( $d['sm_type'] );
+				$smId = (int) framePps::_()->getModule('sm')->getTypeIdByCode( $d['sm_type'] );
+			}
+			$isUnique = 0;
+			if(isset($d['is_unique']) && !empty($d['is_unique'])) {
+				$isUnique = (int) 1;	// This is realy cool :)
+			}
+			$popupModel = framePps::_()->getModule('popup')->getModel();
+			if(in_array($d['type'], array('show'))) {
+				$popupModel->addViewed( $d['id'] );
+				if($isUnique) {
+					$popupModel->addUniqueViewed( $d['id'] );
+				}
+			} else {	// Any action count here
+				$popupModel->addActionDone( $d['id'] );
 			}
 			return $this->insert(array(
 				'popup_id' => $d['id'],
 				'type' => $typeId,
 				'sm_id' => $smId,
+				'is_unique' => $isUnique,
 			));
 		} else
 			$this->pushError(__('Send me some info, pls', PPS_LANG_CODE));
@@ -36,7 +50,24 @@ class statisticsModelPps extends modelPps {
 		if($typeId) {
 			$where['type'] = $typeId;
 		}
-		return $this->setSelectFields('COUNT(*) AS total_requests, DATE_FORMAT(date_created, "%m-%d-%Y") AS date')
+		$group = isset($params['group']) ? $params['group'] : 'day';
+		$sqlDateFormat = '';
+		switch($group) {
+			case 'hour':
+				$sqlDateFormat = 'DATE_FORMAT(date_created, "%m-%d-%Y %H:00")';
+				break;
+			case 'week':
+				$sqlDateFormat = 'DATE_FORMAT(DATE_SUB(date_created, INTERVAL DAYOFWEEK(date_created)-1 DAY), "%m-%d-%Y")';
+				break;
+			case 'month':
+				$sqlDateFormat = 'DATE_FORMAT(date_created, "%m-01-%Y")';
+				break;
+			case 'day':
+			default:
+				$sqlDateFormat = 'DATE_FORMAT(date_created, "%m-%d-%Y")';
+				break;
+		}
+		return $this->setSelectFields('COUNT(*) AS total_requests, SUM(is_unique) AS unique_requests, '. $sqlDateFormat. ' AS date')
 				->groupBy('date')
 				->setOrderBy('date')
 				->setSortOrder('DESC')
@@ -59,25 +90,79 @@ class statisticsModelPps extends modelPps {
 	public function clearForPopUp($d = array()) {
 		$d['id'] = isset($d['id']) ? (int) $d['id'] : 0;
 		if($d['id']) {
+			framePps::_()->getModule('popup')->getModel()->clearCachedStats( $d['id'] );
 			return $this->delete(array('popup_id' => $d['id']));
 		} else
 			$this->pushError(__('Invalid ID', PPS_LANG_CODE));
 		return false;
 	}
-	public function getAllForPopupId($id) {
+	public function getAllForPopupId($id, $params = array()) {
 		$allTypes = $this->getModule()->getTypes();
 		$allStats = array();
 		$haveData = false;
 		$i = 0;
 		foreach($allTypes as $typeCode => $type) {
+			$params['type'] = $type['id'];
 			$allStats[ $i ] = $type;
 			$allStats[ $i ]['code'] = $typeCode;
-			$allStats[ $i ]['points'] = $this->getForPopup($id, array('type' => $type['id']));
+			$allStats[ $i ]['points'] = $this->getForPopup($id, $params);
 			if(!empty($allStats[ $i ]['points'])) {
 				$haveData = true;
 			}
 			$i++;
 		}
 		return $haveData ? $allStats : false;
+	}
+	public function getUpdatedStats($d = array()) {
+		$id = isset($d['id']) ? (int) $d['id'] : 0;
+		if($id) {
+			$popup = framePps::_()->getModule('popup')->getModel()->getById( $id );
+			$params = array();
+			if(isset($d['group']))
+				$params['group'] = $d['group'];
+			$allStats = $this->getAllForPopupId($id, $params);
+			$allStats = dispatcherPps::applyFilters('popupStatsAdminData', $allStats, $popup);
+			return $allStats;
+		} else
+			$this->pushError (__('Invalid ID', PPS_LANG_CODE));
+		return false;
+	}
+	public function getPreparedStats($d = array()) {
+		$stats = $this->getUpdatedStats( $d );
+		if($stats) {
+			$dataToDate = array();
+			foreach($stats as $i => $stat) {
+				if(isset($stat['points']) && !empty($stat['points'])) {
+					foreach($stat['points'] as $j => $point) {
+						$date = $point['date'];
+						$currentData = array(
+							'date' => $date,
+							'views' =>  0,
+							'unique_requests' => 0,
+							'actions' => 0,
+							'conversion' => 0,
+						);
+						if(in_array($stat['code'], array('show'))) {
+							$currentData['views'] = (int)( $point['total_requests'] );
+						} else {
+							$currentData['actions'] = (int)( $point['total_requests'] );
+						}
+						$uniqueRequests = (int)( $point['unique_requests'] );
+						if($uniqueRequests) {
+							$currentData['unique_requests'] = $uniqueRequests;
+						}
+						if(isset($dataToDate[ $date ])) {
+							$currentData['views'] += $dataToDate[ $date ]['views'];
+							$currentData['actions'] += $dataToDate[ $date ]['actions'];
+							$currentData['unique_requests'] += $dataToDate[ $date ]['unique_requests'];
+						}
+						$dataToDate[ $date ] = $currentData;
+					}
+				}
+			}
+			return $dataToDate;
+		} else
+			$this->pushError (__('No data found', PPS_LANG_CODE));
+		return false;
 	}
 }

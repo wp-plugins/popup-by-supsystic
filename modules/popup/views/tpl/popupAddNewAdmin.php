@@ -13,7 +13,7 @@
 				<form id="ppsCreatePopupForm">
 					<label>
 						<h3 style="float: left; margin: 10px;"><?php _e('PopUp Name', PPS_LANG_CODE)?>:</h3>
-						<?php echo htmlPps::text('label', array('attrs' => 'style="float: left; width: 60%;"'))?>
+						<?php echo htmlPps::text('label', array('attrs' => 'style="float: left; width: 60%;"', 'required' => true))?>
 					</label>
 					<button class="button button-primary" style="margin-top: 1px;">
 						<i class="fa fa-check"></i>

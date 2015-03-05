@@ -5,12 +5,12 @@
 		<a target="_blank" href="http://wordpress.org/plugins/popup-by-supsystic/changelog/"><?php echo PPS_VERSION?></a>
 	</div>
 	<div class="ppsAdminFooterCell">|</div>
-	<?php /* if(!framePps::_()->getModule(implode('', array('l','ic','e','ns','e')))) {?>
+	<?php  if(!framePps::_()->getModule(implode('', array('l','ic','e','ns','e')))) {?>
 	<div class="ppsAdminFooterCell">
-		<?php _e('Go', PPS_LANG_CODE)?>&nbsp;<a target="_blank" href="<?php echo $this->getModule()->preparePromoLink('http://supsystic.com/product/popup-by-supsystic/');?>"><?php _e('PRO', PPS_LANG_CODE)?></a>
+		<?php _e('Go', PPS_LANG_CODE)?>&nbsp;<a target="_blank" href="<?php echo $this->getModule()->preparePromoLink('http://supsystic.com/plugins/popup-plugin/');?>"><?php _e('PRO', PPS_LANG_CODE)?></a>
 	</div>
 	<div class="ppsAdminFooterCell">|</div>
-	<?php }*/ ?>
+	<?php } ?>
 	<div class="ppsAdminFooterCell">
 		<a target="_blank" href="http://wordpress.org/support/plugin/popup-by-supsystic"><?php _e('Support', PPS_LANG_CODE)?></a>
 	</div>

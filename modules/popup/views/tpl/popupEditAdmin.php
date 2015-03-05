@@ -45,25 +45,32 @@
 					jQuery('#ppsPopupPreviewFrame').load(function(){
 						if(typeof(ppsHidePreviewUpdating) === 'function')
 							ppsHidePreviewUpdating();
-						var paddingSize = 40
+						var contentDoc = jQuery(this).contents()
+						,	popupShell = contentDoc.find('.ppsPopupShell')
+						,	paddingSize = 40
 						,	newWidth = (jQuery(this).get(0).contentWindow.document.body.scrollWidth + paddingSize)
 						,	newHeight = (jQuery(this).get(0).contentWindow.document.body.scrollHeight + paddingSize)
-						,	parentWidth = jQuery('#ppsPopupPreview').width();
-						if(newWidth > parentWidth) {
+						,	parentWidth = jQuery('#ppsPopupPreview').width()
+						,	widthMeasure = jQuery('#ppsPopupEditForm').find('[name="params[tpl][width_measure]"]:checked').val();
+
+						if(widthMeasure == '%') {
 							newWidth = parentWidth;
+						} else {
+							if(newWidth > parentWidth) {
+								newWidth = parentWidth;
+							}
 						}
 						jQuery(this).width( newWidth+ 'px' );
 						jQuery(this).height( newHeight+ 'px' );
 						<?php if(in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>
 							jQuery(this).height( '500px' );
 						<?php }?>
-						var contentDoc = jQuery(this).contents();
 						var top = 15;
 						if(typeof(ppsPopup) !== 'undefined' && ppsPopup.original_id == 11 /*START popup*/) {
 							top = 30;
 						}
-						contentDoc.find('.ppsPopupShell').css({
-							'position': 'absolute'
+						popupShell.css({
+							'position': 'fixed'
 						,	'top': top+ 'px'
 						});
 						contentDoc.click(function(){

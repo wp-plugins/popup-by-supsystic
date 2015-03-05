@@ -8,6 +8,7 @@ class tableStatisticsPps extends tablePps {
 			->_addField('popup_id', 'text', 'int')
 			->_addField('type', 'text', 'int')
 			->_addField('sm_id', 'text', 'int')	// Social Media ID
+			->_addField('is_unique', 'text', 'int')	// Is stat value - unique
 			->_addField('date_created', 'text', 'varchar');
     }
 }

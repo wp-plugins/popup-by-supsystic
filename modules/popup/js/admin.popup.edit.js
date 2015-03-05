@@ -3,7 +3,8 @@ var ppsPopupSaveTimeout = null
 ,	ppsTinyMceEditorUpdateBinded = false;
 jQuery(document).ready(function(){
 	jQuery('#ppsPopupEditTabs').wpTabs({
-		change: function(selector) {
+		uniqId: 'ppsPopupEditTabs'
+	,	change: function(selector) {
 			if(selector == '#ppsPopupEditors') {
 				jQuery(selector).find('textarea').each(function(i, el){
 					if(typeof(this.CodeMirrorEditor) !== 'undefined') {
@@ -13,14 +14,23 @@ jQuery(document).ready(function(){
 			} else if(selector == '#ppsPopupStatistics') {
 				ppsDrawPopupCharts();
 			}
+			if(selector == '#ppsPopupStatistics') {	// Hide preview for statistics tab
+				jQuery('#ppsPopupPreview').hide();
+			} else {
+				jQuery('#ppsPopupPreview').show();
+			}
 			var tabChangeEvt = str_replace(selector, '#', '')+ '_tabSwitch';
 			jQuery(document).trigger( tabChangeEvt );
 		}
+	});
+	jQuery('#ppsPopupEditDesignTabs').wpTabs({
+		uniqId: 'ppsPopupEditDesignTabs'
 	});
 	jQuery('.ppsPopupSaveBtn').click(function(){
 		jQuery('#ppsPopupEditForm').submit();
 		return false;
 	});
+	
 	jQuery('#ppsPopupEditForm').submit(function(){
 		// Don't save if form isalready submitted
 		if(ppsPopupIsSaving) {
@@ -200,11 +210,6 @@ jQuery(document).ready(function(){
 		}
 		return false;
 	});
-	// Change tpl btn init
-	jQuery('.ppsPopupSelectTpl').click(function(){
-		toeRedirect( ppsAddNewUrl+ '&change_for='+ ppsPopup.id );
-		return false;
-	});
 	// Don't allow users to set more then 100% width
 	jQuery('#ppsPopupEditForm').find('[name="params[tpl][width]"]').keyup(function(){
 		var measureType = jQuery('#ppsPopupEditForm').find('[name="params[tpl][width_measure]"]:checked').val();
@@ -215,6 +220,31 @@ jQuery(document).ready(function(){
 			}
 		}
 	});
+	jQuery('#ppsPopupEditForm').find('[name="params[tpl][width_measure]"]').change(function(){
+		if(!jQuery(this).attr('checked'))
+			return;
+		var widthInput = jQuery('#ppsPopupEditForm').find('[name="params[tpl][width]"]');
+		if(jQuery(this).val() == '%') {
+			var currentWidth = parseInt(widthInput.val());
+			if(currentWidth > 100) {
+				widthInput.data('prev-width', currentWidth);
+				widthInput.val(100);
+			}
+		} else if(widthInput.data('prev-width')) {
+			widthInput.val( widthInput.data('prev-width') );
+		}
+	});
+	// Show/hide whole blocks after it's enable/disable by special attribute - data-switch-block
+	jQuery('input[type=checkbox][data-switch-block]').change(function(){
+		var blockToSwitch = jQuery(this).data('switch-block');
+		if(jQuery(this).attr('checked')) {
+			jQuery('[data-block-to-switch='+ blockToSwitch+ ']').slideDown( g_ppsAnimationSpeed );
+		} else {
+			jQuery('[data-block-to-switch='+ blockToSwitch+ ']').slideUp( g_ppsAnimationSpeed );
+		}
+	}).change();
+	// Init Save as Copy function
+	ppsPopupInitSaveAsCopyDlg();
 	// Auto update bind, timeout - to make sure that all options is already setup and triggered required load changes
 	setTimeout(function(){
 		var autoUpdateBoxes = ['#ppsPopupTpl', '#ppsPopupTexts', '#ppsPopupSubscribe', '#ppsPopupSm'];
@@ -230,6 +260,30 @@ jQuery(document).ready(function(){
 	jQuery(window).resize(function(){
 		ppsAdjustPopupsEditTabs();
 	});
+	// Switch Off/Onn button
+	ppsPopupCheckSwitchActiveBtn();
+	jQuery('.ppsPopupSwitchActive').click(function(){
+		var newActive = parseInt(ppsPopup.active) ? 0 : 1;
+		jQuery.sendFormPps({
+			btn: this
+		,	data: {mod: 'popup', action: 'switchActive', id: ppsPopup.id, active: newActive}
+		,	onSuccess: function(res) {
+				if(!res.error) {
+					ppsPopup.active = newActive;
+					ppsPopupCheckSwitchActiveBtn();
+				}
+			}
+		});
+		return false;
+	});
+	jQuery('#supsystic-breadcrumbs').bind('startSticky', function(){
+		var currentPadding = parseInt(jQuery('#ppsPopupMainControllsShell').css('padding-right'));
+		jQuery('#ppsPopupMainControllsShell').css('padding-right', currentPadding + 200).attr('data-padding-changed', 'padding is changed in admin.popup.edit.js');
+	});
+	jQuery('#supsystic-breadcrumbs').bind('stopSticky', function(){
+		var currentPadding = parseInt(jQuery('#ppsPopupMainControllsShell').css('padding-right'));
+		jQuery('#ppsPopupMainControllsShell').css('padding-right', currentPadding - 200);
+	});
 });
 jQuery(window).load(function(){
 	ppsAdjustPopupsEditTabs();
@@ -242,48 +296,52 @@ function ppsAdjustPopupsEditTabs(requring) {
 	jQuery('#ppsPopupEditTabs .supsystic-always-top')
 			.outerWidth( jQuery('#ppsPopupEditTabs').width() )
 			.attr('data-code-tip', 'Width was set in admin.popup.edit.js - ppsAdjustPopupsEditTabs()');
-	var tabs = jQuery('#ppsPopupEditTabs .nav-tab-wrapper:first')
-	,	delta = 10
-	,	lineWidth = tabs.width() + delta
-	,	fullCurrentWidth = 0
-	,	currentState = '';	//full, text, icons
 	
-	if(!tabs.find('.pps-edit-icon').is(':visible')) {
-		currentState = 'text';
-	} else if(!tabs.find('.ppsPopupTabTitle').is(':visible')) {
-		currentState = 'icons';
-	} else {
-		currentState = 'full';
-	}
-	
-	tabs.find('.nav-tab').each(function(){
-		fullCurrentWidth += jQuery(this).outerWidth();
-	});
-	
-	if(fullCurrentWidth > lineWidth) {
-		switch(currentState) {
-			case 'full':
-				tabs.find('.pps-edit-icon').hide();
-				ppsAdjustPopupsEditTabs(true);	// Maybe we will require to make it more smaller
-				break;
-			case 'text':
-				tabs.find('.pps-edit-icon').show().end().find('.ppsPopupTabTitle').hide();
-				break;
-			default:
-				// Nothing can do - all that can be hidden - is already hidden
-				break;
+	var checkTabsNavs = ['#ppsPopupEditTabs .nav-tab-wrapper:first'];
+	for(var i = 0; i < checkTabsNavs.length; i++) {
+		var tabs = jQuery(checkTabsNavs[i])
+		,	delta = 10
+		,	lineWidth = tabs.width() + delta
+		,	fullCurrentWidth = 0
+		,	currentState = '';	//full, text, icons
+
+		if(!tabs.find('.pps-edit-icon').is(':visible')) {
+			currentState = 'text';
+		} else if(!tabs.find('.ppsPopupTabTitle').is(':visible')) {
+			currentState = 'icons';
+		} else {
+			currentState = 'full';
 		}
-	} else if(fullCurrentWidth < lineWidth && (lineWidth - fullCurrentWidth > 400) && !requring) {
-		switch(currentState) {
-			case 'icons':
-				tabs.find('.pps-edit-icon').hide().end().find('.ppsPopupTabTitle').show();
-				break;
-			case 'text':
-				tabs.find('.pps-edit-icon').show().end().find('.ppsPopupTabTitle').show();
-				break;
-			default:
-				// Nothing can do - all that can be hidden - is already hidden
-				break;
+
+		tabs.find('.nav-tab').each(function(){
+			fullCurrentWidth += jQuery(this).outerWidth();
+		});
+
+		if(fullCurrentWidth > lineWidth) {
+			switch(currentState) {
+				case 'full':
+					tabs.find('.pps-edit-icon').hide();
+					ppsAdjustPopupsEditTabs(true);	// Maybe we will require to make it more smaller
+					break;
+				case 'text':
+					tabs.find('.pps-edit-icon').show().end().find('.ppsPopupTabTitle').hide();
+					break;
+				default:
+					// Nothing can do - all that can be hidden - is already hidden
+					break;
+			}
+		} else if(fullCurrentWidth < lineWidth && (lineWidth - fullCurrentWidth > 400) && !requring) {
+			switch(currentState) {
+				case 'icons':
+					tabs.find('.pps-edit-icon').hide().end().find('.ppsPopupTabTitle').show();
+					break;
+				case 'text':
+					tabs.find('.pps-edit-icon').show().end().find('.ppsPopupTabTitle').show();
+					break;
+				default:
+					// Nothing can do - all that can be hidden - is already hidden
+					break;
+			}
 		}
 	}
 }
@@ -386,4 +444,44 @@ function ppsShowTipScreenPopUp(link) {
 			});
 	});
 	$container.append( $img ).appendTo('body');
+}
+function ppsPopupInitSaveAsCopyDlg() {
+	var $container = jQuery('#ppsPopupSaveAsCopyWnd').dialog({
+		modal:    true
+	,	autoOpen: false
+	,	width: 460
+	,	height: 180
+	,	buttons:  {
+			OK: function() {
+				jQuery('#ppsPopupSaveAsCopyForm').submit();
+			}
+		,	Cancel: function() {
+				$container.dialog('close');
+			}
+		}
+	});
+	jQuery('#ppsPopupSaveAsCopyForm').submit(function(){
+		jQuery(this).sendFormPps({
+			msgElID: 'ppsPopupSaveAsCopyMsg'
+		,	onSuccess: function(res) {
+				if(!res.error && res.data.edit_link) {
+					toeRedirect( res.data.edit_link );
+				}
+			}
+		});
+		return false;
+	});
+	jQuery('.ppsPopupCloneBtn').click(function(){
+		$container.dialog('open');
+		return false;
+	});
+}
+function ppsPopupCheckSwitchActiveBtn() {
+	if(parseInt(ppsPopup.active)) {
+		jQuery('.ppsPopupSwitchActive .fa').removeClass('fa-toggle-on').addClass('fa-toggle-off');
+		jQuery('.ppsPopupSwitchActive span').html( jQuery('.ppsPopupSwitchActive').data('txt-off') )
+	} else {
+		jQuery('.ppsPopupSwitchActive .fa').removeClass('fa-toggle-off').addClass('fa-toggle-on');
+		jQuery('.ppsPopupSwitchActive span').html( jQuery('.ppsPopupSwitchActive').data('txt-on') );	
+	}
 }

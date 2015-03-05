@@ -18,6 +18,10 @@ class tablePopupPps extends tablePps {
 				->_addField('show_pages', 'text', 'int')
 				->_addField('type_id', 'text', 'int')
 				
+				->_addField('views', 'text', 'int')
+				->_addField('unique_views', 'text', 'int')
+				->_addField('actions', 'text', 'int')
+				
 				->_addField('date_created', 'text', 'text');
     }
 }
