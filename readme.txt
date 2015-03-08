@@ -20,8 +20,6 @@ The Best WordPress PopUp optin plugin to help you gain more subscribers, social 
 * Responsive Popups
 * Exit-intent popups allow you to capture lost visitors
 
->Only this week. [Get PRO version for FREE!](http://supsystic.com/get-pro-version-of-any-plugin-for-free/ "Get PRO version for FREE")
-
 Popup maker with live preview let you customize pop-up templates without programming skills. Plugin allows you to create popups with any type of content:
 
 * HTML Text
@@ -75,7 +73,7 @@ Don't forget to press the "Save" button. After all these points you can see the 
 
 == Other Notes ==
 
-Popup by Supsystic is very simple to install and use. The plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image/video, or links from ‚ÄúYouTube‚Äù and ‚ÄúVimeo‚Äù. The Popup has its merits, as in:
+Popup by Supsystic is very simple to install and use. The plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image/video, or links from ìYouTubeî and ìVimeoî. The Popup has its merits, as in:
 
 1. Immediate operation after activation, no need for additional image/video configurations or short coding
 
@@ -102,7 +100,7 @@ Targeting Conditions feature is designed especially to connect the modal window 
 
 = A Popup Template Customization =
 
-A default theme can be customized to meet all the requirements such as ‚ÄúGoogle Fonts colors‚Äù. To create unlimited themes for the plugin, just update the Unlimited Themes Extension.
+A default theme can be customized to meet all the requirements such as ìGoogle Fonts colorsî. To create unlimited themes for the plugin, just update the Unlimited Themes Extension.
 
 = Auto Open Popups =
 
