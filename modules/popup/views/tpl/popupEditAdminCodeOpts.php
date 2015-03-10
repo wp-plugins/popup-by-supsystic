@@ -1,5 +1,5 @@
 <p class="alert alert-danger">
-	<?php printf(__('Edit this ONLY if you know basics of HTML, CSS and have been acquainted with the rules of template editing described <a href="%s">here</a>', PPS_LANG_CODE), '')?>
+	<?php printf(__('Edit this ONLY if you know basics of HTML, CSS and have been acquainted with the rules of template editing described <a target="_blank" href="%s">here</a>', PPS_LANG_CODE), 'http://supsystic.com/edit-popup-html-css-code/')?>
 </p>
 <fieldset>
 	<legend><?php _e('CSS code')?></legend>

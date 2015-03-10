@@ -1,6 +1,7 @@
 <?php
 class subscribeModelPps extends modelPps {
 	private $_dest = '';
+	private $_lastPopup = null;	// Some small internal caching
 	public function __construct() {
 		$this->_setTbl('subscribers');
 	}
@@ -16,6 +17,7 @@ class subscribeModelPps extends modelPps {
 				$subMethod = 'subscribe_'. $dest;
 				if(method_exists($this, $subMethod)) {
 					$this->_dest = $dest;
+					$this->_lastPopup = $popup;
 					return $this->$subMethod($d, $popup, $validateIp);
 				} else
 					$this->pushError (__('Something goes wrong', PPS_LANG_CODE));
@@ -27,6 +29,9 @@ class subscribeModelPps extends modelPps {
 	}
 	public function getDest() {
 		return $this->_dest;
+	}
+	public function getLastPopup() {
+		return $this->_lastPopup;
 	}
 	private function _checkOftenAccess($d = array()) {
 		$onlyCheck = isset($d['only_check']) ? $d['only_check'] : false;
@@ -70,6 +75,11 @@ class subscribeModelPps extends modelPps {
 		}
 		return true;
 	}
+	private function _getInvalidEmailMsg($popup) {
+		return isset($popup['params']['tpl']['sub_txt_invalid_email'])
+			? $popup['params']['tpl']['sub_txt_invalid_email']
+			: __('Empty or invalid email', PPS_LANG_CODE);
+	}
 	/**
 	 * WordPress subscribe functionality
 	 */
@@ -91,26 +101,39 @@ class subscribeModelPps extends modelPps {
 							'hash' => $confirmHash,
 							'popup_id' => $popup['id'],
 						))) {
-							$this->sendWpUserConfirm($username, $email, $confirmHash);
+							$this->sendWpUserConfirm($username, $email, $confirmHash, $popup);
 							return true;
 						}
 					}
 				} else
-					$this->pushError (__('Empty or invalid email', PPS_LANG_CODE), 'email');
+					$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 			} else
-				$this->pushError (__('Empty or invalid email', PPS_LANG_CODE), 'email');
+				$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		} else
-			$this->pushError (__('Empty or invalid email', PPS_LANG_CODE), 'email');
+			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		return false;
 	}
-	public function sendWpUserConfirm($username, $email, $confirmHash) {
+	public function sendWpUserConfirm($username, $email, $confirmHash, $popup) {
 		$blogName = get_bloginfo('name');
+		$replaceVariables = array(
+			'sitename' => $blogName,
+			'siteurl' => get_bloginfo('wpurl'),
+			'confirm_link' => uriPps::mod('subscribe', 'confirm', array('email' => $email, 'hash' => $confirmHash)),
+		);
 		$adminEmail = get_bloginfo('admin_email');
-		$siteUrl = get_bloginfo('wpurl');
-		$confirmUrl = uriPps::mod('subscribe', 'confirm', array('email' => $email, 'hash' => $confirmHash));
+		$confirmSubject = isset($popup['params']['tpl']['sub_txt_confirm_mail_subject']) && !empty($popup['params']['tpl']['sub_txt_confirm_mail_subject'])
+				? $popup['params']['tpl']['sub_txt_confirm_mail_subject']
+				: __('Confirm subscription on [sitename]', PPS_LANG_CODE);
+		$confirmContent = isset($popup['params']['tpl']['sub_txt_confirm_mail_message']) && !empty($popup['params']['tpl']['sub_txt_confirm_mail_message'])
+				? $popup['params']['tpl']['sub_txt_confirm_mail_message']
+				: __('You subscribed on site <a href="[siteurl]">[sitename]</a>. Follow <a href="[confirm_link]">this link</a> to complete your subscription. If you did not subscribe here - just ignore this message.', PPS_LANG_CODE);
+		foreach($replaceVariables as $k => $v) {
+			$confirmSubject = str_replace('['. $k. ']', $v, $confirmSubject);
+			$confirmContent = str_replace('['. $k. ']', $v, $confirmContent);
+		}
 		framePps::_()->getModule('mail')->send($email,
-			sprintf(__('Confirm subscription on %s', PPS_LANG_CODE), $blogName),
-			sprintf(__('You subscribed on site <a href="%s">%s</a>. Follow <a href="%s">this link</a> to complete your subscription. If you did not subscribe here - just ignore this message.', PPS_LANG_CODE), $siteUrl, $blogName, $confirmUrl),
+			$confirmSubject,
+			$confirmContent,
 			$blogName,
 			$adminEmail,
 			$blogName,
@@ -134,6 +157,7 @@ class subscribeModelPps extends modelPps {
 					// If there was selected some special role - check it here
 					if(isset($subscriber['popup_id']) && !empty($subscriber['popup_id'])) {
 						$popup = framePps::_()->getModule('popup')->getModel()->getById($subscriber['popup_id']);
+						$this->_lastPopup = $popup;
 						if(isset($popup['params']['tpl']['sub_wp_create_user_role']) 
 							&& !empty($popup['params']['tpl']['sub_wp_create_user_role']) 
 							&& $popup['params']['tpl']['sub_wp_create_user_role'] != 'subscriber'
@@ -259,9 +283,9 @@ class subscribeModelPps extends modelPps {
 				} else
 					$this->pushError (__('No lists to add selected in admin area - contact site owner to resolve this issue.', PPS_LANG_CODE));
 			} else
-				$this->pushError (__('Empty or invalid email', PPS_LANG_CODE), 'email');
+				$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		} else
-			$this->pushError (__('Empty or invalid email', PPS_LANG_CODE), 'email');
+			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		return false;
 	}
 }

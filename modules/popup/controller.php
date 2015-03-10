@@ -88,7 +88,8 @@ class popupControllerPps extends controllerPps {
 	}
 	public function exportForDb() {
 		$eol = "\r\n";
-		$popupList = dbPps::get('SELECT * FROM @__popup WHERE original_id = 0');
+		$selectColumns = array('id','label','active','original_id','params','html','css','img_preview','show_on','show_to','show_pages','type_id','date_created');
+		$popupList = dbPps::get('SELECT '. implode(',', $selectColumns). ' FROM @__popup WHERE original_id = 0');
 		$valuesArr = array();
 		
 		$allKeys = array();
@@ -96,7 +97,7 @@ class popupControllerPps extends controllerPps {
 			$arr = array();
 			$addToKeys = empty($allKeys);
 			foreach($popup as $k => $v) {
-				if(in_array($k, array('ab_id'))) continue;
+				if(!in_array($k, $selectColumns)) continue;
 				if($addToKeys) {
 					$allKeys[] = $k;
 				}

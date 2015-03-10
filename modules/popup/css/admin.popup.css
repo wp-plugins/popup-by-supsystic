@@ -163,3 +163,21 @@
 #ppsPopupEditDesignTabs .ppsPopupSelectTpl {
 	float: left;
 }
+#ppsPopupSubTxtsAndRedirect,
+#ppsPopupSubEmailTxt {
+	margin-bottom: 0;
+}
+#ppsPopupSubTxtsAndRedirect label,
+#ppsPopupSubEmailTxt label,
+.ppsPopupSubBtnLabelShell {
+	clear: both;
+	padding-bottom: 20px;
+	display: block;
+}
+#ppsPopupSubTxtsAndRedirect input[type=text],
+#ppsPopupSubEmailTxt input[type=text],
+#ppsPopupSubEmailTxt textarea,
+.ppsPopupSubBtnLabelShell input[type=text] {
+	width: calc(100% - 260px);
+	float: right;
+}

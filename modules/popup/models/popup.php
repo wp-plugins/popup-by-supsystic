@@ -145,7 +145,7 @@ class popupModelPps extends modelPps {
 			for($i = 0; $i < (int) $d['params']['opts_attrs']['txt_block_number']; $i++) {
 				$sendValKey = 'params_tpl_txt_val_'. $i;
 				if(isset($d[ $sendValKey ])) {
-					$d['params']['tpl']['txt_'. $i] = $d[ $sendValKey ];
+					$d['params']['tpl']['txt_'. $i] = urldecode( $d[ $sendValKey ] );
 				}
 			}
 		}
@@ -212,12 +212,12 @@ class popupModelPps extends modelPps {
 	}
 	public function getShowOnList() {
 		if(empty($this->_showOnList)) {
-			$this->_showOnList = array(
+			$this->_showOnList = dispatcherPps::applyFilters('popupShowOnList', array(
 				'page_load' => array('id' => 1),
 				'click_on_page' => array('id' => 2),
 				'click_on_element' => array('id' => 3),
 				'scroll_window' => array('id' => 4),
-			);
+			));
 		}
 		return $this->_showPagesList;
 	}
@@ -230,11 +230,11 @@ class popupModelPps extends modelPps {
 	}
 	public function getTypes() {
 		if(empty($this->_types)) {
-			$this->_types =  array(
+			$this->_types =  dispatcherPps::applyFilters('popupTypesList', array(
 				1 => array('code' => 'common', 'label' => __('Common', PPS_LANG_CODE)),
 				2 => array('code' => 'fb_like', 'label' => __('Facebook Like', PPS_LANG_CODE)),
 				3 => array('code' => 'video', 'label' => __('Video', PPS_LANG_CODE)),
-			);
+			));
 		}
 		return $this->_types;
 	}

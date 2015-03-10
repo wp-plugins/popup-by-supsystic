@@ -186,7 +186,8 @@ function ppsUpdatePopupStatsGraph(chartType, params) {
 		,	plotParams = {}
 		,	dateFrom = false
 		,	dateTo = false
-		,	firstInit = false;
+		,	firstInit = false
+		,	group = ppsPopupStatGetGoup();	// Hour, Day, Week, Month
 		
 		if(g_ppsCurrentPlot) {
 			dateFrom = jQuery('#ppsPopupEditForm').find('input[name=stat_from_txt]').val()
@@ -195,6 +196,10 @@ function ppsUpdatePopupStatsGraph(chartType, params) {
 			dateFrom = dateFrom && dateFrom != '' ? ppsStrToMs(dateFrom) : false;
 			dateTo = dateTo && dateTo != '' ? ppsStrToMs(dateTo) : false;
 		}
+		var hourMs = 60 * 60 * 1000
+		,	dayMs = 24 * hourMs
+		,	weekMs = 7 * dayMs
+		,	monthMs = 30 * dayMs;
 		g_ppsCurrentStats = [];
 		var hasPoints = (dateFrom || dateTo) ? false : true;	// If date not set by user - points will be available in any case
 		for(var i = 0; i < ppsPopupAllStats.length; i++) {
@@ -203,8 +208,13 @@ function ppsUpdatePopupStatsGraph(chartType, params) {
 				currentData['points'] = [];
 				for(var j = 0; j < ppsPopupAllStats[i]['points'].length; j++) {
 					var currentDate = ppsStrToMs( ppsPopupAllStats[i]['points'][j]['date'] );
-					if((dateFrom && currentDate < dateFrom) 
-						|| (dateTo && currentDate > dateTo)
+					if((dateFrom 
+						&& (currentDate < dateFrom 
+							&& !(group == 'week' && currentDate + weekMs > dateFrom)
+							&& !(group == 'month' && currentDate + monthMs > dateFrom)
+							))
+						|| (dateTo 
+						&& (currentDate > dateTo))
 					) {
 						continue;
 					}

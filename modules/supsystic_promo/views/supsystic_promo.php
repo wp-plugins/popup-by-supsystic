@@ -14,4 +14,7 @@ class supsystic_promoViewPps extends viewPps {
 		$this->assign('originalPage', uriPps::getFullUrl());
 		parent::display('welcomePage');
 	}
+	public function showAdditionalmainAdminShowOnOptions($popup) {
+		parent::display('additionalmainAdminShowOnOptions');
+	}
 }

@@ -56,6 +56,7 @@
 			<?php _e('seconds after first scroll', PPS_LANG_CODE)?>
 		</label>
 	</div><br />
+	<?php dispatcherPps::doAction('editPopupMainOptsShowOn', $this->popup)?>
 </section>
 <section class="ppsPopupMainOptSect">
 	<span class="ppsOptLabel"><?php _e('Whom to show', PPS_LANG_CODE)?></span>
@@ -106,7 +107,7 @@
 		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
 			'value' => 'show_on_pages',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'show_on_pages')))?>
-		<?php _e('Show on next pages', PPS_LANG_CODE)?>
+		<?php _e('Show on next pages / posts', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsPopupShowOnPages" style="display: none;">
 		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
@@ -115,7 +116,7 @@
 		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
 			'value' => 'not_show_on_pages',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'not_show_on_pages')))?>
-		<?php _e('Don\'t show on next pages', PPS_LANG_CODE)?>
+		<?php _e('Don\'t show on next pages / posts', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsPopupNotShowOnPages" style="display: none;">
 		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>

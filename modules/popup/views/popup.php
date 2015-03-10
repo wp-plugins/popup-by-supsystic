@@ -107,7 +107,7 @@ class popupViewPps extends viewPps {
 			$subDestListForSelect[ $key ] = $data['label'];
 		}
 		// We are not using wp methods here - as list can be very large - and it can take too much memory
-		$allPages = dbPps::get("SELECT ID, post_title FROM $wpdb->posts WHERE post_type = 'page' ORDER BY post_title");
+		$allPages = dbPps::get("SELECT ID, post_title FROM $wpdb->posts WHERE post_type IN ('page', 'post') AND post_status IN ('publish','draft') ORDER BY post_title");
 		$allPagesForSelect = array();
 		if(!empty($allPages)) {
 			foreach($allPages as $p) {
@@ -343,7 +343,8 @@ class popupViewPps extends viewPps {
 			$btn = $this->_closeBtns[ $popup['params']['tpl']['close_btn'] ];
 			$styles = array(
 				'position' => 'absolute',
-				'background-image' => 'url("'. $btn['img_url']. '");'
+				'background-image' => 'url("'. $btn['img_url']. '")',
+				'background-repeat' => 'no-repeat'
 			);
 			if(isset($btn['add_style']))
 				$styles = array_merge($styles, $btn['add_style']);
@@ -507,7 +508,7 @@ class popupViewPps extends viewPps {
 				'close-orange' => array('img' => 'close-orange.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'close-red-in-circle' => array('img' => 'close-red-in-circle.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'lists_black' => array('img' => 'lists_black.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '25px', 'height' => '25px')),
-				'while_close' => array('img' => 'while_close.png', 'add_style' => array('top' => '15px', 'right' => '10px', 'width' => '25px', 'height' => '25px')),
+				'while_close' => array('img' => 'while_close.png', 'add_style' => array('top' => '15px', 'right' => '15px', 'width' => '20px', 'height' => '19px')),
 				'red_close' => array('img' => 'close-red.png', 'add_style' => array('top' => '15px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),
 				'yellow_close' => array('img' => 'close-yellow.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'sqr_close' => array('img' => 'sqr-close.png', 'add_style' => array('top' => '25px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),

@@ -75,7 +75,11 @@ class supsystic_promoPps extends modulePps {
 	public function weLoveYou() {
 		if(!framePps::_()->getModule(implode('', array('l','ic','e','ns','e')))) {
 			dispatcherPps::addFilter('popupEditTabs', array($this, 'addUserExp'));
+			dispatcherPps::addFilter('editPopupMainOptsShowOn', array($this, 'showAdditionalmainAdminShowOnOptions'));
 		}
+	}
+	public function showAdditionalmainAdminShowOnOptions($popup) {
+		$this->getView()->showAdditionalmainAdminShowOnOptions($popup);
 	}
 	public function addUserExp($tabs) {
 		$url = 'http://supsystic.com/plugins/popup-plugin/';

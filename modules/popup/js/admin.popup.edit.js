@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
 			for(var i = 0; i < ppsPopup.params.opts_attrs.txt_block_number; i++) {
 				var textId = 'params_tpl_txt_'+ i
 				,	sendValKey = 'params_tpl_txt_val_'+ i;
-				addData[ sendValKey ] = ppsGetTxtEditorVal( textId );
+				addData[ sendValKey ] = encodeURIComponent( ppsGetTxtEditorVal( textId ) );
 			}
 		}
 		if(jQuery('#ppsPopupCssEditor').get(0).CodeMirrorEditor)
@@ -397,11 +397,12 @@ function ppsShowEndlessAnim(element, showClass, hideClass) {
 		return;
 	}
 	var animationDuration = parseFloat(jQuery('#ppsPopupEditForm').find('[name="params[tpl][anim_duration]"]').val());
-	if(animationDuration) {
+	if(animationDuration && animationDuration > 10) {
 		jQuery(element).animationDuration( animationDuration, true );
 	} else {
 		jQuery(element).animationDuration( 1 );
 		animationDuration = 1000;
+		jQuery('#ppsPopupEditForm').find('[name="params[tpl][anim_duration]"]').val( animationDuration );
 	}
 	element.removeClass(hideClass).addClass(showClass);
 	setTimeout(function(){

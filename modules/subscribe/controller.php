@@ -11,10 +11,21 @@ class subscribeControllerPps extends controllerPps {
 		if($this->getModel()->subscribe(reqPps::get('post'), true)) {
 			$dest = $this->getModel()->getDest();
 			$destData = $this->getModule()->getDestByKey( $dest );
+			$lastPopup = $this->getModel()->getLastPopup();
 			if($destData && isset($destData['require_confirm']) && $destData['require_confirm'])
-				$res->addMessage(__('Confirmation link was sent to your email address. Check your email!', PPS_LANG_CODE));
+				$res->addMessage(isset($lastPopup['params']['tpl']['sub_txt_confirm_sent']) 
+						? $lastPopup['params']['tpl']['sub_txt_confirm_sent'] : 
+						__('Confirmation link was sent to your email address. Check your email!', PPS_LANG_CODE));
 			else
-				$res->addMessage(__('Thank you for subscription!', PPS_LANG_CODE));
+				$res->addMessage(isset($lastPopup['params']['tpl']['sub_txt_success'])
+						? $lastPopup['params']['tpl']['sub_txt_success']
+						: __('Thank you for subscribe!', PPS_LANG_CODE));
+			$redirect = isset($lastPopup['params']['tpl']['sub_redirect_url']) && !empty($lastPopup['params']['tpl']['sub_redirect_url'])
+					? $lastPopup['params']['tpl']['sub_redirect_url']
+					: false;
+			if(!empty($redirect)) {
+				$res->addData('redirect', $redirect);
+			}
 		} else
 			$res->pushError ($this->getModel()->getErrors());
 		return $res->ajaxExec();
@@ -22,7 +33,10 @@ class subscribeControllerPps extends controllerPps {
 	public function confirm() {
 		$res = new responsePps();
 		if($this->getModel()->confirm(reqPps::get('get'))) {
-			$res->addMessage(__('Thank you for subscribe!', PPS_LANG_CODE));
+			$lastPopup = $this->getModel()->getLastPopup();
+			$res->addMessage($lastPopup && isset($lastPopup['params']['tpl']['sub_txt_success'])
+						? $lastPopup['params']['tpl']['sub_txt_success']
+						: __('Thank you for subscribe!', PPS_LANG_CODE));
 		} else
 			$res->pushError ($this->getModel()->getErrors());
 		// Just simple redirect for now

@@ -1,9 +1,12 @@
 <?php
 class popupPps extends modulePps {
+	private $_renderedIds = array();
+	private $_addToFooterIds = array();
 	public function init() {
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 		add_action('template_redirect', array($this, 'checkPopupShow'));
 		add_shortcode(PPS_SHORTCODE_CLICK, array($this, 'showPopupOnClick'));
+		add_action('wp_footer', array($this, 'collectFooterRender'));
 	}
 	public function addAdminTab($tabs) {
 		$tabs[ $this->getCode(). '_add_new' ] = array(
@@ -118,7 +121,8 @@ class popupPps extends modulePps {
 		}
 		return $popups;
 	}
-	public function renderList($popups) {
+	public function renderList($popups, $jsListVarName = 'ppsPopups') {
+		static $renderedBefore = false;
 		foreach($popups as $i => $p) {
 			if(isset($p['params']['tpl']['anim_key']) && !empty($p['params']['tpl']['anim_key']) && $p['params']['tpl']['anim_key'] != 'none') {
 				$popups[ $i ]['params']['tpl']['anim'] = $this->getView()->getAnimationByKey( $p['params']['tpl']['anim_key'] );
@@ -131,12 +135,38 @@ class popupPps extends modulePps {
 			}
 			$popups[ $i ]['rendered_html'] = $this->getView()->generateHtml( $p );
 			$popups[ $i ]['connect_hash'] = md5(date('m-d-Y'). $popups[ $i ]['id']. NONCE_KEY);
+			$this->_renderedIds[] = $p['id'];
 		}
-		framePps::_()->getModule('templates')->loadCoreJs();
-		framePps::_()->addScript('frontend.popup', $this->getModPath(). 'js/frontend.popup.js');
-		framePps::_()->addJSVar('frontend.popup', 'ppsPopups', $popups);
-		framePps::_()->addStyle('frontend.popup', $this->getModPath(). 'css/frontend.popup.css');
-		framePps::_()->addStyle('magic.min', PPS_CSS_PATH. 'magic.min.css');
+		if(!$renderedBefore) {
+			framePps::_()->getModule('templates')->loadCoreJs();
+			framePps::_()->addScript('frontend.popup', $this->getModPath(). 'js/frontend.popup.js');
+			framePps::_()->addJSVar('frontend.popup', $jsListVarName, $popups);
+			framePps::_()->addStyle('frontend.popup', $this->getModPath(). 'css/frontend.popup.css');
+			framePps::_()->addStyle('magic.min', PPS_CSS_PATH. 'magic.min.css');
+			$renderedBefore = true;
+		} else {
+			// We use such "un-professional" method - because in comon - we don't want to collect data for wp_footer output - because unfortunatelly not all themes has it, 
+			// so, to make it work for most part of users - we try to out all scripts before footer
+			// but some popups wil still need this - wp_footer for example - additional output - so that's why it is here
+			framePps::_()->addScript('frontend.dummy.popup', $this->getModPath(). 'js/frontend.dummy.popup.js');
+			framePps::_()->addJSVar('frontend.dummy.popup', $jsListVarName, $popups);
+		}
+	}
+	public function collectFooterRender() {
+		if(!empty($this->_addToFooterIds)) {
+			$idsToRender = array();
+			foreach($this->_addToFooterIds as $id) {
+				if((!empty($this->_renderedIds) && in_array($id, $this->_renderedIds)) || in_array($id, $idsToRender)) continue;
+				$idsToRender[] = $id;
+			}
+			if(!empty($idsToRender)) {
+				$popups = $this->_beforeRender( $this->getModel()->addWhere('id IN ('. implode(',', $idsToRender). ')')->getFromTbl() );
+				if(!empty($popups)) {
+					$popups = dispatcherPps::applyFilters('popupListBeforeRender', $popups);
+					$this->renderList( $popups, 'ppsPopupsFromFooter' );
+				}
+			}
+		}
 	}
 	public function showPopupOnClick($params) {
 		$id = isset($params['id']) ? (int) $params['id'] : 0;
@@ -144,6 +174,7 @@ class popupPps extends modulePps {
 			$id = explode('=', $params[0]);
 			$id = isset($id[1]) ? (int) $id[1] : 0;
 		}
+		$this->_addToFooterIds[] = $id;
 		return '#ppsShowPopUp_'. $id;
 	}
 }

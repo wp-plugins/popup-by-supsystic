@@ -1,4 +1,8 @@
 jQuery(document).ready(function(){
+	if(typeof(ppsPopupsFromFooter) !== 'undefined' && ppsPopupsFromFooter && ppsPopupsFromFooter.length) {
+		ppsPopups = typeof(ppsPopups) === 'undefined' ? [] : ppsPopups;
+		ppsPopups = ppsPopups.concat( ppsPopupsFromFooter );
+	}
 	if(typeof(ppsPopups) !== 'undefined' && ppsPopups && ppsPopups.length) {
 		ppsInitBgOverlay();
 		jQuery(document).trigger('ppsBeforePopupsInit', ppsPopups);
@@ -9,6 +13,7 @@ jQuery(document).ready(function(){
 			ppsBindPopupActions( ppsPopups[ i ] );
 			ppsBindPopupSubscribers( ppsPopups[ i ] );
 		}
+		jQuery(document).trigger('ppsAfterPopupsInit', ppsPopups);
 		jQuery(window).resize(function(){
 			for(var i = 0; i < ppsPopups.length; i++) {
 				if(ppsPopups[ i ].is_visible) {
@@ -33,7 +38,11 @@ function ppsBindPopupShow( popup ) {
 					ppsCheckShowPopup( popup );
 				}, delay);
 			} else {
-				ppsCheckShowPopup( popup );
+				if(popup.type == 'fb_like') {	// FB Like will be rendered right after all widget content - will be loaded
+					popup.render_with_fb_load = true;
+				} else {
+					ppsCheckShowPopup( popup );
+				}
 			}
 			break;
 		case 'click_on_page':
@@ -109,6 +118,9 @@ function ppsBindPopupSubscribers(popup) {
 								msgEl.appendTo( parentShell );
 								jQuery(self).animateRemovePps( 300 );
 								ppsPopupSubscribeSuccess( popup );
+								if(res.data && res.data.redirect) {
+									toeRedirect(res.data.redirect);
+								}
 							}
 						}
 					});
@@ -191,11 +203,13 @@ function ppsShowPopup( popup, params ) {
 	_ppsPositionPopup({shell: shell, popup: popup});
 	if(popup.params.tpl.anim && !popup.resized_for_wnd) {
 		shell.animationDuration( popup.params.tpl.anim_duration, true );
+		shell.removeClass(popup.params.tpl.anim.hide_class);
 		shell.addClass('magictime '+ popup.params.tpl.anim.show_class).show();
 	} else {
 		shell.show();
 	}
 	popup.is_visible = true;
+	popup.is_rendered = true;	// Rendered at least one time
 }
 function _ppsPositionPopup( params ) {
 	params = params || {};
@@ -331,7 +345,11 @@ function _ppsBindFbLikeBtnAction(popup) {
 		_ppsPopupSetActionDone(popup, 'fb_like');
 	});
 	FB.Event.subscribe('xfbml.render', function(response) {
-		_ppsPositionPopup({popup: popup});
+		if(popup.render_with_fb_load) {	// If it need to be rendered
+			ppsCheckShowPopup( popup );
+		} else {	// else - just re-position it
+			_ppsPositionPopup({popup: popup});
+		}
 	});
 }
 function ppsPopupSubscribeSuccess(popup) {

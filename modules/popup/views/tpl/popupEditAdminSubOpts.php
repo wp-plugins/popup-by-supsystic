@@ -68,8 +68,60 @@
 			</label>
 		</fieldset>
 	</div>
-	<div class="ppsPopupOptRow">
+	<div id="ppsPopupSubTxtsAndRedirect" class="ppsPopupOptRow" style="display: none;">
 		<label>
+			<?php _e('"Confirmation email was sent" message', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('This will be message, that user will see after subscribe - that email with confirmation link sent.', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_confirm_sent]', array(
+				'value' => (isset($this->popup['params']['tpl']['sub_txt_confirm_sent']) ? esc_html( $this->popup['params']['tpl']['sub_txt_confirm_sent'] ) : __('Confirmation link was sent to your email address. Check your email!', PPS_LANG_CODE)),
+			))?>
+		</label>
+		<label>
+			<?php _e('Subscribe success message', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Right after subscriber will be created and confirmed - this message will be shown.', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_success]', array(
+				'value' => (isset($this->popup['params']['tpl']['sub_txt_success']) ? esc_html( $this->popup['params']['tpl']['sub_txt_success'] ) : __('Thank you for subscribe!', PPS_LANG_CODE)),
+			))?>
+		</label>
+		<label>
+			<?php _e('Email error message', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('If email, that was entered by user, is invalid - user will see this message', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_invalid_email]', array(
+				'value' => (isset($this->popup['params']['tpl']['sub_txt_invalid_email']) ? esc_html( $this->popup['params']['tpl']['sub_txt_invalid_email'] ) : __('Empty or invalid email', PPS_LANG_CODE)),
+			))?>
+		</label>
+		<label>
+			<?php _e('Redirect after subscription URL', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('You can enable redirection after subscription, just enter here URL that you want to redirect to after subscribe - and user will be redirected there. If you don\'t need this feature - just leave this field empty.', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_redirect_url]', array(
+				'value' => (isset($this->popup['params']['tpl']['sub_redirect_url']) ? esc_url( $this->popup['params']['tpl']['sub_redirect_url'] ) : ''),
+			))?>
+		</label>
+	</div>
+	<div id="ppsPopupSubEmailTxt" class="ppsPopupOptRow" style="display: none;">
+		<label>
+			<?php _e('Confirmation email subject', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link subject', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_confirm_mail_subject]', array(
+				'value' => esc_html ( isset($this->popup['params']['tpl']['sub_txt_confirm_mail_subject']) 
+					? $this->popup['params']['tpl']['sub_txt_confirm_mail_subject'] 
+					: __('Confirm subscription on [sitename]', PPS_LANG_CODE)),
+			))?>
+		</label>
+		<label>
+			<?php _e('Confirmation email text', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link content', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::textarea('params[tpl][sub_txt_confirm_mail_message]', array(
+				'value' => esc_html( isset($this->popup['params']['tpl']['sub_txt_confirm_mail_message']) 
+					? $this->popup['params']['tpl']['sub_txt_confirm_mail_message'] 
+					: __('You subscribed on site <a href="[siteurl]">[sitename]</a>. Follow <a href="[confirm_link]">this link</a> to complete your subscription. If you did not subscribe here - just ignore this message.', PPS_LANG_CODE)),
+			))?>
+		</label>
+		<?php $allowVarsInMail = array('sitename', 'siteurl', 'confirm_link');?>
+		<div class="description"><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
+	</div>
+	<div class="ppsPopupOptRow">
+		<label class="ppsPopupSubBtnLabelShell">
 			<?php _e('Submit button name', PPS_LANG_CODE)?>
 			<?php echo htmlPps::text('params[tpl][sub_btn_label]', array('value' => $this->popup['params']['tpl']['sub_btn_label']))?>
 		</label>

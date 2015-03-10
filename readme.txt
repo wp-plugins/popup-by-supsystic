@@ -2,7 +2,7 @@
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -73,7 +73,7 @@ Don't forget to press the "Save" button. After all these points you can see the 
 
 == Other Notes ==
 
-Popup by Supsystic is very simple to install and use. The plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image/video, or links from ìYouTubeî and ìVimeoî. The Popup has its merits, as in:
+Popup by Supsystic is very simple to install and use. The plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image/video, or links from ‚ÄúYouTube‚Äù and ‚ÄúVimeo‚Äù. The Popup has its merits, as in:
 
 1. Immediate operation after activation, no need for additional image/video configurations or short coding
 
@@ -100,7 +100,7 @@ Targeting Conditions feature is designed especially to connect the modal window 
 
 = A Popup Template Customization =
 
-A default theme can be customized to meet all the requirements such as ìGoogle Fonts colorsî. To create unlimited themes for the plugin, just update the Unlimited Themes Extension.
+A default theme can be customized to meet all the requirements such as ‚ÄúGoogle Fonts colors‚Äù. To create unlimited themes for the plugin, just update the Unlimited Themes Extension.
 
 = Auto Open Popups =
 
@@ -142,6 +142,21 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
 == Changelog ==
+
+= 1.1.1 / 10.03.2015 =
+ * Subscription - possibility to modify subscribe messages - browser notifications, email subject and content
+ * Subscription - possibility to add Redirect after subscribe
+ * Statistics - show data if week / month is selected with date range that is in current week / month
+ * Mailchimp API class - minor correct for DEBUG mode
+ * Correct saving "&" sign - in text fields
+ * Fix animations tab in admin area
+ * Correct animation for Facebook Like PopUp - animate it only after whole content will be loaded from Facebook
+ * Added link to documentation about usage code - HTML and CSS - editor
+ * Correct process shortcode from any place (not only from post/page content) - sidebars, external themes/plugins, etc.
+ * Minor fixes for base templates
+ * PRO - On Exit functionality integration - http://supsystic.com/plugins/popup-plugin/
+ * Fix issue - with multiple time showing when "On Click" mode is enabled and animation is added
+ * Added usual posts to list where show or not PopUps
 
 = 1.1.0 / 05.03.2015 =
  * Added 5 new popup templates
