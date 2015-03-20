@@ -1,8 +1,6 @@
 <?php
 class statisticsViewPps extends viewPps {
 	public function getPopupEditTab($popup) {
-		framePps::_()->addScript('admin.statistics.popup.edit', $this->getModule()->getModPath(). 'js/admin.statistics.popup.edit.js');
-		
 		$group = isset($_COOKIE['pps_stat_group']) ? $_COOKIE['pps_stat_group'] : 'day';
 		$allStats = $this->getModel()->getAllForPopupId($popup['id'], array('group' => $group));
 		$allStats = dispatcherPps::applyFilters('popupStatsAdminData', $allStats, $popup);
@@ -11,6 +9,7 @@ class statisticsViewPps extends viewPps {
 			framePps::_()->getModule('templates')->loadJqplot();
 			framePps::_()->getModule('templates')->loadJqGrid();
 			framePps::_()->getModule('templates')->loadDatePicker();
+			framePps::_()->addScript('admin.statistics.popup.edit', $this->getModule()->getModPath(). 'js/admin.statistics.popup.edit.js');
 			framePps::_()->addJSVar('admin.statistics.popup.edit', 'ppsPopupAllStats', $allStats);
 			$allSmAction = $this->getModel()->getSmActionForPopup( $popup['id'] );
 			$allSmAction = dispatcherPps::applyFilters('popupShareStatsAdminData', $allSmAction, $popup);

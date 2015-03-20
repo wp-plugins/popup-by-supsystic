@@ -2,6 +2,9 @@
     width: 100%;
 	font-size: 15px;
 }
+.supsystic-plugin * {
+	box-sizing: border-box
+}
 .supsystic-plugin a {
 	color: #4ae8ea;
 	-webkit-box-shadow: none;
@@ -380,6 +383,8 @@ input[type="color"] {
 /*buttons*/
 .supsystic-plugin .button, 
 .supsystic-plugin .button-primary,
+.ui-dialog .button,
+.ui-dialog .button-primary,
 .ui-button,
 .ui-button.ui-state-default {
 	font-size: 15px;
@@ -409,6 +414,8 @@ input[type="color"] {
 .supsystic-plugin .button-primary:hover,
 .supsystic-plugin .button-primary.focus,
 .supsystic-plugin .button-primary:focus,
+.ui-dialog .button:hover,
+.ui-dialog .button-primary:focus,
 .ui-button.ui-state-hover,
 .ui-button:hover, 
 .ui-button:focus {
@@ -623,8 +630,8 @@ input[type="color"] {
 }
 .supsistic-half-side-box {
 	float: left;
-	width: 48%;
-	padding-right: 2%;
+	width: 50%;
+	padding-right: 1%;
 }
 /*datepicker*/
 .ui-datepicker {
@@ -656,4 +663,12 @@ input[type="color"] {
 }
 .ui-datepicker td span, .ui-datepicker td a {
 	text-align: center !important;
+}
+#containerWrapper {
+	min-height: 308px;
+}
+/*link with some input inside*/
+.supsystic-plugin .sup-promolink-input {
+	color: #000;
+	text-decoration: none;
 }

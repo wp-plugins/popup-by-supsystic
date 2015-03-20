@@ -396,7 +396,7 @@ function ppsPopupStatGetDateFormat(forPlot) {
 	var tickFormat = '';
 	switch(ppsPopupStatGetGoup()) {
 		case 'hour':
-			tickFormat = forPlot ? '%H:00 - %b %#d' : 'H:00 - M d';
+			tickFormat = forPlot ? '%H, %#d' : 'H, d';
 			break;
 		case 'month':
 			tickFormat = forPlot ? '%b %Y' : 'M Y';

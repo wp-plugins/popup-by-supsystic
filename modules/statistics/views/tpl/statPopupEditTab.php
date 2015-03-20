@@ -23,7 +23,7 @@
 	</div>
 	<div style="float: right;">
 		<span style="line-height: 30px;">
-			<?php _e('Goup by', PPS_LANG_CODE)?>:
+			<?php _e('Group by', PPS_LANG_CODE)?>:
 			<a href="#" class="button" data-stat-group="hour"><?php _e('Hour', PPS_LANG_CODE)?></a>
 			<a href="#" class="button" data-stat-group="day"><?php _e('Day', PPS_LANG_CODE)?></a>
 			<a href="#" class="button" data-stat-group="week"><?php _e('Week', PPS_LANG_CODE)?></a>

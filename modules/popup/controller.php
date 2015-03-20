@@ -1,5 +1,6 @@
 <?php
 class popupControllerPps extends controllerPps {
+	private $_prevPopupId = 0;
 	public function createFromTpl() {
 		$res = new responsePps();
 		if(($id = $this->getModel()->createFromTpl(reqPps::get('post'))) != false) {
@@ -67,11 +68,14 @@ class popupControllerPps extends controllerPps {
 		$res->ajaxExec();
 	}
 	public function getPreviewHtml() {
-		$id = (int) reqPps::getVar('id', 'get');
-		if($id) {
+		$this->_prevPopupId = (int) reqPps::getVar('id', 'get');
+		add_action('init', array($this, 'outPreviewHtml'));
+	}
+	public function outPreviewHtml() {
+		if($this->_prevPopupId) {
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 			<html><head></head><body>';
-			echo $this->getView()->generateHtml($id);
+			echo $this->getView()->generateHtml( $this->_prevPopupId );
 			echo '<body></html>';
 		}
 		exit();
@@ -130,7 +134,7 @@ class popupControllerPps extends controllerPps {
 		return array(
 			PPS_USERLEVELS => array(
 				PPS_ADMIN => array('createFromTpl', 'getListForTbl', 'remove', 'removeGroup', 'clear', 
-					'save', 'getPreviewHtml', 'exportForDb', 'changeTpl', 'saveAsCopy', 'switchActive')
+					'save', 'getPreviewHtml', 'exportForDb', 'changeTpl', 'saveAsCopy', 'switchActive', 'outPreviewHtml')
 			),
 		);
 	}

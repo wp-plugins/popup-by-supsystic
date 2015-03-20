@@ -24,7 +24,7 @@
 					<?php }?>
                 </ul>
             </nav>
-            <div class="supsystic-container">
+            <div class="supsystic-container supsystic-<?php echo $this->activeTab?>"">
 				<?php echo $this->content?>
                 <div class="clear"></div>
             </div>

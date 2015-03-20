@@ -94,15 +94,19 @@ class subscribeModelPps extends modelPps {
 							$username = trim($d['name']);
 						}
 						$username = $this->_getUsernameFromEmail($email, $username);
-						$confirmHash = md5($email. NONCE_KEY);
-						if($this->insert(array(
-							'username' => $username,
-							'email' => $email,
-							'hash' => $confirmHash,
-							'popup_id' => $popup['id'],
-						))) {
-							$this->sendWpUserConfirm($username, $email, $confirmHash, $popup);
-							return true;
+						if(isset($popup['params']['tpl']['sub_ignore_confirm']) && $popup['params']['tpl']['sub_ignore_confirm']) {
+							return $this->createWpSubscriber($popup, $email, $username);
+						} else {
+							$confirmHash = md5($email. NONCE_KEY);
+							if($this->insert(array(
+								'username' => $username,
+								'email' => $email,
+								'hash' => $confirmHash,
+								'popup_id' => $popup['id'],
+							))) {
+								$this->sendWpUserConfirm($username, $email, $confirmHash, $popup);
+								return true;
+							}
 						}
 					}
 				} else
@@ -111,6 +115,29 @@ class subscribeModelPps extends modelPps {
 				$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		} else
 			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
+		return false;
+	}
+	public function createWpSubscriber($popup, $email, $username) {
+		$password = wp_generate_password();
+		$userId = wp_create_user($username, $password, $email);
+		if($userId && !is_wp_error($userId)) {
+			if(!function_exists('wp_new_user_notification')) {
+				framePps::_()->loadPlugins();
+			}
+			// If there was selected some special role - check it here
+			$this->_lastPopup = $popup;
+			if(isset($popup['params']['tpl']['sub_wp_create_user_role']) 
+				&& !empty($popup['params']['tpl']['sub_wp_create_user_role']) 
+				&& $popup['params']['tpl']['sub_wp_create_user_role'] != 'subscriber'
+			) {
+				$user = new WP_User($userId);
+				$user->set_role( $popup['params']['tpl']['sub_wp_create_user_role'] );
+			}
+			wp_new_user_notification($userId, $password);
+			return true;
+		} else {
+			$this->pushError (is_wp_error($userId) ? $userId->get_error_message() : __('Can\'t subscribe for now. Please try again latter.', PPS_LANG_CODE));
+		}
 		return false;
 	}
 	public function sendWpUserConfirm($username, $email, $confirmHash, $popup) {
@@ -142,36 +169,22 @@ class subscribeModelPps extends modelPps {
 	public function confirm($d = array()) {
 		$d['email'] = isset($d['email']) ? trim($d['email']) : '';
 		$d['hash'] = isset($d['hash']) ? trim($d['hash']) : '';
+		$popup = array();
 		if(!empty($d['email']) && !empty($d['hash'])) {
 			$subscriber = $this->setWhere(array(
 				'email' => $d['email'],
 				'hash' => $d['hash'], 
 				'activated' => 0))->getFromTbl(array('return' => 'row'));
 			if(!empty($subscriber)) {
-				$password = wp_generate_password();
-				$userId = wp_create_user($subscriber['username'], $password, $subscriber['email']);
-				if($userId && !is_wp_error($userId)) {
-					if(!function_exists('wp_new_user_notification')) {
-						framePps::_()->loadPlugins();
-					}
-					// If there was selected some special role - check it here
-					if(isset($subscriber['popup_id']) && !empty($subscriber['popup_id'])) {
-						$popup = framePps::_()->getModule('popup')->getModel()->getById($subscriber['popup_id']);
-						$this->_lastPopup = $popup;
-						if(isset($popup['params']['tpl']['sub_wp_create_user_role']) 
-							&& !empty($popup['params']['tpl']['sub_wp_create_user_role']) 
-							&& $popup['params']['tpl']['sub_wp_create_user_role'] != 'subscriber'
-						) {
-							$user = new WP_User($userId);
-							$user->set_role( $popup['params']['tpl']['sub_wp_create_user_role'] );
-						}
-					}
-					wp_new_user_notification($userId, $password);
-					$this->update(array('activated' => 1), array('id' => $subscriber['id']));
-					return true;
-				} else {
-					$this->pushError (is_wp_error($userId) ? $userId->get_error_message() : __('Can\'t subscribe for now. Please try again latter.', PPS_LANG_CODE));
+				if(isset($subscriber['popup_id']) && !empty($subscriber['popup_id'])) {
+					$popup = framePps::_()->getModule('popup')->getModel()->getById($subscriber['popup_id']);
+					$this->_lastPopup = $popup;
 				}
+				$res = $this->createWpSubscriber($popup, $subscriber['email'], $subscriber['username']);
+				if($res) {
+					$this->update(array('activated' => 1), array('id' => $subscriber['id']));
+				}
+				return $res;
 			}
 		}
 		// One and same error for all other cases

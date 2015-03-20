@@ -44,15 +44,16 @@ class popupPps extends modulePps {
 		/*show_pages = 1 -> All, 2 -> show on selected, 3 -> do not show on selected*/
 		/*show_on = 1 -> Page load, 2 -> click on page, 3 -> click on certain element (shortcode)*/
 		$condition = "original_id != 0 AND active = 1 AND (show_pages = 1";
+		$havePostsListing = $wp_query && is_object($wp_query) && isset($wp_query->posts) && is_array($wp_query->posts) && !empty($wp_query->posts);
 		// Check if we can show popup on this page
-		if($currentPageId) {
+		if($currentPageId && $havePostsListing && count($wp_query->posts) == 1) {
 			$condition .= " OR (show_pages = 2 AND id IN (SELECT popup_id FROM @__popup_show_pages WHERE post_id = $currentPageId AND not_show = 0))
 				OR (show_pages = 3 AND id NOT IN (SELECT popup_id FROM @__popup_show_pages WHERE post_id = $currentPageId AND not_show = 1))";
 		}
 		$condition .= ")";
 		// Check if there are popups that need to be rendered by click on some element
 		$condition .= " AND (show_on != 3";
-		if($wp_query && is_object($wp_query) && isset($wp_query->posts) && is_array($wp_query->posts) && !empty($wp_query->posts)) {
+		if($havePostsListing) {
 			$allowForPosts = array();
 			// Check if show popup shortcode or at least it's show js function ppsShowPopup() - exists on any post content
 			foreach($wp_query->posts as $post) {

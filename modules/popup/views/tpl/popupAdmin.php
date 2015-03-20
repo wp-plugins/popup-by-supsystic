@@ -2,7 +2,7 @@
 	<div class="supsystic-item supsystic-panel">
 		<div id="containerWrapper">
 			<ul class="supsystic-bar-controls">
-				<li title="<?php _e('Delete selected')?>">
+				<li title="<?php _e('Delete selected', PPS_LANG_CODE)?>">
 					<button class="button" id="ppsPopupRemoveGroupBtn" disabled data-toolbar-button>
 						<i class="fa fa-fw fa-trash-o"></i>
 						<?php _e('Delete selected', PPS_LANG_CODE)?>

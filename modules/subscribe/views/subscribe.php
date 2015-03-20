@@ -37,4 +37,9 @@ class subscribeViewPps extends viewPps {
 		$res .= '</form>';
 		return $res;
 	}
+	public function displaySuccessPage($popup, $res) {
+		$this->assign('popup', $popup);
+		$this->assign('res', $res);
+		parent::display('subSuccessPage');
+	}
 }

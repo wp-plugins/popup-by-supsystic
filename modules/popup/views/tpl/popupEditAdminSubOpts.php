@@ -23,6 +23,12 @@
 			<?php echo htmlPps::selectbox('params[tpl][sub_wp_create_user_role]', array(
 				'options' => $this->availableUserRoles,
 				'value' => (isset($this->popup['params']['tpl']['sub_wp_create_user_role']) ? $this->popup['params']['tpl']['sub_wp_create_user_role'] : 'subscriber')))?>
+		</label><br />
+		<label>
+			<?php _e('Create Subscriber without confirmation', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Usually, after user subscribe, we send email with confirmation link - to confirm email addres, and only after usee will click on link from this email - we will create new subscriber. This option allow you to create subscriber - right after subscription, without email confirmation process.', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::checkbox('params[tpl][sub_ignore_confirm]', array(
+				'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'sub_ignore_confirm')))?>
 		</label>
 	</div>
 	<div id="ppsPopupSubDestOpts_aweber" class="ppsPopupOptRow ppsPopupSubDestOpts" style="display: none;">
@@ -37,7 +43,7 @@
 		<div class="ppsPopupOptRow">
 			<label>
 				<?php _e('MailChimp API key', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('To find your MailChimp API Key login to your mailchimp account at <a href="%s" target="_blank">%s</a> then from the left main menu, click on your Username, then select "Account" in the flyout menu. From the account page select "Extras", "API Keys". Your API Key will be listed in the table labeled "Your API Keys". Copy / Paste your API key into the MailChimp Module2 setup.', PPS_LANG_CODE), 'http://mailchimp.com', 'http://mailchimp.com'))?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('To find your MailChimp API Key login to your mailchimp account at <a href="%s" target="_blank">%s</a> then from the left main menu, click on your Username, then select "Account" in the flyout menu. From the account page select "Extras", "API Keys". Your API Key will be listed in the table labeled "Your API Keys". Copy / Paste your API key into "MailChimp API key" field here.', PPS_LANG_CODE), 'http://mailchimp.com', 'http://mailchimp.com'))?>"></i>
 				<?php echo htmlPps::text('params[tpl][sub_mailchimp_api_key]', array(
 					'value' => (isset($this->popup['params']['tpl']['sub_mailchimp_api_key']) ? $this->popup['params']['tpl']['sub_mailchimp_api_key'] : ''),
 					'attrs' => 'style="min-width: 300px;"'))?>
@@ -70,7 +76,7 @@
 	</div>
 	<div id="ppsPopupSubTxtsAndRedirect" class="ppsPopupOptRow" style="display: none;">
 		<label>
-			<?php _e('"Confirmation email was sent" message', PPS_LANG_CODE)?>
+			<?php _e('"Confirmation sent" message', PPS_LANG_CODE)?>
 			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('This will be message, that user will see after subscribe - that email with confirmation link sent.', PPS_LANG_CODE)?>"></i>
 			<?php echo htmlPps::text('params[tpl][sub_txt_confirm_sent]', array(
 				'value' => (isset($this->popup['params']['tpl']['sub_txt_confirm_sent']) ? esc_html( $this->popup['params']['tpl']['sub_txt_confirm_sent'] ) : __('Confirmation link was sent to your email address. Check your email!', PPS_LANG_CODE)),

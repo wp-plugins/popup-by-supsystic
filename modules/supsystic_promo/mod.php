@@ -1,10 +1,15 @@
 <?php
 class supsystic_promoPps extends modulePps {
+	private $_mainLink = '';
 	private $_specSymbols = array(
 		'from'	=> array('?', '&'),
 		'to'	=> array('%', '^'),
 	);
 	private $_minDataInStatToSend = 20;	// At least 20 points in table shuld be present before send stats
+	public function __construct($d) {
+		parent::__construct($d);
+		$this->getMainLink();
+	}
 	public function init() {
 		parent::init();
 		add_action('admin_footer', array($this, 'displayAdminFooter'), 9);
@@ -12,6 +17,16 @@ class supsystic_promoPps extends modulePps {
 			$this->checkStatisticStatus();
 		}
 		$this->weLoveYou();
+		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
+	}
+	public function addAdminTab($tabs) {
+		$tabs['overview'] = array(
+			'label' => __('Overview', PPS_LANG_CODE), 'callback' => array($this, 'getOverviewTabContent'), 'fa_icon' => 'fa-info', 'sort_order' => 5,
+		);
+		return $tabs;
+	}
+	public function getOverviewTabContent() {
+		return $this->getView()->getOverviewTabContent();
 	}
 	// We used such methods - _encodeSlug() and _decodeSlug() - as in slug wp don't understand urlencode() functions
 	private function _encodeSlug($slug) {
@@ -82,18 +97,18 @@ class supsystic_promoPps extends modulePps {
 		$this->getView()->showAdditionalmainAdminShowOnOptions($popup);
 	}
 	public function addUserExp($tabs) {
-		$url = 'http://supsystic.com/plugins/popup-plugin/';
+		$url = $this->getMainLink();
 		$modPath = $this->getModPath();
 		$tabs['ppsPopupAbTesting'] = array(
 			'title' => __('Testing', PPS_LANG_CODE), 
-			'content' => '<a href="'. $this->_preparePromoLink($url). '" target="_blank"><img src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
+			'content' => '<a href="'. $this->_preparePromoLink($url). '" target="_blank" class="button button-primary">'. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->_preparePromoLink($url). '" target="_blank"><img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
 			'icon_content' => '<b>A/B</b>',
 			'avoid_hide_icon' => true,
 			'sort_order' => 55,
 		);
 		$tabs['ppsPopupLayeredPopup'] = array(
 			'title' => __('Layered Style', PPS_LANG_CODE), 
-			'content' => '<a href="'. $this->_preparePromoLink($url). '" target="_blank"><img src="'. $modPath. 'img/layered-style-pro.jpg" /></a>',
+			'content' => $this->getView()->getLayeredStylePromo(),
 			'fa_icon' => 'fa-arrows',
 			'sort_order' => 15,
 		);
@@ -118,5 +133,31 @@ class supsystic_promoPps extends modulePps {
 	}
 	public function getMinStatSend() {
 		return $this->_minDataInStatToSend;
+	}
+	public function getMainLink() {
+		if(empty($this->_mainLink)) {
+			$this->_mainLink = 'http://supsystic.com/plugins/popup-plugin/';
+		}
+		return $this->_mainLink ;
+	}
+	public function getContactFormFields() {
+		$fields = array(
+            'name' => array('label' => __('Your name', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'text'),
+			'email' => array('label' => __('Your email', PPS_LANG_CODE), 'html' => 'email', 'valid' => array('notEmpty', 'email'), 'placeholder' => 'example@mail.com', 'def' => get_bloginfo('admin_email')),
+			'website' => array('label' => __('Website', PPS_LANG_CODE), 'html' => 'text', 'placeholder' => 'http://example.com', 'def' => get_bloginfo('url')),
+			'subject' => array('label' => __('Subject', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'text'),
+            'category' => array('label' => __('Topic', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'selectbox', 'options' => array(
+				'plugins_options' => __('Plugin options', PPS_LANG_CODE),
+				'bug' => __('Report a bug', PPS_LANG_CODE),
+				'functionality_request' => __('Require a new functionallity', PPS_LANG_CODE),
+				'other' => __('Other', PPS_LANG_CODE),
+			)),
+			'message' => array('label' => __('Message', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'textarea', 'placeholder' => __('Hello Supsystic Team!', PPS_LANG_CODE)),
+        );
+		foreach($fields as $k => $v) {
+			if(isset($fields[ $k ]['valid']) && !is_array($fields[ $k ]['valid']))
+				$fields[ $k ]['valid'] = array( $fields[ $k ]['valid'] );
+		}
+		return $fields;
 	}
 }

@@ -15,13 +15,67 @@ class supsystic_promoControllerPps extends controllerPps {
 		}
 		redirectPps($originalPage);
 	}
+	public function sendContact() {
+		$res = new responsePps();
+		$time = time();
+		$prevSendTime = (int) get_option(PPS_CODE. '_last__time_contact_send');
+		if($prevSendTime && ($time - $prevSendTime) < 5 * 60) {	// Only one message per five minutes
+			$res->pushError(__('Please don\'t send contact requests so often - wait for response for your previous requests.'));
+			$res->ajaxExec();
+		}
+        $data = reqPps::get('post');
+        $fields = $this->getModule()->getContactFormFields();
+		foreach($fields as $fName => $fData) {
+			$validate = isset($fData['validate']) ? $fData['validate'] : false;
+			$data[ $fName ] = isset($data[ $fName ]) ? trim($data[ $fName ]) : '';
+			if($validate) {
+				$error = '';
+				foreach($validate as $v) {
+					if(!empty($error))
+						break;
+					switch($v) {
+						case 'notEmpty':
+							if(empty($data[ $fName ])) {
+								$error = $fData['html'] == 'selectbox' ? __('Please select %s', PPS_LANG_CODE) : __('Please enter %s', PPS_LANG_CODE);
+								$error = sprintf($error, $fData['label']);
+							}
+							break;
+						case 'email':
+							if(!is_email($data[ $fName ])) 
+								$error = __('Please enter valid email address', PPS_LANG_CODE);
+							break;
+					}
+					if(!empty($error)) {
+						$res->pushError($error, $fName);
+					}
+				}
+			}
+		}
+		if(!$res->error()) {
+			$msg = 'Message from: '. get_bloginfo('name').', Host: '. $_SERVER['HTTP_HOST']. '<br />';
+			$msg .= 'Plugin: '. PPS_WP_PLUGIN_NAME. '<br />';
+			foreach($fields as $fName => $fData) {
+				if(in_array($fName, array('name', 'email', 'subject'))) continue;
+				if($fName == 'category')
+					$data[ $fName ] = $fData['options'][ $data[ $fName ] ];
+                $msg .= '<b>'. $fData['label']. '</b>: '. nl2br($data[ $fName ]). '<br />';
+            }
+			if(framePps::_()->getModule('mail')->send('support@supsystic.team.zendesk.com', $data['subject'], $msg, $data['name'], $data['email'])) {
+				update_option(PPS_CODE. '_last__time_contact_send', $time);
+			} else {
+				$res->pushError( framePps::_()->getModule('mail')->getMailErrors() );
+			}
+			
+		}
+        $res->ajaxExec();
+	}
 	/**
 	 * @see controller::getPermissions();
 	 */
 	public function getPermissions() {
 		return array(
 			PPS_USERLEVELS => array(
-				PPS_ADMIN => array('welcomePageSaveInfo')
+				PPS_ADMIN => array('welcomePageSaveInfo', 'sendContact')
 			),
 		);
 	}
