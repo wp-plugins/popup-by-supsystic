@@ -69,9 +69,9 @@ class popupViewPps extends viewPps {
 		
 		framePps::_()->getModule('templates')->loadJqueryUi();
 		
-		framePps::_()->addStyle('codemirror', PPS_CSS_PATH. 'codemirror.css');
+		framePps::_()->addStyle('ppsCodemirror', PPS_CSS_PATH. 'codemirror.css');
 		framePps::_()->addStyle('codemirror-addon-hint', PPS_JS_PATH. 'codemirror/addon/hint/show-hint.css');
-		framePps::_()->addScript('codemirror', PPS_JS_PATH. 'codemirror/codemirror.js');
+		framePps::_()->addScript('ppsCodemirror', PPS_JS_PATH. 'codemirror/codemirror.js');
 		framePps::_()->addScript('codemirror-addon-show-hint', PPS_JS_PATH. 'codemirror/addon/hint/show-hint.js');
 		framePps::_()->addScript('codemirror-addon-xml-hint', PPS_JS_PATH. 'codemirror/addon/hint/xml-hint.js');
 		framePps::_()->addScript('codemirror-addon-html-hint', PPS_JS_PATH. 'codemirror/addon/hint/html-hint.js');
@@ -395,7 +395,7 @@ class popupViewPps extends viewPps {
 		if(isset($attrs['autoplay']) && $attrs['autoplay']) {
 			preg_match('/\<iframe.+src\=\"(?<SRC>.+)\"/iUs', $html, $matches);
 			if($matches && isset($matches['SRC']) && !empty($matches['SRC'])) {
-				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'autoplay=1';
+				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'enablejsapi=1';
 				$html = str_replace($matches['SRC'], $newSrc, $html);
 			}
 		}

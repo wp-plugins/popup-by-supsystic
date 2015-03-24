@@ -45,6 +45,11 @@ class supsystic_promoViewPps extends viewPps {
 				3. From the account page select "Extras" -> "API Keys".<br />
 				4. Your API Key will be listed in the table labeled "Your API Keys".<br />
 				5. Copy / Paste your API key into "MailChimp API key" field in PopUp edit screen -> Subscribe section.', PPS_LANG_CODE),
+			__('Where to find css code for the pop-up window?', PPS_LANG_CODE)
+				=> __('With Popup by Supsystic you can edit CSS style directly from the plugin. <br />
+				In WordPress admin area - 
+go to Popup by Supsystic -> choose a popup, what you need -> click Code tab. <br />
+Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 			__('How to get PRO version of plugin for FREE?', PPS_LANG_CODE)
 				=> sprintf(__('You have an incredible opportunity to get PRO version for free. Make Translation of the plugin! It will be amazing if you take advantage of this offer!<br />
 					More info you can find here <a target="_blank" href="%s">“Get PRO version of any plugin for FREE”</a>', PPS_LANG_CODE), 'http://supsystic.com/get-pro-version-of-any-plugin-for-free/'),

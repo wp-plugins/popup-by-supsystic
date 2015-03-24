@@ -120,7 +120,7 @@ class framePps {
         //$operationTime = microtime(true) - $startTime;
     }
 	public function connectLang() {
-		load_plugin_textdomain(PPS_LANG_CODE, false, PPS_DIR. 'lang');
+		load_plugin_textdomain(PPS_LANG_CODE, false, PPS_PLUG_NAME. '/lang');
 	}
     /**
      * Check permissions for action in controller by $code and made corresponding action

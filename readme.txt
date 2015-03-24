@@ -2,7 +2,7 @@
 Contributors: supsystic.com
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1.1
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -144,6 +144,14 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
 == Changelog ==
+
+= 1.1.3 / 24.03.2015 =
+ * Play/Stop Youtube video on client side - make it correct work for hidden elements
+ * Fix conflict with other plugins that use modified CodeMirror library 
+ * Added French translation
+ * Added Spanish translation
+ * Correction for loading translation files for plugin - make it fully multi language
+ * Overview - FAQ info changed
 
 = 1.1.2 / 20.03.2015 =
  * Added option - "Create Subscriber without confirmation"
