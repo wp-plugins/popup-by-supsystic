@@ -7,7 +7,7 @@
 			))?>
 			<?php _e('Enable Layered PopUp Style', PPS_LANG_CODE)?>
 		</a>
-		<a target="_blank" href="<?php echo $this->promoLink?>"><?php _e('Available in PRO', PPS_LANG_CODE)?></a>
+		<a target="_blank" class="button" style="margin-top: -8px;" href="<?php echo $this->promoLink?>"><?php _e('Available in PRO', PPS_LANG_CODE)?></a>
 	</label>
 	<div class="description"><?php _e('By default all PopUps - have modal style: it appear on user screen over the whole site. Layered style allow you to show your PopUp - on selected position: top, bottom, etc. and not over your site - but right near your content.', PPS_LANG_CODE)?></div>
 </div>
@@ -69,7 +69,7 @@
 	});
 </script>
 <!--PRO explanation Wnd-->
-<div id="ppsLayeredProExplainWnd" style="display: none;">
+<div id="ppsLayeredProExplainWnd" style="display: none;" title="<?php _e('Improve Free version', PPS_LANG_CODE)?>">
 	<p>
 		<?php printf(__('This functionality and more - is available in PRO version. <a class="button button-primary" target="_blank" href="%s">Get it</a> today for 29$', PPS_LANG_CODE), $this->promoLink)?>
 	</p>

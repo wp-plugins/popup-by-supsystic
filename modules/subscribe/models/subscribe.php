@@ -133,21 +133,66 @@ class subscribeModelPps extends modelPps {
 				$user = new WP_User($userId);
 				$user->set_role( $popup['params']['tpl']['sub_wp_create_user_role'] );
 			}
-			wp_new_user_notification($userId, $password);
+			$this->_sendNewUserNotification($popup, $userId, $password);
 			return true;
 		} else {
 			$this->pushError (is_wp_error($userId) ? $userId->get_error_message() : __('Can\'t subscribe for now. Please try again latter.', PPS_LANG_CODE));
 		}
 		return false;
 	}
+	private function _sendNewUserNotification($popup, $userId, $password) {
+		$emailSubject = isset($popup['params']['tpl']['sub_txt_subscriber_mail_subject']) ? $popup['params']['tpl']['sub_txt_subscriber_mail_subject'] : false;
+		$emailContent = isset($popup['params']['tpl']['sub_txt_subscriber_mail_message']) ? $popup['params']['tpl']['sub_txt_subscriber_mail_message'] : false;
+		if($emailSubject && $emailContent) {
+			$user = get_userdata( $userId );
+			$blogName = wp_specialchars_decode(get_bloginfo('name'));
+			$adminEmail = isset($popup['params']['tpl']['sub_txt_subscriber_mail_from']) 
+				? $popup['params']['tpl']['sub_txt_subscriber_mail_from']
+				: get_bloginfo('admin_email');
+			$replaceVariables = array(
+				'sitename' => $blogName,
+				'siteurl' => get_bloginfo('wpurl'),
+				'user_login' => $user->user_login,
+				'user_email' => $user->user_email,
+				'password' => $password,
+				'login_url' => wp_login_url(),
+			);
+			foreach($replaceVariables as $k => $v) {
+				$emailSubject = str_replace('['. $k. ']', $v, $emailSubject);
+				$emailContent = str_replace('['. $k. ']', $v, $emailContent);
+			}
+			framePps::_()->getModule('mail')->send($user->user_email,
+				$emailSubject,
+				$emailContent,
+				$blogName,
+				$adminEmail,
+				$blogName,
+				$adminEmail);
+			// Email to admin about new user registration - as simple as we can do - ust copied original wp code
+			$message  = sprintf(__('New user registration on your site %s:'), $blogName) . '<br />';
+			$message .= sprintf(__('Username: %s'), $user->user_login) . '<br />';
+			$message .= sprintf(__('E-mail: %s'), $user->user_email) . '<br />';
+			framePps::_()->getModule('mail')->send(get_bloginfo('admin_email'),
+				sprintf(__('[%s] New User Registration'), $blogName),
+				$message,
+				$blogName,
+				$adminEmail,
+				$blogName,
+				$adminEmail);
+		} else {	// Just use standard wp method
+			wp_new_user_notification($userId, $password);
+		}
+	}
 	public function sendWpUserConfirm($username, $email, $confirmHash, $popup) {
-		$blogName = get_bloginfo('name');
+		$blogName = wp_specialchars_decode(get_bloginfo('name'));
 		$replaceVariables = array(
 			'sitename' => $blogName,
 			'siteurl' => get_bloginfo('wpurl'),
 			'confirm_link' => uriPps::mod('subscribe', 'confirm', array('email' => $email, 'hash' => $confirmHash)),
 		);
-		$adminEmail = get_bloginfo('admin_email');
+		$adminEmail = isset($popup['params']['tpl']['sub_txt_confirm_mail_from']) 
+			? $popup['params']['tpl']['sub_txt_confirm_mail_from']
+			: get_bloginfo('admin_email');
 		$confirmSubject = isset($popup['params']['tpl']['sub_txt_confirm_mail_subject']) && !empty($popup['params']['tpl']['sub_txt_confirm_mail_subject'])
 				? $popup['params']['tpl']['sub_txt_confirm_mail_subject']
 				: __('Confirm subscription on [sitename]', PPS_LANG_CODE);
@@ -297,6 +342,44 @@ class subscribeModelPps extends modelPps {
 					$this->pushError (__('No lists to add selected in admin area - contact site owner to resolve this issue.', PPS_LANG_CODE));
 			} else
 				$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
+		} else
+			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
+		return false;
+	}
+	public function subscribe_mailpoet($d, $popup, $validateIp = false) {
+		$email = isset($d['email']) ? trim($d['email']) : false;
+		if(!empty($email) && is_email($email)) {
+			if(!$validateIp || $validateIp && $this->_checkOftenAccess(array('only_check' => true))) {
+				if(class_exists('WYSIJA')) {
+					$name = '';
+					if(isset($popup['params']['tpl']['enb_sub_name']) && $popup['params']['tpl']['enb_sub_name']) {
+						$name = trim($d['name']);
+					}
+					$userData = array('email' => $email);
+					if(!empty($name)) {
+						$firstLastNames = array_map('trim', explode(' ', $name));
+						$userData['firstname'] = $firstLastNames[ 0 ];
+						if(isset($firstLastNames[ 1 ]) && !empty($firstLastNames[ 1 ])) {
+							$userData['lastname'] = $firstLastNames[ 1 ];
+						}
+					}
+					$dataSubscriber = array(
+						'user' => $userData,
+						'user_list' => array('list_ids' => array( $popup['params']['tpl']['sub_mailpoet_list'] )),
+					);
+					$helperUser = WYSIJA::get('user', 'helper');
+					if($helperUser->addSubscriber($dataSubscriber)) {
+						if($validateIp) {
+							$this->_checkOftenAccess(array('only_add' => true));
+						}
+						return true;
+					} else {
+						$messages = $helperUser->getMsgs();
+						$this->pushError( (!empty($messages) && isset($messages['error']) && !empty($messages['error']) ? $messages['error'] : __('Some error occured during subscription process', PPS_LANG_CODE))); 
+					}
+				} else
+					$this->pushError (__('Can\'t find MailPoet on this server', PPS_LANG_CODE));
+			}
 		} else
 			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		return false;

@@ -454,8 +454,7 @@ input[type="color"] {
 /*sticky items*/
 .supsystic-sticky-active {
     position: fixed !important;
-    /*top: 32px;*/
-    z-index: 999;
+    z-index: 99;
 }
 .supsystic-sticky-active.supsystic-sticky-active-bordered {
 	border-bottom: 2px solid #ddd !important;

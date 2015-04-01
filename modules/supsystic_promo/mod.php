@@ -84,7 +84,6 @@ class supsystic_promoPps extends modulePps {
 	private function _preparePromoLink($link, $ref = '') {
 		if(empty($ref))
 			$ref = 'user';
-		$link .= '?ref='. $ref;
 		return $link;
 	}
 	public function weLoveYou() {
@@ -101,7 +100,7 @@ class supsystic_promoPps extends modulePps {
 		$modPath = $this->getModPath();
 		$tabs['ppsPopupAbTesting'] = array(
 			'title' => __('Testing', PPS_LANG_CODE), 
-			'content' => '<a href="'. $this->_preparePromoLink($url). '" target="_blank" class="button button-primary">'. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->_preparePromoLink($url). '" target="_blank"><img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
+			'content' => '<a href="'. $this->_preparePromoLink($url. '?utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank" class="button button-primary">'. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->_preparePromoLink($url. '?utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank"><img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
 			'icon_content' => '<b>A/B</b>',
 			'avoid_hide_icon' => true,
 			'sort_order' => 55,
@@ -159,5 +158,8 @@ class supsystic_promoPps extends modulePps {
 				$fields[ $k ]['valid'] = array( $fields[ $k ]['valid'] );
 		}
 		return $fields;
+	}
+	public function isPro() {
+		return framePps::_()->getModule('license') ? true : false;
 	}
 }

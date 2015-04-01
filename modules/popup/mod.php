@@ -41,12 +41,15 @@ class popupPps extends modulePps {
 	public function checkPopupShow() {
 		global $wp_query;
 		$currentPageId = (int) get_the_ID();
+		$isHome = is_home();
 		/*show_pages = 1 -> All, 2 -> show on selected, 3 -> do not show on selected*/
 		/*show_on = 1 -> Page load, 2 -> click on page, 3 -> click on certain element (shortcode)*/
 		$condition = "original_id != 0 AND active = 1 AND (show_pages = 1";
 		$havePostsListing = $wp_query && is_object($wp_query) && isset($wp_query->posts) && is_array($wp_query->posts) && !empty($wp_query->posts);
 		// Check if we can show popup on this page
-		if($currentPageId && $havePostsListing && count($wp_query->posts) == 1) {
+		if(($currentPageId && $havePostsListing && count($wp_query->posts) == 1) || $isHome) {
+			if($isHome)
+				$currentPageId = PPS_HOME_PAGE_ID;
 			$condition .= " OR (show_pages = 2 AND id IN (SELECT popup_id FROM @__popup_show_pages WHERE post_id = $currentPageId AND not_show = 0))
 				OR (show_pages = 3 AND id NOT IN (SELECT popup_id FROM @__popup_show_pages WHERE post_id = $currentPageId AND not_show = 1))";
 		}
@@ -58,9 +61,9 @@ class popupPps extends modulePps {
 			// Check if show popup shortcode or at least it's show js function ppsShowPopup() - exists on any post content
 			foreach($wp_query->posts as $post) {
 				if(is_object($post) && isset($post->post_content)) {
-					if((preg_match_all('/\[\s*'. PPS_SHORTCODE_CLICK. '.+id\s*\=.*(?<POPUP_ID>\d+)\]/iUs', $post->post_content, $matches) 
-						|| preg_match_all('/ppsShowPopup\s*\(\s*(?<POPUP_ID>\d+)\s*\)\s*;*/iUs', $post->post_content, $matches)
-						|| preg_match_all('/\"\#ppsShowPopUp_(?<POPUP_ID>\d+)\"/iUs', $post->post_content, $matches)
+					if((preg_match_all('/\[\s*'. PPS_SHORTCODE_CLICK. '.+id\s*\=.*(?P<POPUP_ID>\d+)\]/iUs', $post->post_content, $matches) 
+						|| preg_match_all('/ppsShowPopup\s*\(\s*(?P<POPUP_ID>\d+)\s*\)\s*;*/iUs', $post->post_content, $matches)
+						|| preg_match_all('/\"\#ppsShowPopUp_(?P<POPUP_ID>\d+)\"/iUs', $post->post_content, $matches)
 						) && isset($matches['POPUP_ID'])
 					) {
 						if(!is_array($matches['POPUP_ID']))

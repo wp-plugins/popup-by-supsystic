@@ -114,6 +114,8 @@ class popupViewPps extends viewPps {
 				$allPagesForSelect[ $p['ID'] ] = $p['post_title'];
 			}
 		}
+		$allPagesForSelect[ PPS_HOME_PAGE_ID ] = __('Main Home page', PPS_LANG_CODE);
+		
 		$selectedShowPages = array();
 		$selectedHidePages = array();
 		if(isset($popup['show_pages_list']) && !empty($popup['show_pages_list'])) {
@@ -125,6 +127,9 @@ class popupViewPps extends viewPps {
 				}
 			}
 		}
+		$this->assign('adminEmail', get_bloginfo('admin_email'));
+		$this->assign('isPro', framePps::_()->getModule('supsystic_promo')->isPro());
+		$this->assign('mainLink', framePps::_()->getModule('supsystic_promo')->getMainLink());
 		if(in_array($popup['type'], array(PPS_FB_LIKE))) {
 			$this->assign('fbLikeOpts', $this->getFbLikeOpts());
 		}
@@ -260,7 +265,19 @@ class popupViewPps extends viewPps {
 	}
 	public function getMainPopupSubTab() {
 		framePps::_()->getModule('subscribe')->loadAdminEditAssets();
+		$mailPoetAvailable = class_exists('WYSIJA');
+		if($mailPoetAvailable) {
+			$mailPoetLists = WYSIJA::get('list', 'model')->get(array('name', 'list_id'), array('is_enabled' => 1));
+			$mailPoetListsSelect = array();
+			if(!empty($mailPoetLists)) {
+				foreach($mailPoetLists as $l) {
+					$mailPoetListsSelect[ $l['list_id'] ] = $l['name'];
+				}
+			}
+			$this->assign('mailPoetListsSelect', $mailPoetListsSelect);
+		}
 		$this->assign('availableUserRoles', framePps::_()->getModule('subscribe')->getAvailableUserRolesForSelect());
+		$this->assign('mailPoetAvailable', $mailPoetAvailable);
 		return parent::getContent('popupEditAdminSubOpts');
 	}
 	public function getMainPopupSmTab() {
@@ -395,7 +412,7 @@ class popupViewPps extends viewPps {
 		if(isset($attrs['autoplay']) && $attrs['autoplay']) {
 			preg_match('/\<iframe.+src\=\"(?<SRC>.+)\"/iUs', $html, $matches);
 			if($matches && isset($matches['SRC']) && !empty($matches['SRC'])) {
-				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'enablejsapi=1';
+				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'autoplay=1';
 				$html = str_replace($matches['SRC'], $newSrc, $html);
 			}
 		}
@@ -433,6 +450,10 @@ class popupViewPps extends viewPps {
 		}
 		$popup['css'] = $this->_replaceTagsWithTwig( $popup['css'], $popup );
 		$popup['html'] = $this->_replaceTagsWithTwig( $popup['html'], $popup );
+		
+		$popup['css'] = dispatcherPps::applyFilters('popupCss', $popup['css'], $popup);
+		$popup['html'] = dispatcherPps::applyFilters('popupHtml', $popup['html'], $popup);
+		
 		return $this->_twig->render(
 				'<style type="text/css">'. $popup['css']. '</style>'. $popup['html'],
 			array('popup' => $popup)

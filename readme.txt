@@ -1,14 +1,15 @@
 === PopUp by Supsystic ===
 Contributors: supsystic.com
+Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1.1
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
 == Description ==
 
-[Popup by Supsystic](http://supsystic.com/plugins/popup-plugin/ "Popup WordPress plugin Supsystic") lets you easily create elegant overlapping windows with unlimited features. Pop-ups with Slider, Lightbox, Contact, Subscription forms and more:
+[Popup by Supsystic](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=description&utm_campaign=popup "Popup WordPress plugin Supsystic") lets you easily create elegant overlapping windows with unlimited features. Pop-ups with Slider, Lightbox, Contact, Subscription forms and more:
 
 * Unlimited Content Customization
 * Auto Open Popups
@@ -43,7 +44,7 @@ Popup email forms have huge potential when it comes to list building, and even i
 
 = Support =
 
-If you have any problem or feature request for the Popup by Supsystic, please [let us know](http://supsystic.com/contact-us/ "Contact Us")!
+If you have any problem or feature request for the Popup by Supsystic, please [let us know](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=contactus&utm_campaign=popup "Contact Us")!
 
 == Installation ==
 
@@ -144,6 +145,17 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
 == Changelog ==
+
+= 1.1.4 / 01.04.2015 =
+ * MailPoet Subscribe integration
+ * Possibility to select Home page of whole site - to show or not PopUps
+ * New Subscriber email edit options
+ * Option to edit From field in emails to subscriber
+ * Small issue fix - for servers with old version of pcre package (preg_match_all php warning)
+ * Added German translation
+ * PRO - Possibility to set font family for PopUp
+ * Correction for Video PopUp - correct stop/play video after close/open PopUp
+ * Minor issue with empty statistics fix
 
 = 1.1.3 / 24.03.2015 =
  * Play/Stop Youtube video on client side - make it correct work for hidden elements

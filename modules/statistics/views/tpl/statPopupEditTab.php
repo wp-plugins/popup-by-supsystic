@@ -1,4 +1,9 @@
 <?php if($this->haveData) { ?>
+	<?php if(!$this->isPro) { ?>
+		<p style="font-size: 15px;">
+			<?php printf(__('Want to increase conversion, subscribers and social share? <a target="_blank" href="%s" class="button">Get know - how!</a>', PPS_LANG_CODE), 'http://supsystic.com/what-is-ab-testing/?utm_source=plugin&utm_medium=abtesting&utm_campaign=popup')?>
+		</p>
+	<?php }?>
 	<span class="ppsOptLabel" style="min-height: 30px;">
 		<?php _e('Main PopUp Usage Statistics', PPS_LANG_CODE)?>
 		<div style="float: right;">

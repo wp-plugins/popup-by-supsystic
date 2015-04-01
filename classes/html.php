@@ -558,7 +558,11 @@ class htmlPps {
 			foreach(fieldAdapterPps::getFontsList() as $font)
 				$options[ $font ] = $font;
 		}
-		$params['options'] = $options;
+		$params['options'] = array();
+		if(isset($params['default'])) {
+			$params['options'] = array(PPS_DEFAULT => $params['default']);
+		}
+		$params['options'] = array_merge($params['options'], $options);
 		return self::selectbox($name, $params);
 	}
 	static public function checkboxHiddenVal($name, $params = array('attrs' => '', 'value' => '', 'checked' => '')) {

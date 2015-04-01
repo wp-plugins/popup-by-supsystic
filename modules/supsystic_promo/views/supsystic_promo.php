@@ -15,7 +15,7 @@ class supsystic_promoViewPps extends viewPps {
 		parent::display('welcomePage');
 	}
 	public function showAdditionalmainAdminShowOnOptions($popup) {
-		$this->assign('promoLink', $this->getModule()->getMainLink());
+		$this->assign('promoLink', $this->getModule()->getMainLink(). '?utm_source=plugin&utm_medium=onexit&utm_campaign=popup');
 		parent::display('additionalmainAdminShowOnOptions');
 	}
 	public function getOverviewTabContent() {
@@ -81,7 +81,7 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 			'Operating System' => array('value' => PHP_OS),
             'PHP Version' => array('value' => PHP_VERSION),
             'Server Software' => array('value' => $_SERVER['SERVER_SOFTWARE']),
-            'MySQL' => array('value' => mysql_get_server_info()),
+            'MySQL' => array('value' => @mysql_get_server_info()),
             'PHP Safe Mode' => array('value' => ini_get('safe_mode') ? __('Yes', PPS_LANG_CODE) : __('No', PPS_LANG_CODE), 'error' => ini_get('safe_mode')),
             'PHP Allow URL Fopen' => array('value' => ini_get('allow_url_fopen') ? __('Yes', PPS_LANG_CODE) : __('No', PPS_LANG_CODE)),
             'PHP Memory Limit' => array('value' => ini_get('memory_limit')),
@@ -95,7 +95,7 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 		);
 	}
 	public function getLayeredStylePromo() {
-		$this->assign('promoLink', $this->getModule()->getMainLink());
+		$this->assign('promoLink', $this->getModule()->getMainLink(). '?utm_source=plugin&utm_medium=layered&utm_campaign=popup');
 		return parent::getContent('layeredStylePromo');
 	}
 }

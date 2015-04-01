@@ -20,6 +20,7 @@ class statisticsViewPps extends viewPps {
 		
 		$this->assign('haveData', $haveData);
 		$this->assign('popup', $popup);
+		$this->assign('isPro', framePps::_()->getModule('supsystic_promo')->isPro());
 		return parent::getContent('statPopupEditTab');
 	}
 }

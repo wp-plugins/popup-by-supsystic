@@ -61,6 +61,26 @@
 			<span id="ppsMailchimpMsg"></span>
 		</div>
 	</div>
+	<div id="ppsPopupSubDestOpts_mailpoet" class="ppsPopupOptRow ppsPopupSubDestOpts" style="display: none;">
+		<div class="ppsPopupOptRow">
+			<?php if($this->mailPoetAvailable) { ?>
+				<label>
+					<?php _e('MailPoet Subscribe Lists', PPS_LANG_CODE)?>
+					<?php if(!empty($this->mailPoetListsSelect)) { ?>
+						<?php echo htmlPps::selectbox('params[tpl][sub_mailpoet_list]', array(
+							'value' => (isset($this->popup['params']['tpl']['sub_mailpoet_list']) ? $this->popup['params']['tpl']['sub_mailpoet_list'] : ''),
+							'options' => $this->mailPoetListsSelect,
+							/*'attrs' => 'style="min-width: 300px;"'*/))?>
+					<?php } else { ?>
+						<div class="description"><?php printf(__('You have no subscribe lists, <a target="_blank" href="%s">create lists</a> at first, then - select them here.', PPS_LANG_CODE), admin_url('admin.php?page=wysija_subscribers&action=addlist'))?></div>
+					<?php }?>
+				</label>
+			<?php } else { ?>
+				<div class="description"><?php printf(__('To use this subscribe engine - you must have <a target="_blank" href="%s">MailPoet plugin</a> installed on your site', PPS_LANG_CODE), admin_url('plugin-install.php?tab=search&s=MailPoet'))?></div>
+			<?php }?>
+			
+		</div>
+	</div>
 	<div class="ppsPopupOptRow">
 		<fieldset class="ppoPopupSubFields" style="padding: 10px;">
 			<legend><?php _e('Subscription fields', PPS_LANG_CODE)?></legend>
@@ -115,16 +135,58 @@
 			))?>
 		</label>
 		<label>
-			<?php _e('Confirmation email text', PPS_LANG_CODE)?>
-			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link content', PPS_LANG_CODE)?>"></i>
+			<?php _e('Confirmation email From field', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link From field', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_confirm_mail_from]', array(
+				'value' => esc_html ( isset($this->popup['params']['tpl']['sub_txt_confirm_mail_from']) 
+					? $this->popup['params']['tpl']['sub_txt_confirm_mail_from'] 
+					: $this->adminEmail),
+			))?>
+		</label>
+		<label>
+			<div style="float: left; width: 260px;">
+				<?php _e('Confirmation email text', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link content', PPS_LANG_CODE)?>"></i>
+				<?php $allowVarsInMail = array('sitename', 'siteurl', 'confirm_link');?>
+				<div class="description"><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
+			</div>
 			<?php echo htmlPps::textarea('params[tpl][sub_txt_confirm_mail_message]', array(
 				'value' => esc_html( isset($this->popup['params']['tpl']['sub_txt_confirm_mail_message']) 
 					? $this->popup['params']['tpl']['sub_txt_confirm_mail_message'] 
 					: __('You subscribed on site <a href="[siteurl]">[sitename]</a>. Follow <a href="[confirm_link]">this link</a> to complete your subscription. If you did not subscribe here - just ignore this message.', PPS_LANG_CODE)),
 			))?>
 		</label>
-		<?php $allowVarsInMail = array('sitename', 'siteurl', 'confirm_link');?>
-		<div class="description"><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
+		<label>
+			<?php _e('New Subscriber email subject', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email to New Subscriber subject', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_subscriber_mail_subject]', array(
+				'value' => esc_html ( isset($this->popup['params']['tpl']['sub_txt_subscriber_mail_subject']) 
+					? $this->popup['params']['tpl']['sub_txt_subscriber_mail_subject'] 
+					: __('[sitename] Your username and password', PPS_LANG_CODE)),
+			))?>
+		</label>
+		<label>
+			<?php _e('New Subscriber email From field', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('New Subscriber email From fiel', PPS_LANG_CODE)?>"></i>
+			<?php echo htmlPps::text('params[tpl][sub_txt_subscriber_mail_from]', array(
+				'value' => esc_html ( isset($this->popup['params']['tpl']['sub_txt_subscriber_mail_from']) 
+					? $this->popup['params']['tpl']['sub_txt_subscriber_mail_from'] 
+					: $this->adminEmail),
+			))?>
+		</label>
+		<label>
+			<div style="float: left; width: 260px;">
+				<?php _e('New Subscriber email text', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email to New Subscriber content', PPS_LANG_CODE)?>"></i>
+				<?php $allowVarsInMail = array('user_login', 'user_email', 'password', 'login_url', 'sitename', 'siteurl');?>
+				<div class="description" style=""><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
+			</div>
+			<?php echo htmlPps::textarea('params[tpl][sub_txt_subscriber_mail_message]', array(
+				'value' => esc_html( isset($this->popup['params']['tpl']['sub_txt_subscriber_mail_message']) 
+					? $this->popup['params']['tpl']['sub_txt_subscriber_mail_message'] 
+					: __('Username: [user_login]<br />Password: [password]<br />[login_url]', PPS_LANG_CODE)),
+			))?>
+		</label>
 	</div>
 	<div class="ppsPopupOptRow">
 		<label class="ppsPopupSubBtnLabelShell">

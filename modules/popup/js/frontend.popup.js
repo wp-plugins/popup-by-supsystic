@@ -24,6 +24,7 @@ jQuery(document).ready(function(){
 	}
 });
 function ppsBindPopupShow( popup ) {
+	_ppsCheckBindVideo({popup: popup});
 	switch(popup.params.main.show_on) {
 		case 'page_load':
 			var delay = 0;
@@ -103,7 +104,7 @@ function ppsBindPopupSubscribers(popup) {
 	if(popup.params.tpl.enb_subscribe) {
 		var shell = ppsGetPopupShell( popup );
 		switch(popup.params.tpl.sub_dest) {
-			case 'wordpress': case 'mailchimp':
+			case 'wordpress': case 'mailchimp': case 'mailpoet':
 				shell.find('.ppsSubscribeForm').submit(function(){
 					var submitBtn = jQuery(this).find('input[type=submit]')
 					,	self = this
@@ -212,27 +213,51 @@ function ppsShowPopup( popup, params ) {
 	popup.is_visible = true;
 	popup.is_rendered = true;	// Rendered at least one time
 }
+function _ppsCheckBindVideo(params) {
+	params = params || {};
+	if(params.popup.type == 'video') {
+		var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );
+		if(shell.find('iframe').size()) {
+			shell.find('iframe').each(function(){
+				jQuery(this).data('original-src', jQuery(this).attr('src'));
+				jQuery(this).attr('src', '');
+			});
+		}
+	}
+}
 function _ppsCheckPlayVideo(params) {
 	params = params || {};
 	if(params.popup.type == 'video') {
 		var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );
-		_ppsSendVideoCommand(shell, 'playVideo');
+		if(shell.find('iframe').size()) {
+			shell.find('iframe').each(function(){
+				var originalSrc = jQuery(this).data('original-src')
+				,	src = jQuery(this).attr('src');
+				if(originalSrc && originalSrc != '' && (!src || src == '')) {
+					jQuery(this).attr('src', originalSrc);
+	}
+			});
+}
 	}
 }
 function _ppsCheckStopVideo(params) {
 	params = params || {};
 	if(params.popup.type == 'video') {
 		var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );
-		_ppsSendVideoCommand(shell, 'pauseVideo');
+		if(shell.find('iframe').size()) {
+			shell.find('iframe').each(function(){
+				jQuery(this).attr('src', '');
+			});
 	}
 }
+}
 function _ppsSendVideoCommand(shell, command) {
-	var executeClb = function(iframe) {
+	/*var executeClb = function(iframe) {
 		jQuery(iframe).get(0).contentWindow.postMessage('{"event":"command","func":"'+ command+ '","args":""}', '*');
 	};
 	shell.find('iframe').each(function(){
 		var src = jQuery(this).attr('src');
-		if(src.indexOf('youtube.com')) {
+		//if(src.indexOf('youtube.com')) {
 			if(jQuery(this).data('loaded')) {
 				executeClb(this);
 			} else {
@@ -244,9 +269,9 @@ function _ppsSendVideoCommand(shell, command) {
 					}, 100);
 				});
 			}
+		//}
+	});*/
 		}
-	});
-}
 function _ppsPositionPopup( params ) {
 	params = params || {};
 	var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );

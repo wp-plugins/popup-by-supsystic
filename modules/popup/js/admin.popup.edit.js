@@ -2,6 +2,7 @@ var ppsPopupSaveTimeout = null
 ,	ppsPopupIsSaving = false
 ,	ppsTinyMceEditorUpdateBinded = false;
 jQuery(document).ready(function(){
+	ppsInitFontsPromoPopup();
 	jQuery('#ppsPopupEditTabs').wpTabs({
 		uniqId: 'ppsPopupEditTabs'
 	,	change: function(selector) {
@@ -11,7 +12,7 @@ jQuery(document).ready(function(){
 						this.CodeMirrorEditor.refresh();
 					}
 				});
-			} else if(selector == '#ppsPopupStatistics') {
+			} else if(selector == '#ppsPopupStatistics' && typeof(ppsDrawPopupCharts) === 'function') {
 				ppsDrawPopupCharts();
 			}
 			if(selector == '#ppsPopupStatistics') {	// Hide preview for statistics tab
@@ -484,5 +485,24 @@ function ppsPopupCheckSwitchActiveBtn() {
 	} else {
 		jQuery('.ppsPopupSwitchActive .fa').removeClass('fa-toggle-off').addClass('fa-toggle-on');
 		jQuery('.ppsPopupSwitchActive span').html( jQuery('.ppsPopupSwitchActive').data('txt-on') );	
+	}
+}
+function ppsInitFontsPromoPopup() {
+	if(!PPS_DATA.isPro) {
+		var $proOptWnd = jQuery('#ppsOptInProWnd').dialog({
+			modal:    true
+		,	autoOpen: false
+		,	width: 540
+		,	height: 200
+		});
+		jQuery('#ppsPopupEditForm').find('select[name="params[tpl][font_label]"],select[name="params[tpl][font_txt]"],select[name="params[tpl][font_footer]"]').change(function(e){
+			e.stopPropagation();
+			var promoLink = jQuery(this).parents('tr:first').find('.ppsProOptMiniLabel a').attr('href');
+			if(promoLink && promoLink != '') {
+				jQuery('#ppsOptInProWnd a').attr('href', promoLink);
+			}
+			$proOptWnd.dialog('open');
+			return false;
+		});
 	}
 }

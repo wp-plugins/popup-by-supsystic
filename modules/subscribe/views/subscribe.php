@@ -24,6 +24,12 @@ class subscribeViewPps extends viewPps {
 	public function generateFormEnd_mailchimp($popup) {
 		return $this->_generateFormEndCommon($popup);
 	}
+	public function generateFormStart_mailpoet($popup) {
+		return $this->_generateFormStartCommon($popup, 'mailpoet');
+	}
+	public function generateFormEnd_mailpoet($popup) {
+		return $this->_generateFormEndCommon($popup);
+	}
 	private function _generateFormStartCommon($popup, $key = '') {
 		return '<form class="ppsSubscribeForm'. (empty($key) ? '' : ' ppsSubscribeForm_'. $key).'" action="">';
 	}
