@@ -5,6 +5,7 @@ window.onbeforeunload = function(){
 		return 'Some changes were not-saved. Are you sure you want to leave?';
 };
 jQuery(document).ready(function(){
+	ppsInitMainPromoPopup();
 	if(typeof(ppsActiveTab) != 'undefined' && ppsActiveTab != 'main_page' && jQuery('#toplevel_page_popup-wp-supsystic').hasClass('wp-has-current-submenu')) {
 		var subMenus = jQuery('#toplevel_page_popup-wp-supsystic').find('.wp-submenu li');
 		subMenus.removeClass('current').each(function(){
@@ -104,12 +105,19 @@ jQuery(document).ready(function(){
 		tooltipsterSettings.position = 'right';
 		jQuery('.supsystic-tooltip-right').tooltipster( tooltipsterSettings );
 	}
-	// Shortcodes and other "code-elements" auto-selection - not working with insert to visual editor for now
-	/*if(jQuery('.sup-shortcode').size()) {
-		jQuery('.sup-shortcode').click(function(){
-			toeSelectText( this );
+	if(jQuery('.ppsCopyTextCode').size()) {
+		var cloneWidthElement =  jQuery('<span class="sup-shortcode" />').appendTo('.supsystic-plugin');
+		jQuery('.ppsCopyTextCode').attr('readonly', 'readonly').click(function(){
+			this.setSelectionRange(0, this.value.length);
+		}).focus(function(){
+			this.setSelectionRange(0, this.value.length);
 		});
-	}*/
+		jQuery('input.ppsCopyTextCode').each(function(){
+			cloneWidthElement.html( str_replace(jQuery(this).val(), '<', 'P') );
+			jQuery(this).width( cloneWidthElement.width() );
+		});
+		cloneWidthElement.remove();
+	}
 });
 function changeAdminFormPps(formId) {
 	if(jQuery.inArray(formId, ppsAdminFormChanged) == -1)
@@ -365,4 +373,50 @@ function prepareToPlotDate(data) {
 		}
 	}
 	return data;
+}
+function ppsInitMainPromoPopup() {
+	if(!PPS_DATA.isPro) {
+		var $proOptWnd = jQuery('#ppsOptInProWnd').dialog({
+			modal:    true
+		,	autoOpen: false
+		,	width: 540
+		,	height: 200
+		});
+		jQuery('.ppsProOpt').change(function(e){
+			e.stopPropagation();
+			var needShow = true
+			,	isRadio = jQuery(this).attr('type') == 'radio'
+			,	isCheck = jQuery(this).attr('type') == 'checkbox';
+			if(isRadio && !jQuery(this).attr('checked')) {
+				needShow = false;
+			}
+			if(!needShow) {
+				return;
+			}
+			if(isRadio) {
+				jQuery('input[name="'+ jQuery(this).attr('name')+ '"]:first').parents('label:first').click();
+				if(jQuery(this).parents('.iradio_minimal:first').size()) {
+					var self = this;
+					setTimeout(function(){
+						jQuery(self).parents('.iradio_minimal:first').removeClass('checked');
+					}, 10);
+				}
+			}
+			var parent = null;
+			if(jQuery(this).parents('#ppsPopupMainOpts').size()) {
+				parent = jQuery(this).parents('label:first');
+			} else if(jQuery(this).parents('.ppsPopupOptRow:first')) {
+				parent = jQuery(this).parents('.ppsPopupOptRow:first');
+			} else {
+				parent = jQuery(this).parents('tr:first');
+			}
+			if(!parent.size()) return;
+			var promoLink = parent.find('.ppsProOptMiniLabel a').attr('href');
+			if(promoLink && promoLink != '') {
+				jQuery('#ppsOptInProWnd a').attr('href', promoLink);
+			}
+			$proOptWnd.dialog('open');
+			return false;
+		});
+	}
 }

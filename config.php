@@ -47,7 +47,7 @@
 	define('PPS_EOL', "\n");    
     
     define('PPS_PLUGIN_INSTALLED', true);
-    define('PPS_VERSION', '1.1.4');
+    define('PPS_VERSION', '1.1.5');
     define('PPS_USER', 'user');
     
     define('PPS_CLASS_PREFIX', 'ppsc');     
@@ -83,5 +83,6 @@
 	define('PPS_FB_LIKE', 'fb_like');
 	define('PPS_VIDEO', 'video');
 	define('PPS_SHORTCODE_CLICK', 'supsystic-show-popup');
+	define('PPS_SHORTCODE', 'supsystic-popup');
 	
 	define('PPS_HOME_PAGE_ID', 0);

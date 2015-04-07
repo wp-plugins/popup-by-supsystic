@@ -48,7 +48,7 @@ class adminmenuPps extends modulePps {
 		return $this->_mainSlug;
 	}
 	public function getMainCap() {
-		return $this->_mainCap;
+		return dispatcherPps::applyFilters('adminMenuAccessCap', $this->_mainCap);
 	}
 }
 

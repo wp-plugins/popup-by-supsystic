@@ -10,17 +10,34 @@ class responsePps {
 	 * Marker to set data not in internal $data var, but set it as object parameters
 	 */
 	private $_ignoreShellData = false;
+	public function getReqType() {
+		return reqPps::getVar('reqType');
+	}
+	public function isAjax() {
+		return $this->getReqType() == 'ajax';
+	}
     public function ajaxExec($forceAjax = false) {
-        $reqType = reqPps::getVar('reqType');
+        $isAjax = $this->isAjax();
         $redirect = reqPps::getVar('redirect');
         if(count($this->errors) > 0)
             $this->error = true;
-        if($reqType == 'ajax' || $forceAjax)
+        if($isAjax || $forceAjax)
             exit( json_encode($this) );
         /*if($redirect)
             redirectPps($redirect);*/
         return $this;
     }
+	public function mainRedirect($redirectUrl = '') {
+		$redirectUrl = empty($redirectUrl) ? PPS_SITE_URL : $redirectUrl;
+		$redirectData = array();
+		if(!empty($this->errors)) {
+			$redirectData['ppsErrors'] = $this->errors;
+		}
+		if(!empty($this->messages)) {
+			$redirectData['ppsMsgs'] = $this->messages;
+		}
+        return redirectPps($redirectUrl. (strpos($redirectUrl, '?') ? '&' : '?'). http_build_query($redirectData));
+	}
     public function error() {
         return $this->error;
     }

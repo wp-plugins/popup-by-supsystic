@@ -6,6 +6,7 @@ class optionsPps extends modulePps {
 	
 	public function init() {
 		dispatcherPps::addAction('afterModulesInit', array($this, 'initAllOptValues'));
+		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 	}
 	public function initAllOptValues() {
 		// Just to make sure - that we loaded all default options values
@@ -35,6 +36,15 @@ class optionsPps extends modulePps {
 		} else {
 			return framePps::_()->getModule('supsystic_promo')->showWelcomePage();
 		}
+	}
+	public function addAdminTab($tabs) {
+		$tabs['settings'] = array(
+			'label' => __('Settings', PPS_LANG_CODE), 'callback' => array($this, 'getSettingsTabContent'), 'fa_icon' => 'fa-gear', 'sort_order' => 30,
+		);
+		return $tabs;
+	}
+	public function getSettingsTabContent() {
+		return $this->getView()->getSettingsTabContent();
 	}
 	public function getTabs() {
 		if(empty($this->_tabs)) {
@@ -77,19 +87,41 @@ class optionsPps extends modulePps {
 		}
 		return empty($tab) ? $mainUrl : $mainUrl. '&tab='. $tab;
 	}
+	public function getRolesList() {
+		if(!function_exists('get_editable_roles')) {
+			require_once( ABSPATH . '/wp-admin/includes/user.php' );
+		}
+		return get_editable_roles();
+	}
+	public function getAvailableUserRolesSelect() {
+		$rolesList = $this->getRolesList();
+		$rolesListForSelect = array();
+		foreach($rolesList as $rKey => $rData) {
+			$rolesListForSelect[ $rKey ] = $rData['name'];
+		}
+		return $rolesListForSelect;
+	}
 	public function getAll() {
 		if(empty($this->_options)) {
 			$this->_options = dispatcherPps::applyFilters('optionsDefine', array(
 				'general' => array(
 					'label' => __('General', PPS_LANG_CODE),
 					'opts' => array(
-						'send_stats' => array('label' => __('Send usage statistics', PPS_LANG_CODE), 'desc' => '', 'def' => '1', 'html' => 'checkboxHiddenVal'),
+						'send_stats' => array('label' => __('Send usage statistics', PPS_LANG_CODE), 'desc' => __('Send information about what plugin options you prefer to use, this will help us make our solution better for You.', PPS_LANG_CODE), 'def' => '0', 'html' => 'checkboxHiddenVal'),
+						'access_roles' => array('label' => __('User role can use plugin', PPS_LANG_CODE), 'desc' => __('User with next roles will have access to this option', PPS_LANG_CODE), 'def' => 'administrator', 'html' => 'selectlist', 'options' => array($this, 'getAvailableUserRolesSelect'),  'desc' => __('Send information about what plugin options you prefer to use, this will help us make our solution better for You.', PPS_LANG_CODE), 'pro' => ''),
 					),
 				),
 			));
+			$isPro = framePps::_()->getModule('supsystic_promo')->isPro();
+			if(!$isPro) {
+				$mainLink = framePps::_()->getModule('supsystic_promo')->getMainLink();
+			}
 			foreach($this->_options as $catKey => $cData) {
 				foreach($cData['opts'] as $optKey => $opt) {
 					$this->_optionsToCategoires[ $optKey ] = $catKey;
+					if(isset($opt['pro']) && !$isPro) {
+						$this->_options[ $catKey ]['opts'][ $optKey ]['pro'] = $mainLink. '?utm_source=plugin&utm_medium='. $optKey. '&utm_campaign=popup';
+					}
 				}
 			}
 			$this->getModel()->fillInValues( $this->_options );

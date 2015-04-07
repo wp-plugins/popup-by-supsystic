@@ -57,7 +57,7 @@ class modulesModelPps extends modelPps {
             $id = $d['id'];
         elseif(isset($d['code'])) {
             $fromDB = $this->get(array('code' => $d['code']));
-            if($fromDB[0]['id'])
+            if(isset($fromDB[0]) && $fromDB[0]['id'])
                 $id = $fromDB[0]['id'];
         }
         return $id;

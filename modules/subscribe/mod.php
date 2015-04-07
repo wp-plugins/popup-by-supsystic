@@ -17,26 +17,30 @@ class subscribePps extends modulePps {
 		return isset($this->_destList[ $key ]) ? $this->_destList[ $key ] : false;
 	}
 	public function generateFormStart($popup) {
+		$res = '';
 		if(isset($popup['params']['tpl']['sub_dest']) && !empty($popup['params']['tpl']['sub_dest'])) {
 			$subDest = $popup['params']['tpl']['sub_dest'];
 			$view = $this->getView();
 			$generateMethod = 'generateFormStart_'. $subDest;
 			if(method_exists($view, $generateMethod)) {
-				return $view->$generateMethod( $popup );
+				$res = $view->$generateMethod( $popup );
 			}
+			$res = dispatcherPps::applyFilters('subFormStart', $res, $popup);
 		}
-		return '';
+		return $res;
 	}
 	public function generateFormEnd($popup) {
+		$res = '';
 		if(isset($popup['params']['tpl']['sub_dest']) && !empty($popup['params']['tpl']['sub_dest'])) {
 			$subDest = $popup['params']['tpl']['sub_dest'];
 			$view = $this->getView();
 			$generateMethod = 'generateFormEnd_'. $subDest;
 			if(method_exists($view, $generateMethod)) {
-				return $view->$generateMethod( $popup );
+				$res = $view->$generateMethod( $popup );
 			}
+			$res = dispatcherPps::applyFilters('subFormEnd', $res, $popup);
 		}
-		return '';
+		return $res;
 	}
 	public function loadAdminEditAssets() {
 		framePps::_()->addScript('admin.subscribe', $this->getModPath(). 'js/admin.subscribe.js');

@@ -125,6 +125,7 @@
 		</td>
 	</tr>
 <?php }?>
+	<?php if(!in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>
 	<tr>
 		<th scope="row" class="col-w-1perc">
 			<?php _e('Label Font style', PPS_LANG_CODE)?>
@@ -134,6 +135,7 @@
 		</th>
 		<td class="col-w-1perc">
 			<?php echo htmlPps::fontsList('params[tpl][font_label]', array(
+				'attrs' => 'class="ppsProOpt"',
 				'value' => isset($this->popup['params']['tpl']['font_label']) ? $this->popup['params']['tpl']['font_label'] : PPS_DEFAULT,
 				'default' => __('Default', PPS_LANG_CODE),
 			))?>
@@ -149,6 +151,7 @@
 		</th>
 		<td class="col-w-1perc">
 			<?php echo htmlPps::fontsList('params[tpl][font_txt]', array(
+				'attrs' => 'class="ppsProOpt"',
 				'value' => isset($this->popup['params']['tpl']['font_txt']) ? $this->popup['params']['tpl']['font_txt'] : PPS_DEFAULT,
 				'default' => __('Default', PPS_LANG_CODE),
 			))?>
@@ -164,12 +167,14 @@
 		</th>
 		<td class="col-w-1perc">
 			<?php echo htmlPps::fontsList('params[tpl][font_footer]', array(
+				'attrs' => 'class="ppsProOpt"',
 				'value' => isset($this->popup['params']['tpl']['font_footer']) ? $this->popup['params']['tpl']['font_footer'] : PPS_DEFAULT,
 				'default' => __('Default', PPS_LANG_CODE),
 			))?>
 		</td>
 		<td colspan="3">&nbsp;</td>
 	</tr>
+	<?php }?>
 <tr>
 	<th scope="row" class="col-w-1perc">
 		<?php _e('Close button', PPS_LANG_CODE)?>
@@ -211,9 +216,3 @@
 </tr>
 <?php }?>
 </table>
-<!--Option available in PRO version-->
-<div id="ppsOptInProWnd" style="display: none;" title="<?php _e('Improve Free version', PPS_LANG_CODE)?>">
-	<p>
-		<?php printf(__('Please be advised that this option is available only in <a target="_blank" href="%s">PRO version</a>. You can <a target="_blank" href="%s" class="button">Get PRO</a> today and get this and other PRO option for your PopUps!', GMP_LANG_CODE), $this->mainLink, $this->mainLink)?>
-	</p>
-</div>

@@ -168,6 +168,7 @@
 	margin-bottom: 0;
 }
 #ppsPopupSubTxtsAndRedirect label,
+#ppsPopupSubRedirect label,
 #ppsPopupSubEmailTxt label,
 .ppsPopupSubBtnLabelShell {
 	clear: both;
@@ -175,24 +176,16 @@
 	display: block;
 }
 #ppsPopupSubTxtsAndRedirect input[type=text],
+#ppsPopupSubRedirect input[type=text],
 #ppsPopupSubEmailTxt input[type=text],
 #ppsPopupSubEmailTxt textarea,
 .ppsPopupSubBtnLabelShell input[type=text] {
 	width: calc(100% - 260px);
 	float: right;
 }
-.ppsProOptMiniLabel {
-	display: block;
-	margin-bottom: -20px;
-}
-.ppsProOptMiniLabel a {
-	font-size: 10px;
-	text-decoration: none;
-	color: #0074a2;
-}
-.ppsProOptMiniLabel a:hover {
-	color: #2ea2cc;
-}
 #ppsPopupEditForm .form-table td {
 	vertical-align: top;
+}
+.ppsPopupMainOptDesc {
+	display: none;
 }

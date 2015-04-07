@@ -17,11 +17,32 @@ class htmlPps {
         return str_replace(array('[', ']'), '', $name);
     }
     static public function textarea($name, $params = array('attrs' => '', 'value' => '', 'rows' => 3, 'cols' => 50)) {
+		$params['attrs'] = isset($params['attrs']) ? $params['attrs'] : '';
         $params['rows'] = isset($params['rows']) ? $params['rows'] : 3;
         $params['cols'] = isset($params['cols']) ? $params['cols'] : 50;
-        return '<textarea name="'. $name. '" '. (isset($params['attrs']) ? $params['attrs'] : ''). ' rows="'. $params['rows']. '" cols="'. $params['cols']. '">'.
-                (isset($params['value']) ? $params['value'] : '').
-                '</textarea>';
+		if(isset($params['required']) && $params['required']) {
+			$params['attrs'] .= ' required ';	// HTML5 "required" validation attr
+		}
+		if(isset($params['placeholder']) && $params['placeholder']) {
+			$params['attrs'] .= ' placeholder="'. $params['placeholder']. '"';	// HTML5 "required" validation attr
+		}
+		if(isset($params['disabled']) && $params['disabled']) {
+			$params['attrs'] .= ' disabled ';
+		}
+		if(isset($params['readonly']) && $params['readonly']) {
+			$params['attrs'] .= ' readonly ';
+		}
+		if(isset($params['auto_width']) && $params['auto_width']) {
+			unset($params['rows']);
+			unset($params['cols']);
+		}
+        return '<textarea name="'. $name. '" '
+			. (isset($params['attrs']) ? $params['attrs'] : '')
+			. (isset($params['rows']) ? ' rows="'. $params['rows']. '"' : '')
+			. (isset($params['cols']) ? ' cols="'. $params['cols']. '"' : '')
+			. '>'.
+			(isset($params['value']) ? $params['value'] : '').
+		'</textarea>';
     }
     static public function input($name, $params = array('attrs' => '', 'type' => 'text', 'value' => '')) {
 		$params['attrs'] = isset($params['attrs']) ? $params['attrs'] : '';
@@ -31,6 +52,12 @@ class htmlPps {
 		}
 		if(isset($params['placeholder']) && $params['placeholder']) {
 			$params['attrs'] .= ' placeholder="'. $params['placeholder']. '"';	// HTML5 "required" validation attr
+		}
+		if(isset($params['disabled']) && $params['disabled']) {
+			$params['attrs'] .= ' disabled ';
+		}
+		if(isset($params['readonly']) && $params['readonly']) {
+			$params['attrs'] .= ' readonly ';
 		}
 		$params['value'] = isset($params['value']) ? $params['value'] : '';
         return '<input type="'. $params['type']. '" name="'. $name. '" value="'. $params['value']. '" '. (isset($params['attrs']) ? $params['attrs'] : ''). ' />';

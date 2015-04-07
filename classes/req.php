@@ -49,6 +49,15 @@ class reqPps {
                 if(isset($_SERVER[$name]))
                     return $_SERVER[$name];
 				break;
+			case 'cookie':
+				if(isset($_COOKIE[$name])) {
+					$value = $_COOKIE[$name];
+					if(strpos($value, '_JSON:') === 0) {
+						$value = utilsPps::jsonDecode($value, array_pop(explode('_JSON:', $value)));
+					}
+                    return $value;
+				}
+				break;
         }
         return $default;
     }
@@ -56,7 +65,7 @@ class reqPps {
 		$val = self::getVar($name, $from);
 		return empty($val);
 	}
-    static public function setVar($name, $val, $in = 'input') {
+    static public function setVar($name, $val, $in = 'input', $params = array()) {
         $in = strtolower($in);
         switch($in) {
             case 'get':
@@ -68,9 +77,19 @@ class reqPps {
             case 'session':
                 $_SESSION[$name] = $val;
             break;
+			case 'cookie':
+				$expire = isset($params['expire']) ? time() + $params['expire'] : 0;
+				$path = isset($params['path']) ? $params['path'] : '/';
+				if(is_array($val) || is_object($val)) {
+					$saveVal = '_JSON:'. utilsPps::jsonEncode( $val );
+				} else {
+					$saveVal = $val;
+				}
+				setcookie($name, $saveVal, $expire, $path);
+			break;
         }
     }
-    static public function clearVar($name, $in = 'input') {
+    static public function clearVar($name, $in = 'input', $params = array()) {
         $in = strtolower($in);
         switch($in) {
             case 'get':
@@ -85,6 +104,10 @@ class reqPps {
                 if(isset($_SESSION[$name]))
                     unset($_SESSION[$name]);
             break;
+			case 'cookie':
+				$path = isset($params['path']) ? $params['path'] : '/';
+				setcookie($name, '', time() - 3600, $path);
+			break;
         }
     }
     static public function get($what) {

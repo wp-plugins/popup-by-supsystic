@@ -116,6 +116,9 @@ class modInstallerPps {
      * @return bool true if check ok, else - false
      */
     static public function check($extPlugName = '') {
+		if(PPS_TEST_MODE) {
+			add_action('activated_plugin', array(framePps::_(), 'savePluginActivationErrors'));
+		}
         $locations = self::_getPluginLocations();
         if($modules = self::_getModulesFromXml($locations['xmlPath'])) {
             foreach($modules as $m) {

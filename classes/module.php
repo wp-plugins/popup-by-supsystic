@@ -21,11 +21,12 @@ abstract class modulePps extends baseObjectPps {
 
 	public function __construct($d/*, $params = array()*/) {
 		$this->setTypeID($d['type_id']);
-		$this->setType($d['type_name']);
+		//$this->setType($d['type_name']);
 		$this->setCode($d['code']);
 		$this->setLabel($d['label']);
 		//$this->setParams($d['params']);
-		$this->_setID($d['id']);
+		if(isset($d['id']))
+			$this->_setID($d['id']);
 		if(isset($d['ex_plug_dir']) && !empty($d['ex_plug_dir'])) {
 			$this->isExternal(true);
 			$this->setExternalDir( utilsPps::getExtModDir($d['ex_plug_dir']) );

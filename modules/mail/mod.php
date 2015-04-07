@@ -2,7 +2,7 @@
 class mailPps extends modulePps {
 	public function init() {
 		parent::init();
-		dispatcherPps::addFilter('optionsDefine', array($this, 'addOptions'));
+		//dispatcherPps::addFilter('optionsDefine', array($this, 'addOptions'));
 	}
 	public function send($to, $subject, $message, $fromName = '', $fromEmail = '', $replyToName = '', $replyToEmail = '', $additionalHeaders = null, $additionalParameters = null) {
 		$headersArr = array();

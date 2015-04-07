@@ -43,6 +43,7 @@ class optionsViewPps extends viewPps {
 		$this->assign('mainUrl', $this->getModule()->getTabUrl());
 		$this->assign('activeParentTabs', $activeParentTabs);
 		$this->assign('breadcrumbs', framePps::_()->getModule('admin_nav')->getView()->getBreadcrumbs());
+		$this->assign('mainLink', framePps::_()->getModule('supsystic_promo')->getMainLink());
 		
         parent::display('optionsAdminPage');
     }
@@ -75,5 +76,13 @@ class optionsViewPps extends viewPps {
             'PHP CURL Support' => array('value' => extension_loaded('curl') ? 'Yes' : 'No', 'error' => !extension_loaded('curl')),
         ));
 		return parent::display('_serverSettings');
+	}
+	public function getSettingsTabContent() {
+		framePps::_()->addScript('admin.settings', $this->getModule()->getModPath(). 'js/admin.settings.js');
+		framePps::_()->getModule('templates')->loadJqueryUi();
+		
+		$options = framePps::_()->getModule('options')->getAll();
+		$this->assign('options', $options);
+		return parent::getContent('optionsSettingsTabContent');
 	}
 }

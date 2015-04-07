@@ -10,11 +10,23 @@ class subscribeViewPps extends viewPps {
 		return '<form class="ppsSubscribeForm ppsSubscribeForm_aweber" method="post" action="http://www.aweber.com/scripts/addlead.pl">';
 	}
 	public function generateFormEnd_aweber($popup) {
+		$redirectUrl = isset($popup['params']['tpl']['sub_redirect_url']) && !empty($popup['params']['tpl']['sub_redirect_url'])
+					? $popup['params']['tpl']['sub_redirect_url']
+					: false;
+		if(!empty($redirectUrl)) {
+			$redirectUrl = trim($redirectUrl);
+			if(strpos($redirectUrl, 'http') !== 0) {
+				$redirectUrl = 'http://'. $redirectUrl;
+			}
+		}
+		if(empty($redirectUrl)) {
+			$redirectUrl = uriPps::getFullUrl();
+		}
 		$res = '';
 		$res .= htmlPps::hidden('listname', array('value' => $popup['params']['tpl']['sub_aweber_listname']));
 		$res .= htmlPps::hidden('meta_message', array('value' => '1'));
 		$res .= htmlPps::hidden('meta_required', array('value' => 'email'));
-		$res .= htmlPps::hidden('redirect', array('value' => uriPps::getFullUrl()));
+		$res .= htmlPps::hidden('redirect', array('value' => $redirectUrl));
 		$res .= '</form>';
 		return $res;
 	}
@@ -31,7 +43,7 @@ class subscribeViewPps extends viewPps {
 		return $this->_generateFormEndCommon($popup);
 	}
 	private function _generateFormStartCommon($popup, $key = '') {
-		return '<form class="ppsSubscribeForm'. (empty($key) ? '' : ' ppsSubscribeForm_'. $key).'" action="">';
+		return '<form class="ppsSubscribeForm'. (empty($key) ? '' : ' ppsSubscribeForm_'. $key).'" action="'. PPS_SITE_URL. '" method="post">';
 	}
 	private function _generateFormEndCommon($popup) {
 		$res = '';

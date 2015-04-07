@@ -71,6 +71,19 @@ function ppsBindPopupShow( popup ) {
 			break;
 		case 'scroll_window':
 			jQuery(window).scroll(function(){
+				if(parseInt(popup.params.main.show_on_scroll_window_enb_perc_scroll)) {
+					var percScroll = parseInt( popup.params.main.show_on_scroll_window_perc_scroll );
+					if(percScroll) {
+						var docHt = jQuery(document).height()
+						,	wndHt = jQuery(window).height()
+						,	wndScrollPos = jQuery(window).scrollTop()
+						,	wndScrollHt = docHt - wndHt
+						,	currScrollPerc = wndScrollPos * 100 / wndScrollHt;
+						if(wndScrollHt > 0 && currScrollPerc < percScroll) {
+							return;
+						}
+					}
+				}
 				if(!popup.scroll_window_displayed) {
 					var delay = 0;
 					if(popup.params.main.show_on_scroll_window_enb_delay && parseInt(popup.params.main.show_on_scroll_window_enb_delay)) {
@@ -180,8 +193,9 @@ function _ppsPopupSetActionDone( popup, action, smType ) {
 	if(!actions)
 		actions = {};
 	actions[ action ] = (new Date()).toString();
-	setCookiePps(actionsKey, actions)
+	setCookiePps(actionsKey, actions);
 	_ppsPopupAddStat( popup, action, smType );
+	jQuery(document).trigger('ppsAfterPopupsActionDone', {popup: popup, action: action, smType: smType});
 }
 function _ppsPopupAddStat( popup, action, smType, isUnique ) {
 	jQuery.sendFormPps({
@@ -210,8 +224,22 @@ function ppsShowPopup( popup, params ) {
 		shell.show();
 	}
 	_ppsCheckPlayVideo({popup: popup, shell: shell});
+	_ppsIframesForReload({popup: popup, shell: shell});
 	popup.is_visible = true;
 	popup.is_rendered = true;	// Rendered at least one time
+	jQuery(document).trigger('ppsAfterPopupsActionShow', popup);
+}
+function _ppsIframesForReload(params) {
+	var popup = params.popup
+	,	shell = params.shell ? params.shell : ppsGetPopupShell( popup );
+	if(shell.find('iframe')) {
+		shell.find('iframe').each(function(){
+			var src = jQuery(this).attr('src');
+			if(src.indexOf('www.google.com/maps/embed')) {
+				this.src = this.src;	// Reoad iframe
+			}
+		});
+	}
 }
 function _ppsCheckBindVideo(params) {
 	params = params || {};

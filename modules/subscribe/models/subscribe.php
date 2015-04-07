@@ -34,6 +34,7 @@ class subscribeModelPps extends modelPps {
 		return $this->_lastPopup;
 	}
 	private function _checkOftenAccess($d = array()) {
+		//return true;
 		$onlyCheck = isset($d['only_check']) ? $d['only_check'] : false;
 		$onlyAdd = isset($d['only_add']) ? $d['only_add'] : false;
 		$ip = utilsPps::getIP();

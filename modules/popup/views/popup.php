@@ -89,6 +89,10 @@ class popupViewPps extends viewPps {
 		
 		framePps::_()->addScript('wp.tabs', PPS_JS_PATH. 'wp.tabs.js');
 		
+		$this->assign('afterCheckoutCode', framePps::_()->getModule('add_options') 
+			? framePps::_()->getModule('add_options')->showPopupShortcode(array('id' => $id))
+			: __('Available in PRO version', PPS_LANG_CODE));
+		
 		$bgType = array(
 			'none' => __('None', PPS_LANG_CODE),
 			'img' => __('Image', PPS_LANG_CODE),
@@ -130,6 +134,7 @@ class popupViewPps extends viewPps {
 		$this->assign('adminEmail', get_bloginfo('admin_email'));
 		$this->assign('isPro', framePps::_()->getModule('supsystic_promo')->isPro());
 		$this->assign('mainLink', framePps::_()->getModule('supsystic_promo')->getMainLink());
+		$this->assign('promoModPath', framePps::_()->getModule('supsystic_promo')->getModPath());
 		if(in_array($popup['type'], array(PPS_FB_LIKE))) {
 			$this->assign('fbLikeOpts', $this->getFbLikeOpts());
 		}
@@ -410,7 +415,7 @@ class popupViewPps extends viewPps {
 	}
 	public function modifyEmbRes($html, $url, $attrs) {
 		if(isset($attrs['autoplay']) && $attrs['autoplay']) {
-			preg_match('/\<iframe.+src\=\"(?<SRC>.+)\"/iUs', $html, $matches);
+			preg_match('/\<iframe.+src\=\"(?P<SRC>.+)\"/iUs', $html, $matches);
 			if($matches && isset($matches['SRC']) && !empty($matches['SRC'])) {
 				$newSrc = $matches['SRC']. (strpos($matches['SRC'], '?') ? '&' : '?'). 'autoplay=1';
 				$html = str_replace($matches['SRC'], $newSrc, $html);
@@ -430,6 +435,8 @@ class popupViewPps extends viewPps {
 			$popup = $this->getModel()->getById($popup);
 		}
 		$this->_initTwig();
+		
+		$popup['view_html_id'] = 'ppsPopupShell_'. $popup['view_id'];
 		
 		$popup['css'] .= $this->_generateCloseBtnCss( $popup );
 		$popup['css'] .= $this->_generateBulletsCss( $popup );
@@ -466,7 +473,7 @@ class popupViewPps extends viewPps {
 		  var js, fjs = d.getElementsByTagName(s)[0];
 		  if (d.getElementById(id)) return;
 		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/'. PPS_WPLANG. '/sdk.js#xfbml=1&version=v2.0";
+		  js.src = "//connect.facebook.net/'. utilsPps::getLangCode(). '/sdk.js#xfbml=1&version=v2.0";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, \'script\', \'facebook-jssdk\'));</script>';
 		$res .= '<div class="fb-like-box"';
@@ -564,7 +571,9 @@ class popupViewPps extends viewPps {
 	}
 	protected function _initTwig() {
 		if(!$this->_twig) {
-			require_once(PPS_CLASSES_DIR. 'Twig'. DS. 'Autoloader.php');
+			if(!class_exists('Twig_Autoloader')) {
+				require_once(PPS_CLASSES_DIR. 'Twig'. DS. 'Autoloader.php');
+			}
 			Twig_Autoloader::register();
 			$this->_twig = new Twig_Environment(new Twig_Loader_String(), array('debug' => 1));
 			$this->_twig->addFunction(

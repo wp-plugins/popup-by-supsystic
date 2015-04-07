@@ -16,6 +16,19 @@
 				'value' => (isset($this->popup['params']['tpl']['sub_dest']) ? $this->popup['params']['tpl']['sub_dest'] : '')))?>
 		</label>
 	</div>
+	<div class="ppsPopupOptRow">
+		<label>
+			<?php _e('Subscribe with Facebook', PPS_LANG_CODE)?>
+			<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('Add button to your PopUp with possibility to subscribe just in one click - without filling fields in your subscribe form, <img src="%s" />', PPS_LANG_CODE), $this->promoModPath. 'img/fb-subscribe.jpg'))?>"></i>
+			<?php echo htmlPps::checkbox('params[tpl][sub_enb_fb_subscribe]', array(
+				'attrs' => 'class="ppsProOpt"',
+				'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'sub_enb_fb_subscribe')))?>
+			<?php if(!$this->isPro) {?>
+				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=fb_subscribe&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<?php }?>
+		</label>
+		
+	</div>
 	<div id="ppsPopupSubDestOpts_wordpress" class="ppsPopupOptRow ppsPopupSubDestOpts" style="display: none;">
 		<label>
 			<?php _e('Create user after subscribe with role', PPS_LANG_CODE)?>
@@ -116,6 +129,8 @@
 				'value' => (isset($this->popup['params']['tpl']['sub_txt_invalid_email']) ? esc_html( $this->popup['params']['tpl']['sub_txt_invalid_email'] ) : __('Empty or invalid email', PPS_LANG_CODE)),
 			))?>
 		</label>
+	</div>
+	<div id="ppsPopupSubRedirect" class="ppsPopupOptRow">
 		<label>
 			<?php _e('Redirect after subscription URL', PPS_LANG_CODE)?>
 			<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('You can enable redirection after subscription, just enter here URL that you want to redirect to after subscribe - and user will be redirected there. If you don\'t need this feature - just leave this field empty.', PPS_LANG_CODE)?>"></i>

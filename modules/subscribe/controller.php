@@ -33,6 +33,21 @@ class subscribeControllerPps extends controllerPps {
 			}
 		} else
 			$res->pushError ($this->getModel()->getErrors());
+		if(!$res->isAjax()) {
+			if(!$res->error()) {
+				$popupActions = reqPps::getVar('pps_actions_'. $id, 'cookie');
+				if(empty($popupActions)) {
+					$popupActions = array();
+				}
+				$popupActions['subscribe'] = date('m-d-Y H:i:s');
+				reqPps::setVar('pps_actions_'. $id, $popupActions, 'cookie', array('expire' => 7 * 24 * 3600));
+				framePps::_()->getModule('statistics')->getModel()->add(array(
+					'id' => $id,
+					'type' => 'subscribe',
+				));
+			}
+			$res->mainRedirect(isset($redirectUrl) && $redirectUrl ? $redirectUrl : '');
+		}
 		return $res->ajaxExec();
 	}
 	public function confirm() {

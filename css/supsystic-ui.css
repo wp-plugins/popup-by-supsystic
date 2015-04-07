@@ -621,6 +621,21 @@ input[type="color"] {
 	cursor: pointer;
 	white-space: nowrap;
 }
+.supsystic-plugin .ppsCopyTextCode {
+	background-color: #F5F5F5  !important;
+    border: 1px solid #CCCCCC !important;
+    border-radius: 4px !important;
+    color: #333333 !important;
+    font-size: 13px !important;
+    margin: 0 0 10px !important;
+    padding: 9.5px !important;
+    /*word-break: break-all;
+    word-wrap: break-word;*/
+	font-family: monospace !important;
+	cursor: pointer;
+	/*white-space: nowrap;*/
+	width: 100%;
+}
 /*additional styles*/
 .ppsOptLabel {
 	font-weight: bold;
@@ -670,4 +685,18 @@ input[type="color"] {
 .supsystic-plugin .sup-promolink-input {
 	color: #000;
 	text-decoration: none;
+}
+/*pro links styles*/
+.ppsProOptMiniLabel {
+	display: block;
+	margin-bottom: -20px;
+	margin-top: -10px;
+}
+.ppsProOptMiniLabel a {
+	font-size: 10px;
+	text-decoration: none;
+	color: #0074a2;
+}
+.ppsProOptMiniLabel a:hover {
+	color: #2ea2cc;
 }

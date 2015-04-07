@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
 Tested up to: 4.1.1
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -145,6 +145,20 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
 == Changelog ==
+
+= 1.1.5 / 07.04.2015 =
+ * Aweber - Added option to redirect on Subscribe success
+ * Option - to Show on required % scroll
+ * Shortcode output in admin area - make it more comfortable to copy and move to content
+ * Fixed conflict with Twig autoloaded re-defining in other plugins or themes
+ * Facebook PopUp - correct language detection
+ * Correct displaying usual embed iframes with Google Maps in PopUp
+ * PRO - added options: Close only after action, after time passed - http://supsystic.com/plugins/popup-plugin/
+ * PRO - added options: Show at the bottom of the page, after Inactivity, after User Comment option, after Purchasing (Checkout) - http://supsystic.com/plugins/popup-plugin/
+ * PRO - Possibility to subscribe with Facebook - http://supsystic.com/plugins/popup-plugin/
+ * PRO - Possibility to set user role for plugin usage (not just admin) - http://supsystic.com/plugins/popup-plugin/
+ * Some minor spelling issues fix
+ * Core code improvements
 
 = 1.1.4 / 01.04.2015 =
  * MailPoet Subscribe integration

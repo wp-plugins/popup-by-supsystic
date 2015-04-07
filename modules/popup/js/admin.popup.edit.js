@@ -2,7 +2,6 @@ var ppsPopupSaveTimeout = null
 ,	ppsPopupIsSaving = false
 ,	ppsTinyMceEditorUpdateBinded = false;
 jQuery(document).ready(function(){
-	ppsInitFontsPromoPopup();
 	jQuery('#ppsPopupEditTabs').wpTabs({
 		uniqId: 'ppsPopupEditTabs'
 	,	change: function(selector) {
@@ -128,7 +127,7 @@ jQuery(document).ready(function(){
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][bullets]"]').val( ppsPopup.params.tpl.bullets );
 	}
 	// Show/hide on pages selection
-	jQuery('#ppsPopupEditForm').find('[name="params[main][show_pages]"]').change(function(){
+	/*jQuery('#ppsPopupEditForm').find('[name="params[main][show_pages]"]').change(function(){
 		if(toeInArrayPps(jQuery(this).val(), ['show_on_pages', 'not_show_on_pages'])) {
 			var checked = jQuery(this).attr('checked')
 			,	boxElement = jQuery(this).val() == 'show_on_pages' ? jQuery('#ppsPopupShowOnPages') : jQuery('#ppsPopupNotShowOnPages')
@@ -140,11 +139,9 @@ jQuery(document).ready(function(){
 				boxElement.find('.chosen').chosen();
 			}
 		}
-	}).change();
+	}).change();*/
 	
-	jQuery('.chosen').chosen();
-	
-	jQuery('#ppsPopupEditForm').find('[name="params[main][show_on]"]').change(function(){
+	/*jQuery('#ppsPopupEditForm').find('[name="params[main][show_on]"]').change(function(){
 		// Show/hide show delay options
 		if(jQuery(this).val() == 'page_load') {
 			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnDelay').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnDelay').slideUp( g_ppsAnimationSpeed );
@@ -157,7 +154,19 @@ jQuery(document).ready(function(){
 		if(jQuery(this).val() == 'scroll_window') {
 			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnScrollDelay').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnScrollDelay').slideUp( g_ppsAnimationSpeed );
 		}
+	}).change();*/
+	// Some main options can have additional sub-options - "descriptions" - that need to be visible if option is checked
+	jQuery('#ppsPopupEditForm').find('input[name="params[main][show_on]"],input[name="params[main][close_on]"],input[name="params[main][show_to]"],input[name="params[main][show_pages]"]').change(function(){
+		var name = jQuery(this).attr('name')
+		,	value = jQuery(this).val()
+		,	nameReplaced = str_replace( str_replace( str_replace(name, '][', '_'), '[', '_'), ']', '_' )
+		,	nameValueReplaced = nameReplaced+ value
+		,	descShell = jQuery('#ppsOptDesc_'+ nameValueReplaced);
+		if(descShell.size()) {
+			jQuery(this).attr('checked') ? descShell.slideDown( g_ppsAnimationSpeed ) : descShell.slideUp( g_ppsAnimationSpeed );
+		}
 	}).change();
+	jQuery('.chosen').chosen();
 	// Animation effect change
 	jQuery('.ppsPopupAnimEffLabel').each(function(){
 		var key = jQuery(this).data('key');
@@ -428,7 +437,7 @@ function ppsHideEndlessAnim(element, showClass, hideClass) {
 	}, animationDuration);
 }
 function ppsShowTipScreenPopUp(link) {
-	var $container = jQuery('<div style="display: none;" />')
+	var $container = jQuery('<div style="display: none;" title="'+ toeLangPps('How make PopUp appear after click on your content link')+'" />')
 	,	$img = jQuery('<img src="'+ jQuery(link).attr('href')+ '" />').load(function(){
 		// Show popup after image was loaded - to make it's size according to image size
 			var dialog = $container.dialog({
@@ -485,24 +494,5 @@ function ppsPopupCheckSwitchActiveBtn() {
 	} else {
 		jQuery('.ppsPopupSwitchActive .fa').removeClass('fa-toggle-off').addClass('fa-toggle-on');
 		jQuery('.ppsPopupSwitchActive span').html( jQuery('.ppsPopupSwitchActive').data('txt-on') );	
-	}
-}
-function ppsInitFontsPromoPopup() {
-	if(!PPS_DATA.isPro) {
-		var $proOptWnd = jQuery('#ppsOptInProWnd').dialog({
-			modal:    true
-		,	autoOpen: false
-		,	width: 540
-		,	height: 200
-		});
-		jQuery('#ppsPopupEditForm').find('select[name="params[tpl][font_label]"],select[name="params[tpl][font_txt]"],select[name="params[tpl][font_footer]"]').change(function(e){
-			e.stopPropagation();
-			var promoLink = jQuery(this).parents('tr:first').find('.ppsProOptMiniLabel a').attr('href');
-			if(promoLink && promoLink != '') {
-				jQuery('#ppsOptInProWnd a').attr('href', promoLink);
-			}
-			$proOptWnd.dialog('open');
-			return false;
-		});
 	}
 }

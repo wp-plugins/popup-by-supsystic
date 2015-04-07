@@ -552,6 +552,10 @@ class utilsPps {
 		);
 	}
 	static public function getLangCode2Letter() {
-		return strlen(PPS_WPLANG) > 2 ? substr(PPS_WPLANG, 0, 2) : PPS_WPLANG;
+		$langCode = self::getLangCode();
+		return strlen($langCode) > 2 ? substr($langCode, 0, 2) : $langCode;
+	}
+	static public function getLangCode() {
+		return get_locale();
 	}
 }

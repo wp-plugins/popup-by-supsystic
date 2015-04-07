@@ -196,6 +196,7 @@ class popupModelPps extends modelPps {
 				'everyone' => array('id' => 1),
 				'first_time_visit' => array('id' => 2),
 				'for_countries' => array('id' => 3),
+				'until_make_action' => array('id' => 4),
 			);
 		}
 		return $this->_showToList;
@@ -217,9 +218,18 @@ class popupModelPps extends modelPps {
 				'click_on_page' => array('id' => 2),
 				'click_on_element' => array('id' => 3),
 				'scroll_window' => array('id' => 4),
+				'on_exit' => array('id' => 5),
+				'page_bottom' => array('id' => 6),
+				'after_inactive' => array('id' => 7),
+				'after_comment' => array('id' => 8),
+				'after_checkout' => array('id' => 9),
 			));
 		}
 		return $this->_showPagesList;
+	}
+	public function getShowOnIdByKey($key) {
+		$this->getShowOnList();
+		return isset($this->_showOnList[ $key ]) ? $this->_showOnList[ $key ]['id'] : false;
 	}
 	public function getById($id) {
 		$data = parent::getById($id);
