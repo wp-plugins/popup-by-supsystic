@@ -1,7 +1,7 @@
 === PopUp by Supsystic ===
 Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
-Tags: advertise, lightbox, mailing list pop-up, marketing, pop over, pop-up, popover, popup, promotion, responsive popup, optin, pop up, exit, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window
+Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
 Tested up to: 4.1.1
 Stable tag: 1.1.5
 
