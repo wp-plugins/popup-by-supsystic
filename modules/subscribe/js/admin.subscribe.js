@@ -3,7 +3,7 @@ jQuery(document).ready(function(){
 	jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_dest]"]').change(function(){
 		var selectedSubMethod = jQuery(this).val();
 		jQuery('.ppsPopupSubDestOpts:visible').slideUp( g_ppsAnimationSpeed );
-		var selectedShell = jQuery('#ppsPopupSubDestOpts_'+ selectedSubMethod);
+		var selectedShell = jQuery('.ppsPopupSubDestOpts_'+ selectedSubMethod);
 		if(selectedShell && selectedShell.size()) {
 			selectedShell.slideDown( g_ppsAnimationSpeed );
 		}
@@ -31,7 +31,7 @@ function _ppsUpdateMailchimpLists() {
 	if(jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_dest]"]').val() == 'mailchimp') {
 		var key = _ppsGetMailchimpKey();
 		if(key && key != '') {
-			jQuery('#ppsMailchimpLists').hide();
+			jQuery('#ppsMailchimpListsShell').hide();
 			jQuery('#ppsMailchimpNoApiKey').hide();
 			jQuery.sendFormPps({
 				msgElID: 'ppsMailchimpMsg'
@@ -44,13 +44,14 @@ function _ppsUpdateMailchimpLists() {
 							var selected = toeInArrayPps(listId, selectedListsIds) ? 'selected="selected"' : '';
 							jQuery('#ppsMailchimpLists').append('<option '+ selected+ ' value="'+ listId+ '">'+ res.data.lists[ listId ]+ '</option>');
 						}
-						jQuery('#ppsMailchimpLists').show().chosen();;
+						jQuery('#ppsMailchimpListsShell').show();
+						jQuery('#ppsMailchimpLists').chosen().trigger("chosen:updated");
 					}
 				}
 			});
 		} else {
 			jQuery('#ppsMailchimpNoApiKey').show();
-			jQuery('#ppsMailchimpLists').hide();
+			jQuery('#ppsMailchimpListsShell').hide();
 		}
 	}
 }

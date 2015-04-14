@@ -156,7 +156,7 @@ function ppsCheckShowPopup( popup ) {
 	if(popup.params.main.show_to == 'first_time_visit' && prevShow)
 		return;
 	if(!prevShow)
-		setCookiePps('pps_show_'+ popup.id, (new Date()).toString());
+		setCookiePps('pps_show_'+ popup.id, (new Date()).toString(), 30);
 	var actionDone = _ppsPopupGetActionDone( popup );
 	if(popup.params.main.show_to == 'until_make_action' && actionDone)
 		return;
@@ -193,7 +193,7 @@ function _ppsPopupSetActionDone( popup, action, smType ) {
 	if(!actions)
 		actions = {};
 	actions[ action ] = (new Date()).toString();
-	setCookiePps(actionsKey, actions);
+	setCookiePps(actionsKey, actions, 30);
 	_ppsPopupAddStat( popup, action, smType );
 	jQuery(document).trigger('ppsAfterPopupsActionDone', {popup: popup, action: action, smType: smType});
 }

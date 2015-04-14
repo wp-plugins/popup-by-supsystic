@@ -191,10 +191,12 @@ ul.supsystic-bar-controls > li.separator {
     z-index: 10;
 }
 
-.ui-widget-content {
+.ui-widget-content:not(.iris-slider-offset) {
     background: #fff !important;
 }
-
+.supsystic-plugin .iris-strip .ui-slider-handle::before {
+	content: none;
+}
 .ui-widget-header {
     border: none !important;
     border-bottom: 1px solid #ddd !important;
@@ -629,11 +631,8 @@ input[type="color"] {
     font-size: 13px !important;
     margin: 0 0 10px !important;
     padding: 9.5px !important;
-    /*word-break: break-all;
-    word-wrap: break-word;*/
 	font-family: monospace !important;
 	cursor: pointer;
-	/*white-space: nowrap;*/
 	width: 100%;
 }
 /*additional styles*/

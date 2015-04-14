@@ -108,7 +108,7 @@ class optionsPps extends modulePps {
 					'label' => __('General', PPS_LANG_CODE),
 					'opts' => array(
 						'send_stats' => array('label' => __('Send usage statistics', PPS_LANG_CODE), 'desc' => __('Send information about what plugin options you prefer to use, this will help us make our solution better for You.', PPS_LANG_CODE), 'def' => '0', 'html' => 'checkboxHiddenVal'),
-						'access_roles' => array('label' => __('User role can use plugin', PPS_LANG_CODE), 'desc' => __('User with next roles will have access to this option', PPS_LANG_CODE), 'def' => 'administrator', 'html' => 'selectlist', 'options' => array($this, 'getAvailableUserRolesSelect'),  'desc' => __('Send information about what plugin options you prefer to use, this will help us make our solution better for You.', PPS_LANG_CODE), 'pro' => ''),
+						'access_roles' => array('label' => __('User role can use plugin', PPS_LANG_CODE), 'desc' => __('User with next roles will have access to whole plugin from admin area.', PPS_LANG_CODE), 'def' => 'administrator', 'html' => 'selectlist', 'options' => array($this, 'getAvailableUserRolesSelect'), 'pro' => ''),
 					),
 				),
 			));

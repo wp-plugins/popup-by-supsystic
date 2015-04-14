@@ -27,7 +27,7 @@ class supsystic_promoModelPps extends modelPps {
 		return true;
 	}
 	public function saveUsageStat($code) {
-		$query = 'INSERT INTO @__usage_stat SET code = "'. $code.'", visits = 1
+		$query = 'INSERT INTO @__usage_stat SET code = "'. dbPps::escape($code). '", visits = 1
 			ON DUPLICATE KEY UPDATE visits = visits + 1';
 		return dbPps::query($query);
 	}

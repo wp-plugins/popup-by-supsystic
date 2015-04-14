@@ -12,7 +12,8 @@ class subscribeControllerPps extends controllerPps {
 			$dest = $this->getModel()->getDest();
 			$destData = $this->getModule()->getDestByKey( $dest );
 			$lastPopup = $this->getModel()->getLastPopup();
-			$withoutConfirm = isset($lastPopup['params']['tpl']['sub_ignore_confirm']) && $lastPopup['params']['tpl']['sub_ignore_confirm'];
+			$withoutConfirm = (isset($lastPopup['params']['tpl']['sub_ignore_confirm']) && $lastPopup['params']['tpl']['sub_ignore_confirm'])
+				|| (isset($lastPopup['params']['tpl']['sub_dsbl_dbl_opt_id']) && $lastPopup['params']['tpl']['sub_dsbl_dbl_opt_id']);
 			if($destData && isset($destData['require_confirm']) && $destData['require_confirm'] && !$withoutConfirm)
 				$res->addMessage(isset($lastPopup['params']['tpl']['sub_txt_confirm_sent']) 
 						? $lastPopup['params']['tpl']['sub_txt_confirm_sent'] : 

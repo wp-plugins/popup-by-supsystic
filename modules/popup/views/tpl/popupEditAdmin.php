@@ -40,7 +40,7 @@
 				</form>
 				<div style="clear: both;"></div>
 				<div id="ppsPopupPreview" style="">
-					<iframe id="ppsPopupPreviewFrame" width="" height="" frameborder="0" src="" style="display: none;"></iframe>
+					<iframe id="ppsPopupPreviewFrame" width="" height="" frameborder="0" src="" style=""></iframe>
 					<script type="text/javascript">
 					jQuery('#ppsPopupPreviewFrame').load(function(){
 						if(typeof(ppsHidePreviewUpdating) === 'function')

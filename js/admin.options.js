@@ -374,6 +374,9 @@ function prepareToPlotDate(data) {
 	}
 	return data;
 }
+/**
+ * Main promo popup will show each time user will try to modify PRO option with free version only
+ */
 function ppsInitMainPromoPopup() {
 	if(!PPS_DATA.isPro) {
 		var $proOptWnd = jQuery('#ppsOptInProWnd').dialog({
@@ -405,7 +408,7 @@ function ppsInitMainPromoPopup() {
 			var parent = null;
 			if(jQuery(this).parents('#ppsPopupMainOpts').size()) {
 				parent = jQuery(this).parents('label:first');
-			} else if(jQuery(this).parents('.ppsPopupOptRow:first')) {
+			} else if(jQuery(this).parents('.ppsPopupOptRow:first').size()) {
 				parent = jQuery(this).parents('.ppsPopupOptRow:first');
 			} else {
 				parent = jQuery(this).parents('tr:first');

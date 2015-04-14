@@ -206,7 +206,7 @@ thead .ui-jqgrid-labels th[id$='_cb'] .s-ico {
 	color: black !important;
 }
 /*jquery slider*/
-.ui-slider.ui-widget-content {
+.ui-slider.ui-widget-content:not(.iris-slider-offset) {
 	background: transparent;
 	border-radius: 0;
 	border: 1px solid black;

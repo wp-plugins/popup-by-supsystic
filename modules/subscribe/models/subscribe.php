@@ -321,6 +321,10 @@ class subscribeModelPps extends modelPps {
 									$dataToSend['merge_vars']['LNAME'] = $firstLastNames[ 1 ];
 								}
 							}
+							// Disable double opt-in
+							if(isset($popup['params']['tpl']['sub_dsbl_dbl_opt_id']) && $popup['params']['tpl']['sub_dsbl_dbl_opt_id']) {
+								$dataToSend['double_optin'] = false;
+							}
 							foreach($lists as $listId) {
 								$dataToSend['id'] = $listId;
 								$res = $client->call('lists/subscribe', $dataToSend);

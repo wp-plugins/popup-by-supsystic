@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
 Tested up to: 4.1.1
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -145,6 +145,18 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
 == Changelog ==
+
+= 1.1.6 / 14.04.2015 =
+ * Correction for cookie lifetime in recording user actions
+ * Fix template width for template "Informed" template
+ * Some spelling issues fix
+ * Fix charset for admin PopUp preview
+ * Minor admin design issues fix
+ * Small fix for "Informed" template
+ * MailChimp - disable double opt-in option
+ * Improve design of admin area -> Edit PopUp -> Subscribe section
+ * Social links - additional fix to avoid styles conflict
+ * Minor issues code fix
 
 = 1.1.5 / 07.04.2015 =
  * Aweber - Added option to redirect on Subscribe success

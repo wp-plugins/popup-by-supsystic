@@ -4,6 +4,7 @@
 .ppsSmLink {
 	display: inline-block;
 	background-repeat: no-repeat;
+	float: none;
 }
 .ppsSmLink.boxy,
 .ppsSmLink.simple {
