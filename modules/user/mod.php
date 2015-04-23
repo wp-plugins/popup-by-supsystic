@@ -45,5 +45,8 @@ class userPps extends modulePps {
 			WHERE #__usermeta.meta_key = "#__capabilities" AND #__usermeta.meta_value LIKE "%administrator%"');
 		return $admins;
 	}
+	public function isLoggedIn() {
+		return is_user_logged_in();
+	}
 }
 

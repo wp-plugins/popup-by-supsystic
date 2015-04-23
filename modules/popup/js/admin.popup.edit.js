@@ -84,9 +84,11 @@ jQuery(document).ready(function(){
     ,	autoCloseBrackets: true
 	});
 	jQuery('#ppsPopupCssEditor').get(0).CodeMirrorEditor = cssEditor;
-	cssEditor.on('change', function(){
-		ppsMakeAutoUpdate( 3000 );
-	});
+	if(cssEditor.on && typeof(cssEditor.on) == 'function') {
+		cssEditor.on('change', function(){
+			ppsMakeAutoUpdate( 3000 );
+		});
+	}
 	var htmlEditor = CodeMirror.fromTextArea(jQuery('#ppsPopupHtmlEditor').get(0), {
 		mode: 'text/html'
 	,	lineWrapping: true
@@ -95,9 +97,11 @@ jQuery(document).ready(function(){
     ,	autoCloseBrackets: true
 	});
 	jQuery('#ppsPopupHtmlEditor').get(0).CodeMirrorEditor = htmlEditor;
-	htmlEditor.on('change', function(){
-		ppsMakeAutoUpdate( 3000 );
-	});
+	if(htmlEditor.on && typeof(htmlEditor.on) == 'function') {
+		htmlEditor.on('change', function(){
+			ppsMakeAutoUpdate( 3000 );
+		});
+	}
 	setTimeout(function(){
 		ppsBindTinyMceUpdate();
 		if(!ppsTinyMceEditorUpdateBinded) {

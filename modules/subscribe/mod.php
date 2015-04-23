@@ -7,7 +7,7 @@ class subscribePps extends modulePps {
 				'wordpress' => array('label' => __('WordPress', PPS_LANG_CODE), 'require_confirm' => true),
 				'aweber' => array('label' => __('Aweber', PPS_LANG_CODE)),
 				'mailchimp' => array('label' => __('MailChimp', PPS_LANG_CODE), 'require_confirm' => true),
-				'mailpoet' => array('label' => __('MailPoet', PPS_LANG_CODE)),
+				'mailpoet' => array('label' => __('MailPoet', PPS_LANG_CODE), 'require_confirm' => true),
 			);
 		}
 		return $this->_destList;

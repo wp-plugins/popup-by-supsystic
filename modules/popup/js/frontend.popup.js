@@ -13,6 +13,7 @@ jQuery(document).ready(function(){
 			ppsBindPopupActions( ppsPopups[ i ] );
 			ppsBindPopupSubscribers( ppsPopups[ i ] );
 		}
+		_ppsBindOnElementClickPopups();
 		jQuery(document).trigger('ppsAfterPopupsInit', ppsPopups);
 		jQuery(window).resize(function(){
 			for(var i = 0; i < ppsPopups.length; i++) {
@@ -23,6 +24,24 @@ jQuery(document).ready(function(){
 		});
 	}
 });
+function _ppsBindOnElementClickPopups() {
+	var clickOnLinks = jQuery('[href^=#ppsShowPopUp_]');
+	if(clickOnLinks && clickOnLinks.size()) {
+		jQuery('[href^=#ppsShowPopUp_]').each(function(){
+			jQuery(this).click(function(){
+				var popupId = jQuery(this).attr('href');
+				if(popupId && popupId != '') {
+					popupId = popupId.split('_');
+					popupId = popupId[1] ? parseInt(popupId[1]) : 0;
+					if(popupId) {
+						ppsShowPopup( popupId );
+					}
+				}
+				return false;
+			});
+		});
+	}
+}
 function ppsBindPopupShow( popup ) {
 	_ppsCheckBindVideo({popup: popup});
 	switch(popup.params.main.show_on) {
@@ -55,19 +74,7 @@ function ppsBindPopupShow( popup ) {
 			});
 			break;
 		case 'click_on_element':
-			jQuery('[href^=#ppsShowPopUp_]').each(function(){
-				jQuery(this).click(function(){
-					var popupId = jQuery(this).attr('href');
-					if(popupId && popupId != '') {
-						popupId = popupId.split('_');
-						popupId = popupId[1] ? parseInt(popupId[1]) : 0;
-						if(popupId) {
-							ppsShowPopup( popupId );
-						}
-					}
-					return false;
-				});
-			});
+			// @see _ppsBindOnElementClickPopups()
 			break;
 		case 'scroll_window':
 			jQuery(window).scroll(function(){
@@ -155,8 +162,11 @@ function ppsCheckShowPopup( popup ) {
 	,	prevShow = getCookiePps( showKey );
 	if(popup.params.main.show_to == 'first_time_visit' && prevShow)
 		return;
-	if(!prevShow)
-		setCookiePps('pps_show_'+ popup.id, (new Date()).toString(), 30);
+	if(!prevShow) {
+		var saveCookieTime = parseInt(popup.params.main.show_to_first_time_visit_days);
+		saveCookieTime = isNaN(saveCookieTime) ? 30 : saveCookieTime;
+		setCookiePps('pps_show_'+ popup.id, (new Date()).toString(), saveCookieTime);
+	}
 	var actionDone = _ppsPopupGetActionDone( popup );
 	if(popup.params.main.show_to == 'until_make_action' && actionDone)
 		return;
@@ -193,7 +203,9 @@ function _ppsPopupSetActionDone( popup, action, smType ) {
 	if(!actions)
 		actions = {};
 	actions[ action ] = (new Date()).toString();
-	setCookiePps(actionsKey, actions, 30);
+	var saveCookieTime = parseInt(popup.params.main.show_to_until_make_action_days);
+	saveCookieTime = isNaN(saveCookieTime) ? 30 : saveCookieTime;
+	setCookiePps(actionsKey, actions, saveCookieTime);
 	_ppsPopupAddStat( popup, action, smType );
 	jQuery(document).trigger('ppsAfterPopupsActionDone', {popup: popup, action: action, smType: smType});
 }
@@ -311,7 +323,7 @@ function _ppsPositionPopup( params ) {
 		,	resized = false
 		,	compareWidth = wndWidth - 10	// less then 10px
 		,	compareHeight = wndHeight - 10;	// less then 10px
-		//alert(jQuery(window).outerHeight()+ ';'+ window.screen.availHeight+ ';'+ jQuery('body').outerHeight());
+		
 		if(shellHeight >= compareHeight) {
 			var initialHeight = parseInt(shell.data('init-height'));
 			if(!initialHeight) {

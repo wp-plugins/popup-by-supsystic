@@ -50,6 +50,9 @@
 #ppsPopupEditForm textarea {
 	width: 100%;
 }
+.wp-editor-area   {
+  height: 200px;
+  }
 .ppsTabContent section {
 	padding-bottom: 20px;
 }
@@ -99,8 +102,9 @@
 #ppsPopupTpl .form-table {
 	vertical-align: top;
 }
-#ppsPopupEditForm label {
-	padding-bottom: 30px;
+#ppsPopupMainOpts .ppsPopupMainOptLbl {
+	display: block;
+	margin-bottom: 5px;
 }
 /*Too long for this particular input - make it smaller*/
 .supsystic-plugin #ppsHideForDevicesLabel .chosen-container.chosen-container-multi {
@@ -163,7 +167,8 @@
 #ppsPopupEditDesignTabs .ppsPopupSelectTpl {
 	float: left;
 }
-#ppsPopupSubTxtsAndRedirect,
+/*@deprecated*/
+/*#ppsPopupSubTxtsAndRedirect,
 #ppsPopupSubEmailTxt {
 	margin-bottom: 0;
 }
@@ -172,7 +177,6 @@
 #ppsPopupSubEmailTxt label,
 .ppsPopupSubBtnLabelShell {
 	clear: both;
-	padding-bottom: 20px;
 	display: block;
 }
 #ppsPopupSubTxtsAndRedirect input[type=text],
@@ -181,6 +185,20 @@
 #ppsPopupSubEmailTxt textarea,
 .ppsPopupSubBtnLabelShell input[type=text] {
 	width: calc(100% - 260px);
+	float: right;
+}*/
+.ppsSubShellOptsTbl {
+	width: 100%;
+}
+.ppsSubShellOptsTbl th {
+	min-width: 280px;
+	font-weight: normal;
+}
+.ppsSubShellOptsTbl input[type=text],
+.ppsSubShellOptsTbl textarea {
+	width: 100%;
+}
+.ppsSubShellOptsTbl .fa.supsystic-tooltip {
 	float: right;
 }
 #ppsPopupEditForm .form-table td {
@@ -193,5 +211,15 @@
 	display: none;
 }
 .ppsSubShellMainTbl th {
-	min-width: 250px;
+	min-width: 350px;
+}
+.ppsSubShellMainTbl .fa.supsystic-tooltip {
+	float: right;
+}
+#ppsPopupSm .ppsPopupOptRow {
+	margin-bottom: 10px;
+}
+#ppsPopupTexts .ppsPopupOptRow,
+#ppsPopupTexts fieldset {
+	padding-bottom: 10px;
 }

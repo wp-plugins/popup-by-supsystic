@@ -60,7 +60,7 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 		);
 	}
 	public function getNewsContent() {
-		$getData = wp_remote_get('http://supsystic.com/?supsystic_site_news=give_it_for_me_pls');
+		$getData = wp_remote_get('http://supsystic.com/news/main.html');
 		$content = '';
 		if($getData 
 			&& is_array($getData) 

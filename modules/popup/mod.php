@@ -95,11 +95,12 @@ class popupPps extends modulePps {
 			$isMobile = false;
 			$isTablet = false;
 			$isDesktop = false;
+			$isUserLoggedIn = framePps::_()->getModule('user')->isLoggedIn();
 			
 			foreach($popups as $i => $p) {
 				if(isset($p['params']['main']['hide_for_devices']) 
 					&& !empty($p['params']['main']['hide_for_devices'])
-				) {
+				) {	// Check if popup need to be hidden for some devices
 					if(!$mobileDetect) {
 						importClassPps('Mobile_Detect', PPS_HELPERS_DIR. 'mobileDetect.php');
 						$mobileDetect = new Mobile_Detect();
@@ -117,6 +118,13 @@ class popupPps extends modulePps {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
 					}
+				}
+				if(isset($p['params']['main']['hide_for_logged_in']) 
+					&& !empty($p['params']['main']['hide_for_logged_in'])
+					&& $isUserLoggedIn
+				) {	// Check if we need to hide it from logged-in users
+					unset($popups[ $i ]);
+					$dataRemoved = true;
 				}
 			}
 		}

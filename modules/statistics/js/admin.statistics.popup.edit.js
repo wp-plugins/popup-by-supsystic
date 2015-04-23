@@ -348,7 +348,7 @@ function ppsUpdatePopupStatsGraph(chartType, params) {
 							label: toeLangPps('Date')
 						,	labelRenderer: jQuery.jqplot.CanvasAxisLabelRenderer
 						,	renderer:	jQuery.jqplot.DateAxisRenderer
-						,	tickOptions:{formatString: tickFormat},
+						,	tickOptions:{formatString: tickFormat}
 						}
 					,	yaxis: {
 							label: toeLangPps('Requests')
