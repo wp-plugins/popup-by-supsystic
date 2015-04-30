@@ -67,32 +67,38 @@
 		</label>
 	</div><br />
 	<?php //dispatcherPps::doAction('editPopupMainOptsShowOn', $this->popup)?>
-	<label class="supsystic-tooltip-right ppsPopupMainOptLbl" title="<?php echo esc_html(sprintf(__('Show when user try to exit from your site. <a target="_blank" href="%s">Check example.</a>', PPS_LANG_CODE), 'http://supsystic.com/exit-popup/'))?>">
+	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'on_exit',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'on_exit')))?>
-		<?php _e('On Exit from Site', PPS_LANG_CODE)?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Show when user try to exit from your site. <a target="_blank" href="%s">Check example.</a>', PPS_LANG_CODE), 'http://supsystic.com/exit-popup/'))?>">
+			<?php _e('On Exit from Site', PPS_LANG_CODE)?>
+		</span>
 		<?php if(!$this->isPro) {?>
 			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=on_exit&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
-	<label class="supsystic-tooltip-right ppsPopupMainOptLbl" title="<?php echo esc_html(__('When user are on the bottom of the page: scroll it down to the bottom, or if there are no vertical scroll on his device - just show it right after page load.', PPS_LANG_CODE))?>">
+	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'page_bottom',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'page_bottom')))?>
-		<?php _e('Bottom of the page', PPS_LANG_CODE)?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('When user are on the bottom of the page: scroll it down to the bottom, or if there are no vertical scroll on his device - just show it right after page load.', PPS_LANG_CODE))?>">
+			<?php _e('Bottom of the page', PPS_LANG_CODE)?>
+		</span>
 		<?php if(!$this->isPro) {?>
 			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=page_bottom&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
-	<label class="supsystic-tooltip-right ppsPopupMainOptLbl" title="<?php echo esc_html(__('After user was inactive on your page for some time.', PPS_LANG_CODE))?>">
+	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'after_inactive',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'after_inactive')))?>
-		<?php _e('After Inactivity', PPS_LANG_CODE)?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('After user was inactive on your page for some time.', PPS_LANG_CODE))?>">
+			<?php _e('After Inactivity', PPS_LANG_CODE)?>
+		</span>
 		<?php if(!$this->isPro) {?>
 			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=after_inactive&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
@@ -104,22 +110,26 @@
 			'value' => isset($this->popup['params']['main']['show_on_after_inactive_value']) ? $this->popup['params']['main']['show_on_after_inactive_value'] : 10 /*Default - 5 seconds*/));?>
 		<span class="supsystic-tooltip" title="<?php _e('Seconds', PPS_LANG_CODE)?>"><?php _e('sec', PPS_LANG_CODE)?></span>
 	</div><?php }?><br />
-	<label class="supsystic-tooltip-righ ppsPopupMainOptLbl" title="<?php echo esc_html(__('User add comment on your site - and will see this PopUp after comment was placed. This will help you interest active users on your site.', PPS_LANG_CODE))?>">
+	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'after_comment',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'after_comment')))?>
-		<?php _e('After User Comment', PPS_LANG_CODE)?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('User add comment on your site - and will see this PopUp after comment was placed. This will help you interest active users on your site.', PPS_LANG_CODE))?>">
+			<?php _e('After User Comment', PPS_LANG_CODE)?>
+		</span>
 		<?php if(!$this->isPro) {?>
 			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=after_comment&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
-	<label class="supsystic-tooltip-right ppsPopupMainOptLbl" title="<?php echo esc_html(__('Show PopUp after success checkout process on your online store.', PPS_LANG_CODE))?>">
+	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'after_checkout',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'after_checkout')))?>
-		<?php _e('After Purchasing (Checkout)', PPS_LANG_CODE)?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('Show PopUp after success checkout process on your online store.', PPS_LANG_CODE))?>">
+			<?php _e('After Purchasing (Checkout)', PPS_LANG_CODE)?>
+		</span>
 		<?php if(!$this->isPro) {?>
 			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=after_checkout&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
@@ -146,17 +156,27 @@
 			'checked' => !isset($this->popup['params']['main']['close_on']) ? true : htmlPps::checkedOpt($this->popup['params']['main'], 'close_on', 'user_close')))?>
 		<?php _e('After user close it', PPS_LANG_CODE)?>
 	</label><br />
-	<label class="supsystic-tooltip-right ppsPopupMainOptLbl" title="<?php echo esc_html(__('Will not alow user to close your PopUp - until finish at least one action: Subscribe, Share or Like.', PPS_LANG_CODE))?>">
+	<label class="ppsPopupMainOptLbl">
+		<?php echo htmlPps::radiobutton('params[main][close_on]', array(
+			'value' => 'overlay_click',
+			'checked' => !isset($this->popup['params']['main']['close_on']) ? false : htmlPps::checkedOpt($this->popup['params']['main'], 'close_on', 'overlay_click')))?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('Close PopUp when user click outside of the actually PopUp window.', PPS_LANG_CODE))?>">
+			<?php _e('Click outside PopUp', PPS_LANG_CODE)?>
+		</span>
+	</label><br />
+	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][close_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'after_action',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'close_on', 'after_action')))?>
-		<?php _e('Only after action (Subscribe / Share / Like)', PPS_LANG_CODE)?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('Will not alow user to close your PopUp - until finish at least one action: Subscribe, Share or Like.', PPS_LANG_CODE))?>">
+			<?php _e('Only after action (Subscribe / Share / Like)', PPS_LANG_CODE)?>
+		</span>
 		<?php if(!$this->isPro) {?>
 			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=close_on_after_action&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
-	<label class="supsystic-tooltip-right ppsPopupMainOptLbl" title="<?php echo esc_html(__('Close PopUp after it will be visible specified time.', PPS_LANG_CODE))?>">
+	<label class="supsystic-tooltip-bottom ppsPopupMainOptLbl" title="<?php echo esc_html(__('Close PopUp after it will be visible specified time.', PPS_LANG_CODE))?>">
 		<?php echo htmlPps::radiobutton('params[main][close_on]', array(
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'after_time',

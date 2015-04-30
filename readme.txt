@@ -1,9 +1,9 @@
-=== PopUp by Supsystic ===
+﻿=== PopUp by Supsystic ===
 Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
-Tested up to: 4.1.1
-Stable tag: 1.1.7
+Tested up to: 4.2.1
+Stable tag: 1.1.8
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -42,6 +42,15 @@ Not all popups are necessary as soon as a page loads. Consider a delayed pop-up 
 
 Popup email forms have huge potential when it comes to list building, and even if you hate them, there's no doubt that they work. Professional bloggers unanimously agree that they increase subscription rates, and have had great success with them.
 
+= Translations in your language =
+
+You have an incredible opportunity to get PRO version for free. Make Translation of the plugin! It will be amazing if you take advantage of this offer!
+
+* English
+* French
+* Spanish
+* German
+
 = Support =
 
 If you have any problem or feature request for the Popup by Supsystic, please [let us know](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=contactus&utm_campaign=popup "Contact Us")!
@@ -63,6 +72,7 @@ Don't forget to press the "Save" button. After all these points you can see the 
 4. Open ftp \wp-content\plugins\
 5. Paste the plug-ins folder in the folder
 6. Go to admin panel => open item "Plugins" => activate the plugin 
+
 
 == Screenshots ==
 
@@ -145,6 +155,16 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
 == Changelog ==
+
+= 1.1.8 / 30.04.2015 =
+ * Added translation
+ * Fix for cookie days set - for case when it is set to 0
+ * Added new global option - "Disable blocking Subscription from same IP"
+ * Close PopUp after outside click option
+ * Small PopUp main settings tab tooltips fix
+ * Small fix for "Sign Up" template
+ * Check your server email functionality option
+ * Fixed minor bugs
 
 = 1.1.7 / 23.04.2015 =
  * Admin area User Interface improvements - make it more comfortable and attractive for our Users

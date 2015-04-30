@@ -23,6 +23,18 @@ jQuery(document).ready(function(){
 	jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_mailchimp_api_key]"]').change(function(){
 		_ppsUpdateMailchimpLists();
 	});
+	jQuery('.ppsTestEmailFuncBtn').click(function(){
+		jQuery.sendFormPps({
+			btn: this
+		,	data: {mod: 'mail', action: 'testEmail', test_email: jQuery('input[name=test_email]').val()}
+		,	onSuccess: function(res) {
+				if(!res.error) {
+					jQuery('.ppsTestEmailWasSent').slideDown( g_ppsAnimationSpeed );
+				}
+			}
+		});
+		return false;
+	});
 });
 function _ppsGetMailchimpKey() {
 	return jQuery.trim( jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_mailchimp_api_key]"]').val() );

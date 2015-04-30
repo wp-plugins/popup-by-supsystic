@@ -124,6 +124,24 @@
 				</th>
 			<?php }?>
 		</tr>
+		<tr>
+			<th scope="row">
+				<?php _e('Test Email Function', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(__('Email delivery depends from your server configuration. For some cases - you and your subscribers can not receive emails just because email on your server is not working correctly. You can easy test it here - by sending test email. If you will receive it - then this will mean that email functionality on your server works well. If not - this mean that it is not working correctly and you should contact your hosting provider with this issue and ask them to setup email functionality for you on your server.', PPS_LANG_CODE))?>"></i>
+			</th>
+			<td>
+				<?php echo htmlPps::text('test_email', array(
+					'value' => get_bloginfo('admin_email'),
+				))?>
+				<a href="#" class="ppsTestEmailFuncBtn button">
+					<i class="fa fa-paper-plane"></i>
+					<?php _e('Send Test Email', PPS_LANG_CODE)?>
+				</a>
+				<div class="ppsTestEmailWasSent" style="display: none;">
+					<?php _e('Email was sent. Now check your email inbox / spam folders for test mail. If you will not find it - this mean that your server can\'t send emails - and you need to contact your hosting provider with this issue.', PPS_LANG_CODE)?>
+				</div>
+			</td>
+		</tr>
 	</table>
 	<div class="ppsPopupOptRow">
 		<fieldset class="ppoPopupSubFields" style="padding: 10px;">

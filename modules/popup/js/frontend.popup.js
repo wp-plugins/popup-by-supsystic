@@ -165,6 +165,8 @@ function ppsCheckShowPopup( popup ) {
 	if(!prevShow) {
 		var saveCookieTime = parseInt(popup.params.main.show_to_first_time_visit_days);
 		saveCookieTime = isNaN(saveCookieTime) ? 30 : saveCookieTime;
+		if(!saveCookieTime)
+			saveCookieTime = null;	// Save for current session only
 		setCookiePps('pps_show_'+ popup.id, (new Date()).toString(), saveCookieTime);
 	}
 	var actionDone = _ppsPopupGetActionDone( popup );
@@ -205,6 +207,8 @@ function _ppsPopupSetActionDone( popup, action, smType ) {
 	actions[ action ] = (new Date()).toString();
 	var saveCookieTime = parseInt(popup.params.main.show_to_until_make_action_days);
 	saveCookieTime = isNaN(saveCookieTime) ? 30 : saveCookieTime;
+	if(!saveCookieTime)
+		saveCookieTime = null;	// Save for current session only
 	setCookiePps(actionsKey, actions, saveCookieTime);
 	_ppsPopupAddStat( popup, action, smType );
 	jQuery(document).trigger('ppsAfterPopupsActionDone', {popup: popup, action: action, smType: smType});
@@ -391,6 +395,20 @@ function ppsGetPopupById( id ) {
 }
 function ppsInitBgOverlay() {
 	jQuery('body').append('<div id="ppsPopupBgOverlay" />');
+	jQuery('#ppsPopupBgOverlay').click(function(){
+		if(ppsPopups && ppsPopups.length) {
+			for(var i = 0; i < ppsPopups.length; i++) {
+				if(ppsPopups[ i ] 
+					&& ppsPopups[ i ].params 
+					&& ppsPopups[ i ].params.main
+					&& ppsPopups[ i ].params.main.close_on
+					&& ppsPopups[ i ].params.main.close_on == 'overlay_click'
+				) {
+					ppsClosePopup( ppsPopups[ i ] );
+				}
+			}
+		}
+	});
 }
 function ppsShowBgOverlay(popup) {
 	if(popup && jQuery.isNumeric( popup ))
