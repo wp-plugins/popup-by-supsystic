@@ -45,51 +45,53 @@ function pushDataToParam(data, pref) {
 	}
 	return res;
 }
-jQuery.fn.serializeAnythingPps = function(addData) {
-    var toReturn    = [];
-    var els         = jQuery(this).find(':input').get();
+jQuery.fn.serializeAnythingPps = function(addData, returnArray) {
+    var toReturn = returnArray ? {} : []
+    ,	els = jQuery(this).find(':input').get();
     jQuery.each(els, function() {
         if (this.name && !this.disabled && (this.checked || /select|textarea/i.test(this.nodeName) || /text|hidden|password/i.test(this.type))) {
             var val = jQuery(this).val();
-            toReturn.push( encodeURIComponent(this.name) + "=" + encodeURIComponent( val ) );
+			if(returnArray) {
+				toReturn[ this.name ] = val;
+			} else
+				toReturn.push( encodeURIComponent(this.name) + "=" + encodeURIComponent( val ) );
         }
     });
-    if(typeof(addData) != 'undefined') {
+    if(typeof(addData) != 'undefined' && addData) {
 		toReturn = jQuery.merge(toReturn, pushDataToParam(addData));
     }
-    return toReturn.join("&").replace(/%20/g, "+");
+    return returnArray ? toReturn : toReturn.join("&").replace(/%20/g, "+");
 };
 jQuery.fn.serializeAssoc = function() {
 	var data = [ ];
 	jQuery.each( this.serializeArray(), function( key, obj ) {
-	  var a = obj.name.match(/(.*?)\[(.*?)\]/);
-	  if(a !== null)
-	  {
-		var subName = a[1];
-		var subKey = a[2];
-		if( !data[subName] ) data[subName] = [ ];
-		  if( data[subName][subKey] ) {
-			if( jQuery.isArray( data[subName][subKey] ) ) {
-			  data[subName][subKey].push( obj.value );
+		var a = obj.name.match(/(.*?)\[(.*?)\]/);
+		if(a !== null) {
+			var subName = a[1];
+			var subKey = a[2];
+			if( !data[subName] ) data[subName] = [ ];
+			if( data[subName][subKey] ) {
+				if( jQuery.isArray( data[subName][subKey] ) ) {
+					data[subName][subKey].push( obj.value );
+				} else {
+					data[subName][subKey] = [ ];
+					data[subName][subKey].push( obj.value );
+				}
 			} else {
-			  data[subName][subKey] = [ ];
-			  data[subName][subKey].push( obj.value );
-			};
-		  } else {
-			data[subName][subKey] = obj.value;
-		  };  
+				data[subName][subKey] = obj.value;
+			}
 		} else {
-		  if( data[obj.name] ) {
-			if( jQuery.isArray( data[obj.name] ) ) {
-			  data[obj.name].push( obj.value );
+			if( data[obj.name] ) {
+				if( jQuery.isArray( data[obj.name] ) ) {
+					data[obj.name].push( obj.value );
+				} else {
+					data[obj.name] = [ ];
+					data[obj.name].push( obj.value );
+				}
 			} else {
-			  data[obj.name] = [ ];
-			  data[obj.name].push( obj.value );
-			};
-		  } else {
-			data[obj.name] = obj.value;
-		  };
-		};
+				data[obj.name] = obj.value;
+			}
+		}
 	});
 	return data;
 };

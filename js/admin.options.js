@@ -283,6 +283,12 @@ function ppsInitCustomCheckRadio(selector) {
 		jQuery(this).trigger('click');
 	});
 }
+function ppsCheckDestroy(checkbox) {
+	jQuery(checkbox).iCheck('destroy');
+}
+function ppsCheckDestroyArea(selector) {
+	jQuery(selector).find('input[type=checkbox]').iCheck('destroy');
+}
 function ppsCheckUpdate(checkbox) {
 	jQuery(checkbox).iCheck('update');
 }
@@ -366,9 +372,7 @@ function getGridRowId(id, gridSelectorId) {
 function prepareToPlotDate(data) {
 	if(typeof(data) === 'string') {
 		if(data) {
-			
 			data = str_replace(data, '/', '-');
-			console.log(data, new Date(data));
 			return (new Date(data)).getTime();
 		}
 	}

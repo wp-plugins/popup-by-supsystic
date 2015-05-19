@@ -2,8 +2,8 @@
 Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
-Tested up to: 4.2.1
-Stable tag: 1.1.9
+Tested up to: 4.2.2
+Stable tag: 1.2.0
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -50,6 +50,7 @@ You have an incredible opportunity to get PRO version for free. Make Translation
 * French
 * Spanish
 * German
+* Russian
 
 = Support =
 
@@ -154,7 +155,34 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 * [Slider by Supsystic](https://wordpress.org/plugins/slider-by-supsystic/ "Slider plugin")
 * [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
 
+
+= Our plugins =
+
+* [Social Share Buttons by Supsystic](https://wordpress.org/plugins/social-share-buttons-by-supsystic/ "Social Share Buttons by Supsystic")
+* [Data Tables Generator by Supsystic](https://wordpress.org/plugins/data-tables-generator-by-supsystic/ "Data Tables Generator by Supsystic")
+* [Google Maps Easy](https://wordpress.org/plugins/google-maps-easy/ "Google Maps Easy")
+* [Gallery by Supsystic](https://wordpress.org/plugins/gallery-by-supsystic/ "Gallery by Supsystic")
+* [Backup by Supsystic](https://wordpress.org/plugins/backup-by-supsystic/ "Backup by Supsystic")
+* [Lightbox by Supsystic](https://wordpress.org/plugins/lightbox-by-supsystic/ "Lightbox by Supsystic")
+* [Slider by Supsystic](https://wordpress.org/plugins/slider-by-supsystic/ "Slider by Supsystic")
+* [PopUp by Supsystic](https://wordpress.org/plugins/popup-by-supsystic/ "PopUp by Supsystic")
+* [Security by Supsystic](https://wordpress.org/plugins/security-by-supsystic/ "Security by Supsystic")
+* [Secure Login by Supsystic](https://wordpress.org/plugins/secure-login-by-supsystic/ "Secure Login by Supsystic")
+
+
 == Changelog ==
+
+= 1.2.0 / 19.05.2015 =
+ * Fixed bug with Mozilla browser in Exclusive template 
+ * Added Russian language and fixed some spelling issues
+ * Subscribe custom fields builder - PRO
+ * Small fix for Classy template
+ * Language translation files update
+ * Aweber AD Tracking feature added
+ * Some unused files remove
+ * Small re-design on Layered PopUp style feature
+ * Admin area design improvements
+ * Correct message for subscribe success when MailPoet is used as Subscribe engine
 
 = 1.1.9 / 07.05.2015 =
  * Code review

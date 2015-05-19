@@ -129,4 +129,16 @@ class templatesPps extends modulePps {
 			$loaded = true;
 		}
 	}
+	public function loadSortable() {
+		static $loaded = false;
+		if(!$loaded) {
+			framePps::_()->addScript('jquery-ui-core');
+			framePps::_()->addScript('jquery-ui-widget');
+			framePps::_()->addScript('jquery-ui-mouse');
+
+			framePps::_()->addScript('jquery-ui-draggable');
+			framePps::_()->addScript('jquery-ui-sortable');
+			$loaded = true;
+		}
+	}
 }

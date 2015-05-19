@@ -4,7 +4,7 @@ class mailModelPps extends modelPps {
 		$email = trim($email);
 		if(!empty($email)) {
 			if($this->getModule()->send($email, 
-				__('Test email functionslity', PPS_LANG_CODE), 
+				__('Test email functionality', PPS_LANG_CODE), 
 				sprintf(__('This is test email for testing email functionality on your site, %s.', PPS_LANG_CODE), PPS_SITE_URL))
 			) {
 				return true;

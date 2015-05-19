@@ -3,7 +3,7 @@ class supsystic_promoViewPps extends viewPps {
     public function displayAdminFooter() {
         parent::display('adminFooter');
     }
-	public function showWelcomePage() {
+	/*public function showWelcomePage() {
 		$this->assign('askOptions', array(
 			1 => array('label' => 'Google'),
 			2 => array('label' => 'Worppsess.org'),
@@ -13,7 +13,7 @@ class supsystic_promoViewPps extends viewPps {
 		));
 		$this->assign('originalPage', uriPps::getFullUrl());
 		parent::display('welcomePage');
-	}
+	}*/
 	public function showAdditionalmainAdminShowOnOptions($popup) {
 		$this->assign('promoLink', $this->getModule()->getMainLink(). '?utm_source=plugin&utm_medium=onexit&utm_campaign=popup');
 		parent::display('additionalmainAdminShowOnOptions');
@@ -55,7 +55,7 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 					More info you can find here <a target="_blank" href="%s">“Get PRO version of any plugin for FREE”</a>', PPS_LANG_CODE), 'http://supsystic.com/get-pro-version-of-any-plugin-for-free/'),
 			__('Translation', PPS_LANG_CODE)
 				=> sprintf(__('All available languages are provided with the Supsystic Popup plugin. If your language isn’t available, your plugin will be in English by default.<br />
-					Available Translations: English<br />
+					Available Translations: English, French, German, Spanish, Russian<br />
 					Translate or update a translation Popup WordPress plugin in your language and get a Premium license for FREE. <a target="_blank" href="%s">Contact us.</a>', PPS_LANG_CODE), $this->getModule()->getMainLink(). '#contact'),
 		);
 	}
@@ -72,7 +72,7 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 		) {
 			$content = $getData['body'];
 		} else {
-			$content = sprintf(__('There were some problem while trying to retrive our news, but you can always check all list <a target="_blank" href="%s">here</a>.', PPS_LANG_CODE), 'http://supsystic.com/news');
+			$content = sprintf(__('There were some problem while trying to retrieve our news, but you can always check all list <a target="_blank" href="%s">here</a>.', PPS_LANG_CODE), 'http://supsystic.com/news');
 		}
 		return $content;
 	}

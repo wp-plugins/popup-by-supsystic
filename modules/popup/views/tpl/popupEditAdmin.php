@@ -92,3 +92,4 @@
 		<?php _e('Back to top', PPS_LANG_CODE)?>
 	</a>
 </div>
+<?php dispatcherPps::doAction('afterPopupEdit', $this->popup);?>

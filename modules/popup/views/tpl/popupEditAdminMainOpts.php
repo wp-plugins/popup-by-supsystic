@@ -169,7 +169,7 @@
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'after_action',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'close_on', 'after_action')))?>
-		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('Will not alow user to close your PopUp - until finish at least one action: Subscribe, Share or Like.', PPS_LANG_CODE))?>">
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(__('Will not allow user to close your PopUp - until finish at least one action: Subscribe, Share or Like.', PPS_LANG_CODE))?>">
 			<?php _e('Only after action (Subscribe / Share / Like)', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>

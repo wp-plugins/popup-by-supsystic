@@ -35,6 +35,16 @@ jQuery(document).ready(function(){
 		});
 		return false;
 	});
+	jQuery('#ppoPopupSubFields').sortable({
+		revert: true
+	,	placeholder: 'ui-state-highlight-sub-fields'
+	,	axis: 'x'
+	,	items: '.ppsSubFieldShell'
+	,	update: function() {
+			ppsSavePopupChanges();
+		}
+    });
+	ppsInitSubFieldsPromoPopup();
 });
 function _ppsGetMailchimpKey() {
 	return jQuery.trim( jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_mailchimp_api_key]"]').val() );
@@ -65,5 +75,28 @@ function _ppsUpdateMailchimpLists() {
 			jQuery('#ppsMailchimpNoApiKey').show();
 			jQuery('#ppsMailchimpListsShell').hide();
 		}
+	}
+}
+function ppsInitSubFieldsPromoPopup() {
+	if(!PPS_DATA.isPro) {
+		var $proOptWnd = jQuery('#ppsSubAddFieldWnd').dialog({
+			modal:    true
+		,	autoOpen: false
+		,	width: 580
+		,	height: 380
+		,	buttons: {
+				'Get It': function() {
+					window.open( $proOptWnd.find('.ppsPromoImgUrl').attr('href') );
+					$proOptWnd.dialog('close');
+				}
+			,	'Cancel': function() {
+					$proOptWnd.dialog('close');
+				}
+			}
+		});
+		jQuery('#ppsSubAddFieldBtn').click(function(){
+			$proOptWnd.dialog('open');
+			return false;
+		});
 	}
 }

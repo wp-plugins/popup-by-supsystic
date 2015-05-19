@@ -4,7 +4,7 @@ jQuery(document).ready(function(){
 	} else {			// Creating new popup
 		ppsInitCreatePopupDialog();
 	}
-	jQuery('.popup-list-item').mouseover(function(){
+	/*jQuery('.popup-list-item').mouseover(function(){
 		var desc = jQuery(this).find('.ppsNewPopupDesc');
 		if(!desc.hasClass('perspectiveDownRetourn')) {
 			desc.removeClass('perspectiveDown').addClass('magictime perspectiveDownRetourn').show();
@@ -20,7 +20,7 @@ jQuery(document).ready(function(){
 				opacity: 1
 			}, 500);
 		}
-	}).animationDuration(0.5);
+	}).animationDuration(0.5);*/
 	if(jQuery('.ppsTplPrevImg').size()) {	// If on creation page
 		ppsAdjustPreviewSize();
 		jQuery(window).resize(function(){

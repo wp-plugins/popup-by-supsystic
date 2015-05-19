@@ -95,7 +95,7 @@ class popupControllerPps extends controllerPps {
 	public function exportForDb() {
 		$eol = "\r\n";
 		$selectColumns = array('id','label','active','original_id','params','html','css','img_preview','show_on','show_to','show_pages','type_id','date_created');
-		$popupList = dbPps::get('SELECT '. implode(',', $selectColumns). ' FROM @__popup WHERE original_id = 0');
+		$popupList = dbPps::get('SELECT '. implode(',', $selectColumns). ' FROM @__popup WHERE original_id = 0 AND id != 50');
 		$valuesArr = array();
 		
 		$allKeys = array();

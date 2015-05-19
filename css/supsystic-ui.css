@@ -5,7 +5,8 @@
 .supsystic-plugin * {
 	box-sizing: border-box
 }
-.supsystic-plugin a {
+.supsystic-plugin a,
+.tooltipster-content a {
 	color: #4ae8ea;
 	-webkit-box-shadow: none;
 	box-shadow: none;
@@ -441,16 +442,16 @@ input[type="color"] {
 	margin: 10px 0 0 10px;
 }
 /*tooltip*/
-.supsystic-plugin .fa-question.supsystic-tooltip,
-.supsystic-plugin .fa-question.supsystic-tooltip-bottom,
-.supsystic-plugin .fa-question.supsystic-tooltip-left,
-.supsystic-plugin .fa-question.supsystic-tooltip-right {
+.fa-question.supsystic-tooltip,
+.fa-question.supsystic-tooltip-bottom,
+.fa-question.supsystic-tooltip-left,
+.fa-question.supsystic-tooltip-right {
 	border: 1px solid #28282a;
 	border-radius: 50%;
 	margin-top: 1px;
 	padding: 1px 4px;
 }
-.supsystic-plugin .fa-question.supsystic-tooltip.fa-2x {
+.fa-question.supsystic-tooltip.fa-2x {
 	padding: 0 6px;
 }
 /*sticky items*/
@@ -698,4 +699,49 @@ input[type="color"] {
 }
 .ppsProOptMiniLabel a:hover {
 	color: #2ea2cc;
+}
+/*Preset lists - any templates, present or other lists with images and description*/
+.preset {
+    position: relative;
+    float: left;
+    margin: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 320px;
+    height: 222px;
+}
+.preset .preset-overlay {
+    width: 100%;
+    height: 30%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: #ffffff;
+    opacity: 0.0;
+    -moz-transition: all 500ms;
+    -ms-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition: all 500ms;
+}
+.preset:hover .preset-overlay {
+    opacity: 1.0;
+}
+.preset img {
+    width: 320px;
+    height: 222px;
+    cursor: pointer;
+}
+.preset.active .preset-overlay {
+    opacity: 1.0;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.74);
+}
+.preset:hover img {
+    box-shadow: inset 0 0 10px #bdc3c7;
+}
+.preset.disabled:hover img {
+    outline: none;
+    opacity: 0.2;
 }

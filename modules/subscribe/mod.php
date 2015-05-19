@@ -63,5 +63,28 @@ class subscribePps extends modulePps {
 		}
 		return $res;
 	}
+	public function generateFields($popup) {
+		$resHtml = '';
+		foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+			if(isset($f['enb']) && $f['enb']) {
+				$htmlType = $f['html'];
+				$htmlParams = array(
+					'placeholder' => $f['label'],
+				);
+				if($htmlType == 'selectbox' && isset($f['options']) && !empty($f['options'])) {
+					$htmlParams['options'] = array();
+					foreach($f['options'] as $opt) {
+						$htmlParams['options'][ $opt['name'] ] = $opt['label'];
+					}
+				}
+				$inputHtml = htmlPps::$htmlType($k, $htmlParams);
+				if($htmlType == 'selectbox') {
+					$inputHtml = '<label class="ppsSubSelect"><span class="ppsSubSelectLabel">'. $f['label']. ': </span>'. $inputHtml. '</label>';
+				}
+				$resHtml .= $inputHtml;
+			}
+		}
+		return $resHtml;
+	}
 }
 

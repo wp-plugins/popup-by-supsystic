@@ -1,0 +1,2418 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PopUp by Supsystic\n"
+"POT-Creation-Date: 2015-05-14 15:01+0200\n"
+"PO-Revision-Date: 2015-05-14 15:20+0200\n"
+"Last-Translator: Jean-Jacques Schaeffer <jjschaeffer@aliceadsl.fr>\n"
+"Language-Team: supsystic.com <supsystic.team@gmail.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+"X-Poedit-SearchPath-2: ..\n"
+
+#: ../classes/controller.php:198 ../classes/controller.php:206
+#: ../doc/popup-by-supsystic-pro/ab_testing/controller.php:6
+#: ../doc/popup-by-supsystic-pro/ab_testing/controller.php:18
+#: ../doc/popup-by-supsystic-pro/license/controller.php:6 ../modules/mail/controller.php:23
+#: ../modules/options/controller.php:6 ../modules/pages/views/tpl/deactivatePage.php:37
+#: ../modules/popup/controller.php:7 ../modules/popup/controller.php:57 ../modules/popup/controller.php:65
+#: ../modules/popup/controller.php:88 ../modules/popup/controller.php:130 ../modules/statistics/controller.php:20
+#: ../modules/statistics/controller.php:29
+msgid "Done"
+msgstr "Готово"
+
+#: ../classes/field.php:131 ../modules/popup/views/tpl/popupAddNewAdmin.php:36
+msgid "Select"
+msgstr "Выбрать"
+
+#: ../classes/field.php:170 ../classes/field.php:179 ../classes/field.php:184
+msgid "N/A"
+msgstr "N/A"
+
+#: ../classes/field.php:277
+msgid "Add Checkbox"
+msgstr "Добавить Чекбокс"
+
+#: ../classes/field.php:282 ../classes/field.php:287
+msgid "Add Item"
+msgstr "Добавить пункт"
+
+#: ../classes/field.php:293
+msgid "Add Radio Button"
+msgstr "Добавить радио кнопку"
+
+#: ../classes/field.php:311
+msgid "Dimensions"
+msgstr "Размеры"
+
+#: ../classes/field.php:314
+msgid "width"
+msgstr "ширина"
+
+#: ../classes/field.php:316
+msgid "height"
+msgstr "высота"
+
+#: ../classes/field.php:323
+msgid "Click to set field \"id\" and \"class\""
+msgstr "Нажмите, чтобы установить поле  \"id\" и  \"class\" "
+
+#: ../classes/field.php:324
+msgid "Attributes"
+msgstr "Атрибут"
+
+#: ../classes/field.php:402
+msgid "There are no configuration options for this module"
+msgstr "Нет опции конфигурации для этого модуля"
+
+#: ../classes/fieldAdapter.php:93
+msgid "Apply To"
+msgstr "Применить к"
+
+#: ../classes/fieldAdapter.php:95
+msgid "Address"
+msgstr "Адресс"
+
+#: ../classes/fieldAdapter.php:96
+msgid "Destination"
+msgstr "Назначения"
+
+#: ../classes/fieldAdapter.php:97
+msgid "Country"
+msgstr "Страна"
+
+#: ../classes/fieldAdapter.php:100
+msgid "Categories"
+msgstr "Категории"
+
+#: ../classes/fieldAdapter.php:101
+msgid "You have no categories"
+msgstr "У Вас нету категорий"
+
+#: ../classes/fieldAdapter.php:102
+msgid "Brands"
+msgstr "Бренды"
+
+#: ../classes/fieldAdapter.php:103
+msgid "You have no brands"
+msgstr "У Вас нету брендов"
+
+#: ../classes/fieldAdapter.php:105
+msgid "Tax Rate"
+msgstr "Ставка налога"
+
+#: ../classes/fieldAdapter.php:106
+msgid "Absolute"
+msgstr "Абсолютно"
+
+#: ../classes/fieldAdapter.php:134
+msgid "Not selected"
+msgstr "Не выбрано"
+
+#: ../classes/fieldAdapter.php:184
+msgid "class"
+msgstr "класс"
+
+#: ../classes/fieldAdapter.php:186 ../classes/tables/usage_stat.php:7
+msgid "id"
+msgstr "id"
+
+#: ../classes/frame.php:135
+msgid "You have no permissions to view this page"
+msgstr "У Вас нету доступа для просмотра этой страницы"
+
+#: ../classes/html.php:227
+msgid "Upload"
+msgstr "Загрузить"
+
+#: ../classes/html.php:635
+msgid "ON"
+msgstr "Включить"
+
+#: ../classes/html.php:636
+msgid "OFF"
+msgstr "Выключить"
+
+#: ../classes/html.php:660
+#, php-format
+msgid "Select %s"
+msgstr "Выбрать %s"
+
+#: ../classes/modInstaller.php:34
+#, php-format
+msgid "Move files for %s failed"
+msgstr "Перемещение файлов %s не удалось."
+
+#: ../classes/modInstaller.php:37
+#, php-format
+msgid "%s is not plugin module"
+msgstr "%s это не модуль плагина"
+
+#: ../classes/modInstaller.php:76
+msgid "Can not create module directory. Try to set permission to "
+msgstr "Невозможно создать каталог модуля. Попытайтесь установить доступы"
+
+#: ../classes/modInstaller.php:103
+msgid "No modules were found in XML file"
+msgstr "Модули не были найдены в XML файле"
+
+#: ../classes/modInstaller.php:107
+msgid "Invalid XML file"
+msgstr "Неверный XML файл"
+
+#: ../classes/modInstaller.php:109
+msgid "No XML file were found"
+msgstr "XML файл не найден"
+
+#: ../classes/modInstaller.php:131
+#, php-format
+msgid "Install %s failed"
+msgstr "Установка %s не удалась"
+
+#: ../classes/modInstaller.php:137
+msgid "Error Activate module"
+msgstr "Ошибка активации модуля"
+
+#: ../classes/modInstaller.php:167
+msgid "Error Deactivation module"
+msgstr "Ошибка деактивации модуля"
+
+#: ../classes/modInstaller.php:188
+msgid "Error Activating module"
+msgstr "Ошибка активации модуля"
+
+#: ../classes/model.php:174 ../classes/model.php:186 ../modules/popup/models/popup.php:113
+#: ../modules/popup/models/popup.php:125
+msgid "Database error detected"
+msgstr "Обнаружена ошибка базы данных"
+
+#: ../classes/model.php:176 ../modules/popup/models/popup.php:115 ../modules/popup/models/popup.php:423
+#: ../modules/popup/models/popup.php:439 ../modules/statistics/models/statistics.php:96
+#: ../modules/statistics/models/statistics.php:127
+msgid "Invalid ID"
+msgstr "Неверный ID"
+
+#: ../classes/model.php:209 ../modules/subscribe/models/subscribe.php:25
+#: ../modules/subscribe/models/subscribe.php:27
+msgid "Empty or invalid ID"
+msgstr "Пустой или неверный ID"
+
+#: ../classes/table.php:277
+msgid "Nothing to update"
+msgstr "Нечего обновлять"
+
+#: ../classes/table.php:293
+msgid "Database error. Please contact your developer."
+msgstr "Ошибка базы данных. Обратитесь к своему разработчику"
+
+#: ../classes/tables/modules.php:7 ../classes/tables/modules_type.php:8
+msgid "Label"
+msgstr "Метка"
+
+#: ../classes/tables/modules.php:8
+msgid "Type"
+msgstr "Тип"
+
+#: ../classes/tables/modules.php:9
+msgid "Active"
+msgstr "Активный"
+
+#: ../classes/tables/modules.php:10
+msgid "Params"
+msgstr "Параметры"
+
+#: ../classes/tables/modules.php:13 ../modules/popup/views/popup.php:198
+msgid "Code"
+msgstr "Код"
+
+#: ../classes/tables/modules.php:14
+msgid "External plugin directory"
+msgstr "Внешний каталог плагина"
+
+#: ../classes/tables/modules_type.php:7
+msgid "ID"
+msgstr "ID"
+
+#: ../classes/tables/usage_stat.php:8
+msgid "code"
+msgstr "Код"
+
+#: ../classes/tables/usage_stat.php:9
+msgid "visits"
+msgstr "Посещений"
+
+#: ../classes/tables/usage_stat.php:10
+msgid "spent_time"
+msgstr "проведенное время"
+
+#: ../classes/tables/usage_stat.php:11
+msgid "modify_timestamp"
+msgstr "изменить метку"
+
+#: ../classes/validator.php:30
+#, php-format
+msgid "Invalid length for %s, max length is %s"
+msgstr "Недопустимая длина для %s, максимальная длина составляет %s"
+
+#: ../classes/validator.php:43
+#, php-format
+msgid "Invalid numeric value for %s"
+msgstr "Неверное числовое значение для %s"
+
+#: ../classes/validator.php:71 ../modules/supsystic_promo/controller.php:39
+#, php-format
+msgid "Please enter %s"
+msgstr "Пожалуйста введите %s"
+
+#: ../classes/validator.php:78 ../modules/supsystic_promo/controller.php:39
+#, php-format
+msgid "Please select %s"
+msgstr "Пожалуйста  выберите  %s"
+
+#: ../classes/validator.php:85 ../classes/validator.php:101
+#, php-format
+msgid "Invalid %s"
+msgstr "Неверный  %s"
+
+#: ../classes/validator.php:88
+#, php-format
+msgid "%s is already registered"
+msgstr "%s уже зарегистрирован"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/mod.php:21 ../modules/supsystic_promo/mod.php:102
+msgid "Testing"
+msgstr "Тестирование"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/models/ab_testing.php:18
+msgid "Enter Name"
+msgstr "Введите имя"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/models/ab_testing.php:20
+#: ../doc/popup-by-supsystic-pro/ab_testing/models/ab_testing.php:32
+msgid "Empty Base ID"
+msgstr "Пустая База ID"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abEditFormControls.php:3
+msgid "Back to Main PopUp"
+msgstr "Вернуться к главному PopUp"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abNewForm.php:2
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abPopupEditTab.php:3
+msgid "Add New Test"
+msgstr "Добавить новый тест"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abNewForm.php:5
+msgid "Test PopUp Name"
+msgstr "Тест PopUp с именем "
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abPopupEditTab.php:7
+#: ../modules/popup/views/tpl/popupAdmin.php:5 ../modules/popup/views/tpl/popupAdmin.php:8
+msgid "Delete selected"
+msgstr "Удалить выбранное"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abPopupEditTab.php:11
+#: ../modules/popup/views/tpl/popupAdmin.php:13
+msgid "Clear"
+msgstr "Очистить"
+
+#: ../doc/popup-by-supsystic-pro/ab_testing/views/tpl/abPopupEditTab.php:17
+msgid ""
+"You have no Test PopUps for now. <a href=\"#\" class=\"ppsAbAddNew\" style=\"font-style: italic;\">Create</a> "
+"your first Test!"
+msgstr ""
+"У вас нет теста PopUp окна в настоящее время. <a href=\"#\" class=\"ppsAbAddNew\" style=\"font-style: italic;"
+"\">Создать </a>  свой первый тест!"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/mod.php:10 ../modules/supsystic_promo/mod.php:109
+msgid "Layered Style"
+msgstr "Layered стиль"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:7
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:8
+msgid "Enable Layered PopUp Style"
+msgstr "Включить Layered PopUp стиль"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:9
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:12
+msgid ""
+"By default all PopUps - have modal style: it appear on user screen over the whole site. Layered style allow you "
+"to show your PopUp - on selected position: top, bottom, etc. and not over your site - but right near your content."
+msgstr ""
+"По умолчанию все всплывающие окна - имеют модальный стиль: он появится на экране пользователя по всему сайте. "
+"Многоуровневый стиль позволяют показать PopUp - на выбранной позиции: сверху, снизу, и т.д., и не только на сайте "
+"- но и рядом с вашим содержанием."
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:13
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:16
+msgid "Select position for your PopUp"
+msgstr "Выбрать позицию для popup"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:16
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:19
+msgid "Top Left"
+msgstr "Верхний ЛевыйHaut gauche"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:17
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:20
+msgid "Top"
+msgstr "Вверху"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:18
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:21
+msgid "Top Right"
+msgstr "Верхний Правый"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:20
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:23
+msgid "Center Left"
+msgstr "Слева по центру"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:21
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:24
+msgid "Center"
+msgstr "Центр"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:22
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:25
+msgid "Center Right"
+msgstr "Справа по центру"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:24
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:27
+msgid "Bottom Left"
+msgstr "Слева внизу "
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:25
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:28
+msgid "Bottom"
+msgstr "Внизу"
+
+#: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:26
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:29
+msgid "Bottom Right"
+msgstr "Справа внизу"
+
+# "anc" or "and" in english
+#: ../doc/popup-by-supsystic-pro/license/mod.php:23
+#, php-format
+msgid ""
+"Your license is expired. Once you extend your license - you will be able to Update PRO version. To extend PRO "
+"version license - follow <a href=\"%s\" target=\"_blank\">this link</a>, then - go to <a href=\"%s\">License</a> "
+"tab anc click on \"Re-activate\" button to re-activate your PRO version."
+msgstr ""
+"Срок действия лицензии истек. После того, как вы продлите лицензию - вы сможете обновить PRO версию . Чтобы "
+"продлить лицензию PRO версии - следуйте<a href=\"%s\" target=\"_blank\">ссылка</a>, затем - перейдите к вкладке<a "
+"href=\"%s\">Лицензия</a> и нажмите кнопку  \"Повторно активировать\" чтобы повторно активировать свою PRO версию."
+
+#: ../doc/popup-by-supsystic-pro/license/mod.php:31
+#, php-format
+msgid ""
+"Your license for PRO version of %s plugin - expired. You can <a href=\"%s\" target=\"_blank\">click here</a> to "
+"extend your license, then - go to <a href=\"%s\">License</a> tab and click on \"Re-activate\" button to re-"
+"activate your PRO version."
+msgstr ""
+"Лицензия ПРО версии плагина  %s - истекла. <a href=\"%s\" target=\"_blank\">Нажмите здесь</a> чтобы продлить "
+"лицензию, а затем - перейдите к <a href=\"%s\">Лицензии</a> и нажмите на  \"Активировать повторно\" чтобы "
+"активировать ПРО версию"
+
+#: ../doc/popup-by-supsystic-pro/license/mod.php:44
+msgid "License"
+msgstr "Лицензия"
+
+#: ../doc/popup-by-supsystic-pro/license/models/license.php:54
+msgid "Please enter your License Key"
+msgstr "Пожалуйста, введите ключ лицензии"
+
+#: ../doc/popup-by-supsystic-pro/license/models/license.php:56
+msgid "Please enter your Email address"
+msgstr "Пожалуйста, введите Ваш Email"
+
+#: ../doc/popup-by-supsystic-pro/license/models/license.php:130
+msgid "There was a problem with sending request to our autentification server. Please try latter."
+msgstr "Проблема с отправкой запроса на нашем сервере. Пожалуйста, попробуйте позже."
+
+#: ../doc/popup-by-supsystic-pro/license/models/license.php:153
+#, php-format
+msgid "License for plugin %s will expire today."
+msgstr "Лицензия на плагин %s  истекает сегодня."
+
+#: ../doc/popup-by-supsystic-pro/license/models/license.php:155
+#, php-format
+msgid "License for plugin %s will expire tomorrow."
+msgstr "Лицензия на плагин %s  истечёт завтра."
+
+#: ../doc/popup-by-supsystic-pro/license/models/license.php:157
+#, php-format
+msgid "License for plugin %s will expire in %d days."
+msgstr "Лицензия на плагин %s  истечёт через %d дней."
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:4
+#, php-format
+msgid "Congratulations! PRO version of %s plugin is activated and working fine!"
+msgstr "Поздравляем! PRO версия плагина %s активирована и работает нормально!"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:6
+#, php-format
+msgid ""
+"Your license for PRO version of %s plugin - expired. You can <a href=\"%s\" target=\"_blank\">click here</a> to "
+"extend your license, then - click on \"Re-activate\" button to re-activate your PRO version."
+msgstr ""
+"Ваша лицензия PRO версии плагина %s - истекала.  <a href=\"%s\" target=\"_blank\">Нажмите здесь</a> чтобы "
+"продлить лицензию, затем - нажмите \"Повторно активировать\" чтобы повторно активировать свою PRO версию"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:8
+#, php-format
+msgid ""
+"Congratulations! You have successfully installed PRO version of %s plugin. Final step to finish Your PRO version "
+"setup - is to enter your Email and License Key on this page. This will activate Your copy of software on this "
+"site."
+msgstr ""
+"Поздравляем! Вы успешно установили PRO версию плагина %s . Чтобы закончить  установку ПРО версии - введите свой "
+"Email и ключ лицензии на этой странице. Это активирует ПРО версию на этом сайте."
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:20
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:151
+msgid "Email"
+msgstr "Email"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:23
+msgid "Your email address, used on checkout procedure on <a href=\"%\" target=\"_blank\">%s</a>"
+msgstr ""
+"Ваш адрес электронной почты, используется по процедуре оформления заказа на <a href=\"%\" target=\"_blank\">%s</a>"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:31
+msgid "License Key"
+msgstr "Ключ лицензии"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:34
+msgid "Your License Key from your account on <a href=\"%\" target=\"_blank\">%s</a>"
+msgstr "Ваш ключ лицензии с вашего аккаунта <a href=\"%\" target=\"_blank\">%s</a>"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:47
+msgid "Re-activate"
+msgstr "Повторно активировать"
+
+#: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:49
+msgid "Activate"
+msgstr "Активировать"
+
+#: ../doc/popup-by-supsystic-pro/on_exit/views/tpl/onExitAdminOption.php:1
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:75
+#: ../modules/supsystic_promo/views/tpl/additionalmainAdminShowOnOptions.php:1
+#, php-format
+msgid "Show when user try to exit from your site. <a target=\"_blank\" href=\"%s\">Check example.</a>"
+msgstr "Показать, когда пользователь попытаться выйти с вашего сайта. <a target=\"_blank\" href=\"%s\">Пример</a>"
+
+#: ../doc/popup-by-supsystic-pro/on_exit/views/tpl/onExitAdminOption.php:5
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:76
+#: ../modules/supsystic_promo/views/tpl/additionalmainAdminShowOnOptions.php:7
+msgid "On Exit from Site"
+msgstr "При выходе из сайта"
+
+#: ../doc/popup-by-supsystic-pro/sub_social/controller.php:9
+msgid "PopUp ID is not specified."
+msgstr "ID попапа не указан"
+
+#: ../doc/popup-by-supsystic-pro/sub_social/controller.php:13
+msgid "Authorization code is not specified."
+msgstr "Код авторизации не указан"
+
+#: ../doc/popup-by-supsystic-pro/sub_social/controller.php:36
+msgid "Subscribing"
+msgstr "Подписка"
+
+#: ../doc/popup-by-supsystic-pro/sub_social/controller.php:45
+msgid "Can not get your email address"
+msgstr "Не удается получить адрес электронной почты"
+
+#: ../doc/popup-by-supsystic-pro/sub_social/mod.php:75
+msgid "Sign in with"
+msgstr "Войти"
+
+#: ../doc/popup-by-supsystic-pro/sub_social/mod.php:76 ../modules/sm/mod.php:26
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../doc/popup-by-supsystic-pro/wpUpdater.php:68
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?\" onclick=\"document.location."
+"reload(); return false;\">Try again</a>"
+msgstr ""
+"Произошла непредвиденная HTTP-ошибка во время запроса API. </p> <p><a href=\"?\" onclick=\"document.location."
+"reload(); return false;\">Попробовать ещё раз</a>"
+
+#: ../doc/popup-by-supsystic-pro/wpUpdater.php:73
+msgid "An unknown error occurred"
+msgstr "Произошла неизвестная ошибка"
+
+#: ../modules/adminmenu/mod.php:12 ../modules/options/mod.php:42
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../modules/mail/controller.php:7
+msgid "Now check your email inbox / spam folders for test mail."
+msgstr "Теперь проверьте свой почтовый ящик  (папку спама)  для тестирования письма."
+
+#: ../modules/mail/mod.php:37
+msgid "Can not send email - problem with send server"
+msgstr "Вы не можете отправлять электронную почту - проблема с сервером отправки"
+
+#: ../modules/mail/mod.php:50
+msgid "Mail"
+msgstr "Mail"
+
+#: ../modules/mail/mod.php:52
+msgid "Mail function tested and work"
+msgstr "Почтовая функция протестирована и работает"
+
+#: ../modules/mail/mod.php:53
+msgid "Notify Email"
+msgstr "Сообщите на e-mail"
+
+#: ../modules/mail/mod.php:53
+msgid "Email address used for all email notifications from plugin"
+msgstr "Адрес электронной почты используется для всех почтовых уведомлений от плагина"
+
+#: ../modules/mail/models/mail.php:7
+msgid "Test email functionality"
+msgstr "Тест функциональности электронной почты"
+
+#: ../modules/mail/models/mail.php:8
+#, php-format
+msgid "This is test email for testing email functionality on your site, %s."
+msgstr "Это тестовое письмо для проверки функциональности электронной почты на вашем сайте, %s."
+
+#: ../modules/mail/models/mail.php:15
+msgid "Empty email address"
+msgstr "Пустой email"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:3
+msgid "Send test email to"
+msgstr "Отправить тестовое письмо на"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:10
+msgid "Send test"
+msgstr "Оправить тест"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:12
+msgid "This option allow you to check your server mail functionality"
+msgstr "Эта опция позволит вам проверить свою функциональность почтового сервера"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:15
+msgid "Did you received test email?"
+msgstr "Вы получили тестовое письмо?"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:18
+msgid "Yes! It work!"
+msgstr "Да! Это работает!"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:22
+msgid "No, I need to contact my hosting provider with mail function issue."
+msgstr "Нет, мне нужно связаться с моим хостинг провайдером по вопросу почты ."
+
+#: ../modules/mail/views/tpl/mailAdmin.php:26
+msgid "Great! Mail function was tested and working fine."
+msgstr "Отлично! Функция Почта была проверена и работает нормально."
+
+#: ../modules/mail/views/tpl/mailAdmin.php:29
+msgid "Bad, please contact your hosting provider and ask them to setup mail functionality on your server."
+msgstr ""
+"Плохо, пожалуйста, обратитесь к хостинг-провайдеру и попросите их функциональность установки почты на вашем "
+"сервере."
+
+#: ../modules/mail/views/tpl/mailAdmin.php:47 ../modules/options/views/tpl/optionsSettingsTabContent.php:44
+#, php-format
+msgid "Turned On %s"
+msgstr "Включенный %s"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:48 ../modules/options/views/tpl/optionsSettingsTabContent.php:45
+#, php-format
+msgid "Turned Off %s"
+msgstr "Выключеный %s"
+
+#: ../modules/mail/views/tpl/mailAdmin.php:69 ../modules/options/views/tpl/optionsSettingsTabContent.php:6
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:20 ../modules/popup/views/tpl/popupEditFormControls.php:5
+msgid "Save"
+msgstr "Сохранить"
+
+#: ../modules/options/mod.php:108
+msgid "General"
+msgstr "Общее"
+
+#: ../modules/options/mod.php:110
+msgid "Send usage statistics"
+msgstr "Отправить статистику использования"
+
+#: ../modules/options/mod.php:110
+msgid ""
+"Send information about what plugin options you prefer to use, this will help us make our solution better for You."
+msgstr ""
+"Отправить информацию о том, какие  опции плагина вы предпочитаете использовать, это поможет нам сделать наше "
+"решение лучше для вас."
+
+#: ../modules/options/mod.php:111
+msgid "Disable blocking Subscription from same IP"
+msgstr "Отключить блокировку подписки из этих  IP"
+
+#: ../modules/options/mod.php:111
+msgid ""
+"By default our plugin have feature to block subscriptions from same IP more then one time per hour - to avoid "
+"spam subscribers. But you can disable this feature here."
+msgstr ""
+"По умолчанию наша плагин есть возможность блокировать подписку из того же IP более одного раза в час - чтобы "
+"избежать спама. Но вы можете отключить эту функцию здесь."
+
+#: ../modules/options/mod.php:112
+msgid "User role can use plugin"
+msgstr "Пользователь может использовать плагин"
+
+#: ../modules/options/mod.php:112
+msgid "User with next roles will have access to whole plugin from admin area."
+msgstr "Пользователь со следующими ролями будут иметь доступ к плагину как администратор."
+
+#: ../modules/options/models/modules.php:32
+msgid "Module Updated"
+msgstr "Модуль Обновлено"
+
+#: ../modules/options/models/modules.php:47
+msgid "Module Update Failed"
+msgstr "Обновление модуля не удалось"
+
+#: ../modules/options/models/modules.php:50
+msgid "Error module ID"
+msgstr "Ошибка ID модуля"
+
+#: ../modules/options/models/options.php:63
+msgid "Empty data to save option"
+msgstr "Пустые данные чтобы сохранить опцию"
+
+#: ../modules/options/views/tpl/optionsAdminMain.php:18
+msgid "Main page Go here!!!!"
+msgstr "Главная страница здесь !!!"
+
+#: ../modules/options/views/tpl/optionsAdminPage.php:35
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:72
+msgid "Improve Free version"
+msgstr "Улучшить Бесплатную версию"
+
+#: ../modules/options/views/tpl/optionsAdminPage.php:37
+#, php-format
+msgid ""
+"Please be advised that this option is available only in <a target=\"_blank\" href=\"%s\">PRO version</a>. You can "
+"<a target=\"_blank\" href=\"%s\" class=\"button\">Get PRO</a> today and get this and other PRO option for your "
+"PopUps!"
+msgstr ""
+"Имейте в виду, что эта опция доступна только в <a target=\"_blank\" href=\"%s\">ПРО версии</a>. Вы можете <a "
+"target=\"_blank\" href=\"%s\" class=\"button\">Получить ПРО</a> сегодня и получите эту и другие ПРО оции для "
+"Вашего PopUp!"
+
+#: ../modules/options/views/tpl/optionsSettingsTabContent.php:3
+msgid "Save all options"
+msgstr "Сохранить все опции"
+
+#: ../modules/options/views/tpl/optionsSettingsTabContent.php:52
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:133
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:149
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:165
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:79
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:91
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:103
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:122
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:134
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:176
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:186
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:28
+msgid "PRO option"
+msgstr "ПРО опция"
+
+#: ../modules/pages/views/tpl/deactivatePage.php:33
+msgid "Delete Plugin Data (options, setup data, database tables, etc.)"
+msgstr "Удалить данные плагина (опции, данные настройки, таблицы базы данных и т.д.)"
+
+#: ../modules/popup/controller.php:22 ../modules/supsystic_promo/views/supsystic_promo.php:85
+#: ../modules/supsystic_promo/views/supsystic_promo.php:86 ../modules/supsystic_promo/views/supsystic_promo.php:91
+#: ../modules/supsystic_promo/views/supsystic_promo.php:93 ../modules/supsystic_promo/views/supsystic_promo.php:94
+msgid "Yes"
+msgstr "да"
+
+#: ../modules/popup/controller.php:22 ../modules/supsystic_promo/views/supsystic_promo.php:85
+#: ../modules/supsystic_promo/views/supsystic_promo.php:86 ../modules/supsystic_promo/views/supsystic_promo.php:91
+#: ../modules/supsystic_promo/views/supsystic_promo.php:93 ../modules/supsystic_promo/views/supsystic_promo.php:94
+msgid "No"
+msgstr "Нет"
+
+#: ../modules/popup/controller.php:121
+msgid "Done, redirecting to new PopUp..."
+msgstr "Готово, перенаправление на новый PopUp..."
+
+#: ../modules/popup/mod.php:13
+msgid "Add New PopUp"
+msgstr "Добавить новый попап"
+
+#: ../modules/popup/mod.php:16
+msgid "Edit"
+msgstr "Редактировать"
+
+#: ../modules/popup/mod.php:19
+msgid "Show All PopUps"
+msgstr "Показать все PopUp"
+
+#: ../modules/popup/models/popup.php:69
+msgid "img/preview/"
+msgstr "img/preview/"
+
+#: ../modules/popup/models/popup.php:98
+msgid "Please select PopUp template from list below"
+msgstr "Пожалуйста, выберите шаблон из списка"
+
+#: ../modules/popup/models/popup.php:100 ../modules/popup/models/popup.php:425
+msgid "Please enter Name"
+msgstr "Пожалуйста, введите имя"
+
+#: ../modules/popup/models/popup.php:133
+msgid "Enter your Facebook page URL"
+msgstr "Введите Вашу ссылку на Facebook страницу"
+
+#: ../modules/popup/models/popup.php:140
+msgid "Enter your video URL"
+msgstr "Введите ссылку на видео"
+
+#: ../modules/popup/models/popup.php:244
+msgid "Common"
+msgstr "Общее"
+
+#: ../modules/popup/models/popup.php:245
+msgid "Facebook Like"
+msgstr "Facebook Like"
+
+#: ../modules/popup/models/popup.php:246
+msgid "Video"
+msgstr "Видео"
+
+#: ../modules/popup/models/popup.php:286
+msgid "Provided data was corrupted"
+msgstr "Предоставление данные были повреждены"
+
+#: ../modules/popup/views/popup.php:39
+msgid "Modify PopUp Template"
+msgstr "Изменить попап шаблон"
+
+#: ../modules/popup/views/popup.php:49
+msgid "Can not find required PopUp"
+msgstr "Не может найти необходимый PopUp"
+
+#: ../modules/popup/views/popup.php:94
+msgid "Available in PRO version"
+msgstr "Доступно в ПРО версии"
+
+#: ../modules/popup/views/popup.php:97 ../modules/popup/views/popup.php:302 ../modules/popup/views/popup.php:534
+msgid "None"
+msgstr "Нету"
+
+#: ../modules/popup/views/popup.php:98
+msgid "Image"
+msgstr "Изображение"
+
+#: ../modules/popup/views/popup.php:99
+msgid "Color"
+msgstr "Цвет"
+
+#: ../modules/popup/views/popup.php:103
+msgid "Mobile"
+msgstr "Мобильный"
+
+#: ../modules/popup/views/popup.php:104
+msgid "Tablet"
+msgstr "Планшет"
+
+#: ../modules/popup/views/popup.php:105
+msgid "Desktop PC"
+msgstr "ПК компьютер"
+
+#: ../modules/popup/views/popup.php:121
+msgid "Main Home page"
+msgstr "Главная страница"
+
+#: ../modules/popup/views/popup.php:160
+msgid "Appearance"
+msgstr "Внешний вид"
+
+#: ../modules/popup/views/popup.php:165
+msgid "Animation"
+msgstr "Анимация"
+
+#: ../modules/popup/views/popup.php:172
+msgid "Subscribe"
+msgstr "Подписки"
+
+#: ../modules/popup/views/popup.php:177
+msgid "Social"
+msgstr "Соц. сети"
+
+#: ../modules/popup/views/popup.php:188
+msgid "Main"
+msgstr "Главная"
+
+#: ../modules/popup/views/popup.php:193
+msgid "Design"
+msgstr "Дизайн"
+
+#: ../modules/popup/views/popup.php:205
+msgid "Texts"
+msgstr "Тексты"
+
+#: ../modules/popup/views/popup.php:229
+msgid "Facebook page URL"
+msgstr "Ссылка на страницу Facebook"
+
+#: ../modules/popup/views/popup.php:231
+msgid "The absolute URL of the Facebook Page that will be liked. This is a required setting."
+msgstr "Абсолютный URL в Facebook странице, которая будет нравиться. Это обязательный параметр."
+
+#: ../modules/popup/views/popup.php:233
+msgid "Color scheme"
+msgstr "Цветовая схема"
+
+#: ../modules/popup/views/popup.php:235
+msgid "Light"
+msgstr "Светлый"
+
+#: ../modules/popup/views/popup.php:235
+msgid "Dark"
+msgstr "Темный"
+
+#: ../modules/popup/views/popup.php:236
+msgid "The color scheme used by the plugin. Can be \"light\" or \"dark\"."
+msgstr "Цветовая схема используемая в плагине может быть \"Светлая\" или \"Темная\""
+
+#: ../modules/popup/views/popup.php:238
+msgid "Force wall"
+msgstr ""
+
+# I'll better translate it later, after first using your plugin... Sorry ! I don't understand without seing context.
+#: ../modules/popup/views/popup.php:240
+msgid ""
+"For \"place\" Pages (Pages that have a physical location that can be used with check-ins), this specifies whether "
+"the stream contains posts by the Page or just check-ins from friends."
+msgstr ""
+
+#: ../modules/popup/views/popup.php:242
+msgid "Header"
+msgstr ""
+
+#: ../modules/popup/views/popup.php:244
+msgid "Specifies whether to display the Facebook header at the top of the plugin."
+msgstr ""
+
+#: ../modules/popup/views/popup.php:246
+msgid "Show border"
+msgstr ""
+
+#: ../modules/popup/views/popup.php:248
+msgid "Specifies whether or not to show a border around the plugin."
+msgstr ""
+
+#: ../modules/popup/views/popup.php:250
+msgid "Show faces"
+msgstr "Показать лица"
+
+#: ../modules/popup/views/popup.php:252
+msgid "Specifies whether to display profile photos of people who like the page."
+msgstr ""
+
+#: ../modules/popup/views/popup.php:254
+msgid "Stream"
+msgstr "Поток"
+
+#: ../modules/popup/views/popup.php:256
+msgid "Specifies whether to display a stream of the latest posts by the Page."
+msgstr ""
+
+#: ../modules/popup/views/popup.php:303
+msgid "Puff"
+msgstr "Puff"
+
+#: ../modules/popup/views/popup.php:304
+msgid "Vanish"
+msgstr "Vanish"
+
+#: ../modules/popup/views/popup.php:306
+msgid "Open down left"
+msgstr "Ouvre bas gauche"
+
+#: ../modules/popup/views/popup.php:307
+msgid "Open down right"
+msgstr "Ouvre bas droit"
+
+#: ../modules/popup/views/popup.php:309
+msgid "Perspective down"
+msgstr "Perspective bas"
+
+#: ../modules/popup/views/popup.php:310
+msgid "Perspective up"
+msgstr "Perspective haut"
+
+#: ../modules/popup/views/popup.php:312
+msgid "Slide down"
+msgstr "Glisse vers le bas"
+
+#: ../modules/popup/views/popup.php:313
+msgid "Slide up"
+msgstr "Glisse vers le haut"
+
+#: ../modules/popup/views/popup.php:315
+msgid "Swash"
+msgstr "Swash"
+
+#: ../modules/popup/views/popup.php:316
+msgid "Foolis"
+msgstr "Foolis"
+
+#: ../modules/popup/views/popup.php:318
+msgid "Tin right"
+msgstr "Tin right"
+
+#: ../modules/popup/views/popup.php:319
+msgid "Tin left"
+msgstr "Tin left"
+
+#: ../modules/popup/views/popup.php:320
+msgid "Tin up"
+msgstr "Tin up"
+
+#: ../modules/popup/views/popup.php:321
+msgid "Tin down"
+msgstr "Tin down"
+
+#: ../modules/popup/views/popup.php:323
+msgid "Boing"
+msgstr "Boing"
+
+#: ../modules/popup/views/popup.php:325
+msgid "Space right"
+msgstr "Расстояние справа"
+
+#: ../modules/popup/views/popup.php:326
+msgid "Space left"
+msgstr "Расстояние слева"
+
+#: ../modules/popup/views/popup.php:327
+msgid "Space up"
+msgstr "Расстояние вверху "
+
+#: ../modules/popup/views/popup.php:328
+msgid "Space down"
+msgstr "Расстояние внизу"
+
+#: ../modules/popup/views/popup.php:557
+msgid "None (standard)"
+msgstr "Нету (стандартно)"
+
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:5
+#, php-format
+msgid "Change Template to any other from list below or <a class=\"button\" href=\"%s\">return to Pop-Up edit</a>"
+msgstr ""
+"Изменить шаблон на любой другой из списка ниже или<a class=\"button\" href=\"%s\">вернуться к редактированию "
+"шаблона</a>"
+
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:7
+msgid "Choose Pop-Up Template. You can change it later."
+msgstr "Выберете шаблон PopUp. Вы можете изменить его позже."
+
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:15
+msgid "PopUp Name"
+msgstr "имя PopUp"
+
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:38
+msgid "type"
+msgstr "тип"
+
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:48
+msgid "Change Template"
+msgstr "Изменить шаблон"
+
+#: ../modules/popup/views/tpl/popupAddNewAdmin.php:50
+msgid "Are you sure want to change your current template - to "
+msgstr "Вы уверены что хотите изменить Ваш текущий шаблон на - "
+
+#: ../modules/popup/views/tpl/popupAdmin.php:11
+msgid "Clear All"
+msgstr "Очистить все"
+
+#: ../modules/popup/views/tpl/popupAdmin.php:16 ../modules/popup/views/tpl/popupAdmin.php:17
+msgid "Search"
+msgstr "Поиск"
+
+#: ../modules/popup/views/tpl/popupAdmin.php:26
+#, php-format
+msgid "You have no PopUps for now. <a href=\"%s\" style=\"font-style: italic;\">Create</a> your PopUp!"
+msgstr ""
+"У Вас нету всплывающих окон в данный момент. <a href=\"%s\" style=\"font-style: italic;\">Создать</a> новый  "
+"PopUp!"
+
+#: ../modules/popup/views/tpl/popupEditAdmin.php:87
+msgid "Loading preview..."
+msgstr "Загрузка превью"
+
+#: ../modules/popup/views/tpl/popupEditAdmin.php:92
+msgid "Back to top"
+msgstr "Вернуться к началу"
+
+#: ../modules/popup/views/tpl/popupEditAdminAnimationOpts.php:2
+msgid "Choose PopUp animation style"
+msgstr "Выбрать стиль анимации PopUp "
+
+#: ../modules/popup/views/tpl/popupEditAdminAnimationOpts.php:3
+msgid "current style"
+msgstr "текущий стиль"
+
+#: ../modules/popup/views/tpl/popupEditAdminAnimationOpts.php:29
+msgid "Animation Duration"
+msgstr "Продолжительность анимации"
+
+#: ../modules/popup/views/tpl/popupEditAdminAnimationOpts.php:31
+msgid "miliseconds"
+msgstr "милисекунды"
+
+#: ../modules/popup/views/tpl/popupEditAdminCodeOpts.php:2
+#, php-format
+msgid ""
+"Edit this ONLY if you know basics of HTML, CSS and have been acquainted with the rules of template editing "
+"described <a target=\"_blank\" href=\"%s\">here</a>"
+msgstr ""
+"Редактируйте это ТОЛЬКО если Вы знаете основы  HTML, CSS  и были ознакомлены с <a target=\"_blank\" href=\"%s"
+"\">правилами</a>, описанными для редактирования шаблона "
+
+#: ../modules/popup/views/tpl/popupEditAdminCodeOpts.php:5
+msgid "CSS code"
+msgstr "Код CSS"
+
+#: ../modules/popup/views/tpl/popupEditAdminCodeOpts.php:9
+msgid "HTML code"
+msgstr "Код HTML"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:5
+msgid "Video URL"
+msgstr "Ссылка на видео"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:6
+msgid "Copy and paste here URL of your video source"
+msgstr "Скопируйте и вставьте здесь ссылку на Ваш видео ресурс"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:15
+msgid "Width"
+msgstr "Ширина"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:22
+msgid "Max width for percentage - is 100"
+msgstr "Максимальная ширина в процентах - это 100"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:24
+msgid "Percents"
+msgstr "Проценты"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:28
+msgid "Pixels"
+msgstr "Пиксели"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:38
+msgid "Height"
+msgstr "Высота"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:50
+msgid "Video Autoplay"
+msgstr "Автозапуск видео"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:51
+msgid "Play video - right after PopUp show"
+msgstr "Воспроизведение видео - сразу после открытия всплывающего окна"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:61
+msgid "Hide controls"
+msgstr "Скрыть управление"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:62
+msgid "Hide standard video player controls"
+msgstr "Спрятать стандартные кнопки управления видео"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:103
+msgid "Background overlay opacity"
+msgstr "Прозрачность фона"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:112
+msgid "Background"
+msgstr "Фон"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:112
+#, php-format
+msgid "Background %d"
+msgstr "Фон  %d"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:131
+msgid "Label Font style"
+msgstr "Стиль шрифта заголовка"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:140
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:156
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:172
+msgid "Default"
+msgstr "По умолчанию"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:147
+msgid "Text Font style"
+msgstr "Стиль текста"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:163
+msgid "Footer Font style"
+msgstr "Стиль текста в низу страницы"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:180
+msgid "Close button"
+msgstr "Кнопка закрыть"
+
+#: ../modules/popup/views/tpl/popupEditAdminDesignOpts.php:200
+msgid "Bullets"
+msgstr "Маркеры"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:2
+msgid "When to show PopUp"
+msgstr "Когда отображать PopUp"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:8
+msgid "When page load"
+msgstr "Когда страница загружена"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:13
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:54
+msgid "Delay for"
+msgstr "Задержка"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:17
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:111
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:195
+msgid "Seconds"
+msgstr "Секунд"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:17
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:111
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:195
+msgid "sec"
+msgstr "сек"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:24
+msgid "User click on the page"
+msgstr "Когда пользователь нажимает на страницу"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:30
+msgid "Click on certain link / button / other element"
+msgstr "Нажмите на определенные ссылки / кнопки / другие элементы"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:34
+msgid "Copy & paste next code - into required link to open PopUp on Click"
+msgstr "Скопируйте и вставьте следующий код в требуемой ссылке, чтобы открыть всплывающее окно"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:37
+#, php-format
+msgid ""
+"Check screenshot with details - <a onclick=\"ppsShowTipScreenPopUp(this); return false;\" href=\"%s\">here</a>."
+msgstr ""
+"Посмотреть детально скриншоты - <a onclick=\"ppsShowTipScreenPopUp(this); return false;\" href=\"%s\">тут</a>."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:40
+msgid "Or, if you know HTML basics, - you can insert \"onclick\" attribute to any of your element from code below"
+msgstr "Или если Вы знаете основы HTML  - вы можете вставить \"onclick\" атрибут в любой элемент кода"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:49
+msgid "Scroll window"
+msgstr "Окно прокрутки"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:58
+msgid "seconds after first scroll"
+msgstr "секунд после первой прокрутки"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:62
+msgid "Scrolled to"
+msgstr "Прокрутить до"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:66
+msgid "percents of total scroll"
+msgstr "процентов общей прокрутки"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:87
+msgid ""
+"When user are on the bottom of the page: scroll it down to the bottom, or if there are no vertical scroll on his "
+"device - just show it right after page load."
+msgstr ""
+"Когда пользователь находится на нижней части страницы: прокрутив его в самый низ, или, если нет вертикальной "
+"прокрутки на своем устройстве - просто показать его сразу после загрузки страницы."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:88
+msgid "Bottom of the page"
+msgstr "Внизу страницы"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:99
+msgid "After user was inactive on your page for some time."
+msgstr "Когда пользователь был неактивен на вашей странице в течение некоторого времени."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:100
+msgid "After Inactivity"
+msgstr "После бездействия"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:108
+msgid "After user was inactive for"
+msgstr "После неактивности пользователя в течении"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:118
+msgid ""
+"User add comment on your site - and will see this PopUp after comment was placed. This will help you interest "
+"active users on your site."
+msgstr ""
+"Когда пользователь добавит комментарий на сайте - он увидит всплывающее окно после того как разместил свой "
+"комментарий. Это поможет Вам найти заинтересованных активных пользователей на вашем сайте."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:119
+msgid "After User Comment"
+msgstr "После коментария пользователя"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:130
+msgid "Show PopUp after success checkout process on your online store."
+msgstr "Показать PopUp после успешной покупки в вашем интернет-магазине."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:131
+msgid "After Purchasing (Checkout)"
+msgstr "После покупки"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:139
+msgid "Copy & Paste next code on your Success checkout page content editor"
+msgstr "Скопируйте и вставьте следующий код в редакторе страницы об успешной покупке "
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:143
+msgid "Or, if you are using your own html/php for this page - insert there next code"
+msgstr "Или, если вы используете свой собственный html/php  для этой страницы - вставить туда следующий код"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:151
+msgid "When to close PopUp"
+msgstr "Когда закрыть PopUp"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:157
+msgid "After user close it"
+msgstr "Когда пользователь сам закроет его"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:163
+msgid "Close PopUp when user click outside of the actually PopUp window."
+msgstr "Закрыть окно когда пользователь нажимает за пределами всплывающего окна."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:164
+msgid "Click outside PopUp"
+msgstr "Нажмите за пределами PopUp"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:172
+msgid "Will not allow user to close your PopUp - until finish at least one action: Subscribe, Share or Like."
+msgstr ""
+"Не позволит пользователю закрыть попап - пока он не выполнит одно действие: Подписка, распространить или лайк."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:173
+msgid "Only after action (Subscribe / Share / Like)"
+msgstr "Только после действия (Subscribe / Share / Like)"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:179
+msgid "Close PopUp after it will be visible specified time."
+msgstr "Закрыть всплывающее после указанного времени"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:184
+msgid "After time passed"
+msgstr "Когда прошло время"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:192
+msgid "Close after"
+msgstr "Закрыть после"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:200
+msgid "Whom to show"
+msgstr "Кому показывать"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:206
+msgid "Everyone"
+msgstr "Всем"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:212
+msgid "For first-time visitors"
+msgstr "Для посетителей кто впервые"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:215
+msgid ""
+"Will remember user visit for entered number of days and show PopUp to same user again - after this period. To "
+"remember only for one browser session - use 0 here, to remember forever - try to set big number - 99999 for "
+"example."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:216
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:232
+msgid "Remember for"
+msgstr "Напомнить через"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:221
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:237
+msgid "days"
+msgstr "дней"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:224
+msgid "Subscribe, share, like, etc."
+msgstr "Subscribe, share, like, и т.д."
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:228
+msgid "Until user makes an action"
+msgstr "Пока пользователь не сделает действе"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:231
+msgid ""
+"Will remember user action for entered number of days and show PopUp to same user again - after this period. To "
+"remember only for one browser session - use 0 here, to remember forever - try to set big number - 99999 for "
+"example."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:241
+msgid "Hide for"
+msgstr "Скрыть для"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:245
+msgid "Choose devices"
+msgstr "Выбрать устройства"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:247
+msgid "Hide PopUp for Logged-in users and show it only for not Logged site visitors."
+msgstr ""
+"Спрятать попап для зарегистрированных (подписавшихся) пользователей и показывать его только для не "
+"зарегистрированных пользователей сайта "
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:250
+msgid "Hide for Logged-in"
+msgstr "Скрыть для уже подписанных "
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:260
+msgid "Show on next pages"
+msgstr "Отображать на следующих страницах"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:266
+msgid "All pages"
+msgstr "Все страницы"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:272
+msgid "Show on next pages / posts"
+msgstr "Отображать на следующих страницах/постах"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:275
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:284
+msgid "Choose Pages"
+msgstr "Выбрать страницы"
+
+#: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:281
+msgid "Don't show on next pages / posts"
+msgstr "Не отображать на следующих страницах/постах"
+
+#: ../modules/popup/views/tpl/popupEditAdminSmOpts.php:7
+msgid "Enable Social Buttons"
+msgstr "Включить социальные кнопки"
+
+#: ../modules/popup/views/tpl/popupEditAdminSmOpts.php:21
+msgid "Social links design"
+msgstr "Дизайн социальных ссылок"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:7
+msgid "Enable Subscription"
+msgstr "Включить подписку"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:14
+msgid "Subscribe to"
+msgstr "Подписаться к"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:15
+msgid "Destination for your Subscribers."
+msgstr "Назначение для Ваших подписчиков"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:25
+msgid "Subscribe with Facebook"
+msgstr "Подписаться через Facebook"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:26
+#, php-format
+msgid ""
+"Add button to your PopUp with possibility to subscribe just in one click - without filling fields in your "
+"subscribe form, <img src=\"%s\" />"
+msgstr ""
+"Добавить кнопку на всплывающее окно с возможностью подписаться, просто в один клик - без заполнения полей в форме "
+"подписки, <img src=\"%s\" />"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:39
+msgid "Create user after subscribe with role"
+msgstr "Создать пользователя после подписки с ролью"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:40
+msgid ""
+"Use this only if you are really need it. Remember! After you change this option - your new subscriber will have "
+"more privileges than usual subscribers, so be careful with this option!"
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:50
+msgid "Create Subscriber without confirmation"
+msgstr "Создать подписчика без подтверждения"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:51
+msgid ""
+"Usually, after user subscribe, we send email with confirmation link - to confirm email addres, and only after "
+"usee will click on link from this email - we will create new subscriber. This option allow you to create "
+"subscriber - right after subscription, without email confirmation process."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:60
+msgid "Aweber Unique List ID"
+msgstr "Aweber Уникальный ID"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:61
+#, php-format
+msgid "Check <a href=\"%s\" target=\"_blank\">this page</a> for more details"
+msgstr "Проверьте <a href=\"%s\" target=\"_blank\">эту страницу </a> для более детальной информации"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:70
+msgid "MailChimp API key"
+msgstr "MailChimp API ключ"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:71
+#, php-format
+msgid ""
+"To find your MailChimp API Key login to your mailchimp account at <a href=\"%s\" target=\"_blank\">%s</a> then "
+"from the left main menu, click on your Username, then select \"Account\" in the flyout menu. From the account "
+"page select \"Extras\", \"API Keys\". Your API Key will be listed in the table labeled \"Your API Keys\". Copy / "
+"Paste your API key into \"MailChimp API key\" field here."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:81
+msgid "Lists for subscribe"
+msgstr "Списки для подписки"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:82
+msgid ""
+"Select lists for subscribe. They are taken from your MailChimp account - so make sure that you entered correct "
+"API key before."
+msgstr ""
+"Выберите списки для подписки. Они взяты из вашей учётной записи MailChimp - поэтому убедитесь, что Вы ввели "
+"правильный ключ API раньше."
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:89
+msgid "Choose Lists"
+msgstr "Выбрать список"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:92
+msgid "Enter API key - and your list will appear here"
+msgstr "Введите ключ API - и ваш список появится здесь"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:98
+msgid "Disable double opt-in"
+msgstr "Отключить двойную опцию "
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:99
+msgid ""
+"Disable double opt-in confirmation message sending - will create subscriber directly after he will sign-up to "
+"your form."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:109
+msgid "MailPoet Subscribe Lists"
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:118
+#, php-format
+msgid ""
+"You have no subscribe lists, <a target=\"_blank\" href=\"%s\">create lists</a> at first, then - select them here."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:123
+#, php-format
+msgid ""
+"To use this subscribe engine - you must have <a target=\"_blank\" href=\"%s\">MailPoet plugin</a> installed on "
+"your site"
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:129
+msgid "Test Email Function"
+msgstr "Тест Email функции"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:130
+msgid ""
+"Email delivery depends from your server configuration. For some cases - you and your subscribers can not receive "
+"emails just because email on your server is not working correctly. You can easy test it here - by sending test "
+"email. If you will receive it - then this will mean that email functionality on your server works well. If not - "
+"this mean that it is not working correctly and you should contact your hosting provider with this issue and ask "
+"them to setup email functionality for you on your server."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:138
+msgid "Send Test Email"
+msgstr "Отправить тестовый Email"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:141
+msgid ""
+"Email was sent. Now check your email inbox / spam folders for test mail. If you will not find it - this mean that "
+"your server can't send emails - and you need to contact your hosting provider with this issue."
+msgstr ""
+"Письмо было отправлено. Теперь проверьте вашу почту (возможно папку СПАМ). Если Вы не нашли письмо  - это значит "
+"что Ваш сервер не может отправлять письма - и Вы должны связаться с вашим хостинг провадером чтобы решить эту "
+"проблему. "
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:148
+msgid "Subscription fields"
+msgstr "Поля подписки"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:155
+msgid "Name"
+msgstr "Имя"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:162
+msgid "\"Confirmation sent\" message"
+msgstr "\"Письмо с подтверждением\" для отправки"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:163
+msgid "This will be message, that user will see after subscribe - that email with confirmation link sent."
+msgstr "Это будет сообщение, которое пользователь увидит после подписки - это письмо с ссылкой подтверждения."
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:167 ../modules/subscribe/controller.php:20
+msgid "Confirmation link was sent to your email address. Check your email!"
+msgstr "Ссылка для подтверждения был отправлена на ваш адрес электронной почты. Проверьте вашу электронную почту!"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:173
+msgid "Subscribe success message"
+msgstr "Текст успешной подписки"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:174
+msgid "Right after subscriber will be created and confirmed - this message will be shown."
+msgstr ""
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:178 ../modules/subscribe/controller.php:24
+#: ../modules/subscribe/views/tpl/subSuccessPage.php:55
+msgid "Thank you for subscribe!"
+msgstr "Спасибо что подписались!"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:184
+msgid "Email error message"
+msgstr "Сообщение об ошибке E-mail"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:185
+msgid "If email, that was entered by user, is invalid - user will see this message"
+msgstr ""
+"Если электронная почта, что был введена пользователем, является недействительной - пользователь увидит это "
+"сообщение"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:189 ../modules/subscribe/models/subscribe.php:84
+msgid "Empty or invalid email"
+msgstr "Пустой или недействительный email"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:195
+msgid "Redirect after subscription URL"
+msgstr "Перенаправить после подписки по URL"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:196
+msgid ""
+"You can enable redirection after subscription, just enter here URL that you want to redirect to after subscribe - "
+"and user will be redirected there. If you don't need this feature - just leave this field empty."
+msgstr ""
+"Вы можете включить перенаправление после подписки, введите здесь URL, который вы хотите для перенаправления после "
+"подписки - и пользователь будет перенаправлен. Если вам не нужна эту функция - просто оставьте это поле пустым."
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:206
+msgid "Confirmation email subject"
+msgstr "Подтверждение по электронной почте"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:207
+msgid "Email with confirmation link subject"
+msgstr "E-mail с темой подтверждение"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:213 ../modules/subscribe/models/subscribe.php:201
+msgid "Confirm subscription on [sitename]"
+msgstr "Подтвердите подписку на [sitename]"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:219
+msgid "Confirmation email From field"
+msgstr "Поле подтверждения по электронной почте"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:220
+msgid "Email with confirmation link From field"
+msgstr "E-mail со ссылкой подтверждения"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:232
+msgid "Confirmation email text"
+msgstr "Подтверждение по электронной почте "
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:233
+msgid "Email with confirmation link content"
+msgstr "E-mail с ссылкой подтверждения"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:235
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:276
+#, php-format
+msgid "You can use next variables here: %s"
+msgstr "Вы можете использовать следующие переменные здесь: %s"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:241 ../modules/subscribe/models/subscribe.php:204
+msgid ""
+"You subscribed on site <a href=\"[siteurl]\">[sitename]</a>. Follow <a href=\"[confirm_link]\">this link</a> to "
+"complete your subscription. If you did not subscribe here - just ignore this message."
+msgstr ""
+"Вы подписались на сайт <a href=\"[siteurl]\">[sitename]</a>. Следуйте <a href=\"[confirm_link]\">этой ссылке</a> "
+"для завершения подписки. Если Вы не хотите подписываться - просто проигнорируйте это письмо."
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:247
+msgid "New Subscriber email subject"
+msgstr "Новая тема письма подписки"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:248
+msgid "Email to New Subscriber subject"
+msgstr "Отправить тему новому подписчику"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:254
+msgid "[sitename] Your username and password"
+msgstr "[sitename]  Ваш логин и пароль"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:260
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:261
+msgid "New Subscriber email From field"
+msgstr "Новый подписчик по электронной почте"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:273
+msgid "New Subscriber email text"
+msgstr "Новый текст письма подписчика"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:274
+msgid "Email to New Subscriber content"
+msgstr "Отправить новое содержание подписчика"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:282
+msgid "Username: [user_login]<br />Password: [password]<br />[login_url]"
+msgstr "Логин: [user_login]<br />Пароль: [password]<br />[login_url]"
+
+#: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:288
+msgid "Submit button name"
+msgstr "Имя кнопки \"Оправить\""
+
+#: ../modules/popup/views/tpl/popupEditAdminTextsOpts.php:19
+msgid "Text block"
+msgstr "Текстовый блок"
+
+#: ../modules/popup/views/tpl/popupEditAdminTextsOpts.php:19
+#, php-format
+msgid "Text block %d"
+msgstr "Текстовый блок %d"
+
+#: ../modules/popup/views/tpl/popupEditAdminTextsOpts.php:36
+msgid "Foot note"
+msgstr "Нижний блок"
+
+#: ../modules/popup/views/tpl/popupEditAdminTplOpts.php:3
+msgid "Change PopUp Template"
+msgstr "Изменить шаблон PopUp "
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:3
+msgid "Save all changes"
+msgstr "Сохранить все изменения"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:7
+msgid "Clone to New PopUp"
+msgstr "Клонировать в новый PopUp"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:9
+msgid "Clone"
+msgstr "Клонировать"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:13
+msgid "Preview"
+msgstr "Просмотр"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:15
+msgid "Turn Off"
+msgstr "Выключить"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:15
+msgid "Turn On"
+msgstr "Включить"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:21
+msgid "Delete"
+msgstr "Удалить"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:28
+msgid "New Name"
+msgstr "Новое имя"
+
+#: ../modules/popup/views/tpl/popupEditFormControls.php:29
+msgid "Copy"
+msgstr "Копировать"
+
+#: ../modules/sm/mod.php:27
+msgid "Google+"
+msgstr "Google+"
+
+#: ../modules/sm/mod.php:28
+msgid "Twitter"
+msgstr "Twitter"
+
+#: ../modules/sm/mod.php:52
+msgid "Simple"
+msgstr "Simple"
+
+#: ../modules/sm/mod.php:53
+msgid "Boxy"
+msgstr "Boxy"
+
+#: ../modules/statistics/controller.php:40
+#, php-format
+msgid "Statistics for \"%s\""
+msgstr "Статистика для \"%s\""
+
+#: ../modules/statistics/controller.php:42
+msgid "Date"
+msgstr "Дата"
+
+#: ../modules/statistics/controller.php:43
+msgid "Views"
+msgstr "Просмотры"
+
+#: ../modules/statistics/controller.php:44
+msgid "Unique Views"
+msgstr "Уникальные просмотры"
+
+#: ../modules/statistics/controller.php:45
+msgid "Actions"
+msgstr "Действие"
+
+#: ../modules/statistics/controller.php:46
+msgid "Conversion"
+msgstr "Конверсия"
+
+#: ../modules/statistics/mod.php:11
+msgid "Displayed"
+msgstr "Отображение"
+
+#: ../modules/statistics/mod.php:12
+msgid "Subscribed"
+msgstr "Подписка"
+
+#: ../modules/statistics/mod.php:13
+msgid "Shared"
+msgstr "Расшарить (Shared)"
+
+#: ../modules/statistics/mod.php:14
+msgid "Facebook Liked"
+msgstr "Facebook Liked"
+
+#: ../modules/statistics/mod.php:25
+msgid "Statistics"
+msgstr "Статистика"
+
+#: ../modules/statistics/models/statistics.php:35 ../modules/subscribe/models/subscribe.php:239
+msgid "Send me some info, pls"
+msgstr "Отправить мне некоторую информацию, пожалуйста"
+
+#: ../modules/statistics/models/statistics.php:165
+msgid "No data found"
+msgstr "Данные не найдены"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:4
+#, php-format
+msgid ""
+"Want to increase conversion, subscribers and social share? <a target=\"_blank\" href=\"%s\" class=\"button\">Get "
+"know - how!</a>"
+msgstr ""
+"Хотите увеличить преобразования, подписчиков и социальной часть? <a target=\"_blank\" href=\"%s\" class=\"button"
+"\">Знаю как получить!</a>"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:8
+msgid "Main PopUp Usage Statistics"
+msgstr "Основные Статистика всплывающее Используемое"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:10
+msgid "Clear selection"
+msgstr "Снять выделение"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:11
+msgid "From"
+msgstr "От"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:12
+msgid "To"
+msgstr "Кому"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:26
+msgid "Reset Zoom"
+msgstr "Очистить зум"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:31
+msgid "Group by"
+msgstr "Сортировать"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:32
+msgid "Hour"
+msgstr "Часы"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:33
+msgid "Day"
+msgstr "день"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:34
+msgid "Week"
+msgstr "Неделя"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:35
+msgid "Month"
+msgstr "Месяц"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:37
+msgid "Export to CSV"
+msgstr "Експорт CSV"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:42
+msgid "Clear data"
+msgstr "Очистить данные"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:48
+msgid "You can Zoom In by allocating mouse on Graph area."
+msgstr "Вы можете увеличить путем выделения мышью на области графа."
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:51
+msgid "Ratio of All Actions"
+msgstr "Соотношение всех действий"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:56
+msgid ""
+"Once you will have enough different statistics - like shares, subscribes, likes, - you will be able to see here - "
+"what action is used more often, and what - not."
+msgstr ""
+"После того, как вы будете иметь достаточно разные статистические данные - как shares, подписки, лайки, - вы "
+"сможете увидеть здесь - то, что действительно используется чаще, а что- нет."
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:60
+msgid "Ratio of All Social Share"
+msgstr "Соотношение всех Social Share"
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:65
+msgid ""
+"Once you will have enough different statistics about share from PopUp on social media - you will be able to see "
+"here - what social is is used more often, and what - not."
+msgstr ""
+"После того, как вы будете иметь достаточно разные статистические данные о доле всплівающих окон на социальных "
+"медиа - вы сможете увидеть здесь - то, что социальные используется чаще, а что - нет."
+
+#: ../modules/statistics/views/tpl/statPopupEditTab.php:72
+#, php-format
+msgid ""
+"You have no statistics for \"%s\" PopUp for now. Setup it's options - and wait until users will view it on your "
+"site."
+msgstr ""
+"У Вас нету статистики для шаблона \"%s\" в данный момент. Настройте эту опцию и ждите пока пользователи будут "
+"посещать Ваш сайт"
+
+#: ../modules/subscribe/mod.php:7
+msgid "WordPress"
+msgstr "WordPress"
+
+#: ../modules/subscribe/mod.php:8
+msgid "Aweber"
+msgstr "Aweber"
+
+#: ../modules/subscribe/mod.php:9
+msgid "MailChimp"
+msgstr "MailChimp"
+
+#: ../modules/subscribe/mod.php:10
+msgid "MailPoet"
+msgstr "MailPoet"
+
+#: ../modules/subscribe/models/subscribe.php:23
+msgid "Something goes wrong"
+msgstr "Что-то произошло не так"
+
+#: ../modules/subscribe/models/subscribe.php:44
+msgid "Can't detect your IP, please don't spam"
+msgstr "Невозможно обнаружить ваш IP-адрес, пожалуйста  не нужно спамить "
+
+#: ../modules/subscribe/models/subscribe.php:76
+msgid "You just subscribed from this IP"
+msgstr "Вы уже подписаны с этого IP"
+
+#: ../modules/subscribe/models/subscribe.php:142
+msgid "Can't subscribe for now. Please try again latter."
+msgstr "Невозможно подписаться сейчас. Пожалуйста, попробуйте позже."
+
+#: ../modules/subscribe/models/subscribe.php:175
+#, php-format
+msgid "New user registration on your site %s:"
+msgstr "Новая регистрация на Вашем сайте %s:"
+
+#: ../modules/subscribe/models/subscribe.php:176
+#, php-format
+msgid "Username: %s"
+msgstr "Логин: %s"
+
+#: ../modules/subscribe/models/subscribe.php:177
+#, php-format
+msgid "E-mail: %s"
+msgstr "E-mail: %s"
+
+#: ../modules/subscribe/models/subscribe.php:179
+#, php-format
+msgid "[%s] New User Registration"
+msgstr "[%s] Новая регистрация пользователя"
+
+#: ../modules/subscribe/models/subscribe.php:270
+msgid ""
+"MailChimp require CURL to be setup on your server. Please contact your hosting provider and ask them to setup "
+"CURL libruary for you."
+msgstr ""
+
+#: ../modules/subscribe/models/subscribe.php:292
+msgid "There was some problem while trying to get your lists. Make sure that your API key is correct."
+msgstr "Были некоторые проблемы при попытке получить ваши списки. Убедитесь, что ваш ключ API является правильным."
+
+#: ../modules/subscribe/models/subscribe.php:296
+msgid "Empty API key"
+msgstr "Пустой API ключ"
+
+#: ../modules/subscribe/models/subscribe.php:334
+msgid "Something going wrong while trying to send data to MailChimp. Please contact site owner."
+msgstr ""
+
+#: ../modules/subscribe/models/subscribe.php:347
+msgid "No API key entered in admin area - contact site owner to resolve this issue."
+msgstr ""
+
+#: ../modules/subscribe/models/subscribe.php:349
+msgid "No lists to add selected in admin area - contact site owner to resolve this issue."
+msgstr ""
+
+#: ../modules/subscribe/models/subscribe.php:385
+msgid "Some error occured during subscription process"
+msgstr ""
+
+#: ../modules/subscribe/models/subscribe.php:388
+msgid "Can't find MailPoet on this server"
+msgstr ""
+
+#: ../modules/subscribe/views/tpl/subSuccessPage.php:8
+msgid "Subscribe Confirmation"
+msgstr "Подтверждение подписки"
+
+#: ../modules/subscribe/views/tpl/subSuccessPage.php:47
+msgid "Some errors occured while trying to subscribe"
+msgstr ""
+
+#: ../modules/subscribe/views/tpl/subSuccessPage.php:65
+msgid "Subscription confirmed"
+msgstr "Подписка подтвердил"
+
+#: ../modules/subscribe/views/tpl/subSuccessPage.php:70
+#, php-format
+msgid "<a href=\"%s\">Back to site</a> in <i id=\"ppsConfirmBackCounter\">%d</i> seconds"
+msgstr "<a href=\"%s\">Вернуться на сайт</a> in <i id=\"ppsConfirmBackCounter\">%d</i> секунд"
+
+#: ../modules/supsystic_promo/controller.php:7
+msgid "Information was saved. Thank you!"
+msgstr "Информация сохранена. Спасибо!"
+
+#: ../modules/supsystic_promo/controller.php:23
+msgid "Please don't send contact requests so often - wait for response for your previous requests."
+msgstr "Пожалуйста, не присылайте контактные запросы так часто - ждите ответ на ваши предыдущие запросы."
+
+#: ../modules/supsystic_promo/controller.php:45
+msgid "Please enter valid email address"
+msgstr "Пожалуйста введите действительный адрес электронной почты"
+
+#: ../modules/supsystic_promo/mod.php:24
+msgid "Overview"
+msgstr "Обзор"
+
+#: ../modules/supsystic_promo/mod.php:50
+msgid "Welcome to Supsystic Secure"
+msgstr "Добро пожаловать к  Supsystic Secure"
+
+#: ../modules/supsystic_promo/mod.php:103
+msgid "Get PRO"
+msgstr "Получить ПРО"
+
+#: ../modules/supsystic_promo/mod.php:144
+msgid "Your name"
+msgstr "Ваше имя"
+
+#: ../modules/supsystic_promo/mod.php:145
+msgid "Your email"
+msgstr "Ваш email"
+
+#: ../modules/supsystic_promo/mod.php:146
+msgid "Website"
+msgstr "Сайт"
+
+#: ../modules/supsystic_promo/mod.php:147
+msgid "Subject"
+msgstr "Тема"
+
+#: ../modules/supsystic_promo/mod.php:148
+msgid "Topic"
+msgstr "Раздел"
+
+#: ../modules/supsystic_promo/mod.php:149
+msgid "Plugin options"
+msgstr "Опции плагина"
+
+#: ../modules/supsystic_promo/mod.php:150
+msgid "Report a bug"
+msgstr "Сообщить об ошибке"
+
+#: ../modules/supsystic_promo/mod.php:151
+msgid "Require a new functionallity"
+msgstr "Предложить функционал"
+
+#: ../modules/supsystic_promo/mod.php:152
+msgid "Other"
+msgstr "Другое"
+
+#: ../modules/supsystic_promo/mod.php:154
+msgid "Message"
+msgstr "Сообщение"
+
+#: ../modules/supsystic_promo/mod.php:154
+msgid "Hello Supsystic Team!"
+msgstr "Привет  Supsystic Team!"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:35
+msgid "Why Popup by Supsystic is \"must have\" for your website?"
+msgstr "Почему Popup by Supsystic должен иметь Ваш сайт?"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:36
+#, php-format
+msgid ""
+"Increase your sales by 500%% using Popup by Supsystic! More subscribers - more sales! It's that simple!<br />More "
+"info you can find here <a target=\"_blank\" href=\"%s\">Popup by Supsystic is \"must have\" for your website</a>"
+msgstr ""
+"Увеличение продаж на 500%% с используя Popup by Supsystic! Больше подписчиков - больше продаж! Это очень просто!"
+"<br />Больше информации можно найти здесь <a target=\"_blank\" href=\"%s\">Popup by Supsystic должен быть на "
+"Вашем сайте</a>"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:37
+msgid "What is A/B testing?"
+msgstr "Что такое A/B тестирование ?"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:38
+#, php-format
+msgid ""
+"A/B testing is one of the easiest ways to increase conversion rates and learn more about your audience!<br />A/B "
+"test in Popup plugin involves testing two or more versions of a popup window - an A version (original) and a B "
+"versions (the variation) - with live traffic and measuring the effect each version has on your conversion rate."
+"<br />To know more detail – click <a target=\"_blank\" href=\"%s\">here</a>"
+msgstr ""
+"A/B тестирование  является одним из самых простых способов увеличить коэффициент конверсии и узнать больше о "
+"вашей аудитории!<br />A/B тест  в Popup плагине включает в себя тестирование двух или более версий всплывающем "
+"окне - версия А (оригинал) и B (версии вариации ) - с живым трафиком и измерения эффекта каждая версия имеет на "
+"коэффициент конверсии. <br />TЧтобы узнать более подробно - нажмите <a target=\"_blank\" href=\"%s\">здесь</a>"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:39
+msgid "How to enable subscription to Aweber?"
+msgstr "Как включить подписку для Aweber?"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:40
+#, php-format
+msgid ""
+"In order to subscribe to Aweber you need to know unique list id of your aweber account - check this <a target="
+"\"_blank\" href=\"%s\">page</a> for more details."
+msgstr ""
+"Для того, чтобы подписаться на Aweber вы должны знать уникальный идентификатор вашего счета Aweber - проверить "
+"эту<a target=\"_blank\" href=\"%s\">страницу</a> более  детально."
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:41
+msgid "How to subscribe to MailChimp?"
+msgstr "Как подписаться к MailChimp?"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:42
+msgid ""
+"To subscribe to MailChimp you need enter your MailChimp API key and name of list for subscription. To find your "
+"MailChimp API key - follow the instructions below:<br />\n"
+"\t\t\t\t1. Login to your mailchimp account at http://mailchimp.com<br />\n"
+"\t\t\t\t2. From the left main menu, click on your Username, then select \"Account\" in the flyout menu.<br />\n"
+"\t\t\t\t3. From the account page select \"Extras\" -> \"API Keys\".<br />\n"
+"\t\t\t\t4. Your API Key will be listed in the table labeled \"Your API Keys\".<br />\n"
+"\t\t\t\t5. Copy / Paste your API key into \"MailChimp API key\" field in PopUp edit screen -> Subscribe section."
+msgstr ""
+"Чтобы подписаться на MailChimp вам нужно ввести свой ключ MailChimp и имя списка для подписки API. Чтобы найти "
+"ключ MailChimp API - следуйте инструкциям ниже:<br />\n"
+"\t\t\t\t1. Войдите в свой аккаунт на Mailchimp http://mailchimp.com <br />\n"
+"\t\t\t\t2. В левом главном меню, нажмите на имя пользователя, а затем выберите \"Account \" в выпадающем меню."
+"<br />\n"
+"\t\t\t\t3. На странице счета выберите \"Extras\" -> \"API Keys\".<br />\n"
+"\t\t\t\t4. Ваш ключ API будут перечислены в таблице с надписью \"Your API Keys\".<br />\n"
+"\t\t\t\t5. Скопируйте / Вставьте Ваш ключ API в\"MailChimp API key\" поле в PopUp редакторе -> Раздел Подписки."
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:48
+msgid "Where to find css code for the pop-up window?"
+msgstr "Где найти css код для всплывающего окна?"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:49
+msgid ""
+"With Popup by Supsystic you can edit CSS style directly from the plugin. <br />\n"
+"\t\t\t\tIn WordPress admin area - \n"
+"go to Popup by Supsystic -> choose a popup, what you need -> click Code tab. <br />\n"
+"Here you can edit css style of the pop-up window."
+msgstr ""
+"С плагином Popup by Supsystic Вы можете редактировать CSS стили непосредственно из плагина. <br />\n"
+"\t\t\t\t В панели администратора - \n"
+"идите к  Popup by Supsystic -> выберете попап котоый Вам нужен -> нажмите на вкладке \"Код\". <br />\n"
+"Здесь Вы можете редактировать css стиль всплывающего окна."
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:53
+msgid "How to get PRO version of plugin for FREE?"
+msgstr "Как получить ПРО версию плагина Бесплатно?"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:54
+#, php-format
+msgid ""
+"You have an incredible opportunity to get PRO version for free. Make Translation of the plugin! It will be "
+"amazing if you take advantage of this offer!<br />\n"
+"\t\t\t\t\tMore info you can find here <a target=\"_blank\" href=\"%s\">“Get PRO version of any plugin for FREE”</"
+"a>"
+msgstr ""
+"У вас есть невероятная возможность получить PRO версию бесплатно. Сделайте перевод плагина! Это будет "
+"удивительно, если вы воспользоваться этим предложением!<br />\n"
+"\t\t\t\t\t Подробнее вы можете найти здесь <a target=\"_blank\" href=\"%s\">“Получить ПРО версию любого плагина "
+"БЕСПЛАТНО”</a>"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:56
+msgid "Translation"
+msgstr "Переводы"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:57
+#, php-format
+msgid ""
+"All available languages are provided with the Supsystic Popup plugin. If your language isn’t available, your "
+"plugin will be in English by default.<br />\n"
+"\t\t\t\t\tAvailable Translations: English, French, German, Spanish, Russian<br />\n"
+"\t\t\t\t\tTranslate or update a translation Popup WordPress plugin in your language and get a Premium license for "
+"FREE. <a target=\"_blank\" href=\"%s\">Contact us.</a>"
+msgstr ""
+"Все доступные языки доступны с плагином Supsystic Popup . Если ваш язык не доступен, ваш плагин будет на "
+"английском языке по умолчанию.<br />\n"
+"\t\t\t\t\t Доступные переводы: English, French, German, Spanish, Russian<br />\n"
+"\t\t\t\t\t Сделайте перевод плагина на вашем языке и получите лицензию БЕСПЛАТНО. <a target=\"_blank\" href=\"%s"
+"\">Связаться с нами. </a>"
+
+#: ../modules/supsystic_promo/views/supsystic_promo.php:75
+#, php-format
+msgid ""
+"There were some problem while trying to retrieve our news, but you can always check all list <a target=\"_blank\" "
+"href=\"%s\">here</a>."
+msgstr ""
+"Были некоторые проблемы, пытаясь получить наши новости, но Вы можете всегда проверить  весь список <a target="
+"\"_blank\" href=\"%s\">здесь</a>."
+
+#: ../modules/supsystic_promo/views/tpl/additionalmainAdminShowOnOptions.php:9
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:10
+msgid "Available in PRO"
+msgstr "Доступно в ПРО"
+
+#: ../modules/supsystic_promo/views/tpl/adminFooter.php:4 ../modules/supsystic_promo/views/tpl/welcomePage.php:78
+msgid "Version"
+msgstr "Версия"
+
+#: ../modules/supsystic_promo/views/tpl/adminFooter.php:10
+msgid "Go"
+msgstr "Вперед"
+
+#: ../modules/supsystic_promo/views/tpl/adminFooter.php:10
+msgid "PRO"
+msgstr "ПРО"
+
+#: ../modules/supsystic_promo/views/tpl/adminFooter.php:15
+msgid "Support"
+msgstr "Поддержка"
+
+#: ../modules/supsystic_promo/views/tpl/layeredStylePromo.php:74
+#, php-format
+msgid ""
+"This functionality and more - is available in PRO version. <a class=\"button button-primary\" target=\"_blank\" "
+"href=\"%s\">Get it</a> today for 29$"
+msgstr ""
+"Эта и другие функции доступны в ПРО версии. <a class=\"button button-primary\" target=\"_blank\" href=\"%s"
+"\">Получить</a> сегодня за 29$"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:5
+msgid "FAQ and Documentation"
+msgstr "Часто задаваемые вопросы и документация"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:17
+msgid "Check all FAQs"
+msgstr "Часто задаваемые вопросы"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:22
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:102
+msgid "Video tutorial"
+msgstr "Видео инструкция"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:31
+msgid "Server Settings"
+msgstr "Настройки сервера"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:44
+msgid "News"
+msgstr "Новости"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:50
+msgid "All news and info"
+msgstr "Все новости и информация"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:55
+msgid "Contact form"
+msgstr "Контактная форма"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:87
+msgid "Send email"
+msgstr "Оправить письмо"
+
+#: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:96
+msgid "Your email was send, we will try to respond to you as soon as possible. Thank you for support!"
+msgstr "Ваше письмо отправлено, мы постараемся ответить Вам как можно скорее. Спасибо за поддержку!"
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:76
+msgid "Welcome to"
+msgstr "Добро пожаловать"
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:84
+#, php-format
+msgid "This is first start up of the %s plugin."
+msgstr "Это первый запуск %s плагина."
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:85
+msgid "If you are newbie - check all features on that page, if you are guru - please correct us."
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:94
+msgid "Please, post url"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:108
+msgid "What to do next? Check below section"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:112
+msgid "Boost us"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:113
+#, php-format
+msgid ""
+"It's amazing when you boost development with your feedback and ratings. So we create special <a target=\"_blank\" "
+"href=\"%s\">boost page</a> to help you to help us."
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:117
+msgid "Documentation"
+msgstr "Документация"
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:118
+#, php-format
+msgid ""
+"Check <a target=\"_blank\" href=\"%s\">documentation</a> and FAQ section. If you can't solve your problems - <a "
+"target=\"_blank\" href=\"%s\">contact us</a>."
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:122
+msgid "Full Features List"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:123
+msgid "There are so many features, so we can't post it here. Like"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:125
+msgid "Capcha for admin login"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:126
+msgid "htaccess admin protect"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:127
+msgid "Hide directory files listing"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:128
+msgid "Check files and directories write permissions"
+msgstr ""
+
+#: ../modules/supsystic_promo/views/tpl/welcomePage.php:130
+#, php-format
+msgid "So check full features list <a target=\"_blank\" href=\"%s\">here</a>."
+msgstr ""
+
+#~ msgid ""
+#~ "There were some problem while trying to retrive our news, but you can always check all list <a target=\"_blank"
+#~ "\" href=\"%s\">here</a>."
+#~ msgstr ""
+#~ "There were some problem while trying to retrive our news, but you can always check all list <a target=\"_blank"
+#~ "\" href=\"%s\">here</a>."
+
+#~ msgid ""
+#~ "All available languages are provided with the Supsystic Popup plugin. If your language isn’t available, your "
+#~ "plugin will be in English by default.<br />\n"
+#~ "\t\t\t\t\tAvailable Translations: English<br />\n"
+#~ "\t\t\t\t\tTranslate or update a translation Popup WordPress plugin in your language and get a Premium license "
+#~ "for FREE. <a target=\"_blank\" href=\"%s\">Contact us.</a>"
+#~ msgstr ""
+#~ "Все доступные языки доступны с плагином Supsystic Popup . Если ваш язык не доступен, ваш плагин будет на "
+#~ "английском языке по умолчанию.<br />\n"
+#~ "\t\t\t\t\tДоступные переводы: English<br />\n"
+#~ "\t\t\t\t\tTranslate or update a translation Popup WordPress plugin in your language and get a Premium license "
+#~ "for FREE. <a target=\"_blank\" href=\"%s\">Contact us.</a>"
+
+#~ msgid ""
+#~ "Change Template to any other from list bellow or <a class=\"button\" href=\"%s\">return to Pop-Up edit</a>"
+#~ msgstr ""
+#~ "Измените шаблон на любой другой из списка ниже или <a class=\"button\" href=\"%s\">вернитесь к редактированию "
+#~ "PopUp</a>"
+
+#~ msgid "Will not alow user to close your PopUp - until finish at least one action: Subscribe, Share or Like."
+#~ msgstr ""
+#~ "Не позволит пользователю закрыть всплывающее окно - пока не выполнит одно из действий: Подписаться, Поделитесь "
+#~ "или Лайк."
+
+# "anc" or "and" in english
+#~ msgid ""
+#~ "Your license for PRO version of %s plugin - expired. You can <a href=\"%s\" target=\"_blank\">click here</a> "
+#~ "to extend your license, then - go to <a href=\"%s\">License</a> tab anc click on \"Re-activate\" button to re-"
+#~ "activate your PRO version."
+#~ msgstr ""
+#~ "Срок действия лицензия %s истек. Вы можете <a href=\"%s\" target=\"_blank\">нажать здесь</a> чтобы продлить "
+#~ "лицензию, а затем перейти к вкладке <a href=\"%s\">Лицензия</a> и нажать кнопку  \"Повторно активировать\" "
+#~ "чтобы повторно активировать свою PRO версию."
+
+#~ msgid "Congradulations! PRO version of %s plugin is activated and working fine!"
+#~ msgstr "Поздравляем! PRO версия плагина %s активирована и работает нормально!"
+
+#~ msgid ""
+#~ "Congradulations! You have successfully installed PRO version of %s plugin. Final step to finish Your PRO "
+#~ "version setup - is to enter your Email and License Key on this page. This will activate Your copy of software "
+#~ "on this site."
+#~ msgstr ""
+#~ "Поздравляем! Вы успешно установили PRO версию плагина %s. Заключительный шаг, чтобы закончить PRO установку "
+#~ "версии - введите свой Email и ключ лицензиии на этой странице. "
+
+# "Fonctionality" in english ?
+#~ msgid "Test email functionslity"
+#~ msgstr "Test email functionslity"
+
+#~ msgid "Nothig to update"
+#~ msgstr "Нечего обновлять"
+
+#~ msgid "Until user will not make an action"
+#~ msgstr "Tant que l'utilisateur ne fait rien"

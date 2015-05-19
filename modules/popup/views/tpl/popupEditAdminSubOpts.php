@@ -65,6 +65,16 @@
 					'value' => (isset($this->popup['params']['tpl']['sub_aweber_listname']) ? $this->popup['params']['tpl']['sub_aweber_listname'] : '')))?>
 			</td>
 		</tr>
+		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_aweber">
+			<th scope="row">
+				<?php _e('Aweber AD Tracking', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('You can easy track your subscribers from PopUp using this feature. For more info - check <a href="%s" target="_blank">this page</a>.', PPS_LANG_CODE), 'https://help.aweber.com/hc/en-us/articles/204028856-Where-Can-I-See-My-Subscribers-Ad-Tracking-Categories-'))?>"></i>
+			</th>
+			<td>
+				<?php echo htmlPps::text('params[tpl][sub_aweber_adtracking]', array(
+					'value' => (isset($this->popup['params']['tpl']['sub_aweber_adtracking']) ? $this->popup['params']['tpl']['sub_aweber_adtracking'] : '')))?>
+			</td>
+		</tr>
 		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_mailchimp">
 			<th scope="row">
 				<?php _e('MailChimp API key', PPS_LANG_CODE)?>
@@ -144,15 +154,73 @@
 		</tr>
 	</table>
 	<div class="ppsPopupOptRow">
-		<fieldset class="ppoPopupSubFields" style="padding: 10px;">
-			<legend><?php _e('Subscription fields', PPS_LANG_CODE)?></legend>
-			<label class="supsystic-tooltip" title="Email field is mandatory for most of subscribe engines - so it should be always enabled">
+		<fieldset id="ppoPopupSubFields" class="ppoPopupSubFields" style="padding: 10px;">
+			<legend>
+				<?php _e('Subscription fields', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(__('To change field position - just drag-&-drop it to required place between other fields. To add new field to Subscribe form - click on "+ Add" button.', PPS_LANG_CODE))?>"></i>
+			</legend>
+			<?php foreach($this->popup['params']['tpl']['sub_fields'] as $k => $f) { ?>
+				<?php
+					$labelClass = 'ppsSubFieldShell';
+					if($k == 'email')
+						$labelClass .= ' supsystic-tooltip ppsSubFieldEmailShell';
+				?>
+				<div
+					class="<?php echo $labelClass?>"
+					data-name="<?php echo $k?>"
+					<?php if($k == 'email') { ?>
+						title="Email field is mandatory for most of subscribe engines - so it should be always enabled"
+					<?php }?>
+				>
+					<span class="ppsSortHolder"></span>
+					<?php 
+						if($k == 'email') {
+							$checkParams = array('checked' => 1, 'disabled' => 1);
+						} else {
+							$checkParams = array('checked' => htmlPps::checkedOpt($f, 'enb'));
+						}
+					?>
+					<?php echo htmlPps::checkbox('params[tpl][sub_fields]['. $k. '][enb]', $checkParams)?>
+					
+					<span class="ppsSubFieldLabel"><?php echo $f['label']?></span>
+					
+					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][name]', array('value' => isset($f['name']) ? $f['name'] : $k))?>
+					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][html]', array('value' => $f['html']))?>
+					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][label]', array('value' => $f['label']))?>
+					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][custom]', array('value' => isset($f['custom']) ? $f['custom'] : 0))?>
+					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][mandatory]', array('value' => isset($f['mandatory']) ? $f['mandatory'] : 0))?>
+					<?php if(isset($f['options']) && !empty($f['options'])) {
+						foreach($f['options'] as $i => $opt) {
+							echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][options]['. $i. '][name]', array('value' => $opt['name']));
+							echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][options]['. $i. '][label]', array('value' => $opt['label']));
+						}
+					}?>
+					<?php 
+						if($k == 'email') {	// Email is always checked
+							echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][enb]', array('value' => 1));
+						}
+					?>
+				</div>
+			<?php }?>
+			<?php /*?><label class="supsystic-tooltip" title="Email field is mandatory for most of subscribe engines - so it should be always enabled">
 				<?php echo htmlPps::checkbox('enabled_email_subscribe', array('checked' => 1, 'attrs' => 'disabled'))?>
 				<?php _e('Email', PPS_LANG_CODE)?>
 			</label>
 			<label>
 				<?php echo htmlPps::checkbox('params[tpl][enb_sub_name]', array('checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'enb_sub_name')))?>
 				<?php _e('Name', PPS_LANG_CODE)?>
+			</label>
+			<?php */?>
+			<label id="ppsSubAddFieldShell">
+				<a id="ppsSubAddFieldBtn" href="#" class="button button-primary">
+					<i class="fa fa-plus"></i>
+					<?php _e('Add', PPS_LANG_CODE)?>
+				</a>
+				<?php if(!$this->isPro) {?>
+					<span class="ppsProOptMiniLabel" style="margin-bottom: 0; margin-top: -5px;">
+						<a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a>
+					</span>
+				<?php }?>
 			</label>
 		</fieldset>
 	</div>
@@ -293,3 +361,9 @@
 		</tr>
 	</table>
 </span>
+<!--Add Field promo Wnd-->
+<div id="ppsSubAddFieldWnd" title="<?php _e('Subscribe Field Settings', PPS_LANG_CODE)?>" style="display: none;">
+	<a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup';?>" class="ppsPromoImgUrl">
+		<img src="<?php echo $this->promoModPath?>img/sub-fields-edit.jpg" />
+	</a>
+</div>

@@ -73,9 +73,9 @@ class supsystic_promoPps extends modulePps {
 		}
 		return $option;
 	}
-	public function showWelcomePage() {
+	/*public function showWelcomePage() {
 		$this->getView()->showWelcomePage();
-	}
+	}*/
 	public function displayAdminFooter() {
 		if(framePps::_()->isAdminPlugPage()) {
 			$this->getView()->displayAdminFooter();

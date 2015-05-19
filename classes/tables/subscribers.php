@@ -10,6 +10,7 @@ class tableSubscribersPps extends tablePps {
 			->_addField('hash', 'text', 'varchar')
 			->_addField('activated', 'text', 'int')
 			->_addField('popup_id', 'text', 'int')
-			->_addField('date_created', 'text', 'varchar');
+			->_addField('date_created', 'text', 'varchar')
+			->_addField('all_data', 'text', 'text');
     }
 }

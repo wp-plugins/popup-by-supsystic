@@ -71,6 +71,21 @@ class popupModelPps extends modelPps {
 		$row = $this->_afterDbReplace($row);
 		$this->getTypes();
 		$row['type'] = isset($row['type_id']) && isset($this->_types[ $row['type_id'] ]) ? $this->_types[ $row['type_id'] ]['code'] : 'common';
+		if(!isset($row['params']['tpl']['sub_fields'])) {
+			$row['params']['tpl']['sub_fields'] = array(
+				'email' => array('label' => __('E-Mail'), 'html' => 'text', 'enb' => true, 'mandatory' => true, 'name' => 'email'),
+				'name' => array('label' => __('Name'), 'html' => 'text', 'enb' => (isset($row['params']['tpl']['enb_sub_name']) && $row['params']['tpl']['enb_sub_name']), 'name' => 'name'),
+			);
+		} else {
+			// Saving Enabling name field for old field database sctructure - to not lose this field for old popups
+			if(isset($row['params']['tpl']['sub_fields']) 
+				&& isset($row['params']['tpl']['sub_fields']['name'])
+				&& isset($row['params']['tpl']['sub_fields']['name']['enb'])
+				&& $row['params']['tpl']['sub_fields']['name']['enb']
+			) {
+				$row['params']['tpl']['enb_sub_name'] = 1;
+			}
+		}
 		return $row;
 	}
 	protected function _dataSave($data, $update = false) {

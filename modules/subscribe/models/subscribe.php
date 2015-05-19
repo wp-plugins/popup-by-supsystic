@@ -18,7 +18,10 @@ class subscribeModelPps extends modelPps {
 				if(method_exists($this, $subMethod)) {
 					$this->_dest = $dest;
 					$this->_lastPopup = $popup;
-					return $this->$subMethod($d, $popup, $validateIp);
+					$d = dbPps::prepareHtmlIn($d);
+					if($this->validateFields($d, $popup)) {
+						return $this->$subMethod($d, $popup, $validateIp);
+					}
 				} else
 					$this->pushError (__('Something goes wrong', PPS_LANG_CODE));
 			} else
@@ -26,6 +29,27 @@ class subscribeModelPps extends modelPps {
 		} else
 			$this->pushError (__('Empty or invalid ID', PPS_LANG_CODE));
 		return false;
+	}
+	public function validateFields($d, $popup) {
+		if(isset($popup['params']['tpl']['sub_fields']) && !empty($popup['params']['tpl']['sub_fields'])) {
+			$errors = array();
+			foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+				if(isset($f['enb']) && $f['enb'] && isset($f['mandatory']) && $f['mandatory']) {
+					$value = isset($d[ $k ]) ? trim($d[ $k ]) : false;
+					if(empty($value)) {
+						$errors[ $k ] = sprintf($f['html'] == 'selectbox' 
+							? __('Please select %s', PPS_LANG_CODE)
+							: __('Please enter %s', PPS_LANG_CODE)
+						, $f['label']);
+					}
+				}
+			}
+			if(!empty($errors)) {
+				$this->pushError($errors);
+				return false;
+			}
+		}
+		return true;
 	}
 	public function getDest() {
 		return $this->_dest;
@@ -98,7 +122,7 @@ class subscribeModelPps extends modelPps {
 						}
 						$username = $this->_getUsernameFromEmail($email, $username);
 						if(isset($popup['params']['tpl']['sub_ignore_confirm']) && $popup['params']['tpl']['sub_ignore_confirm']) {
-							return $this->createWpSubscriber($popup, $email, $username);
+							return $this->createWpSubscriber($popup, $email, $username, $d);
 						} else {
 							$confirmHash = md5($email. NONCE_KEY);
 							if($this->insert(array(
@@ -106,6 +130,7 @@ class subscribeModelPps extends modelPps {
 								'email' => $email,
 								'hash' => $confirmHash,
 								'popup_id' => $popup['id'],
+								'all_data' => utilsPps::serialize( $d ),
 							))) {
 								$this->sendWpUserConfirm($username, $email, $confirmHash, $popup);
 								return true;
@@ -120,7 +145,7 @@ class subscribeModelPps extends modelPps {
 			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		return false;
 	}
-	public function createWpSubscriber($popup, $email, $username) {
+	public function createWpSubscriber($popup, $email, $username, $d) {
 		$password = wp_generate_password();
 		$userId = wp_create_user($username, $password, $email);
 		if($userId && !is_wp_error($userId)) {
@@ -135,6 +160,16 @@ class subscribeModelPps extends modelPps {
 			) {
 				$user = new WP_User($userId);
 				$user->set_role( $popup['params']['tpl']['sub_wp_create_user_role'] );
+			}
+			if(isset($popup['params']['tpl']['sub_fields'])
+				&& !empty($popup['params']['tpl']['sub_fields'])
+			) {
+				foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+					if(in_array($k, array('name', 'email'))) continue;	// Ignore standard fields
+					if(isset($d[ $k ])) {
+						wp_update_user(array('ID' => $userId, $k => $d[ $k ]));
+					}
+				}
 			}
 			$this->_sendNewUserNotification($popup, $userId, $password);
 			return true;
@@ -228,7 +263,8 @@ class subscribeModelPps extends modelPps {
 					$popup = framePps::_()->getModule('popup')->getModel()->getById($subscriber['popup_id']);
 					$this->_lastPopup = $popup;
 				}
-				$res = $this->createWpSubscriber($popup, $subscriber['email'], $subscriber['username']);
+				$subscriber['all_data'] = isset($subscriber['all_data']) ? utilsPps::unserialize($subscriber['all_data']) : array();
+				$res = $this->createWpSubscriber($popup, $subscriber['email'], $subscriber['username'], $subscriber['all_data']);
 				if($res) {
 					$this->update(array('activated' => 1), array('id' => $subscriber['id']));
 				}
@@ -318,9 +354,23 @@ class subscribeModelPps extends modelPps {
 							$dataToSend = array('email' => $member);
 							if(!empty($name)) {
 								$firstLastNames = array_map('trim', explode(' ', $name));
-								$dataToSend['merge_vars']['FNAME'] = $firstLastNames[ 0 ];
+								$dataToSend['merge_vars'] = array(
+									'FNAME' => $firstLastNames[ 0 ],
+								);
 								if(isset($firstLastNames[ 1 ]) && !empty($firstLastNames[ 1 ])) {
 									$dataToSend['merge_vars']['LNAME'] = $firstLastNames[ 1 ];
+								}
+							}
+							if(isset($popup['params']['tpl']['sub_fields'])
+								&& !empty($popup['params']['tpl']['sub_fields'])
+							) {
+								foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+									if(in_array($k, array('name', 'email'))) continue;	// Ignore standard fields
+									if(isset($d[ $k ])) {
+										if(!isset($dataToSend['merge_vars']))
+											$dataToSend['merge_vars'] = array();
+										$dataToSend['merge_vars'][$k] = $d[ $k ];
+									}
 								}
 							}
 							// Disable double opt-in
@@ -370,10 +420,24 @@ class subscribeModelPps extends modelPps {
 							$userData['lastname'] = $firstLastNames[ 1 ];
 						}
 					}
+					$userFields = array();
+					if(isset($popup['params']['tpl']['sub_fields'])
+						&& !empty($popup['params']['tpl']['sub_fields'])
+					) {
+						foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+							if(in_array($k, array('name', 'email'))) continue;	// Ignore standard fields
+							if(isset($d[ $k ])) {
+								$userFields[$k] = $d[ $k ];
+							}
+						}
+					}
 					$dataSubscriber = array(
 						'user' => $userData,
 						'user_list' => array('list_ids' => array( $popup['params']['tpl']['sub_mailpoet_list'] )),
 					);
+					if(!empty($userFields)) {
+						$dataSubscriber['user_field'] = $userFields;
+					}
 					$helperUser = WYSIJA::get('user', 'helper');
 					if($helperUser->addSubscriber($dataSubscriber)) {
 						if($validateIp) {

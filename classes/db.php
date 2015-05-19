@@ -115,6 +115,16 @@ class dbPps {
         }
         return $d;
     }
+	static public function prepareHtmlIn($d) {
+		if(is_array($d)) {
+            foreach($d as $i => $el) {
+                $d[ $i ] = self::prepareHtml( $el );
+            }
+        } else {
+            $d = wp_filter_nohtml_kses($d);
+        }
+        return $d;
+    }
 	static public function escape($data) {
 		global $wpdb;
 		return $wpdb->_escape($data);

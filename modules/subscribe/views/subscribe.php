@@ -11,8 +11,8 @@ class subscribeViewPps extends viewPps {
 	}
 	public function generateFormEnd_aweber($popup) {
 		$redirectUrl = isset($popup['params']['tpl']['sub_redirect_url']) && !empty($popup['params']['tpl']['sub_redirect_url'])
-					? $popup['params']['tpl']['sub_redirect_url']
-					: false;
+			? $popup['params']['tpl']['sub_redirect_url']
+			: false;
 		if(!empty($redirectUrl)) {
 			$redirectUrl = trim($redirectUrl);
 			if(strpos($redirectUrl, 'http') !== 0) {
@@ -27,6 +27,9 @@ class subscribeViewPps extends viewPps {
 		$res .= htmlPps::hidden('meta_message', array('value' => '1'));
 		$res .= htmlPps::hidden('meta_required', array('value' => 'email'));
 		$res .= htmlPps::hidden('redirect', array('value' => $redirectUrl));
+		if(isset($popup['params']['tpl']['sub_aweber_adtracking']) && !empty($popup['params']['tpl']['sub_aweber_adtracking'])) {
+			$res .= htmlPps::hidden('meta_adtracking', array('value' => $popup['params']['tpl']['sub_aweber_adtracking']));
+		}
 		$res .= '</form>';
 		return $res;
 	}

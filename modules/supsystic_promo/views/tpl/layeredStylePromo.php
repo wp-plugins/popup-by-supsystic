@@ -43,16 +43,19 @@
 		height: 33.33%;
 		text-align: center;
 		vertical-align: middle;
-		line-height: 120px;
+		line-height: 110px;
 	}
 	.ppsLayeredPosCellContent {
-		border: 2px solid #000;
+		border: 1px solid #a5b6b2;
 		margin: 5px;
 		display: block;
 		font-weight: bold;
+		box-shadow: -3px -3px 6px #a5b6b2 inset;
+		color: #739b92;
 	}
 	.ppsLayeredPosCellContent:hover, .ppsLayeredPosCell.active .ppsLayeredPosCellContent {
-		background-color: #4ae8ea;
+		background-color: #e7f5f6; /*rgba(165, 182, 178, 0.3);*/
+		color: #00575d;
 	}
 </style>
 <script type="text/javascript">

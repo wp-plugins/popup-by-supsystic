@@ -68,6 +68,7 @@ class popupViewPps extends viewPps {
 			$popup['params'] = array();
 		
 		framePps::_()->getModule('templates')->loadJqueryUi();
+		framePps::_()->getModule('templates')->loadSortable();
 		
 		framePps::_()->addStyle('ppsCodemirror', PPS_CSS_PATH. 'codemirror.css');
 		framePps::_()->addStyle('codemirror-addon-hint', PPS_JS_PATH. 'codemirror/addon/hint/show-hint.css');
@@ -210,9 +211,9 @@ class popupViewPps extends viewPps {
 		$tabs = dispatcherPps::applyFilters('popupEditTabs', $tabs, $popup);
 		uasort($tabs, array($this, 'sortEditPopupTabsClb'));
 		$this->assign('tabs', $tabs);
+		dispatcherPps::doAction('beforePopupEditRender', $popup);
 		return parent::getContent('popupEditAdmin');
 	}
-	
 	public function showEditPopupFormControls() {
 		parent::display('popupEditFormControls');
 	}
@@ -443,6 +444,7 @@ class popupViewPps extends viewPps {
 		if(isset($popup['params']['tpl']['enb_subscribe']) && !empty($popup['params']['tpl']['enb_subscribe'])) {
 			$popup['params']['tpl']['sub_form_start'] = framePps::_()->getModule('subscribe')->generateFormStart( $popup );
 			$popup['params']['tpl']['sub_form_end'] = framePps::_()->getModule('subscribe')->generateFormEnd( $popup );
+			$popup['params']['tpl']['sub_fields_html'] = framePps::_()->getModule('subscribe')->generateFields( $popup );
 		}
 		
 		if(isset($popup['params']['tpl']['enb_sm']) && !empty($popup['params']['tpl']['enb_sm'])) {
@@ -509,8 +511,17 @@ class popupViewPps extends viewPps {
 			foreach($popup['params']['tpl'] as $key => $val) {
 				if(is_array($val)) {
 					foreach($val as $key2 => $val2) {
-						$replaceFrom[] = $key. '_'. $key2;
-						$replaceTo[] = $val2;
+						if(is_array($val2)) {
+							foreach($val2 as $key3 => $val3) {
+								// Here should be some recursive and not 3 circles, but have not time for this right now, maybe you will do this?:)
+								if(is_array($val3)) continue;
+								$replaceFrom[] = $key. '_'. $key2. '_'. $key3;
+								$replaceTo[] = $val3;
+							}
+						} else {
+							$replaceFrom[] = $key. '_'. $key2;
+							$replaceTo[] = $val2;
+						}
 					}
 				} else {
 					// Do shortcodes for all text type data in popup
@@ -535,7 +546,7 @@ class popupViewPps extends viewPps {
 				'classy_grey' => array('img' => 'classy_grey.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'close-orange' => array('img' => 'close-orange.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'close-red-in-circle' => array('img' => 'close-red-in-circle.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
-				'exclusive_close' => array('img' => 'exclusive_close.png', 'add_style' => array('top' => '-5px', 'right' => '-20px', 'width' => '42px', 'height' => '42px')),
+				'exclusive_close' => array('img' => 'exclusive_close.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '31px', 'height' => '31px')),
 				'lists_black' => array('img' => 'lists_black.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '25px', 'height' => '25px')),
 				'while_close' => array('img' => 'while_close.png', 'add_style' => array('top' => '15px', 'right' => '15px', 'width' => '20px', 'height' => '19px')),
 				'red_close' => array('img' => 'close-red.png', 'add_style' => array('top' => '15px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),

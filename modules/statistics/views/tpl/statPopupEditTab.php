@@ -53,7 +53,7 @@
 		<div style="clear: both;"></div>
 		<div id="ppsPopupStatAllActionsPie"></div>
 		<div id="ppsPopupStatAllActionsNoData" style="display: none;" class="description">
-			<?php _e('Once you will have enought different statistics - like shares, subscribes, likes, - you will be able to see here - what action is used more often, and what - not.', PPS_LANG_CODE)?>
+			<?php _e('Once you will have enough different statistics - like shares, subscribes, likes, - you will be able to see here - what action is used more often, and what - not.', PPS_LANG_CODE)?>
 		</div>
 	</div>
 	<div class="supsistic-half-side-box">
@@ -62,7 +62,7 @@
 		<div style="clear: both;"></div>
 		<div id="ppsPopupStatAllSharePie"></div>
 		<div id="ppsPopupStatAllShareNoData" style="display: none;" class="description">
-			<?php _e('Once you will have enought different statistics about share from PopUp on social media - you will be able to see here - what social is is used more often, and what - not.', PPS_LANG_CODE)?>
+			<?php _e('Once you will have enough different statistics about share from PopUp on social media - you will be able to see here - what social is is used more often, and what - not.', PPS_LANG_CODE)?>
 		</div>
 	</div>
 	<div style="clear: both;"></div>

@@ -20,7 +20,7 @@
 	max-width: 400px;
 	height: auto;
 }
-.ppsNewPopupDesc {
+/*.ppsNewPopupDesc {
 	background-color: #fff;
     bottom: 5px;
     font-size: 20px;
@@ -30,7 +30,7 @@
     text-align: center;
     width: 100%;
 	display: none;
-}
+}*/
 .ppsSelectTpl {
 	position: absolute;
 	top: -50px;
@@ -137,7 +137,7 @@
 	/*cursor: pointer;*/
 }
 #supsystic-breadcrumbs .button, 
-#supsystic-breadcrumbs * {
+#supsystic-breadcrumbs *:not(.fa) {
 	height: 30px; 
 	line-height: 26px;
 }
@@ -202,7 +202,7 @@
 	float: right;
 }
 #ppsPopupEditForm .form-table td {
-	vertical-align: top;
+	/*vertical-align: top;*/
 }
 .ppsPopupMainOptDesc {
 	display: none;
@@ -222,4 +222,64 @@
 #ppsPopupTexts .ppsPopupOptRow,
 #ppsPopupTexts fieldset {
 	padding-bottom: 10px;
+}
+.ui-state-highlight-sub-fields {
+	border: 1px solid #000;
+	width: 50px;
+	height: 30px;
+	background-color: #ddd;
+}
+.ppsSubFieldShell, .ui-state-highlight-sub-fields {
+	float: left;
+	margin-right: 10px;
+	cursor: move;
+	padding: 5px;
+}
+.ppsSubFieldShell {
+	position: relative;
+}
+.ppsSfFieldToolbar {
+	display: none;
+	position: absolute;
+	top: -25px;
+	right: 0;
+	padding: 5px;
+	background-color: #dfdfdf;
+}
+.ppsSfFieldToolbar a {
+	color: #000;
+	text-decoration: none;
+}
+.ppsSfFieldToolbar a:not(:last-of-type) {
+	margin-right: 5px;
+}
+.ppsSubFieldShell:hover {
+	background-color: #dfdfdf;
+}
+.ppsSubFieldShell:hover .ppsSfFieldToolbar {
+	display: block;
+}
+#ppsSfFieldSelectOptShellExl {
+	display: none;
+}
+.ppsSfFieldSelectOptShell, 
+.ui-state-highlight-sub-field-select-opt{
+	border: 1px solid #000;
+	padding: 5px;
+	margin-top: 5px;
+	cursor: move;
+}
+.ppsSfFieldSelectOptShell:hover {
+	background-color: #dfdfdf;
+}
+.ui-state-highlight-sub-field-select-opt {
+	height: 30px;
+}
+#ppsSubAddFieldShell {
+	display: block;
+    float: left;
+}
+.ppsPromoImgUrl {
+	text-decoration: none !important;
+	box-shadow: none !important;
 }

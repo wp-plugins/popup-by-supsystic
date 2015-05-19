@@ -48,9 +48,9 @@ jQuery(document).ready(function(){
 			}
 		}
 		if(jQuery('#ppsPopupCssEditor').get(0).CodeMirrorEditor)
-			jQuery('#ppsPopupCssEditor').val( jQuery('#ppsPopupCssEditor').get(0).CodeMirrorEditor.getValue());
+			jQuery('#ppsPopupCssEditor').val( jQuery('#ppsPopupCssEditor').get(0).CodeMirrorEditor.getValue() );
 		if(jQuery('#ppsPopupHtmlEditor').get(0).CodeMirrorEditor)
-			jQuery('#ppsPopupHtmlEditor').val( jQuery('#ppsPopupHtmlEditor').get(0).CodeMirrorEditor.getValue());
+			jQuery('#ppsPopupHtmlEditor').val( jQuery('#ppsPopupHtmlEditor').get(0).CodeMirrorEditor.getValue() );
 		jQuery(this).sendFormPps({
 			btn: jQuery('.ppsPopupSaveBtn')
 		,	appendData: addData

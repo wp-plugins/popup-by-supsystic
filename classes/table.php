@@ -274,7 +274,7 @@ abstract class tablePps {
         $fields = $this->_getQueryString($data, ',', true);
 
         if(empty($fields)) {
-            $this->_addError(__('Nothig to update', PPS_LANG_CODE));
+            $this->_addError(__('Nothing to update', PPS_LANG_CODE));
             return false;
         }
         
