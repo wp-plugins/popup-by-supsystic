@@ -546,7 +546,7 @@ class popupViewPps extends viewPps {
 				'classy_grey' => array('img' => 'classy_grey.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'close-orange' => array('img' => 'close-orange.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'close-red-in-circle' => array('img' => 'close-red-in-circle.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
-				'exclusive_close' => array('img' => 'exclusive_close.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '31px', 'height' => '31px')),
+				'exclusive_close' => array('img' => 'exclusive_close.png', 'add_style' => array('top' => '-10px', 'right' => '-35px', 'width' => '31px', 'height' => '31px')),
 				'lists_black' => array('img' => 'lists_black.png', 'add_style' => array('top' => '-10px', 'right' => '-10px', 'width' => '25px', 'height' => '25px')),
 				'while_close' => array('img' => 'while_close.png', 'add_style' => array('top' => '15px', 'right' => '15px', 'width' => '20px', 'height' => '19px')),
 				'red_close' => array('img' => 'close-red.png', 'add_style' => array('top' => '15px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),

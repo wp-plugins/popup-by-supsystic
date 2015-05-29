@@ -279,9 +279,9 @@ function _ppsCheckPlayVideo(params) {
 				,	src = jQuery(this).attr('src');
 				if(originalSrc && originalSrc != '' && (!src || src == '')) {
 					jQuery(this).attr('src', originalSrc);
-	}
+				}
 			});
-}
+		}
 	}
 }
 function _ppsCheckStopVideo(params) {
@@ -292,8 +292,8 @@ function _ppsCheckStopVideo(params) {
 			shell.find('iframe').each(function(){
 				jQuery(this).attr('src', '');
 			});
+		}
 	}
-}
 }
 function _ppsSendVideoCommand(shell, command) {
 	/*var executeClb = function(iframe) {
