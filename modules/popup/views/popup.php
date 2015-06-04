@@ -507,6 +507,9 @@ class popupViewPps extends viewPps {
 		
 		$replaceFrom = array('ID', 'endif', 'else');
 		$replaceTo = array($popup['view_id'], '{% endif %}', '{% else %}');
+		// Standard shortcode processor didn't worked for us here - as it is developed for posts, 
+		// not for direct "do_shortcode" call, so we created own embed shortcode processor
+		add_shortcode('embed', array($this, 'processEmbedCode'));
 		if(isset($popup['params']) && isset($popup['params']['tpl'])) {
 			foreach($popup['params']['tpl'] as $key => $val) {
 				if(is_array($val)) {
@@ -533,11 +536,18 @@ class popupViewPps extends viewPps {
 				}
 			}
 		}
+		remove_shortcode('embed', array($this, 'processEmbedCode'));
 		foreach($replaceFrom as $i => $v) {
 			$replaceFrom[ $i ] = '['. $v. ']';
 		}
 		return str_replace($replaceFrom, $replaceTo, $string);
-		
+	}
+	public function processEmbedCode($attrs, $url = '') {
+		if ( empty( $url ) && ! empty( $attrs['src'] ) ) {
+			$url = trim($attrs['src']);
+		}
+		if(empty($url)) return false;
+		return wp_oembed_get($url, $attrs);
 	}
 	public function getCloseBtns() {
 		if(empty($this->_closeBtns)) {
