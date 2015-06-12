@@ -130,7 +130,7 @@
 		<th scope="row" class="col-w-1perc">
 			<?php _e('Label Font style', PPS_LANG_CODE)?>
 			<?php if(!$this->isPro) {?>
-				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=font_label&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=font_label&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 			<?php }?>
 		</th>
 		<td class="col-w-1perc">
@@ -146,7 +146,7 @@
 		<th scope="row" class="col-w-1perc">
 			<?php _e('Text Font style', PPS_LANG_CODE)?>
 			<?php if(!$this->isPro) {?>
-				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=font_txt&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=font_txt&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 			<?php }?>
 		</th>
 		<td class="col-w-1perc">
@@ -162,7 +162,7 @@
 		<th scope="row" class="col-w-1perc">
 			<?php _e('Footer Font style', PPS_LANG_CODE)?>
 			<?php if(!$this->isPro) {?>
-				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=font_footer&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=font_footer&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 			<?php }?>
 		</th>
 		<td class="col-w-1perc">

@@ -94,6 +94,7 @@ class popupModelPps extends modelPps {
 		return $data;
 	}
 	protected function _escTplData($data) {
+		$data['label'] = dbPps::prepareHtmlIn($data['label']);
 		$data['html'] = dbPps::escape($data['html']);
 		$data['css'] = dbPps::escape($data['css']);
 		return $data;

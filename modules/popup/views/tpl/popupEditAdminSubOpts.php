@@ -25,7 +25,7 @@
 				<?php _e('Subscribe with Facebook', PPS_LANG_CODE)?>
 				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('Add button to your PopUp with possibility to subscribe just in one click - without filling fields in your subscribe form, <img src="%s" />', PPS_LANG_CODE), $this->promoModPath. 'img/fb-subscribe.jpg'))?>"></i>
 				<?php if(!$this->isPro) {?>
-					<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=fb_subscribe&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+					<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=fb_subscribe&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 				<?php }?>
 			</th>
 			<td>
@@ -218,7 +218,7 @@
 				</a>
 				<?php if(!$this->isPro) {?>
 					<span class="ppsProOptMiniLabel" style="margin-bottom: 0; margin-top: -5px;">
-						<a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a>
+						<a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a>
 					</span>
 				<?php }?>
 			</label>
@@ -228,7 +228,7 @@
 		<tr class="ppsPopupSubTxtsAndRedirect" style="display: none;">
 			<th scope="row">
 				<?php _e('"Confirmation sent" message', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('This will be message, that user will see after subscribe - that email with confirmation link sent.', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('This will be message, that user will see after subscribe - that email with confirmation link sent.', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_confirm_sent]', array(
@@ -239,7 +239,7 @@
 		<tr class="ppsPopupSubTxtsAndRedirect" style="display: none;">
 			<th scope="row">
 				<?php _e('Subscribe success message', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Right after subscriber will be created and confirmed - this message will be shown.', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Right after subscriber will be created and confirmed - this message will be shown.', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_success]', array(
@@ -250,7 +250,7 @@
 		<tr class="ppsPopupSubTxtsAndRedirect" style="display: none;">
 			<th scope="row">
 				<?php _e('Email error message', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('If email, that was entered by user, is invalid - user will see this message', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('If email, that was entered by user, is invalid - user will see this message', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_invalid_email]', array(
@@ -261,7 +261,7 @@
 		<tr class="ppsPopupSubRedirect">
 			<th scope="row">
 				<?php _e('Redirect after subscription URL', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('You can enable redirection after subscription, just enter here URL that you want to redirect to after subscribe - and user will be redirected there. If you don\'t need this feature - just leave this field empty.', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('You can enable redirection after subscription, just enter here URL that you want to redirect to after subscribe - and user will be redirected there. If you don\'t need this feature - just leave this field empty.', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_redirect_url]', array(
@@ -272,7 +272,7 @@
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
 			<th scope="row">
 				<?php _e('Confirmation email subject', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link subject', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Email with confirmation link subject', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_confirm_mail_subject]', array(
@@ -285,7 +285,7 @@
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
 			<th scope="row">
 				<?php _e('Confirmation email From field', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link From field', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Email with confirmation link From field', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_confirm_mail_from]', array(
@@ -298,7 +298,7 @@
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
 			<th scope="row">
 				<?php _e('Confirmation email text', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email with confirmation link content', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Email with confirmation link content', PPS_LANG_CODE)?>"></i>
 				<?php $allowVarsInMail = array('sitename', 'siteurl', 'confirm_link');?>
 				<div class="description"><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
 			</th>
@@ -313,7 +313,7 @@
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
 			<th scope="row">
 				<?php _e('New Subscriber email subject', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email to New Subscriber subject', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Email to New Subscriber subject', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_subscriber_mail_subject]', array(
@@ -326,7 +326,7 @@
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
 			<th scope="row">
 				<?php _e('New Subscriber email From field', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('New Subscriber email From field', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('New Subscriber email From field', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_subscriber_mail_from]', array(
@@ -339,7 +339,7 @@
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
 			<th scope="row">
 				<?php _e('New Subscriber email text', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Email to New Subscriber content', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Email to New Subscriber content', PPS_LANG_CODE)?>"></i>
 				<?php $allowVarsInMail = array('user_login', 'user_email', 'password', 'login_url', 'sitename', 'siteurl');?>
 				<div class="description" style=""><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
 			</th>
@@ -363,7 +363,7 @@
 </span>
 <!--Add Field promo Wnd-->
 <div id="ppsSubAddFieldWnd" title="<?php _e('Subscribe Field Settings', PPS_LANG_CODE)?>" style="display: none;">
-	<a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup';?>" class="ppsPromoImgUrl">
+	<a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup');?>" class="ppsPromoImgUrl">
 		<img src="<?php echo $this->promoModPath?>img/sub-fields-edit.jpg" />
 	</a>
 </div>

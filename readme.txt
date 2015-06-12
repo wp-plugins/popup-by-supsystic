@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
 Tested up to: 4.2.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -171,6 +171,17 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 
 == Changelog ==
+
+= 1.2.3 / 12.06.2015 =
+ * Fixed bug in template Best of collection
+ * Possibility to use Google Maps shortcodes in PopUps from https://wordpress.org/plugins/google-maps-easy/
+ * Add functional for affiliate link program
+ * Fix Success message position for "Fastest and the Easiest" template
+ * Minor spelling issue fix
+ * Responsive Overview admin page
+ * Admin area small design improvements
+ * Remove some old code - to make plugin lighter
+ * Fix color for Success Subscribe message for all PopUps
 
 = 1.2.2 / 04.06.2015 =
  * Possibility to insert "embed" shortcodes to text fields in PopUp - to show video in any place

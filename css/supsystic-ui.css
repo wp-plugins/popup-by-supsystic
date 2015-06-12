@@ -647,6 +647,13 @@ input[type="color"] {
 	width: 50%;
 	padding-right: 1%;
 }
+@media (max-width: 800px) {
+	.supsistic-half-side-box {
+		float: none;
+		width: 100%;
+		padding: inherit;
+	}
+}
 /*datepicker*/
 .ui-datepicker {
 	border: 1px solid #000;

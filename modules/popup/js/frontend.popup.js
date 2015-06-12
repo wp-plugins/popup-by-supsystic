@@ -241,6 +241,10 @@ function ppsShowPopup( popup, params ) {
 	}
 	_ppsCheckPlayVideo({popup: popup, shell: shell});
 	_ppsIframesForReload({popup: popup, shell: shell});
+	// timeout is to make sure that fronted.gmap.js loaded for this time - because exactly there we have defined maps data
+	setTimeout(function(){
+		_ppsCheckMap({popup: popup, shell: shell});
+	}, 100);
 	popup.is_visible = true;
 	popup.is_rendered = true;	// Rendered at least one time
 	jQuery(document).trigger('ppsAfterPopupsActionShow', popup);
@@ -293,6 +297,23 @@ function _ppsCheckStopVideo(params) {
 				jQuery(this).attr('src', '');
 			});
 		}
+	}
+}
+function _ppsCheckMap(params) {
+	params = params || {};
+	var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );
+	if(shell.find('.gmp_map_opts').size()) {
+		shell.find('.gmp_map_opts').each(function(){
+			var viewId = shell.find('.gmp_map_opts').data('view-id')
+			,	map = gmpGetMapByViewId(viewId);
+			if(map) {	// If map is already there - just refresh it after popup was shown
+				map.refresh();
+			} else {	// If there are no map - but it should be there - just create it
+				var mapId = shell.find('.gmp_map_opts').data('id')
+				,	mapData = gmpGetMapInfoById(mapId);
+				gmpInitMapOnPage( mapData );
+			}
+		});
 	}
 }
 function _ppsSendVideoCommand(shell, command) {

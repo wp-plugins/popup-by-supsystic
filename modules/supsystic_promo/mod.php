@@ -100,7 +100,7 @@ class supsystic_promoPps extends modulePps {
 		$modPath = $this->getModPath();
 		$tabs['ppsPopupAbTesting'] = array(
 			'title' => __('Testing', PPS_LANG_CODE), 
-			'content' => '<a href="'. $this->_preparePromoLink($url. '?utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank" class="button button-primary">'. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->_preparePromoLink($url. '?utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank"><img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
+			'content' => '<a href="'. $this->generateMainLink('utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank" class="button button-primary">'. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->generateMainLink('utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank"><img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
 			'icon_content' => '<b>A/B</b>',
 			'avoid_hide_icon' => true,
 			'sort_order' => 55,
@@ -135,14 +135,22 @@ class supsystic_promoPps extends modulePps {
 	}
 	public function getMainLink() {
 		if(empty($this->_mainLink)) {
-			$this->_mainLink = 'http://supsystic.com/plugins/popup-plugin/';
+			$affiliateQueryString = '';
+			$this->_mainLink = 'http://supsystic.com/plugins/popup-plugin/' . $affiliateQueryString;
 		}
 		return $this->_mainLink ;
 	}
+	public function generateMainLink($params = '') {
+		$mainLink = $this->getMainLink();
+		if(!empty($params)) {
+			return $mainLink. (strpos($mainLink , '?') ? '&' : '?'). $params;
+		}
+		return $mainLink;
+	}
 	public function getContactFormFields() {
 		$fields = array(
-            'name' => array('label' => __('Your name', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'text'),
-			'email' => array('label' => __('Your email', PPS_LANG_CODE), 'html' => 'email', 'valid' => array('notEmpty', 'email'), 'placeholder' => 'example@mail.com', 'def' => get_bloginfo('admin_email')),
+            'name' => array('label' => __('Name', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'text'),
+			'email' => array('label' => __('Email', PPS_LANG_CODE), 'html' => 'email', 'valid' => array('notEmpty', 'email'), 'placeholder' => 'example@mail.com', 'def' => get_bloginfo('admin_email')),
 			'website' => array('label' => __('Website', PPS_LANG_CODE), 'html' => 'text', 'placeholder' => 'http://example.com', 'def' => get_bloginfo('url')),
 			'subject' => array('label' => __('Subject', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'text'),
             'category' => array('label' => __('Topic', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'selectbox', 'options' => array(

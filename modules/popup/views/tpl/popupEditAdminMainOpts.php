@@ -76,7 +76,7 @@
 			<?php _e('On Exit from Site', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=on_exit&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=on_exit&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
 	<label class="ppsPopupMainOptLbl">
@@ -88,7 +88,7 @@
 			<?php _e('Bottom of the page', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=page_bottom&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=page_bottom&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
 	<label class="ppsPopupMainOptLbl">
@@ -100,7 +100,7 @@
 			<?php _e('After Inactivity', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=after_inactive&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=after_inactive&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label>
 	<?php if($this->isPro) {?>
@@ -119,7 +119,7 @@
 			<?php _e('After User Comment', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=after_comment&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=after_comment&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
 	<label class="ppsPopupMainOptLbl">
@@ -131,7 +131,7 @@
 			<?php _e('After Purchasing (Checkout)', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=after_checkout&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=after_checkout&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label>
 	<?php if($this->isPro) {?>
@@ -173,7 +173,7 @@
 			<?php _e('Only after action (Subscribe / Share / Like)', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=close_on_after_action&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=close_on_after_action&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label><br />
 	<label class="supsystic-tooltip-bottom ppsPopupMainOptLbl" title="<?php echo esc_html(__('Close PopUp after it will be visible specified time.', PPS_LANG_CODE))?>">
@@ -183,7 +183,7 @@
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'close_on', 'after_time')))?>
 		<?php _e('After time passed', PPS_LANG_CODE)?>
 		<?php if(!$this->isPro) {?>
-			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=close_on_after_time&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=close_on_after_time&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
 		<?php }?>
 	</label>
 	<?php if($this->isPro) {?>

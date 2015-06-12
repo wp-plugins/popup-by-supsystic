@@ -114,14 +114,11 @@ class optionsPps extends modulePps {
 				),
 			));
 			$isPro = framePps::_()->getModule('supsystic_promo')->isPro();
-			if(!$isPro) {
-				$mainLink = framePps::_()->getModule('supsystic_promo')->getMainLink();
-			}
 			foreach($this->_options as $catKey => $cData) {
 				foreach($cData['opts'] as $optKey => $opt) {
 					$this->_optionsToCategoires[ $optKey ] = $catKey;
 					if(isset($opt['pro']) && !$isPro) {
-						$this->_options[ $catKey ]['opts'][ $optKey ]['pro'] = $mainLink. '?utm_source=plugin&utm_medium='. $optKey. '&utm_campaign=popup';
+						$this->_options[ $catKey ]['opts'][ $optKey ]['pro'] = framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium='. $optKey. '&utm_campaign=popup');
 					}
 				}
 			}
