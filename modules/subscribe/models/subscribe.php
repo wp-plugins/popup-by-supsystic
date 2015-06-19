@@ -171,14 +171,14 @@ class subscribeModelPps extends modelPps {
 					}
 				}
 			}
-			$this->_sendNewUserNotification($popup, $userId, $password);
+			$this->_sendNewUserNotification($popup, $userId, $password, $d);
 			return true;
 		} else {
 			$this->pushError (is_wp_error($userId) ? $userId->get_error_message() : __('Can\'t subscribe for now. Please try again latter.', PPS_LANG_CODE));
 		}
 		return false;
 	}
-	private function _sendNewUserNotification($popup, $userId, $password) {
+	private function _sendNewUserNotification($popup, $userId, $password, $d) {
 		$emailSubject = isset($popup['params']['tpl']['sub_txt_subscriber_mail_subject']) ? $popup['params']['tpl']['sub_txt_subscriber_mail_subject'] : false;
 		$emailContent = isset($popup['params']['tpl']['sub_txt_subscriber_mail_message']) ? $popup['params']['tpl']['sub_txt_subscriber_mail_message'] : false;
 		if($emailSubject && $emailContent) {
@@ -209,7 +209,17 @@ class subscribeModelPps extends modelPps {
 			// Email to admin about new user registration - as simple as we can do - ust copied original wp code
 			$message  = sprintf(__('New user registration on your site %s:'), $blogName) . '<br />';
 			$message .= sprintf(__('Username: %s'), $user->user_login) . '<br />';
-			$message .= sprintf(__('E-mail: %s'), $user->user_email) . '<br />';
+			//$message .= sprintf(__('E-mail: %s'), $user->user_email) . '<br />';
+			if(isset($popup['params']['tpl']['sub_fields'])
+				&& !empty($popup['params']['tpl']['sub_fields'])
+			) {
+				foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+					//if(in_array($k, array('name', 'email'))) continue;	// Ignore standard fields
+					if(isset($d[ $k ])) {
+						$message .= sprintf($f['label']. ': %s', $d[ $k ]) . '<br />';
+					}
+				}
+			}
 			framePps::_()->getModule('mail')->send(get_bloginfo('admin_email'),
 				sprintf(__('[%s] New User Registration'), $blogName),
 				$message,
