@@ -56,6 +56,7 @@ You have an incredible opportunity to get PRO version for free. Make Translation
 
 If you have any problem or feature request for the Popup by Supsystic, please [let us know](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=contactus&utm_campaign=popup "Contact Us")!
 
+
 == Installation ==
 
 = First time Popup Supsystic user =
