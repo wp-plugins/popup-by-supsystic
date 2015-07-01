@@ -126,54 +126,73 @@
 	</tr>
 <?php }?>
 	<?php if(!in_array($this->popup['type'], array(PPS_FB_LIKE))) {?>
-	<tr>
-		<th scope="row" class="col-w-1perc">
-			<?php _e('Label Font style', PPS_LANG_CODE)?>
-			<?php if(!$this->isPro) {?>
-				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=font_label&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+		<tr>
+			<th scope="row" class="col-w-1perc">
+				<?php _e('Label Font style', PPS_LANG_CODE)?>
+				<?php if(!$this->isPro) {?>
+					<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=font_label&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+				<?php }?>
+			</th>
+			<td class="col-w-1perc">
+				<?php echo htmlPps::fontsList('params[tpl][font_label]', array(
+					'attrs' => 'class="ppsProOpt"',
+					'value' => isset($this->popup['params']['tpl']['font_label']) ? $this->popup['params']['tpl']['font_label'] : PPS_DEFAULT,
+					'default' => __('Default', PPS_LANG_CODE),
+				))?>
+			</td>
+			<td class="col-w-1perc">
+				<?php echo htmlPps::colorpicker('params[tpl][label_font_color]', array(
+					'attrs' => 'class="ppsProOpt"',
+					'value' => isset($this->popup['params']['tpl']['label_font_color']) ? $this->popup['params']['tpl']['label_font_color'] : '#000000',
+				))?>
+			</td
+		</tr>
+			<?php if($this->popup['params']['opts_attrs']['txt_block_number'] != 0) {?>
+				<?php for($i = 0; $i < $this->popup['params']['opts_attrs']['txt_block_number']; $i++) { ?>
+					<tr>
+						<th scope="row" class="col-w-1perc">
+							<?php $this->popup['params']['opts_attrs']['txt_block_number'] == 1 ? _e('Text Font style', PPS_LANG_CODE) : printf(__('Text Font style %d', PPS_LANG_CODE), $i + 1)?>
+							<?php if(!$this->isPro) {?>
+								<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=font_txt&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+							<?php }?>
+						</th>
+						<td class="col-w-1perc">
+							<?php echo htmlPps::fontsList('params[tpl][font_txt_'. $i. ']', array(
+								'attrs' => 'class="ppsProOpt"',
+								'value' => isset($this->popup['params']['tpl']['font_txt_'. $i]) ? $this->popup['params']['tpl']['font_txt_'. $i] : PPS_DEFAULT,
+								'default' => __('Default', PPS_LANG_CODE),
+							))?>
+						</td>
+						<td class="col-w-1perc">
+							<?php echo htmlPps::colorpicker('params[tpl][text_font_color_'. $i. ']', array(
+								'attrs' => 'class="ppsProOpt"',
+								'value' => isset($this->popup['params']['tpl']['text_font_color_'. $i]) ? $this->popup['params']['tpl']['text_font_color_'. $i] : '#000000',
+							))?>
+						</td>
+					</tr>
+				<?php }?>
 			<?php }?>
-		</th>
-		<td class="col-w-1perc">
-			<?php echo htmlPps::fontsList('params[tpl][font_label]', array(
-				'attrs' => 'class="ppsProOpt"',
-				'value' => isset($this->popup['params']['tpl']['font_label']) ? $this->popup['params']['tpl']['font_label'] : PPS_DEFAULT,
-				'default' => __('Default', PPS_LANG_CODE),
-			))?>
-		</td>
-		<td colspan="3">&nbsp;</td>
-	</tr>
-	<tr>
-		<th scope="row" class="col-w-1perc">
-			<?php _e('Text Font style', PPS_LANG_CODE)?>
-			<?php if(!$this->isPro) {?>
-				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=font_txt&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
-			<?php }?>
-		</th>
-		<td class="col-w-1perc">
-			<?php echo htmlPps::fontsList('params[tpl][font_txt]', array(
-				'attrs' => 'class="ppsProOpt"',
-				'value' => isset($this->popup['params']['tpl']['font_txt']) ? $this->popup['params']['tpl']['font_txt'] : PPS_DEFAULT,
-				'default' => __('Default', PPS_LANG_CODE),
-			))?>
-		</td>
-		<td colspan="3">&nbsp;</td>
-	</tr>
-	<tr>
-		<th scope="row" class="col-w-1perc">
-			<?php _e('Footer Font style', PPS_LANG_CODE)?>
-			<?php if(!$this->isPro) {?>
-				<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=font_footer&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
-			<?php }?>
-		</th>
-		<td class="col-w-1perc">
-			<?php echo htmlPps::fontsList('params[tpl][font_footer]', array(
-				'attrs' => 'class="ppsProOpt"',
-				'value' => isset($this->popup['params']['tpl']['font_footer']) ? $this->popup['params']['tpl']['font_footer'] : PPS_DEFAULT,
-				'default' => __('Default', PPS_LANG_CODE),
-			))?>
-		</td>
-		<td colspan="3">&nbsp;</td>
-	</tr>
+		<tr>
+			<th scope="row" class="col-w-1perc">
+				<?php _e('Footer Font style', PPS_LANG_CODE)?>
+				<?php if(!$this->isPro) {?>
+					<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo $this->mainLink. '?utm_source=plugin&utm_medium=font_footer&utm_campaign=popup';?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+				<?php }?>
+			</th>
+			<td class="col-w-1perc">
+				<?php echo htmlPps::fontsList('params[tpl][font_footer]', array(
+					'attrs' => 'class="ppsProOpt"',
+					'value' => isset($this->popup['params']['tpl']['font_footer']) ? $this->popup['params']['tpl']['font_footer'] : PPS_DEFAULT,
+					'default' => __('Default', PPS_LANG_CODE),
+				))?>
+			</td>
+			<td class="col-w-1perc">
+				<?php echo htmlPps::colorpicker('params[tpl][footer_font_color]', array(
+					'attrs' => 'class="ppsProOpt"',
+					'value' => isset($this->popup['params']['tpl']['footer_font_color']) ? $this->popup['params']['tpl']['footer_font_color'] : '#000000',
+				))?>
+			</td>
+		</tr>
 	<?php }?>
 <tr>
 	<th scope="row" class="col-w-1perc">

@@ -500,3 +500,46 @@ function ppsPopupCheckSwitchActiveBtn() {
 		jQuery('.ppsPopupSwitchActive span').html( jQuery('.ppsPopupSwitchActive').data('txt-on') );	
 	}
 }
+function wpColorPicker_paramstplbg_color_0_change(event, ui) {
+	ppsMakeAutoUpdate();
+}
+function wpColorPicker_paramstplbg_color_1_change(event, ui) {
+	ppsMakeAutoUpdate();
+}
+function wpColorPicker_paramstplbg_color_2_change(event, ui) {
+	ppsMakeAutoUpdate();
+}
+function wpColorPicker_paramstplbg_color_3_change(event, ui) {
+	ppsMakeAutoUpdate();
+}
+function wpColorPicker_paramstplbg_color_4_change(event, ui) {
+	ppsMakeAutoUpdate();
+}
+function wpColorPicker_paramstpllabel_font_color_change(event, ui) {
+	if(PPS_DATA.isPro) {
+		ppsMakeAutoUpdate();
+	} else {
+		jQuery('#ppsPopupEditForm [name="params[tpl][label_font_color]"]').trigger('change');
+	}
+}
+function wpColorPicker_paramstpltext_font_color_0_change(event, ui) {
+	if(PPS_DATA.isPro) {
+		ppsMakeAutoUpdate();
+	} else {
+		jQuery('#ppsPopupEditForm [name="params[tpl][text_font_color_0]"]').trigger('change');
+	}
+}
+function wpColorPicker_paramstpltext_font_color_1_change(event, ui) {
+	if(PPS_DATA.isPro) {
+		ppsMakeAutoUpdate();
+	} else {
+		jQuery('#ppsPopupEditForm [name="params[tpl][text_font_color_1]"]').trigger('change');
+	}
+}
+function wpColorPicker_paramstplfooter_font_color_change(event, ui) {
+	if(PPS_DATA.isPro) {
+		ppsMakeAutoUpdate();
+	} else {
+		jQuery('#ppsPopupEditForm [name="params[tpl][footer_font_color]"]').trigger('change');
+	}
+}

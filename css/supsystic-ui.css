@@ -752,3 +752,6 @@ input[type="color"] {
     outline: none;
     opacity: 0.2;
 }
+.supsystic-plugin .wp-color-result {
+	height: auto;
+}
