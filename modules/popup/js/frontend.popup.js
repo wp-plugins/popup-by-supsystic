@@ -135,7 +135,11 @@ function ppsBindPopupSubscribers(popup) {
 					,	onSuccess: function(res){
 							jQuery(self).find('input[type=submit]').removeAttr('disabled');
 							if(!res.error) {
-								var parentShell = jQuery(self).parents('.ppsSubscribeShell');
+								var parentShell = jQuery(self).parents('.ppsSubscribeShell')
+								,	closeInsideBtn = jQuery(self).find('.ppsPopupClose');	// Close button can be inside form - we can't remove it, because in this case user will not be able to close PopUp
+								if(closeInsideBtn && closeInsideBtn.size()) {
+									closeInsideBtn.appendTo( parentShell );
+								}
 								msgEl.appendTo( parentShell );
 								jQuery(self).animateRemovePps( 300 );
 								ppsPopupSubscribeSuccess( popup );

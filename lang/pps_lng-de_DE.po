@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PopUp by Supsystic\n"
 "POT-Creation-Date: 2015-03-20 19:39+0200\n"
-"PO-Revision-Date: 2015-03-26 11:11+0100\n"
+"PO-Revision-Date: 2015-07-13 16:42+0200\n"
 "Last-Translator: SauLustig <webmaster@saulustig.com>\n"
 "Language-Team: SauLustig.com <webmaster@saulustig.com>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -176,7 +176,7 @@ msgid "%s is not plugin module"
 msgstr "%s ist kein Plugin Modul"
 
 #: ../classes/modInstaller.php:76
-msgid "Can not create module directory. Try to set permission to "
+msgid "Cannot create module directory. Try to set permission to "
 msgstr ""
 "Konnte kein Modul Verzeichnis erstellen. Bitte setze die Berechtigung auf"
 
@@ -361,8 +361,8 @@ msgstr "Layered PopUp Stil aktivieren"
 
 #: ../doc/popup-by-supsystic-pro/layered_popup/views/tpl/lpPopupEditTab.php:9
 msgid ""
-"By default all PopUps - have modal style: it appear on user screen over the "
-"whole site. Layered style allow you to show your PopUp - on selected "
+"By default all PopUps have modal style: it appears on user screen over the "
+"whole site. Layered style allows you to show your PopUp - on selected "
 "position: top, bottom, etc. and not over your site - but right near your "
 "content."
 msgstr ""
@@ -414,7 +414,7 @@ msgstr "Unten Rechts"
 #: ../doc/popup-by-supsystic-pro/license/mod.php:23
 #, php-format
 msgid ""
-"Your license is expired. Once you extend your license - you will be able to "
+"Your license has expired. Once you extend your license - you will be able to "
 "Update PRO version. To extend PRO version license - follow <a href=\"%s\" "
 "target=\"_blank\">this link</a>, then - go to <a href=\"%s\">License</a> tab "
 "anc click on \"Re-activate\" button to re-activate your PRO version."
@@ -428,8 +428,8 @@ msgstr ""
 #: ../doc/popup-by-supsystic-pro/license/mod.php:31
 #, php-format
 msgid ""
-"Your license for PRO version of %s plugin - expired. You can <a href=\"%s\" "
-"target=\"_blank\">click here</a> to extend your license, then - go to <a "
+"Your license for PRO version of %s plugin has expired. You can <a href=\"%s"
+"\" target=\"_blank\">click here</a> to extend your license, then - go to <a "
 "href=\"%s\">License</a> tab anc click on \"Re-activate\" button to re-"
 "activate your PRO version."
 msgstr ""
@@ -452,8 +452,8 @@ msgstr "Bitte gebe Deine eMail Adresse ein"
 
 #: ../doc/popup-by-supsystic-pro/license/models/license.php:130
 msgid ""
-"There was a problem with sending request to our autentification server. "
-"Please try latter."
+"There was a problem with sending request to our authentication server. "
+"Please try later."
 msgstr ""
 "Es trat ein Problem auf, Deine Anfrage an den Server zu senden. Bitte "
 "versuche es später noch einmal."
@@ -484,8 +484,8 @@ msgstr ""
 #: ../doc/popup-by-supsystic-pro/license/views/tpl/licenseAdmin.php:6
 #, php-format
 msgid ""
-"Your license for PRO version of %s plugin - expired. You can <a href=\"%s\" "
-"target=\"_blank\">click here</a> to extend your license, then - click on "
+"Your license for PRO version of %s plugin has expired. You can <a href=\"%s"
+"\" target=\"_blank\">click here</a> to extend your license, then - click on "
 "\"Re-activate\" button to re-activate your PRO version."
 msgstr ""
 "Deine Lizenz für die PRO Version vom Plugin %s ist ausgelaufen. Du kannst <a "
@@ -542,7 +542,7 @@ msgstr "Aktivieren"
 #: ../modules/supsystic_promo/views/tpl/additionalmainAdminShowOnOptions.php:1
 #, php-format
 msgid ""
-"Show when user try to exit from your site. <a target=\"_blank\" href=\"%s"
+"Show when user tries to exit from your site. <a target=\"_blank\" href=\"%s"
 "\">Check example.</a>"
 msgstr ""
 "Zeige, wenn ein User versucht Deine Seite zu verlassen. <a target=\"_blank\" "
@@ -562,7 +562,7 @@ msgid "Now check your email inbox / spam folders for test mail."
 msgstr "Schaue in Deinen Posteingang / Spamordner nach der test eMail."
 
 #: ../modules/mail/mod.php:37
-msgid "Can not send email - problem with send server"
+msgid "Cannot send email - problem with send server"
 msgstr ""
 "Email kann nicht versendet werden. Es besteht ein Problem mit dem Send Server"
 
@@ -590,7 +590,7 @@ msgstr "eMail Funktionalität testen"
 
 #: ../modules/mail/models/mail.php:8
 #, php-format
-msgid "This is test email for testing email functionality on your site, %s."
+msgid "This is a test email for testing email functionality on your site, %s."
 msgstr ""
 "Dies ist eine test eMail, um die eMail Funktionalität auf Deiner Seite %s zu "
 "testen."
@@ -608,16 +608,16 @@ msgid "Send test"
 msgstr "Test Senden"
 
 #: ../modules/mail/views/tpl/mailAdmin.php:12
-msgid "This option allow you to check your server mail functionality"
+msgid "This option allows you to check your server mail functionality"
 msgstr ""
 "Mit dieser Option kannst Du die Mail Funktionalität Deines Servers überprüfen"
 
 #: ../modules/mail/views/tpl/mailAdmin.php:15
-msgid "Did you received test email?"
+msgid "Did you receive test email?"
 msgstr "Hast Du die Test eMail erhalten?"
 
 #: ../modules/mail/views/tpl/mailAdmin.php:18
-msgid "Yes! It work!"
+msgid "Yes! It works!"
 msgstr "Ja! Es hat funktioniert!"
 
 #: ../modules/mail/views/tpl/mailAdmin.php:22
@@ -626,7 +626,7 @@ msgstr ""
 "Nein, ich muss meinen Hosting Provider wegen des eMail Problems kontaktieren"
 
 #: ../modules/mail/views/tpl/mailAdmin.php:26
-msgid "Great! Mail function was tested and working fine."
+msgid "Great! Mail function was tested and is working fine."
 msgstr "Super! Die Mail Funktionalität wurde erfolgreich getestet."
 
 #: ../modules/mail/views/tpl/mailAdmin.php:29
@@ -760,7 +760,7 @@ msgid "Modify PopUp Template"
 msgstr "Bearbeite PopUp Vorlage"
 
 #: ../modules/popup/views/popup.php:49
-msgid "Can not find required PopUp"
+msgid "Cannot find required PopUp"
 msgstr "Kann das PopUp nicht finden"
 
 #: ../modules/popup/views/popup.php:93 ../modules/popup/views/popup.php:280
@@ -1139,7 +1139,7 @@ msgid "When to show PopUp"
 msgstr "Wann das PopUp angezeigt werden soll"
 
 #: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:8
-msgid "When page load"
+msgid "When page loads"
 msgstr "Beim Laden der Seite"
 
 #: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:13
@@ -1175,8 +1175,8 @@ msgid ""
 "Check screenshot with details - <a onclick=\"ppsShowTipScreenPopUp(this); "
 "return false;\" href=\"%s\">here</a>."
 msgstr ""
-"Prüfe einen Screenshot mit Details - <a onclick="
-"\"ppsShowTipScreenPopUp(this); return false;\" href=\"%s\">hier</a>."
+"Prüfe einen Screenshot mit Details - <a onclick=\"ppsShowTipScreenPopUp"
+"(this); return false;\" href=\"%s\">hier</a>."
 
 #: ../modules/popup/views/tpl/popupEditAdminMainOpts.php:40
 msgid ""
@@ -1382,7 +1382,7 @@ msgstr ""
 #: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:89
 #: ../modules/subscribe/controller.php:23
 #: ../modules/subscribe/views/tpl/subSuccessPage.php:55
-msgid "Thank you for subscribe!"
+msgid "Thank you for subscribing!"
 msgstr "Vielen Dank fürs Abonnieren!"
 
 #: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:93
@@ -1391,7 +1391,7 @@ msgstr "eMail Fehlernachricht"
 
 #: ../modules/popup/views/tpl/popupEditAdminSubOpts.php:94
 msgid ""
-"If email, that was entered by user, is invalid - user will see this message"
+"If email that was entered by user is invalid, user will see this message"
 msgstr ""
 "Wenn die eMail Adresse des Users ungültig sein sollte, sieht der User diese "
 "Nachricht"
@@ -1668,8 +1668,8 @@ msgstr ""
 #: ../modules/statistics/views/tpl/statPopupEditTab.php:67
 #, php-format
 msgid ""
-"You have no statistics for \"%s\" PopUp for now. Setup it's options - and "
-"wait until users will view it on your site."
+"You have no statistics for \"%s\" PopUp for now. Setup its options and wait "
+"until users will view it on your site."
 msgstr ""
 "Du hast keine Statistiken für das \"%s\" PopUp im Moment. Stelle die "
 "Optionen dafür ein und warte, bis die User dies auf Deiner Seite sehen."
@@ -1699,7 +1699,7 @@ msgid "You just subscribed from this IP"
 msgstr "Du hast Dich von der folgenden IP Adresse angemeldet"
 
 #: ../modules/subscribe/models/subscribe.php:140
-msgid "Can't subscribe for now. Please try again latter."
+msgid "Can't subscribe for now. Please try again later."
 msgstr "Zur Zeit nicht möglich. Bitte probiere es später noch einmal."
 
 #: ../modules/subscribe/models/subscribe.php:224
@@ -1820,7 +1820,7 @@ msgid "Report a bug"
 msgstr "Einen Fehler Melden"
 
 #: ../modules/supsystic_promo/mod.php:152
-msgid "Require a new functionallity"
+msgid "Require a new functionality"
 msgstr "Erfordert eine neue Funktionalität"
 
 #: ../modules/supsystic_promo/mod.php:153
@@ -1842,7 +1842,7 @@ msgstr "Warum Popup von Supsystic ein \"must have\" für Deine Webseite ist?"
 #: ../modules/supsystic_promo/views/supsystic_promo.php:35
 #, php-format
 msgid ""
-"Increase your sales by 500%% using Popup by Supsystic! More subscribers - "
+"Increase your sales by 500%% using Popup by Supsystic! More subscribers = "
 "more sales! It's that simple!<br />More info you can find here <a target="
 "\"_blank\" href=\"%s\">Popup by Supsystic is \"must have\" for your website</"
 "a>"
@@ -2029,7 +2029,7 @@ msgstr "eMail Senden"
 
 #: ../modules/supsystic_promo/views/tpl/overviewTabContent.php:96
 msgid ""
-"Your email was send, we will try to respond to you as soon as possible. "
+"Your email was sent, we will try to respond to your as soon as possible. "
 "Thank you for support!"
 msgstr ""
 "Deine eMail wurde versendet und wir werden uns so schnell wie möglich bei "
@@ -2046,8 +2046,8 @@ msgstr "Dies ist der erste Start vom %s plugin."
 
 #: ../modules/supsystic_promo/views/tpl/welcomePage.php:85
 msgid ""
-"If you are newbie - check all features on that page, if you are guru - "
-"please correct us."
+"If you are newbie, check all features on that page. If you are guru, please "
+"correct us."
 msgstr ""
 "Wenn Du ein Newbie bist, schau Dir alle Features auf der Seite an. Wenn Du "
 "ein Crack bist, kannst Du uns gerne korrigieren."
@@ -2095,7 +2095,7 @@ msgid "Full Features List"
 msgstr "Vollständige Featureliste"
 
 #: ../modules/supsystic_promo/views/tpl/welcomePage.php:123
-msgid "There are so many features, so we can't post it here. Like"
+msgid "There are so many features, so we can't post them here. Like"
 msgstr ""
 "Es gibt so viele Eigenschafte, die können wir hier nicht alle beschreiben. "
 "LIKE"

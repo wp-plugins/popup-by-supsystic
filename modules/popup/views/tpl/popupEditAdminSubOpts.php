@@ -228,7 +228,7 @@
 		<tr class="ppsPopupSubTxtsAndRedirect" style="display: none;">
 			<th scope="row">
 				<?php _e('"Confirmation sent" message', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php _e('This will be message, that user will see after subscribe - that email with confirmation link sent.', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('This is the message that the user will see after subscription, when letter with confirmation link was sent.', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_confirm_sent]', array(
@@ -243,14 +243,14 @@
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_success]', array(
-					'value' => (isset($this->popup['params']['tpl']['sub_txt_success']) ? esc_html( $this->popup['params']['tpl']['sub_txt_success'] ) : __('Thank you for subscribe!', PPS_LANG_CODE)),
+					'value' => (isset($this->popup['params']['tpl']['sub_txt_success']) ? esc_html( $this->popup['params']['tpl']['sub_txt_success'] ) : __('Thank you for subscribing!', PPS_LANG_CODE)),
 				))?>
 			</td>
 		</tr>
 		<tr class="ppsPopupSubTxtsAndRedirect" style="display: none;">
 			<th scope="row">
 				<?php _e('Email error message', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php _e('If email, that was entered by user, is invalid - user will see this message', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('If email that was entered by user is invalid, user will see this message', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_txt_invalid_email]', array(

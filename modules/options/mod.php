@@ -5,7 +5,8 @@ class optionsPps extends modulePps {
 	private $_optionsToCategoires = array();	// For faster search
 	
 	public function init() {
-		dispatcherPps::addAction('afterModulesInit', array($this, 'initAllOptValues'));
+		//dispatcherPps::addAction('afterModulesInit', array($this, 'initAllOptValues'));
+		add_action('init', array($this, 'initAllOptValues'), 99);	// It should be init after all languages was inited (frame::connectLang)
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 	}
 	public function initAllOptValues() {

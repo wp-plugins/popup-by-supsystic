@@ -93,7 +93,7 @@
 					</form>
 					<div id="form-settings-send-msg" style="display: none;">
 						<i class="fa fa-envelope-o"></i>
-						<?php _e('Your email was send, we will try to respond to you as soon as possible. Thank you for support!', PPS_LANG_CODE)?>
+						<?php _e('Your email was sent, we will try to respond to your as soon as possible. Thank you for support!', PPS_LANG_CODE)?>
 					</div>
 				</div>
 			</div>

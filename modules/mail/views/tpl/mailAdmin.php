@@ -9,13 +9,13 @@
 		<i class="fa fa-paper-plane"></i>
 		<?php _e('Send test', PPS_LANG_CODE)?>
 	</button><br />
-	<i><?php _e('This option allow you to check your server mail functionality', PPS_LANG_CODE)?></i>
+	<i><?php _e('This option allows you to check your server mail functionality', PPS_LANG_CODE)?></i>
 </form>
 <div id="ppsMailTestResShell" style="display: none;">
-	<?php _e('Did you received test email?', PPS_LANG_CODE)?><br />
+	<?php _e('Did you receive test email?', PPS_LANG_CODE)?><br />
 	<button class="ppsMailTestResBtn button button-primary" data-res="1">
 		<i class="fa fa-check-square-o"></i>
-		<?php _e('Yes! It work!', PPS_LANG_CODE)?>
+		<?php _e('Yes! It works!', PPS_LANG_CODE)?>
 	</button>
 	<button class="ppsMailTestResBtn button button-primary" data-res="0">
 		<i class="fa fa-exclamation-triangle"></i>
@@ -23,7 +23,7 @@
 	</button>
 </div>
 <div id="ppsMailTestResSuccess" style="display: none;">
-	<?php _e('Great! Mail function was tested and working fine.', PPS_LANG_CODE)?>
+	<?php _e('Great! Mail function was tested and is working fine.', PPS_LANG_CODE)?>
 </div>
 <div id="ppsMailTestResFail" style="display: none;">
 	<?php _e('Bad, please contact your hosting provider and ask them to setup mail functionality on your server.', PPS_LANG_CODE)?>

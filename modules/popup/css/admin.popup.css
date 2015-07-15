@@ -110,6 +110,9 @@
 .supsystic-plugin #ppsHideForDevicesLabel .chosen-container.chosen-container-multi {
 	min-width: 210px;
 }
+.supsystic-plugin #ppsHideForPostTypesLabel .chosen-container.chosen-container-multi {
+	min-width: 210px;
+}
 /*animations setup*/
 .ppsPopupAnimEff {
 	float: left;
@@ -282,4 +285,11 @@
 .ppsPromoImgUrl {
 	text-decoration: none !important;
 	box-shadow: none !important;
+}
+#ppsPopupDesign .form-table td {
+	vertical-align: top;
+}
+.wp-picker-container {
+	min-width: 120px;
+	white-space: nowrap;
 }

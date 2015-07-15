@@ -46,7 +46,7 @@ class popupViewPps extends viewPps {
 		global $wpdb;
 		$popup = $this->getModel()->getById($id);
 		if(empty($popup)) {
-			return __('Can not find required PopUp', PPS_LANG_CODE);
+			return __('Cannot find required PopUp', PPS_LANG_CODE);
 		}
 		dispatcherPps::doAction('beforePopupEdit', $popup);
 		
@@ -106,6 +106,14 @@ class popupViewPps extends viewPps {
 			'desktop' => __('Desktop PC', PPS_LANG_CODE),
 		);
 
+		$post_types = get_post_types('', 'objects');
+		$hideForPostTypesList = array();
+		foreach($post_types as $key => $value) {
+			if(!in_array($key, array('attachment', 'revision', 'nav_menu_item'))) {
+				$hideForPostTypesList[$key] = $value->labels->name;
+			}
+		}
+
 		$subDestList = framePps::_()->getModule('subscribe')->getDestList();
 		$subDestListForSelect = array();
 		foreach($subDestList as $key => $data) {
@@ -132,10 +140,37 @@ class popupViewPps extends viewPps {
 				}
 			}
 		}
+		$currentIp = utilsPps::getIP();
+		$currentCountryCode = $this->getModule()->getCountryCode();
+		$currentLanguageCode = utilsPps::getBrowserLangCode();
+		$currentLanguage = '';
+		
+		$allCountries = framePps::_()->getTable('countries')->get('*');
+		$countriesForSelect = array();
+		foreach($allCountries as $c) {
+			$countriesForSelect[ $c['iso_code_2'] ] = $c['name'];
+		}
+		$languagesForSelect = array();
+		$allLanguages = array();
+		if(!function_exists('wp_get_available_translations') && file_exists(ABSPATH . 'wp-admin/includes/translation-install.php')) {
+			require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
+		}
+		if(function_exists('wp_get_available_translations')) {	// As it was included only from version 4.0.0
+			$allLanguages = wp_get_available_translations();
+			if(!empty($allLanguages)) {
+				foreach($allLanguages as $l) {
+					if(!isset($l['iso']) || !isset($l['iso'][1])) continue;
+					$languagesForSelect[ $l['iso'][1] ] = $l['native_name'];
+					if($currentLanguageCode == $l['iso'][1]) {
+						$currentLanguage = $l['native_name'];
+					}
+				}
+			}
+		}
 		$this->assign('adminEmail', get_bloginfo('admin_email'));
 		$this->assign('isPro', framePps::_()->getModule('supsystic_promo')->isPro());
 		$this->assign('mainLink', framePps::_()->getModule('supsystic_promo')->getMainLink());
-		$this->assign('promoModPath', framePps::_()->getModule('supsystic_promo')->getModPath());
+		$this->assign('promoModPath', framePps::_()->getModule('supsystic_promo')->getAssetsUrl());
 		if(in_array($popup['type'], array(PPS_FB_LIKE))) {
 			$this->assign('fbLikeOpts', $this->getFbLikeOpts());
 		}
@@ -156,6 +191,14 @@ class popupViewPps extends viewPps {
 		$this->assign('smDesigns', framePps::_()->getModule('sm')->getAvailableDesigns());
 		
 		$this->assign('hideForList', $hideForList);
+		$this->assign('countriesForSelect', $countriesForSelect);
+		$this->assign('languagesForSelect', $languagesForSelect);
+		$this->assign('hideForPostTypesList', $hideForPostTypesList);
+		
+		$this->assign('currentIp', $currentIp);
+		$this->assign('currentCountryCode', $currentCountryCode);
+		$this->assign('currentLanguage', $currentLanguage);
+		
 		$designTabs = array(	// Used in $this->getMainPopupTplTab()
 			'ppsPopupDesign' => array(
 				'title' => __('Appearance', PPS_LANG_CODE), 
@@ -562,6 +605,7 @@ class popupViewPps extends viewPps {
 				'red_close' => array('img' => 'close-red.png', 'add_style' => array('top' => '15px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),
 				'yellow_close' => array('img' => 'close-yellow.png', 'add_style' => array('top' => '-16px', 'right' => '-16px', 'width' => '42px', 'height' => '42px')),
 				'sqr_close' => array('img' => 'sqr-close.png', 'add_style' => array('top' => '25px', 'right' => '20px', 'width' => '25px', 'height' => '25px')),
+				'close-black-in-white-circle' => array('img' => 'close-black-in-white-circle.png', 'add_style' => array('top' => '16px', 'right' => '16px', 'width' => '32px', 'height' => '32px')),
 			);
 			foreach($this->_closeBtns as $key => $data) {
 				if(isset($data['img'])) {

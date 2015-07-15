@@ -73,7 +73,7 @@ class modInstallerPps {
                 utilsPps::copyDirectories($path, PPS_MODULES_DIR. $code);
                 return true;
             } else 
-                errorsPps::push(__('Can not create module directory. Try to set permission to '. PPS_MODULES_DIR. ' directory 755 or 777', PPS_LANG_CODE), errorsPps::MOD_INSTALL);
+                errorsPps::push(__('Cannot create module directory. Try to set permission to '. PPS_MODULES_DIR. ' directory 755 or 777', PPS_LANG_CODE), errorsPps::MOD_INSTALL);
         } else
             return true;
         return false;

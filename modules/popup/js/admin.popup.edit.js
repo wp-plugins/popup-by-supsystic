@@ -130,35 +130,6 @@ jQuery(document).ready(function(){
 		jQuery('#ppsPopupBulletsList li[data-key="'+ ppsPopup.params.tpl.bullets+ '"]').addClass('active');
 		jQuery('#ppsPopupEditForm').find('[name="params[tpl][bullets]"]').val( ppsPopup.params.tpl.bullets );
 	}
-	// Show/hide on pages selection
-	/*jQuery('#ppsPopupEditForm').find('[name="params[main][show_pages]"]').change(function(){
-		if(toeInArrayPps(jQuery(this).val(), ['show_on_pages', 'not_show_on_pages'])) {
-			var checked = jQuery(this).attr('checked')
-			,	boxElement = jQuery(this).val() == 'show_on_pages' ? jQuery('#ppsPopupShowOnPages') : jQuery('#ppsPopupNotShowOnPages')
-			,	onFinishAnimate = function() {
-					boxElement.find('.chosen').chosen();
-				};
-			checked ? boxElement.slideDown( g_ppsAnimationSpeed, onFinishAnimate ) : boxElement.slideUp( g_ppsAnimationSpeed );
-			if(checked) {
-				boxElement.find('.chosen').chosen();
-			}
-		}
-	}).change();*/
-	
-	/*jQuery('#ppsPopupEditForm').find('[name="params[main][show_on]"]').change(function(){
-		// Show/hide show delay options
-		if(jQuery(this).val() == 'page_load') {
-			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnDelay').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnDelay').slideUp( g_ppsAnimationSpeed );
-		}
-		// Show/hide click-on-element show options
-		if(jQuery(this).val() == 'click_on_element') {
-			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnElClick').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnElClick').slideUp( g_ppsAnimationSpeed );
-		}
-		// Show/hide scroll window show options
-		if(jQuery(this).val() == 'scroll_window') {
-			jQuery(this).attr('checked') ? jQuery('#ppsPopupShowOnScrollDelay').slideDown( g_ppsAnimationSpeed ) : jQuery('#ppsPopupShowOnScrollDelay').slideUp( g_ppsAnimationSpeed );
-		}
-	}).change();*/
 	// Some main options can have additional sub-options - "descriptions" - that need to be visible if option is checked
 	jQuery('#ppsPopupEditForm').find('input[name="params[main][show_on]"],input[name="params[main][close_on]"],input[name="params[main][show_to]"],input[name="params[main][show_pages]"]').change(function(){
 		var name = jQuery(this).attr('name')
@@ -259,6 +230,9 @@ jQuery(document).ready(function(){
 	}).change();
 	// Init Save as Copy function
 	ppsPopupInitSaveAsCopyDlg();
+	// Init Hide IP Dlg
+	_ppsPopupHideIpMoveFromText(true);
+	ppsPopupInitHideIpDlg();
 	// Auto update bind, timeout - to make sure that all options is already setup and triggered required load changes
 	setTimeout(function(){
 		var autoUpdateBoxes = ['#ppsPopupTpl', '#ppsPopupTexts', '#ppsPopupSubscribe', '#ppsPopupSm'];
@@ -490,6 +464,51 @@ function ppsPopupInitSaveAsCopyDlg() {
 		$container.dialog('open');
 		return false;
 	});
+}
+function ppsPopupInitHideIpDlg() {
+	var $container = jQuery('#ppsHideForIpWnd').dialog({
+		modal:    true
+	,	autoOpen: false
+	,	width: 400
+	,	height: 460
+	,	buttons:  {
+			OK: function() {
+				_ppsPopupHideIpMoveFromText();
+				ppsSavePopupChanges();
+				$container.dialog('close');
+			}
+		,	Cancel: function() {
+				$container.dialog('close');
+			}
+		}
+	});
+	jQuery('#ppsHideForIpBtn').click(function(){
+		_ppsPopupHideIpMoveToText();
+		$container.dialog('open');
+		return false;
+	});
+}
+function _ppsPopupHideIpMoveFromText(notUserOpen) {
+	var ips = notUserOpen ? jQuery('#ppsPopupEditForm').find('[name="params[main][hide_for_ips]"]').val() : jQuery('#ppsHideForIpTxt').val()
+	var ipsArr = [];
+	if(ips) {
+		ipsArr = ips.split(notUserOpen ? "," : "\n");
+	}
+	if(!ipsArr || !ipsArr.length)
+		ipsArr = false;
+	if(ipsArr) {
+		jQuery.map(ipsArr, jQuery.trim);
+	}
+	if(!notUserOpen)
+		jQuery('#ppsPopupEditForm').find('[name="params[main][hide_for_ips]"]').val( ipsArr ? ipsArr.join(',') : '' ).trigger('change');
+	jQuery('#ppsHiddenIpStaticList').html(ipsArr 
+		? ipsArr.length+ ' '+ toeLangPps('IPs are blocked') 
+		: toeLangPps('No IPs are currently in block list'));
+}
+function _ppsPopupHideIpMoveToText() {
+	var ips = jQuery('#ppsPopupEditForm').find('[name="params[main][hide_for_ips]"]').val()
+	,	ipsArr = ips ? ips.split(",") : false;
+	jQuery('#ppsHideForIpTxt').val(ipsArr ? ipsArr.join("\n") : '');
 }
 function ppsPopupCheckSwitchActiveBtn() {
 	if(parseInt(ppsPopup.active)) {

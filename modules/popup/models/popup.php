@@ -31,7 +31,7 @@ class popupModelPps extends modelPps {
 		return $params;
 	}
 	protected function _beforeDbReplace($data) {
-		static $modUrl, $siteUrl;
+		static $modUrl, $siteUrl, $assetsUrl;
 		if(is_array($data)) {
 			foreach($data as $k => $v) {
 				$data[ $k ] = $this->_beforeDbReplace($v);
@@ -41,12 +41,14 @@ class popupModelPps extends modelPps {
 				$modUrl = $this->getModule()->getModPath();
 			if(!$siteUrl)
 				$siteUrl = PPS_SITE_URL;
-			$data = str_replace($siteUrl, '[PPS_SITE_URL]', str_replace($modUrl, '[PPS_MOD_URL]', $data));
+			if(!$assetsUrl)
+				$assetsUrl = $this->getModule()->getAssetsUrl();
+			$data = str_replace(array($siteUrl, $modUrl), array('[PPS_SITE_URL]', '[PPS_MOD_URL]'), $data);
 		}
 		return $data;
 	}
 	protected function _afterDbReplace($data) {
-		static $modUrl, $siteUrl;
+		static $modUrl, $siteUrl, $assetsUrl;
 		if(is_array($data)) {
 			foreach($data as $k => $v) {
 				$data[ $k ] = $this->_afterDbReplace($v);
@@ -56,7 +58,12 @@ class popupModelPps extends modelPps {
 				$modUrl = $this->getModule()->getModPath();
 			if(!$siteUrl)
 				$siteUrl = PPS_SITE_URL;
-			$data = str_replace('[PPS_SITE_URL]', $siteUrl, str_replace('[PPS_MOD_URL]', $modUrl, $data));
+			if(!$assetsUrl)
+				$assetsUrl = $this->getModule()->getAssetsUrl();
+			/*Tmp fix - for quick replace all mode URL to assets URL*/
+			$data = str_replace('[PPS_MOD_URL]', '[PPS_ASSETS_URL]', $data);
+			/*****/
+			$data = str_replace(array('[PPS_SITE_URL]', '[PPS_MOD_URL]', '[PPS_ASSETS_URL]'), array($siteUrl, $modUrl, $assetsUrl), $data);
 		}
 		return $data;
 	}
@@ -66,7 +73,7 @@ class popupModelPps extends modelPps {
 		if(empty($row['img_preview'])) {
 			$row['img_preview'] = str_replace(' ', '-', strtolower( trim($row['label']) )). '.jpg';
 		}
-		$row['img_preview_url'] = uriPps::_($this->getModule()->getModPath(). 'img/preview/'. $row['img_preview']);
+		$row['img_preview_url'] = uriPps::_($this->getModule()->getAssetsUrl()/*$this->getModule()->getModPath()*/. 'img/preview/'. $row['img_preview']);
 		$row['view_id'] = $row['id']. '_'. mt_rand(1, 999999);
 		$row = $this->_afterDbReplace($row);
 		$this->getTypes();

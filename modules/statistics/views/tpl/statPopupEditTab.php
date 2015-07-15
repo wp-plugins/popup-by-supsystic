@@ -53,7 +53,7 @@
 		<div style="clear: both;"></div>
 		<div id="ppsPopupStatAllActionsPie"></div>
 		<div id="ppsPopupStatAllActionsNoData" style="display: none;" class="description">
-			<?php _e('Once you will have enough different statistics - like shares, subscribes, likes, - you will be able to see here - what action is used more often, and what - not.', PPS_LANG_CODE)?>
+			<?php _e('Once you will have enough different statistics - like shares, subscribes, likes - you will be able to see here which action is used more or less frequently.', PPS_LANG_CODE)?>
 		</div>
 	</div>
 	<div class="supsistic-half-side-box">
@@ -62,12 +62,12 @@
 		<div style="clear: both;"></div>
 		<div id="ppsPopupStatAllSharePie"></div>
 		<div id="ppsPopupStatAllShareNoData" style="display: none;" class="description">
-			<?php _e('Once you will have enough different statistics about share from PopUp on social media - you will be able to see here - what social is is used more often, and what - not.', PPS_LANG_CODE)?>
+			<?php _e('Once you will have enough different statistics about share from PopUp on social media, you will be able to see here which social media is used more or less frequently.', PPS_LANG_CODE)?>
 		</div>
 	</div>
 	<div style="clear: both;"></div>
 	<table id="ppsPopupStatTbl"></table>
 	<div id="ppsPopupStatTblNav"></div>
 <?php } else { ?>
-	<h4><?php printf(__('You have no statistics for "%s" PopUp for now. Setup it\'s options - and wait until users will view it on your site.', PPS_LANG_CODE), $this->popup['label'])?></h4>
+	<h4><?php printf(__('You have no statistics for "%s" PopUp for now. Setup its options and wait until users will view it on your site.', PPS_LANG_CODE), $this->popup['label'])?></h4>
 <?php }?>

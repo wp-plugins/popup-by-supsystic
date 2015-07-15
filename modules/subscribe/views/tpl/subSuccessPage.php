@@ -52,7 +52,7 @@
 		} else {
 			$successMessage = $this->popup && isset($this->popup['params']['tpl']['sub_txt_success'])
 				? $this->popup['params']['tpl']['sub_txt_success']
-				: __('Thank you for subscribe!', PPS_LANG_CODE);
+				: __('Thank you for subscribing!', PPS_LANG_CODE);
 			$redirectUrl = isset($this->popup['params']['tpl']['sub_redirect_url']) && !empty($this->popup['params']['tpl']['sub_redirect_url'])
 				? $this->popup['params']['tpl']['sub_redirect_url']
 				: get_bloginfo('wpurl');

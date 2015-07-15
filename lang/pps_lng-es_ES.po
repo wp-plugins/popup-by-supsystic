@@ -387,7 +387,7 @@ msgstr "Ahora compruebe su correo electrónico y la bandeja de entrada de carpet
 
 #: modules/mail/mod.php:37
 #@ default
-msgid "Can not send email - problem with send server"
+msgid "Cannot send email - problem with send server"
 msgstr "No se puede enviar correo electrónico - problema con el servidor de envío"
 
 #: modules/mail/mod.php:50
@@ -418,7 +418,7 @@ msgstr "Prueba funcionamiento de email"
 #: modules/mail/models/mail.php:8
 #, php-format
 #@ pps_lng
-msgid "This is test email for testing email functionality on your site, %s."
+msgid "This is a test email for testing email functionality on your site, %s."
 msgstr "Este es el correo electrónico de prueba para probar la funcionalidad los emails en su sitio,%s."
 
 #: modules/mail/models/mail.php:15
@@ -438,17 +438,17 @@ msgstr "Enviar prueba"
 
 #: modules/mail/views/tpl/mailAdmin.php:12
 #@ pps_lng
-msgid "This option allow you to check your server mail functionality"
+msgid "This option allows you to check your server mail functionality"
 msgstr "Esta opción le permite comprobar la funcionalidad de su servidor de correo"
 
 #: modules/mail/views/tpl/mailAdmin.php:15
 #@ pps_lng
-msgid "Did you received test email?"
+msgid "Did you receive test email?"
 msgstr "¿Recibió usted  el mensaje de prueba?"
 
 #: modules/mail/views/tpl/mailAdmin.php:18
 #@ pps_lng
-msgid "Yes! It work!"
+msgid "Yes! It works!"
 msgstr "¡Sí! Funciona!"
 
 #: modules/mail/views/tpl/mailAdmin.php:22
@@ -458,7 +458,7 @@ msgstr "No, tengo que llamar a mi proveedor de hosting el error de email."
 
 #: modules/mail/views/tpl/mailAdmin.php:26
 #@ pps_lng
-msgid "Great! Mail function was tested and working fine."
+msgid "Great! Mail function was tested and is working fine."
 msgstr "¡Genial! La función de correo ha sido probado y funciona bien."
 
 #: modules/mail/views/tpl/mailAdmin.php:29
@@ -603,7 +603,7 @@ msgstr "Modificar plantilla PopUp"
 
 #: modules/popup/views/popup.php:49
 #@ pps_lng
-msgid "Can not find required PopUp"
+msgid "Cannot find required PopUp"
 msgstr "No se puede encontrar el PopUp requerido"
 
 #: modules/popup/views/popup.php:93
@@ -1047,7 +1047,7 @@ msgstr "Cuando mostrar el PopUp"
 
 #: modules/popup/views/tpl/popupEditAdminMainOpts.php:8
 #@ pps_lng
-msgid "When page load"
+msgid "When page loads"
 msgstr "Cuando cargar la página"
 
 #: modules/popup/views/tpl/popupEditAdminMainOpts.php:13
@@ -1257,7 +1257,7 @@ msgstr "\"Mail de confirmación se ha enviado\" mensaje"
 
 #: modules/popup/views/tpl/popupEditAdminSubOpts.php:74
 #@ pps_lng
-msgid "This will be message, that user will see after subscribe - that email with confirmation link sent."
+msgid "This is the message that the user will see after subscription, when letter with confirmation link was sent."
 msgstr "Este será el mensaje que el usuario verá después de suscribirse - se enviará con el enlace de confirmación."
 
 #: modules/popup/views/tpl/popupEditAdminSubOpts.php:76
@@ -1280,7 +1280,7 @@ msgstr "Justo después que se cree el suscriptor y se confirme - se mostrará es
 #: modules/subscribe/controller.php:22
 #: modules/subscribe/controller.php:39
 #@ pps_lng
-msgid "Thank you for subscribe!"
+msgid "Thank you for subscribing!"
 msgstr "Gracias por suscribirte!"
 
 #: modules/popup/views/tpl/popupEditAdminSubOpts.php:87
@@ -1290,7 +1290,7 @@ msgstr "Email mensaje de error"
 
 #: modules/popup/views/tpl/popupEditAdminSubOpts.php:88
 #@ pps_lng
-msgid "If email, that was entered by user, is invalid - user will see this message"
+msgid "If email that was entered by user is invalid, user will see this message"
 msgstr "Si el correo electrónico, que ha introducido usuario, no es válido - el usuario verá este mensaje"
 
 #: modules/popup/views/tpl/popupEditAdminSubOpts.php:90
@@ -1598,7 +1598,7 @@ msgstr "Una vez que se cuenta con suficiente diferentes estadísticas sobre los 
 #: modules/statistics/views/tpl/statPopupEditTab.php:67
 #, php-format
 #@ pps_lng
-msgid "You have no statistics for \"%s\" PopUp for now. Setup it's options - and wait until users will view it on your site."
+msgid "You have no statistics for \"%s\" PopUp for now. Setup its options and wait until users will view it on your site."
 msgstr "No tiene estadísticas para \"%s\"  PopUp por ahora. Configure sus opciones - y espere hasta que los usuarios van a poder verla en su sitio."
 
 #: modules/subscribe/mod.php:7
@@ -1633,12 +1633,12 @@ msgstr "Usted acaba de suscribir desde esta IP"
 
 #: modules/subscribe/models/subscribe.php:173
 #@ pps_lng
-msgid "Can't subscribe for now. Please try again latter."
+msgid "Can't subscribe for now. Please try again later."
 msgstr "No se puede suscribir por ahora. Por favor, inténtalo de nuevo mas tarde."
 
 #: modules/subscribe/models/subscribe.php:209
 #@ pps_lng
-msgid "MailChimp require CURL to be setup on your server. Please contact your hosting provider and ask them to setup CURL libruary for you."
+msgid "MailChimp requires CURL to be setup on your server. Please contact your hosting provider and ask them to setup CURL library for you."
 msgstr "MailChimp requiere CURL sea la configuración en su servidor. Por favor, póngase en contacto con su proveedor de hosting y pedirles que configuren el  CURL libruary para usted."
 
 #: modules/subscribe/models/subscribe.php:231
@@ -1689,7 +1689,7 @@ msgstr "Estilo Capas"
 #: modules/supsystic_promo/views/tpl/additionalmainAdminShowOnOptions.php:1
 #, php-format
 #@ pps_lng
-msgid "Show when user try to exit from your site. <a target=\"_blank\" href=\"%s\">Check example.</a>"
+msgid "Show when user tries to exit from your site. <a target=\"_blank\" href=\"%s\">Check example.</a>"
 msgstr "Mostrar cuando el usuario intenta salir de su sitio. <a target=\"_blank\" href=\"%s\">Ver Ejemplo</a>"
 
 #: modules/supsystic_promo/views/tpl/additionalmainAdminShowOnOptions.php:6
@@ -1736,7 +1736,7 @@ msgstr "Esto es el primer comienzo de %s plugin."
 
 #: modules/supsystic_promo/views/tpl/welcomePage.php:85
 #@ pps_lng
-msgid "If you are newbie - check all features on that page, if you are guru - please correct us."
+msgid "If you are newbie, check all features on that page. If you are guru, please correct us."
 msgstr "Si eres novato - comprobar todas las características en esa página, si usted es el gurú - por favor corrija."
 
 #: modules/supsystic_promo/views/tpl/welcomePage.php:94
@@ -1783,7 +1783,7 @@ msgstr "Lista completa de características"
 
 #: modules/supsystic_promo/views/tpl/welcomePage.php:123
 #@ pps_lng
-msgid "There are so many features, so we can't post it here. Like"
+msgid "There are so many features, so we can't post them here. Like"
 msgstr "Hay tantas características, así que no podemos publicar aquí. Like"
 
 #: modules/supsystic_promo/views/tpl/welcomePage.php:125

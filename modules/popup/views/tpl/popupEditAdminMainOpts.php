@@ -5,7 +5,7 @@
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'value' => 'page_load', 
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'page_load')))?>
-		<?php _e('When page load', PPS_LANG_CODE)?>
+		<?php _e('When page loads', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsOptDesc_params_main_show_on_page_load" style="display: none;">
 		<label>
@@ -72,7 +72,7 @@
 			'attrs' => 'class="ppsProOpt"',
 			'value' => 'on_exit',
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'on_exit')))?>
-		<span class="supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Show when user try to exit from your site. <a target="_blank" href="%s">Check example.</a>', PPS_LANG_CODE), 'http://supsystic.com/exit-popup/'))?>">
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Show when user tries to exit from your site. <a target="_blank" href="%s">Check example.</a>', PPS_LANG_CODE), 'http://supsystic.com/exit-popup/'))?>">
 			<?php _e('On Exit from Site', PPS_LANG_CODE)?>
 		</span>
 		<?php if(!$this->isPro) {?>
@@ -195,6 +195,33 @@
 			<span class="supsystic-tooltip" title="<?php _e('Seconds', PPS_LANG_CODE)?>"><?php _e('sec', PPS_LANG_CODE)?></span>
 		</label>
 	</div><?php }?><br />
+	<div style="clear: both;"></div>
+	<span class="ppsOptLabel"><?php _e('Show on next pages', PPS_LANG_CODE)?></span>
+	<hr />
+	<label class="ppsPopupMainOptLbl">
+		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
+			'value' => 'all',
+			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'all')))?>
+		<?php _e('All pages', PPS_LANG_CODE)?>
+	</label><br />
+	<label class="ppsPopupMainOptLbl">
+		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
+			'value' => 'show_on_pages',
+			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'show_on_pages')))?>
+		<?php _e('Show on next pages / posts', PPS_LANG_CODE)?>
+	</label>
+	<div id="ppsOptDesc_params_main_show_pages_show_on_pages" style="display: none;">
+		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
+	</div><br />
+	<label class="ppsPopupMainOptLbl">
+		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
+			'value' => 'not_show_on_pages',
+			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'not_show_on_pages')))?>
+		<?php _e('Don\'t show on next pages / posts', PPS_LANG_CODE)?>
+	</label>
+	<div id="ppsOptDesc_params_main_show_pages_not_show_on_pages" style="display: none;">
+		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
+	</div>
 </section>
 <section class="ppsPopupMainOptSect">
 	<span class="ppsOptLabel"><?php _e('Whom to show', PPS_LANG_CODE)?></span>
@@ -237,50 +264,63 @@
 			<span><?php _e('days', PPS_LANG_CODE)?></span>
 		</label>
 	</div><br />
-	<label class="ppsPopupMainOptLbl ppsPopupMainOptLbl" id="ppsHideForDevicesLabel">
-		<?php _e('Hide for', PPS_LANG_CODE)?>:
+	<label class="ppsPopupMainOptLbl" id="ppsHideForDevicesLabel">
+		<?php _e('Hide for Devices', PPS_LANG_CODE)?>:
 		<?php echo htmlPps::selectlist('params[main][hide_for_devices][]', array(
 			'options' => $this->hideForList, 
 			'value' => (isset($this->popup['params']['main']['hide_for_devices']) ? $this->popup['params']['main']['hide_for_devices'] : array()), 
 			'attrs' => 'class="chosen" data-placeholder="'. __('Choose devices', PPS_LANG_CODE). '"'))?>
+	</label><br />
+	<label class="ppsPopupMainOptLbl ppsPopupMainOptLbl" id="ppsHideForPostTypesLabel">
+		<?php _e('Hide for Post Types', PPS_LANG_CODE)?>:
+		<?php echo htmlPps::selectlist('params[main][hide_for_post_types][]', array(
+			'options' => $this->hideForPostTypesList,
+			'value' => (isset($this->popup['params']['main']['hide_for_post_types']) ? $this->popup['params']['main']['hide_for_post_types'] : array()),
+			'attrs' => 'class="chosen" data-placeholder="'. __('Choose post types', PPS_LANG_CODE). '"'))?>
+	</label><br />
+	<label class="ppsPopupMainOptLbl" style="display: inline; vertical-align: middle; padding-top: 12px;">
+		<?php _e('Hide for IP', PPS_LANG_CODE)?>
+		<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('For those IPs PopUp will not be displayed. Please be advised that your IP - %s', PPS_LANG_CODE), $this->currentIp))?>"></i>
+		:
+		<a href="#" id="ppsHideForIpBtn" class="button"><?php _e('Show IPs List')?></a><br />
+		<?php echo htmlPps::hidden('params[main][hide_for_ips]', array(
+			'value' => (isset($this->popup['params']['main']['hide_for_ips']) ? $this->popup['params']['main']['hide_for_ips'] : '')
+		))?>
+		<div id="ppsHiddenIpStaticList" class="alert alert-info" style="padding: 5px 0 0; margin: 0;"></div>
+	</label><br />
+	<label class="ppsPopupMainOptLbl">
+		<?php _e('Hide for Countries', PPS_LANG_CODE)?>
+		<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('For those Countries PopUp will not be displayed. Please be advised that your Country code is %s', PPS_LANG_CODE), ($this->currentCountryCode ? $this->currentCountryCode : 'undefined (when using localhosts for example)')))?>"></i>
+		:<div style="padding-bottom: 5px; clear: both;"></div>
+		<?php echo htmlPps::selectlist('params[main][hide_for_countries][]', array(
+			'options' => $this->countriesForSelect, 
+			'value' => (isset($this->popup['params']['main']['hide_for_countries']) ? $this->popup['params']['main']['hide_for_countries'] : array()), 
+			'attrs' => 'class="chosen" data-placeholder="'. __('Choose countries', PPS_LANG_CODE). '"'))?>
+	</label><br />
+	<label class="ppsPopupMainOptLbl">
+		<?php _e('Hide for Languages', PPS_LANG_CODE)?>
+		<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('For those Languages PopUp will not be displayed. Language is defined by visitor browser language. Please be advised that your browser language is %s', PPS_LANG_CODE), $this->currentLanguage))?>"></i>
+		:<div style="padding-bottom: 5px; clear: both;"></div>
+		<?php if(!empty($this->languagesForSelect)) {?>
+		<?php echo htmlPps::selectlist('params[main][hide_for_languages][]', array(
+			'options' => $this->languagesForSelect, 
+			'value' => (isset($this->popup['params']['main']['hide_for_languages']) ? $this->popup['params']['main']['hide_for_languages'] : array()), 
+			'attrs' => 'class="chosen" data-placeholder="'. __('Choose languages', PPS_LANG_CODE). '"'))?>
+		<?php } else { ?>
+			<div class="alert alert-danger"><?php _e('This feature is supported only in WordPress version 4.0.0 or higher', PPS_LANG_CODE)?></div>
+		<?php }?>
 	</label><br />
 	<label class="supsystic-tooltip-left ppsPopupMainOptLbl" title="<?php _e('Hide PopUp for Logged-in users and show it only for not Logged site visitors.')?>" style="">
 		<?php echo htmlPps::checkbox('params[main][hide_for_logged_in]', array(
 			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'hide_for_logged_in')))?>
 		<?php _e('Hide for Logged-in', PPS_LANG_CODE)?>
 	</label><br />
-	<?php /*?><br />
-	<label>
-		<?php echo htmlPps::radiobutton('params[main][show_to]', array(
-			'value' => 'for_countries',
-			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_to', 'for_countries')))?>
-		<?php _e('Specify country', PPS_LANG_CODE)?>
-	</label><?php */?>
-	<div style="clear: both;"></div>
-	<span class="ppsOptLabel"><?php _e('Show on next pages', PPS_LANG_CODE)?></span>
-	<hr />
-	<label class="ppsPopupMainOptLbl">
-		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
-			'value' => 'all',
-			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'all')))?>
-		<?php _e('All pages', PPS_LANG_CODE)?>
-	</label><br />
-	<label class="ppsPopupMainOptLbl">
-		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
-			'value' => 'show_on_pages',
-			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'show_on_pages')))?>
-		<?php _e('Show on next pages / posts', PPS_LANG_CODE)?>
-	</label>
-	<div id="ppsOptDesc_params_main_show_pages_show_on_pages" style="display: none;">
-		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
-	</div><br />
-	<label class="ppsPopupMainOptLbl">
-		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
-			'value' => 'not_show_on_pages',
-			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_pages', 'not_show_on_pages')))?>
-		<?php _e('Don\'t show on next pages / posts', PPS_LANG_CODE)?>
-	</label>
-	<div id="ppsOptDesc_params_main_show_pages_not_show_on_pages" style="display: none;">
-		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
-	</div>
 </section>
+<div id="ppsHideForIpWnd" style="display: none;" title="<?php _e('IPs List', PPS_LANG_CODE)?>">
+	<label>
+		<?php _e('Type here IPs that will not see PopUp, each IP - from new line', PPS_LANG_CODE)?>:<br />
+		<?php echo htmlPps::textarea('hide_for_ips', array(
+			'attrs' => 'id="ppsHideForIpTxt" style="width: 100%; height: 300px;"'
+		))?>
+	</label>
+</div>

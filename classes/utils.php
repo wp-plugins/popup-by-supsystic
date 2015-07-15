@@ -558,4 +558,9 @@ class utilsPps {
 	static public function getLangCode() {
 		return get_locale();
 	}
+	static public function getBrowserLangCode() {
+		return isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])
+			? strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2))
+			: self::getLangCode2Letter();
+	}
 }

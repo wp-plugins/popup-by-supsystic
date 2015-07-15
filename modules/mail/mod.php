@@ -34,7 +34,7 @@ class mailPps extends modulePps {
 			$ts_mail_errors[] = $phpmailer->ErrorInfo;
 		}
 		if(empty($ts_mail_errors)) {
-			$ts_mail_errors[] = __('Can not send email - problem with send server');
+			$ts_mail_errors[] = __('Cannot send email - problem with send server');
 		}
 		return $ts_mail_errors;
 	}

@@ -28,7 +28,7 @@ class subscribeControllerPps extends controllerPps {
 			else
 				$res->addMessage(isset($lastPopup['params']['tpl']['sub_txt_success'])
 						? $lastPopup['params']['tpl']['sub_txt_success']
-						: __('Thank you for subscribe!', PPS_LANG_CODE));
+						: __('Thank you for subscribing!', PPS_LANG_CODE));
 			$redirectUrl = isset($lastPopup['params']['tpl']['sub_redirect_url']) && !empty($lastPopup['params']['tpl']['sub_redirect_url'])
 					? $lastPopup['params']['tpl']['sub_redirect_url']
 					: false;

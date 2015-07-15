@@ -174,7 +174,7 @@ class subscribeModelPps extends modelPps {
 			$this->_sendNewUserNotification($popup, $userId, $password, $d);
 			return true;
 		} else {
-			$this->pushError (is_wp_error($userId) ? $userId->get_error_message() : __('Can\'t subscribe for now. Please try again latter.', PPS_LANG_CODE));
+			$this->pushError (is_wp_error($userId) ? $userId->get_error_message() : __('Can\'t subscribe for now. Please try again later.', PPS_LANG_CODE));
 		}
 		return false;
 	}
@@ -294,7 +294,7 @@ class subscribeModelPps extends modelPps {
 		} else {
 			$nameHost = explode('@', $email);
 			if(username_exists($nameHost[0])) {
-				return $this->_getUsernameFromEmail($nameHost[0]. mt_rand(1, 9999). '@'. $nameHost[1], $name);
+				return $this->_getUsernameFromEmail($nameHost[0]. mt_rand(1, 9999). '@'. $nameHost[1], $username);
 			}
 			return $nameHost[0];
 		}
@@ -313,7 +313,7 @@ class subscribeModelPps extends modelPps {
 	}
 	public function isMailchimpSupported() {
 		if(!function_exists('curl_init')) {
-			$this->pushError(__('MailChimp require CURL to be setup on your server. Please contact your hosting provider and ask them to setup CURL libruary for you.', PPS_LANG_CODE));
+			$this->pushError(__('MailChimp requires CURL to be setup on your server. Please contact your hosting provider and ask them to setup CURL library for you.', PPS_LANG_CODE));
 			return false;
 		}
 		return true;
@@ -370,6 +370,7 @@ class subscribeModelPps extends modelPps {
 								if(isset($firstLastNames[ 1 ]) && !empty($firstLastNames[ 1 ])) {
 									$dataToSend['merge_vars']['LNAME'] = $firstLastNames[ 1 ];
 								}
+								$dataToSend['merge_vars']['NAME'] = $name;
 							}
 							if(isset($popup['params']['tpl']['sub_fields'])
 								&& !empty($popup['params']['tpl']['sub_fields'])

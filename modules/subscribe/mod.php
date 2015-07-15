@@ -68,6 +68,15 @@ class subscribePps extends modulePps {
 		foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
 			if(isset($f['enb']) && $f['enb']) {
 				$htmlType = $f['html'];
+				$name = $k;
+				if($popup && isset($popup['params']) 
+					&& isset($popup['params']['tpl']['sub_dest'])
+					&& $popup['params']['tpl']['sub_dest'] == 'aweber'
+					&& !in_array($name, array('name', 'email'))
+					&& strpos($name, 'custom ') !== 0
+				) {
+					$name = 'custom '. $name;	// This need for aweber to identifu custom fields
+				}
 				$htmlParams = array(
 					'placeholder' => $f['label'],
 				);
@@ -77,7 +86,7 @@ class subscribePps extends modulePps {
 						$htmlParams['options'][ $opt['name'] ] = $opt['label'];
 					}
 				}
-				$inputHtml = htmlPps::$htmlType($k, $htmlParams);
+				$inputHtml = htmlPps::$htmlType($name, $htmlParams);
 				if($htmlType == 'selectbox') {
 					$inputHtml = '<label class="ppsSubSelect"><span class="ppsSubSelectLabel">'. $f['label']. ': </span>'. $inputHtml. '</label>';
 				}

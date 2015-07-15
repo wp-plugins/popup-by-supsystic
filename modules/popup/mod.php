@@ -2,6 +2,7 @@
 class popupPps extends modulePps {
 	private $_renderedIds = array();
 	private $_addToFooterIds = array();
+	private $_assetsUrl = 'https://supsystic.com/_assets/popup/';
 	public function init() {
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 		add_action('template_redirect', array($this, 'checkPopupShow'));
@@ -89,6 +90,7 @@ class popupPps extends modulePps {
 		}
 	}
 	private function _beforeRender($popups) {
+		global $wp_query;
 		$dataRemoved = false;
 		if(!empty($popups)) {
 			$mobileDetect = NULL;
@@ -96,6 +98,11 @@ class popupPps extends modulePps {
 			$isTablet = false;
 			$isDesktop = false;
 			$isUserLoggedIn = framePps::_()->getModule('user')->isLoggedIn();
+			$postType = false;
+			
+			$userIp = false;
+			$countryCode = false;
+			$langCode = false;
 			
 			foreach($popups as $i => $p) {
 				if(isset($p['params']['main']['hide_for_devices']) 
@@ -119,12 +126,61 @@ class popupPps extends modulePps {
 						$dataRemoved = true;
 					}
 				}
+				if(isset($p['params']['main']['hide_for_post_types'])
+					&& !empty($p['params']['main']['hide_for_post_types'])
+				) { // Check if popup need to be hidden for some post types
+					if(!$postType) {
+						$postType = get_post_type();
+					}
+					if(in_array($postType, $p['params']['main']['hide_for_post_types'])
+						&& count($wp_query->posts) == 1
+					) {
+						unset($popups[ $i ]);
+						$dataRemoved = true;
+					}
+				}
 				if(isset($p['params']['main']['hide_for_logged_in']) 
 					&& !empty($p['params']['main']['hide_for_logged_in'])
 					&& $isUserLoggedIn
 				) {	// Check if we need to hide it from logged-in users
 					unset($popups[ $i ]);
 					$dataRemoved = true;
+				}
+				if(isset($p['params']['main']['hide_for_ips']) 
+					&& !empty($p['params']['main']['hide_for_ips'])
+				) {	// Check if we need to hide it for IPs
+					$hideForIpsArr = array_map('trim', explode(',', $p['params']['main']['hide_for_ips']));
+					if(!empty($hideForIpsArr)) {
+						if(!$userIp) {
+							$userIp = utilsPps::getIP();
+						}
+						if(in_array($userIp, $hideForIpsArr)) {
+							unset($popups[ $i ]);
+							$dataRemoved = true;
+						}
+					}
+				}
+				if(isset($p['params']['main']['hide_for_countries']) 
+					&& !empty($p['params']['main']['hide_for_countries'])
+				) {	// Check if we need to hide it for Counties
+					if(!$countryCode) {
+						$countryCode = $this->getCountryCode();
+					}
+					if(in_array($countryCode, $p['params']['main']['hide_for_countries'])) {
+						unset($popups[ $i ]);
+						$dataRemoved = true;
+					}
+				}
+				if(isset($p['params']['main']['hide_for_languages']) 
+					&& !empty($p['params']['main']['hide_for_languages'])
+				) {	// Check if we need to hide it for Languages
+					if(!$langCode) {
+						$langCode = utilsPps::getBrowserLangCode();
+					}
+					if(in_array($langCode, $p['params']['main']['hide_for_languages'])) {
+						unset($popups[ $i ]);
+						$dataRemoved = true;
+					}
 				}
 			}
 		}
@@ -188,6 +244,20 @@ class popupPps extends modulePps {
 		}
 		$this->_addToFooterIds[] = $id;
 		return '#ppsShowPopUp_'. $id;
+	}
+	public function getCountryCode( $ip = false ) {
+		// Don't save this object in static - we will try to use this method only one time
+		/*static $sxGeo;
+		if(!$sxGeo) {*/
+			importClassPps('SxGeo', PPS_HELPERS_DIR. 'SxGeo.php');
+			$sxGeo = new SxGeo(PPS_FILES_DIR. 'SxGeo.dat');
+		/*}*/
+		if(!$ip)
+			$ip = utilsPps::getIP ();
+		return $sxGeo->getCountry($ip);
+	}
+	public function getAssetsUrl() {
+		return $this->_assetsUrl;
 	}
 }
 

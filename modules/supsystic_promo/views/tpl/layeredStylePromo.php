@@ -9,7 +9,7 @@
 		</a>
 		<a target="_blank" class="button" style="margin-top: -8px;" href="<?php echo $this->promoLink?>"><?php _e('Available in PRO', PPS_LANG_CODE)?></a>
 	</label>
-	<div class="description"><?php _e('By default all PopUps - have modal style: it appear on user screen over the whole site. Layered style allow you to show your PopUp - on selected position: top, bottom, etc. and not over your site - but right near your content.', PPS_LANG_CODE)?></div>
+	<div class="description"><?php _e('By default all PopUps have modal style: it appears on user screen over the whole site. Layered style allows you to show your PopUp - on selected position: top, bottom, etc. and not over your site - but right near your content.', PPS_LANG_CODE)?></div>
 </div>
 <span>
 	<div class="ppsPopupOptRow">

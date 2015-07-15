@@ -6,6 +6,7 @@ class supsystic_promoPps extends modulePps {
 		'to'	=> array('%', '^'),
 	);
 	private $_minDataInStatToSend = 20;	// At least 20 points in table shuld be present before send stats
+	private $_assetsUrl = '';
 	public function __construct($d) {
 		parent::__construct($d);
 		$this->getMainLink();
@@ -97,10 +98,13 @@ class supsystic_promoPps extends modulePps {
 	}
 	public function addUserExp($tabs) {
 		$url = $this->getMainLink();
-		$modPath = $this->getModPath();
+		$modPath = $this->getAssetsUrl();
 		$tabs['ppsPopupAbTesting'] = array(
 			'title' => __('Testing', PPS_LANG_CODE), 
-			'content' => '<a href="'. $this->generateMainLink('utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank" class="button button-primary">'. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->generateMainLink('utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank"><img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" /></a>',
+			'content' => '<a href="'. $this->generateMainLink('utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank" class="button button-primary">'
+				. __('Get PRO', PPS_LANG_CODE). '</a><br /><a href="'. $this->generateMainLink('utm_source=plugin&utm_medium=abtesting&utm_campaign=popup'). '" target="_blank">'
+				. '<img style="max-width: 100%;" src="'. $modPath. 'img/AB-testing-pro.jpg" />'
+			. '</a>',
 			'icon_content' => '<b>A/B</b>',
 			'avoid_hide_icon' => true,
 			'sort_order' => 55,
@@ -156,7 +160,7 @@ class supsystic_promoPps extends modulePps {
             'category' => array('label' => __('Topic', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'selectbox', 'options' => array(
 				'plugins_options' => __('Plugin options', PPS_LANG_CODE),
 				'bug' => __('Report a bug', PPS_LANG_CODE),
-				'functionality_request' => __('Require a new functionallity', PPS_LANG_CODE),
+				'functionality_request' => __('Require a new functionality', PPS_LANG_CODE),
 				'other' => __('Other', PPS_LANG_CODE),
 			)),
 			'message' => array('label' => __('Message', PPS_LANG_CODE), 'valid' => 'notEmpty', 'html' => 'textarea', 'placeholder' => __('Hello Supsystic Team!', PPS_LANG_CODE)),
@@ -169,5 +173,11 @@ class supsystic_promoPps extends modulePps {
 	}
 	public function isPro() {
 		return framePps::_()->getModule('license') ? true : false;
+	}
+	public function getAssetsUrl() {
+		if(empty($this->_assetsUrl)) {
+			$this->_assetsUrl = framePps::_()->getModule('popup')->getAssetsUrl(). 'promo/';
+		}
+		return $this->_assetsUrl;
 	}
 }

@@ -22,7 +22,7 @@ class supsystic_promoViewPps extends viewPps {
 	public function getFaqList() {
 		return array(
 			__('Why Popup by Supsystic is "must have" for your website?', PPS_LANG_CODE) 
-				=> sprintf(__('Increase your sales by 500%% using Popup by Supsystic! More subscribers - more sales! It\'s that simple!<br />More info you can find here <a target="_blank" href="%s">Popup by Supsystic is "must have" for your website</a>', PPS_LANG_CODE), 'http://supsystic.com/why-popup-by-supsystic-is-must-have-for-your-website/'),
+				=> sprintf(__('Increase your sales by 500%% using Popup by Supsystic! More subscribers = more sales! It\'s that simple!<br />More info you can find here <a target="_blank" href="%s">Popup by Supsystic is "must have" for your website</a>', PPS_LANG_CODE), 'http://supsystic.com/why-popup-by-supsystic-is-must-have-for-your-website/'),
 			__('What is A/B testing?', PPS_LANG_CODE) 
 				=> sprintf(__('A/B testing is one of the easiest ways to increase conversion rates and learn more about your audience!<br />A/B test in Popup plugin involves testing two or more versions of a popup window - an A version (original) and a B versions (the variation) - with live traffic and measuring the effect each version has on your conversion rate.<br />To know more detail – click <a target="_blank" href="%s">here</a>', PPS_LANG_CODE), 'http://supsystic.com/what-is-ab-testing/'),
 			__('How to enable subscription to Aweber?', PPS_LANG_CODE)
@@ -61,7 +61,7 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 		) {
 			$content = $getData['body'];
 		} else {
-			$content = sprintf(__('There were some problem while trying to retrieve our news, but you can always check all list <a target="_blank" href="%s">here</a>.', PPS_LANG_CODE), 'http://supsystic.com/news');
+			$content = sprintf(__('There were some problems while trying to retrieve our news, but you can always check all list <a target="_blank" href="%s">here</a>.', PPS_LANG_CODE), 'http://supsystic.com/news');
 		}
 		return $content;
 	}
