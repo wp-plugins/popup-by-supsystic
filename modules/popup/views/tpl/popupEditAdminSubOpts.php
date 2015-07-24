@@ -20,20 +20,6 @@
 					'value' => (isset($this->popup['params']['tpl']['sub_dest']) ? $this->popup['params']['tpl']['sub_dest'] : '')))?>
 			</td>
 		</tr>
-		<tr>
-			<th scope="row">
-				<?php _e('Subscribe with Facebook', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('Add button to your PopUp with possibility to subscribe just in one click - without filling fields in your subscribe form, <img src="%s" />', PPS_LANG_CODE), $this->promoModPath. 'img/fb-subscribe.jpg'))?>"></i>
-				<?php if(!$this->isPro) {?>
-					<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=fb_subscribe&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
-				<?php }?>
-			</th>
-			<td>
-				<?php echo htmlPps::checkbox('params[tpl][sub_enb_fb_subscribe]', array(
-					'attrs' => 'class="ppsProOpt"',
-					'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'sub_enb_fb_subscribe')))?>
-			</td>
-		</tr>
 		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_wordpress">
 			<th scope="row">
 				<?php _e('Create user after subscribe with role', PPS_LANG_CODE)?>
@@ -133,6 +119,60 @@
 					<div class="description"><?php printf(__('To use this subscribe engine - you must have <a target="_blank" href="%s">MailPoet plugin</a> installed on your site', PPS_LANG_CODE), admin_url('plugin-install.php?tab=search&s=MailPoet'))?></div>
 				</th>
 			<?php }?>
+		</tr>
+		<?php
+			$proSubModules = array(
+				'constantcontact' => array('label' => __('Constant Contact', PPS_LANG_CODE)), 
+				'campaignmonitor' => array('label' => __('Campaign Monitor', PPS_LANG_CODE)), 
+				'sendgrid' => array('label' => __('SendGrid', PPS_LANG_CODE)),
+				'verticalresponse' => array('label' => __('Vertical Response', PPS_LANG_CODE)),
+				'arpreach' => array('label' => __('arpReach', PPS_LANG_CODE)),
+				'sgautorepondeur' => array('label' => __('SG Autorepondeur', PPS_LANG_CODE)),
+			);
+		?>
+		<script type="text/javascript">
+			var g_ppsProSubMethods = <?php echo utilsPps::jsonEncode($proSubModules)?>;
+		</script>
+		<?php foreach($proSubModules as $proSubMod => $proSubModData) { ?>
+			<?php if($this->isPro && framePps::_()->getModule( $proSubMod )) {?>
+				<?php echo framePps::_()->getModule( $proSubMod )->getView()->generateAdminFields( $this->popup )?>
+			<?php } elseif(($this->isPro && !framePps::_()->getModule( $proSubMod )) || (!$this->isPro && framePps::_()->getModule('license'))) {?>
+				<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_<?php echo $proSubMod?>">
+					<th scope="row">
+						<?php _e('Activate License or update PRO version plugin', PPS_LANG_CODE)?>
+						<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(__('Apparently - you have installed PRO version, but did not activate it license - then please activate it. Or you have old version of plugin - then you need go to Plugins page and Update PRO version plugin, after this go to License tab and re-activate license (just click one more time on "Activate" button).', PPS_LANG_CODE))?>"></i>
+					</th>
+					<td>
+						<a href="<?php echo framePps::_()->getModule('options')->getTabUrl('license');?>" class="button"><?php _e('Activate License', PPS_LANG_CODE)?></a>
+					</td>
+				</tr>
+			<?php } else {?>
+				<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_<?php echo $proSubMod?>">
+					<th scope="row">
+						<?php printf(__('Enable %s with PRO', PPS_LANG_CODE), $proSubModData['label'])?>
+						<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('This is PRO feature, and it will be available once you will install <a href="%s" target="_blank">PRO version</a> of our plugin', PPS_LANG_CODE), framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium='. $proSubMod. '&utm_campaign=popup')))?>"></i>
+						<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium='. $proSubMod. '&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+					</th>
+					<td>
+						<a href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium='. $proSubMod. '&utm_campaign=popup');?>" target="_blank" class="button"><?php _e('Get PRO', PPS_LANG_CODE)?></a>
+					</td>
+				</tr>
+			<?php }?>
+		<?php }?>
+		
+		<tr>
+			<th scope="row">
+				<?php _e('Subscribe with Facebook', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('Add button to your PopUp with possibility to subscribe just in one click - without filling fields in your subscribe form, <img src="%s" />', PPS_LANG_CODE), $this->promoModPath. 'img/fb-subscribe.jpg'))?>"></i>
+				<?php if(!$this->isPro) {?>
+					<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=fb_subscribe&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+				<?php }?>
+			</th>
+			<td>
+				<?php echo htmlPps::checkbox('params[tpl][sub_enb_fb_subscribe]', array(
+					'attrs' => 'class="ppsProOpt"',
+					'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'sub_enb_fb_subscribe')))?>
+			</td>
 		</tr>
 		<tr>
 			<th scope="row">

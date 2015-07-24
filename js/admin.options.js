@@ -381,14 +381,20 @@ function prepareToPlotDate(data) {
 /**
  * Main promo popup will show each time user will try to modify PRO option with free version only
  */
+function ppsGetMainPromoPopup() {
+	if(jQuery('#divToBeDialoged').hasClass('ui-dialog-content')) {
+		return jQuery('#ppsOptInProWnd');
+	}
+	return jQuery('#ppsOptInProWnd').dialog({
+		modal:    true
+	,	autoOpen: false
+	,	width: 540
+	,	height: 200
+	});
+}
 function ppsInitMainPromoPopup() {
 	if(!PPS_DATA.isPro) {
-		var $proOptWnd = jQuery('#ppsOptInProWnd').dialog({
-			modal:    true
-		,	autoOpen: false
-		,	width: 540
-		,	height: 200
-		});
+		var $proOptWnd = ppsGetMainPromoPopup();
 		jQuery('.ppsProOpt').change(function(e){
 			e.stopPropagation();
 			var needShow = true

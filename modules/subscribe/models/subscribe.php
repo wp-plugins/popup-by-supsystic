@@ -2,6 +2,7 @@
 class subscribeModelPps extends modelPps {
 	private $_dest = '';
 	private $_lastPopup = null;	// Some small internal caching
+	private $_subscribedInternal = true;
 	public function __construct() {
 		$this->_setTbl('subscribers');
 	}
@@ -15,12 +16,27 @@ class subscribeModelPps extends modelPps {
 			) {
 				$dest = $popup['params']['tpl']['sub_dest'];
 				$subMethod = 'subscribe_'. $dest;
-				if(method_exists($this, $subMethod)) {
+				$this->_subscribedInternal = method_exists($this, $subMethod);	// Subscribe method it in this model
+				$externalModel = NULL;
+				if(!$this->_subscribedInternal) {
+					// Check subscribe method in other modules - from PRO version for example
+					$externalModel = framePps::_()->getModule($dest) ? framePps::_()->getModule($dest)->getModel() : NULL;
+				}
+				if($this->_subscribedInternal || $externalModel) {
 					$this->_dest = $dest;
 					$this->_lastPopup = $popup;
 					$d = dbPps::prepareHtmlIn($d);
 					if($this->validateFields($d, $popup)) {
-						return $this->$subMethod($d, $popup, $validateIp);
+						$res = $this->_subscribedInternal 
+							? $this->$subMethod($d, $popup, $validateIp) 
+							: $externalModel->subscribe($d, $popup, $validateIp);
+						if(!$res && !$this->_subscribedInternal) {
+							$externalErrors = $externalModel->getErrors();
+							if(!empty($externalErrors)) {
+								$this->pushError($externalErrors);
+							}
+						}
+						return $res;
 					}
 				} else
 					$this->pushError (__('Something goes wrong', PPS_LANG_CODE));
@@ -29,6 +45,9 @@ class subscribeModelPps extends modelPps {
 		} else
 			$this->pushError (__('Empty or invalid ID', PPS_LANG_CODE));
 		return false;
+	}
+	public function isSubscribedInternal() {
+		return $this->_subscribedInternal;
 	}
 	public function validateFields($d, $popup) {
 		if(isset($popup['params']['tpl']['sub_fields']) && !empty($popup['params']['tpl']['sub_fields'])) {
@@ -56,6 +75,12 @@ class subscribeModelPps extends modelPps {
 	}
 	public function getLastPopup() {
 		return $this->_lastPopup;
+	}
+	/**
+	 * Just public alias for private method
+	 */
+	public function checkOftenAccess($d = array()) {
+		return $this->_checkOftenAccess( $d );
 	}
 	private function _checkOftenAccess($d = array()) {
 		if((int) framePps::_()->getModule('options')->get('disable_subscribe_ip_antispam'))
@@ -101,6 +126,12 @@ class subscribeModelPps extends modelPps {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * Public alias for _getInvalidEmailMsg() method
+	 */
+	public function getInvalidEmailMsg($popup) {
+		return $this->_getInvalidEmailMsg($popup);
 	}
 	private function _getInvalidEmailMsg($popup) {
 		return isset($popup['params']['tpl']['sub_txt_invalid_email'])

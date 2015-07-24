@@ -21,7 +21,12 @@ class subscribeControllerPps extends controllerPps {
 			) {
 				$withoutConfirm = !(bool) $wisijaConfigModel->getValue('confirm_dbleoptin');
 			}
-			if($destData && isset($destData['require_confirm']) && $destData['require_confirm'] && !$withoutConfirm)
+			$isSubInternal = $this->getModel()->isSubscribedInternal();
+			$forceRequireConfirm = false;
+			if(!$isSubInternal && framePps::_()->getModule($dest)) {	// Confirm can be required by other subscribe engines
+				$forceRequireConfirm = framePps::_()->getModule($dest)->getModel()->requireConfirm();
+			}
+			if(($destData && isset($destData['require_confirm']) && $destData['require_confirm'] && !$withoutConfirm) || $forceRequireConfirm)
 				$res->addMessage(isset($lastPopup['params']['tpl']['sub_txt_confirm_sent']) 
 						? $lastPopup['params']['tpl']['sub_txt_confirm_sent'] : 
 						__('Confirmation link was sent to your email address. Check your email!', PPS_LANG_CODE));

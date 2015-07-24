@@ -47,7 +47,7 @@
 	define('PPS_EOL', "\n");    
     
     define('PPS_PLUGIN_INSTALLED', true);
-    define('PPS_VERSION', '1.2.6');
+    define('PPS_VERSION', '1.2.7');
     define('PPS_USER', 'user');
     
     define('PPS_CLASS_PREFIX', 'ppsc');     
@@ -67,7 +67,7 @@
 	define('PPS_METHODS',		'methods');
 	define('PPS_USERLEVELS',	'userlevels');
 	/**
-	 * Framework instance code, unused for now
+	 * Framework instance code
 	 */
 	define('PPS_CODE', 'pps');
 

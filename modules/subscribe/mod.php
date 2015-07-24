@@ -3,12 +3,12 @@ class subscribePps extends modulePps {
 	private $_destList = array();
 	public function getDestList() {
 		if(empty($this->_destList)) {
-			$this->_destList = array(
+			$this->_destList = dispatcherPps::applyFilters('subDestList', array(
 				'wordpress' => array('label' => __('WordPress', PPS_LANG_CODE), 'require_confirm' => true),
 				'aweber' => array('label' => __('Aweber', PPS_LANG_CODE)),
 				'mailchimp' => array('label' => __('MailChimp', PPS_LANG_CODE), 'require_confirm' => true),
 				'mailpoet' => array('label' => __('MailPoet', PPS_LANG_CODE), 'require_confirm' => true),
-			);
+			));
 		}
 		return $this->_destList;
 	}
@@ -24,6 +24,10 @@ class subscribePps extends modulePps {
 			$generateMethod = 'generateFormStart_'. $subDest;
 			if(method_exists($view, $generateMethod)) {
 				$res = $view->$generateMethod( $popup );
+			} elseif(framePps::_()->getModule( $subDest ) && method_exists(framePps::_()->getModule( $subDest ), 'generateFormStart')) {
+				$res = framePps::_()->getModule( $subDest )->generateFormStart( $popup, $subDest );
+			} else {
+				$res = $view->generateFormStartCommon( $popup, $subDest );
 			}
 			$res = dispatcherPps::applyFilters('subFormStart', $res, $popup);
 		}
@@ -37,6 +41,10 @@ class subscribePps extends modulePps {
 			$generateMethod = 'generateFormEnd_'. $subDest;
 			if(method_exists($view, $generateMethod)) {
 				$res = $view->$generateMethod( $popup );
+			} elseif(framePps::_()->getModule( $subDest ) && method_exists(framePps::_()->getModule( $subDest ), 'generateFormEnd')) {
+				$res = framePps::_()->getModule( $subDest )->generateFormEnd( $popup );
+			} else {
+				$res = $view->generateFormEndCommon( $popup );
 			}
 			$res = dispatcherPps::applyFilters('subFormEnd', $res, $popup);
 		}
@@ -75,7 +83,14 @@ class subscribePps extends modulePps {
 					&& !in_array($name, array('name', 'email'))
 					&& strpos($name, 'custom ') !== 0
 				) {
-					$name = 'custom '. $name;	// This need for aweber to identifu custom fields
+					$name = 'custom '. $name;	// This need for aweber to identify custom fields
+				}
+				if($popup && isset($popup['params']) 
+					&& isset($popup['params']['tpl']['sub_dest'])
+					&& $popup['params']['tpl']['sub_dest'] == 'arpreach'
+					&& in_array($name, array('email'))
+				) {
+					$name .= '_address';	// name for field email for arpreach should be email_address
 				}
 				$htmlParams = array(
 					'placeholder' => $f['label'],

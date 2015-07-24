@@ -2,8 +2,8 @@
 Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
-Tested up to: 4.2.2
-Stable tag: 1.2.6
+Tested up to: 4.2.3
+Stable tag: 1.2.7
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -172,6 +172,22 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 
 == Changelog ==
+
+= 1.2.7 / 24.07.2015 =
+ * Added hide for Post Types functionality
+ * Updated preview images, some fixes in templates
+ * Layered style - fix displaying saved setting in admin area
+ * Minor admin area design improvements
+ * Integration with Social Share Buttons plugin - https://wordpress.org/plugins/social-share-buttons-by-supsystic/
+ * Additional improvements for "On Click" POpUp show - now link can contain shortcode in any href attr place
+ * Constant Contact Subscribe Engine integration - PRO
+ * Campaign Monitor Subscribe Engine integration - PRO
+ * Vertical Response Subscribe Engine integration - PRO
+ * arpReach Subscribe Engine integration - PRO
+ * SendGrid Subscribe Engine integration - PRO
+ * SG Autorepondeur Engine integration - PRO
+ * Added "Show Only" option in addition for options Hide for Devices, Hide for Post Types, Hide for for IP, Hide for Countries and Hide for Languages
+ * Functionality to show PopUp - on Menu Item click
 
 = 1.2.6 / 16.07.2015 =
  * Added new template "Discount"

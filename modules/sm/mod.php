@@ -3,6 +3,9 @@ class smPps extends modulePps {	//sm == socialmedia
 	private $_availableLinks = array();
 	private $_availableDesigns = array();
 	public function generateHtml($popup) {
+		$socialSharingHtml = apply_filters('supsystic_popup_sm_html', '', $popup);
+		if(!empty($socialSharingHtml))
+			return $socialSharingHtml;
 		$res = '';
 		$this->getAvailableLinks();
 		$this->getAvailableDesigns();
@@ -18,6 +21,7 @@ class smPps extends modulePps {	//sm == socialmedia
 		}
 		$res .= '<div style="clear: both;"></div>';
 		$res .= '</div>';
+
 		return $res;
 	}
 	public function getAvailableLinks() {

@@ -58,6 +58,18 @@ class subscribeViewPps extends viewPps {
 		$res .= '</form>';
 		return $res;
 	}
+	/**
+	 * Public alias for _generateFormStartCommon() method
+	 */
+	public function generateFormStartCommon($popup, $key = '') {
+		return $this->_generateFormStartCommon($popup, $key);
+	}
+	/**
+	 * Public alias for _generateFormEndCommon() method
+	 */
+	public function generateFormEndCommon($popup) {
+		return $this->_generateFormEndCommon($popup);
+	}
 	public function displaySuccessPage($popup, $res) {
 		$this->assign('popup', $popup);
 		$this->assign('res', $res);

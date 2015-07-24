@@ -17,6 +17,15 @@ jQuery(document).ready(function(){
 		} else {
 			jQuery('.ppsPopupSubEmailTxt').slideUp( g_ppsAnimationSpeed );
 		}
+		if(!PPS_DATA.isPro
+			&& typeof(g_ppsProSubMethods) !== 'undefined' 
+			&& typeof(g_ppsProSubMethods[ selectedSubMethod ]) !== 'undefined'
+		) {
+			var proDialog = ppsGetMainPromoPopup();
+			var promoLink = jQuery('.ppsPopupSubDestOpts_'+ selectedSubMethod).find('.ppsProOptMiniLabel a').attr('href');
+			proDialog.find('a').attr('href', promoLink);
+			proDialog.dialog('open');
+		}
 	}).change();
 	_ppsUpdateMailchimpLists();
 	
@@ -67,7 +76,7 @@ function _ppsUpdateMailchimpLists() {
 							jQuery('#ppsMailchimpLists').append('<option '+ selected+ ' value="'+ listId+ '">'+ res.data.lists[ listId ]+ '</option>');
 						}
 						jQuery('#ppsMailchimpListsShell').show();
-						jQuery('#ppsMailchimpLists').chosen().trigger("chosen:updated");
+						jQuery('#ppsMailchimpLists').chosen().trigger('chosen:updated');
 					}
 				}
 			});

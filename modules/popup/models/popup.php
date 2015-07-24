@@ -172,6 +172,15 @@ class popupModelPps extends modelPps {
 				}
 			}
 		}
+		if(isset($d['params']['tpl']['use_sss_prj_id'])) {
+			$oldSssProjId = isset($popup['params']['tpl']['use_sss_prj_id']) ? (int) $popup['params']['tpl']['use_sss_prj_id'] : 0;
+			$newSssProjId = (int) $d['params']['tpl']['use_sss_prj_id'];
+			if($oldSssProjId != $newSssProjId) {
+				if(!$this->_updateSocSharingProject( ($newSssProjId ? $newSssProjId : $oldSssProjId), $newSssProjId ? $d['id'] : 0 )) {	// For just changed Proj ID - set it, if it was set to 0 - clear prev. selected
+					return false;	// Something wrong go there - let's try to detect thos issues for now
+				}	
+			}
+		}
 		$this->getShowOnList();
 		$this->getShowToList();
 		$this->getShowPagesList();
@@ -190,8 +199,38 @@ class popupModelPps extends modelPps {
 				}
 			}
 			$this->_bindShowToPages( $d );
+			dispatcherPps::doAction('afterPopUpUpdate', $d);
 		}
 		return $res;
+	}
+	public function updateParamsById($d) {
+		foreach($d as $k => $v) {
+			if(!in_array($k, array('id', 'params')))
+				unset($d[ $k ]);
+		}
+		return $this->updateById($d);
+	}
+	private function _updateSocSharingProject($projId, $popupId) {
+		if(class_exists('SupsysticSocialSharing')) {
+			global $supsysticSocialSharing;
+			if(isset($supsysticSocialSharing) && !empty($supsysticSocialSharing) && method_exists($supsysticSocialSharing, 'getEnvironment')) {
+				$socShareProjMod = $supsysticSocialSharing->getEnvironment()->getModule('Projects');
+				if(!empty($socShareProjMod)) {
+					try {
+						$socShareProj = $socShareProjMod->getController()->getModelsFactory()->get('projects')->get($projId);
+						if(!empty($socShareProj)) {
+							$socShareProj->settings['where_to_show'] = 'popup';
+							$socShareProj->settings['popup_id'] = $popupId;
+							$socShareProjMod->getController()->getModelsFactory()->get('projects')->save($projId, $socShareProj->settings);
+						}
+					} catch (Exception $e) {
+						$this->pushError($e->getMessage());
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 	private function _bindShowToPages( $d ) {
 		$id = (int) $d['id'];

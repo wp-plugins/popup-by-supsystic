@@ -19,7 +19,7 @@ class popupControllerPps extends controllerPps {
 					$conversion = number_format( ((int) $data[ $i ]['actions'] / (int) $data[ $i ]['unique_views']), 3);
 				}
 				$data[ $i ]['conversion'] = $conversion;
-				$data[ $i ]['active'] = $data[ $i ]['active'] ? __('Yes', PPS_LANG_CODE) : __('No', PPS_LANG_CODE);
+				$data[ $i ]['active'] = $data[ $i ]['active'] ? '<span class="alert alert-success">'. __('Yes', PPS_LANG_CODE). '</span>' : '<span class="alert alert-danger">'. __('No', PPS_LANG_CODE). '</span>';
 				
 				//$data[ $i ]['action'] = '<a class="button" style="margin-right: 10px;" href="'. $this->getModule()->getEditLink($data[ $i ]['id']). '"><i class="fa fa-fw fa-2x fa-pencil" style="margin-top: 2px;"></i></a>';
 				//$data[ $i ]['action'] .= '<button href="#" onclick="ppsPopupRemoveRow('. $data[ $i ]['id']. ', this); return false;" title="'. __('Remove', PPS_LANG_CODE). '" class="button"><i class="fa fa-fw fa-2x fa-trash-o" style="margin-top: 5px;"></i></button>';
@@ -76,11 +76,44 @@ class popupControllerPps extends controllerPps {
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 			<html><head>'
 			. '<meta content="'. get_option('html_type'). '; charset='. get_option('blog_charset'). '" http-equiv="Content-Type">'
+			. $this->_generateSocSharingAssetsForPreview( $this->_prevPopupId )
 			. '</head><body>';
 			echo $this->getView()->generateHtml( $this->_prevPopupId );
 			echo '<body></html>';
 		}
 		exit();
+	}
+	private function _generateSocSharingAssetsForPreview($popupId) {
+		$res = '';
+		if(class_exists('SupsysticSocialSharing')) {
+			global $supsysticSocialSharing;
+			if(isset($supsysticSocialSharing) && !empty($supsysticSocialSharing) && method_exists($supsysticSocialSharing, 'getEnvironment')) {
+				$assetsForSocSharePlug = $supsysticSocialSharing->getEnvironment()->getModule('Ui')->getAssets();
+				if(!empty($assetsForSocSharePlug)) {
+					$frontedHookNames = array('wp_enqueue_scripts', $supsysticSocialSharing->getEnvironment()->getConfig()->get('hooks_prefix'). 'before_html_build');
+					foreach($assetsForSocSharePlug as $asset) {
+						if(in_array($asset->getHookName(), $frontedHookNames)) {
+							$source = $asset->getSource();
+							if(empty($source)) continue;
+							switch(get_class($asset)) {
+								case 'SocialSharing_Ui_Script':
+									$res .= '<script type="text/javascript" src="'. $asset->getSource(). '"></script>';
+									break;
+								case 'SocialSharing_Ui_Style':
+									$res .= '<link rel="stylesheet" type="text/css" href="'. $asset->getSource(). '" />';
+									break;
+							}
+						}
+					}
+					if(!empty($res)) {
+						$res = '<script type="text/javascript" src="'. includes_url('js/jquery/jquery.js'). '"></script>'
+							. '<script type="text/javascript"> var sssIgnoreSaveStatistics = true; </script>'
+							. $res;
+					}
+				}
+			}
+		}
+		return $res;
 	}
 	public function changeTpl() {
 		$res = new responsePps();

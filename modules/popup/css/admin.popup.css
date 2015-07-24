@@ -107,11 +107,19 @@
 	margin-bottom: 5px;
 }
 /*Too long for this particular input - make it smaller*/
-.supsystic-plugin #ppsHideForDevicesLabel .chosen-container.chosen-container-multi {
+/*.supsystic-plugin #ppsHideForDevicesLabel .chosen-container.chosen-container-multi {
 	min-width: 210px;
 }
 .supsystic-plugin #ppsHideForPostTypesLabel .chosen-container.chosen-container-multi {
 	min-width: 210px;
+}*/
+a.ppsSwitchShowHideOptLink {
+	color: inherit !important;
+	text-decoration: none !important;
+}
+a.ppsSwitchShowHideOptLink.active,
+a.ppsSwitchShowHideOptLink:hover {
+	font-weight: bold;
 }
 /*animations setup*/
 .ppsPopupAnimEff {
@@ -292,4 +300,8 @@
 .wp-picker-container {
 	min-width: 120px;
 	white-space: nowrap;
+}
+.ppsOptDescParamsShell {
+	padding-left: 15px;
+	overflow: hidden;
 }

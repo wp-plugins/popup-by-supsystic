@@ -19,12 +19,26 @@ class supsystic_promoPps extends modulePps {
 		}
 		$this->weLoveYou();
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
+		dispatcherPps::addFilter('subDestList', array($this, 'addSubDestList'));
 	}
 	public function addAdminTab($tabs) {
 		$tabs['overview'] = array(
 			'label' => __('Overview', PPS_LANG_CODE), 'callback' => array($this, 'getOverviewTabContent'), 'fa_icon' => 'fa-info', 'sort_order' => 5,
 		);
 		return $tabs;
+	}
+	public function addSubDestList($subDestList) {
+		if(!$this->isPro()) {
+			$subDestList = array_merge($subDestList, array(
+				'constantcontact' => array('label' => __('Constant Contact - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'campaignmonitor' => array('label' => __('Campaign Monitor - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'verticalresponse' => array('label' => __('Vertical Response - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'sendgrid' => array('label' => __('SendGrid - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'arpreach' => array('label' => __('arpReach - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'sgautorepondeur' => array('label' => __('SG Autorepondeur - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+			));
+		}
+		return $subDestList;
 	}
 	public function getOverviewTabContent() {
 		return $this->getView()->getOverviewTabContent();
@@ -88,7 +102,7 @@ class supsystic_promoPps extends modulePps {
 		return $link;
 	}
 	public function weLoveYou() {
-		if(!framePps::_()->getModule(implode('', array('l','ic','e','ns','e')))) {
+		if(!$this->isPro()) {
 			dispatcherPps::addFilter('popupEditTabs', array($this, 'addUserExp'));
 			dispatcherPps::addFilter('editPopupMainOptsShowOn', array($this, 'showAdditionalmainAdminShowOnOptions'));
 		}
@@ -172,7 +186,13 @@ class supsystic_promoPps extends modulePps {
 		return $fields;
 	}
 	public function isPro() {
-		return framePps::_()->getModule('license') ? true : false;
+		static $isPro;
+		if(is_null($isPro)) {
+			// license is always active with PRO - even if license key was not entered, 
+			// add_options module was from the begining of the times in PRO, and will be active only once user will activate license on site
+			$isPro = framePps::_()->getModule('license') && framePps::_()->getModule('add_options');
+		}
+		return $isPro;
 	}
 	public function getAssetsUrl() {
 		if(empty($this->_assetsUrl)) {

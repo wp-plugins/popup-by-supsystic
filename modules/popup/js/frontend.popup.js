@@ -25,9 +25,9 @@ jQuery(document).ready(function(){
 	}
 });
 function _ppsBindOnElementClickPopups() {
-	var clickOnLinks = jQuery('[href^=#ppsShowPopUp_]');
+	var clickOnLinks = jQuery('[href*=#ppsShowPopUp_]');
 	if(clickOnLinks && clickOnLinks.size()) {
-		jQuery('[href^=#ppsShowPopUp_]').each(function(){
+		clickOnLinks.each(function(){
 			jQuery(this).click(function(){
 				var popupId = jQuery(this).attr('href');
 				if(popupId && popupId != '') {
@@ -39,6 +39,25 @@ function _ppsBindOnElementClickPopups() {
 				}
 				return false;
 			});
+		});
+	}
+	var clickOnMenuItems = jQuery('[title*=#ppsShowPopUp_]');	// You can also set this in title - for menu items for example
+	if(clickOnMenuItems && clickOnMenuItems.size()) {
+		clickOnMenuItems.each(function(){
+			var title = jQuery(this).attr('title')
+			,	matched = title.match(/#ppsShowPopUp_(\d+)/);
+			if(matched && matched.length == 2) {
+				var popupId = parseInt(matched[1]);
+				if(popupId) {
+					jQuery(this)
+					.data('popup-id', popupId)
+					.attr('title', str_replace(title, matched[0], ''))
+					.click(function(){
+						ppsShowPopup( jQuery(this).data('popup-id') );
+						return false;
+					});
+				}
+			}
 		});
 	}
 }
@@ -124,7 +143,10 @@ function ppsBindPopupSubscribers(popup) {
 	if(popup.params.tpl.enb_subscribe) {
 		var shell = ppsGetPopupShell( popup );
 		switch(popup.params.tpl.sub_dest) {
-			case 'wordpress': case 'mailchimp': case 'mailpoet':
+			case 'aweber':
+				// No ajax action here
+			break;
+			case 'wordpress': case 'mailchimp': case 'mailpoet': default:
 				shell.find('.ppsSubscribeForm').submit(function(){
 					var submitBtn = jQuery(this).find('input[type=submit]')
 					,	self = this
@@ -248,6 +270,7 @@ function ppsShowPopup( popup, params ) {
 	// timeout is to make sure that fronted.gmap.js loaded for this time - because exactly there we have defined maps data
 	setTimeout(function(){
 		_ppsCheckMap({popup: popup, shell: shell});
+		_ppsSocialIcons({popup: popup, shell: shell});
 	}, 100);
 	popup.is_visible = true;
 	popup.is_rendered = true;	// Rendered at least one time
@@ -317,6 +340,20 @@ function _ppsCheckMap(params) {
 				,	mapData = gmpGetMapInfoById(mapId);
 				gmpInitMapOnPage( mapData );
 			}
+		});
+	}
+}
+/**
+ * Check social icons from Social Share Buttons by Supsystic plugin
+ * @param {object} params contain popup and popup shell html objects
+ */
+function _ppsSocialIcons(params) {
+	params = params || {};
+	var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup )
+	,	icons = shell.find('.supsystic-social-sharing:not(.supsystic-social-sharing-loaded)');
+	if(icons && icons.size() && typeof(window.initSupsysticSocialSharing) !== 'undefined') {
+		icons.each(function(){
+			window.initSupsysticSocialSharing(this);
 		});
 	}
 }

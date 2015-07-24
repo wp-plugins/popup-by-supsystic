@@ -330,6 +330,35 @@ class popupViewPps extends viewPps {
 		return parent::getContent('popupEditAdminSubOpts');
 	}
 	public function getMainPopupSmTab() {
+		$sssPlugAvailable = class_exists('SupsysticSocialSharing');
+		global $supsysticSocialSharing;
+		if($sssPlugAvailable && isset($supsysticSocialSharing) && method_exists($supsysticSocialSharing, 'getEnvironment')) {
+			$sssProjects = $supsysticSocialSharing->getEnvironment()->getModule('Projects')->getController()->getModelsFactory()->get('projects')->all();
+			if(empty($sssProjects)) {
+				$this->assign('addProjectUrl', $supsysticSocialSharing->getEnvironment()->generateUrl('projects'). '#add');
+			} else {
+				$sssProjectsForSelect = array(0 => __('None - use Standard PopUp Social Buttons'));
+				$popupIdFound = false;
+				foreach($sssProjects as $p) {
+					$sssProjectsForSelect[ $p->id ] = $p->title;
+					if(isset($p->settings) 
+						&& isset($p->settings['popup_id']) 
+						&& $p->settings['popup_id'] == $this->popup['id']
+					) {
+						$this->popup['params']['tpl']['use_sss_prj_id'] = $p->id;
+						$popupIdFound = true;
+					}
+				}
+				if(!$popupIdFound 
+					&& isset($this->popup['params']['tpl']['use_sss_prj_id']) 
+					&& !empty($this->popup['params']['tpl']['use_sss_prj_id'])
+				) {
+					$this->popup['params']['tpl']['use_sss_prj_id'] = 0;
+				}
+				$this->assign('sssProjectsForSelect', $sssProjectsForSelect);
+			}
+		}
+		$this->assign('sssPlugAvailable', $sssPlugAvailable);
 		return parent::getContent('popupEditAdminSmOpts');
 	}
 	public function getMainPopupCodeTab() {

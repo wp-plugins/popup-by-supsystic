@@ -8,6 +8,7 @@ class popupPps extends modulePps {
 		add_action('template_redirect', array($this, 'checkPopupShow'));
 		add_shortcode(PPS_SHORTCODE_CLICK, array($this, 'showPopupOnClick'));
 		add_action('wp_footer', array($this, 'collectFooterRender'));
+		add_filter('wp_nav_menu_objects', array($this, 'checkMenuItemsForPopUps'));
 	}
 	public function addAdminTab($tabs) {
 		$tabs[ $this->getCode(). '_add_new' ] = array(
@@ -115,13 +116,20 @@ class popupPps extends modulePps {
 						$isTablet = $mobileDetect->isTablet();
 						$isDesktop = !$isMobile && !$isTablet;
 					}
-					if(in_array('mobile', $p['params']['main']['hide_for_devices']) && $isMobile) {
+					$hideShowRevert = isset($p['params']['main']['hide_for_devices_show']) && (int) $p['params']['main']['hide_for_devices_show'];
+					if((!$hideShowRevert && in_array('mobile', $p['params']['main']['hide_for_devices']) && $isMobile)
+						|| ($hideShowRevert && !in_array('mobile', $p['params']['main']['hide_for_devices']) && $isMobile)
+					) {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
-					} elseif(in_array('tablet', $p['params']['main']['hide_for_devices']) && $isTablet) {
+					} elseif((!$hideShowRevert && in_array('tablet', $p['params']['main']['hide_for_devices']) && $isTablet)
+						|| ($hideShowRevert && !in_array('tablet', $p['params']['main']['hide_for_devices']) && $isTablet)
+					) {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
-					} elseif(in_array('desktop', $p['params']['main']['hide_for_devices']) && $isDesktop) {
+					} elseif((!$hideShowRevert && in_array('desktop', $p['params']['main']['hide_for_devices']) && $isDesktop)
+						|| ($hideShowRevert && !in_array('desktop', $p['params']['main']['hide_for_devices']) && $isDesktop)
+					) {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
 					}
@@ -132,9 +140,10 @@ class popupPps extends modulePps {
 					if(!$postType) {
 						$postType = get_post_type();
 					}
-					if(in_array($postType, $p['params']['main']['hide_for_post_types'])
-						&& count($wp_query->posts) == 1
-					) {
+					$hideShowRevert = isset($p['params']['main']['hide_for_post_types_show']) && (int) $p['params']['main']['hide_for_post_types_show'];
+					if(((!$hideShowRevert && count($wp_query->posts) === 1 && in_array($postType, $p['params']['main']['hide_for_post_types'])) 
+						|| ($hideShowRevert && (!in_array($postType, $p['params']['main']['hide_for_post_types']) || count($wp_query->posts) !== 1))
+					)) {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
 					}
@@ -154,7 +163,10 @@ class popupPps extends modulePps {
 						if(!$userIp) {
 							$userIp = utilsPps::getIP();
 						}
-						if(in_array($userIp, $hideForIpsArr)) {
+						$hideShowRevert = isset($p['params']['main']['hide_for_ips_show']) && (int) $p['params']['main']['hide_for_ips_show'];
+						if((!$hideShowRevert && in_array($userIp, $hideForIpsArr)) 
+							|| ($hideShowRevert && !in_array($userIp, $hideForIpsArr))
+						) {
 							unset($popups[ $i ]);
 							$dataRemoved = true;
 						}
@@ -166,7 +178,10 @@ class popupPps extends modulePps {
 					if(!$countryCode) {
 						$countryCode = $this->getCountryCode();
 					}
-					if(in_array($countryCode, $p['params']['main']['hide_for_countries'])) {
+					$hideShowRevert = isset($p['params']['main']['hide_for_countries_show']) && (int) $p['params']['main']['hide_for_countries_show'];
+					if((!$hideShowRevert && in_array($countryCode, $p['params']['main']['hide_for_countries']))
+						|| ($hideShowRevert && !in_array($countryCode, $p['params']['main']['hide_for_countries']))
+					) {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
 					}
@@ -177,7 +192,10 @@ class popupPps extends modulePps {
 					if(!$langCode) {
 						$langCode = utilsPps::getBrowserLangCode();
 					}
-					if(in_array($langCode, $p['params']['main']['hide_for_languages'])) {
+					$hideShowRevert = isset($p['params']['main']['hide_for_languages_show']) && (int) $p['params']['main']['hide_for_languages_show'];
+					if((!$hideShowRevert && in_array($langCode, $p['params']['main']['hide_for_languages']))
+						|| ($hideShowRevert && !in_array($langCode, $p['params']['main']['hide_for_languages']))
+					) {
 						unset($popups[ $i ]);
 						$dataRemoved = true;
 					}
@@ -258,6 +276,20 @@ class popupPps extends modulePps {
 	}
 	public function getAssetsUrl() {
 		return $this->_assetsUrl;
+	}
+	public function checkMenuItemsForPopUps($menuItems) {
+		if(!empty($menuItems)) {
+			foreach($menuItems as $item) {
+				if(is_object($item) && isset($item->attr_title) && !empty($item->attr_title) && strpos($item->attr_title, '#ppsShowPopUp_') !== false) {
+					preg_match('/\#ppsShowPopUp_(\d+)/', $item->attr_title, $matched);
+					$popupId = isset($matched[1]) ? (int) $matched[1] : 0;
+					if($popupId) {
+						$this->_addToFooterIds[] = $popupId;
+					}
+				}
+			}
+		}
+		return $menuItems;
 	}
 }
 
