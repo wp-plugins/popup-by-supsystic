@@ -97,7 +97,8 @@ class popupModelPps extends modelPps {
 	}
 	protected function _dataSave($data, $update = false) {
 		$data = $this->_beforeDbReplace($data);
-		$data['params'] = base64_encode(utilsPps::serialize( $data['params'] ));
+		if(isset($data['params']))
+			$data['params'] = base64_encode(utilsPps::serialize( $data['params'] ));
 		return $data;
 	}
 	protected function _escTplData($data) {
@@ -497,6 +498,20 @@ class popupModelPps extends modelPps {
 			), array(
 				'id' => $d['id'],
 			));
+		} else
+			$this->pushError (__('Invalid ID', PPS_LANG_CODE));
+		return false;
+	}
+	public function updateLabel($d = array()) {
+		$d['id'] = isset($d['id']) ? (int) $d['id'] : 0;
+		if(!empty($d['id'])) {
+			$d['label'] = isset($d['label']) ? trim($d['label']) : '';
+			if(!empty($d['label'])) {
+				return $this->updateById(array(
+					'label' => $d['label']
+				), $d['id']);
+			} else
+				$this->pushError (__('Name can not be empty', PPS_LANG_CODE));
 		} else
 			$this->pushError (__('Invalid ID', PPS_LANG_CODE));
 		return false;

@@ -168,6 +168,10 @@ function ppsBindPopupSubscribers(popup) {
 								if(res.data && res.data.redirect) {
 									toeRedirect(res.data.redirect);
 								}
+							} else {
+								if(res.data && res.data.emailExistsRedirect) {
+									toeRedirect( res.data.emailExistsRedirect );
+								}
 							}
 						}
 					});

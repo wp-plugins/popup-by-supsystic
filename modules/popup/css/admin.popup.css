@@ -303,5 +303,11 @@ a.ppsSwitchShowHideOptLink:hover {
 }
 .ppsOptDescParamsShell {
 	padding-left: 15px;
-	overflow: hidden;
+	/*overflow: hidden;*/
+}
+#ppsPopupEditableLabelShell {
+	cursor: pointer;
+}
+#ppsPopupEditableLabelTxt {
+	display: none;
 }

@@ -1,4 +1,10 @@
-&laquo;<?php echo $this->popup['label']?>&raquo;&nbsp;
+&laquo;<span id="ppsPopupEditableLabelShell" title="<?php _e('Click to Edit', PPS_LANG_CODE)?>">
+	<span id="ppsPopupEditableLabel"><?php echo $this->popup['label']?></span>
+	<?php echo htmlPps::text('popup_label', array(
+		'attrs' => 'id="ppsPopupEditableLabelTxt"'
+	))?>
+	<i id="ppsPopupLabelEditMsg" class="fa fa-fw fa-pencil"></i>
+</span>&raquo;&nbsp;
 <span id="ppsPopupMainControllsShell" style="float: right; padding-right: 95px;">
 	<button class="button button-primary ppsPopupSaveBtn" title="<?php _e('Save all changes', PPS_LANG_CODE)?>">
 		<i class="fa fa-fw fa-save"></i>

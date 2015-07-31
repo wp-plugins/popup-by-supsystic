@@ -276,7 +276,7 @@ jQuery(document).ready(function(){
 		var currentPadding = parseInt(jQuery('#ppsPopupMainControllsShell').css('padding-right'));
 		jQuery('#ppsPopupMainControllsShell').css('padding-right', currentPadding - 200);
 	});
-	/*Change show/hide parameters*/
+	// Change show/hide parameters
 	jQuery('.ppsSwitchShowHideOptLink').click(function(e){
 		e.stopPropagation();
 		jQuery(this).parents('.ppsPopupMainOptLbl:first').find('.ppsSwitchShowHideOptLink').removeClass('active');
@@ -298,10 +298,51 @@ jQuery(document).ready(function(){
 			parsedShowHideInputNames.push( inputName );
 		}
 	});
+	// Editable PopUp title
+	jQuery('#ppsPopupEditableLabelShell').click(function(){
+		var isEdit = jQuery(this).data('edit-on');
+		if(!isEdit) {
+			var $labelHtml = jQuery('#ppsPopupEditableLabel')
+			,	$labelTxt = jQuery('#ppsPopupEditableLabelTxt');
+			$labelTxt.val( $labelHtml.text() );
+			$labelHtml.hide( g_ppsAnimationSpeed );
+			$labelTxt.show( g_ppsAnimationSpeed, function(){
+				jQuery(this).data('ready', 1);
+			});
+			jQuery(this).data('edit-on', 1);
+		}
+	});
+	jQuery('#ppsPopupEditableLabelTxt').blur(function(){
+		ppsFinishEditPopupLabel( jQuery(this).val() );
+	}).keydown(function(e){
+		if(e.keyCode == 13) {	// Enter pressed
+			ppsFinishEditPopupLabel( jQuery(this).val() );
+		}
+	});
 });
 jQuery(window).load(function(){
 	ppsAdjustPopupsEditTabs();
 });
+function ppsFinishEditPopupLabel(label) {
+	if(jQuery('#ppsPopupEditableLabelShell').data('sending')) return;
+	if(!jQuery('#ppsPopupEditableLabelTxt').data('ready')) return;
+	jQuery('#ppsPopupEditableLabelShell').data('sending', 1);
+	jQuery.sendFormPps({
+		btn: jQuery('#ppsPopupEditableLabelShell')
+	,	data: {mod: 'popup', action: 'updateLabel', label: label, id: ppsPopup.id}
+	,	onSuccess: function(res) {
+			if(!res.error) {
+				var $labelHtml = jQuery('#ppsPopupEditableLabel')
+				,	$labelTxt = jQuery('#ppsPopupEditableLabelTxt');
+				$labelHtml.html( jQuery.trim($labelTxt.val()) );
+				$labelTxt.hide( g_ppsAnimationSpeed ).data('ready', 0);
+				$labelHtml.show( g_ppsAnimationSpeed );
+				jQuery('#ppsPopupEditableLabelShell').data('edit-on', 0);
+			}
+			jQuery('#ppsPopupEditableLabelShell').data('sending', 0);
+		}
+	});
+}
 /**
  * Make popup edit tabs - responsive
  * @param {bool} requring is function - called in requring way

@@ -165,11 +165,20 @@ class popupControllerPps extends controllerPps {
 			$res->pushError ($this->getModel()->getErrors());
 		return $res->ajaxExec();
 	}
+	public function updateLabel() {
+		$res = new responsePps();
+		if($this->getModel()->updateLabel(reqPps::get('post'))) {
+			$res->addMessage(__('Done', PPS_LANG_CODE));
+		} else
+			$res->pushError ($this->getModel()->getErrors());
+		return $res->ajaxExec();
+	}
 	public function getPermissions() {
 		return array(
 			PPS_USERLEVELS => array(
 				PPS_ADMIN => array('createFromTpl', 'getListForTbl', 'remove', 'removeGroup', 'clear', 
-					'save', 'getPreviewHtml', 'exportForDb', 'changeTpl', 'saveAsCopy', 'switchActive', 'outPreviewHtml')
+					'save', 'getPreviewHtml', 'exportForDb', 'changeTpl', 'saveAsCopy', 'switchActive', 
+					'outPreviewHtml', 'updateLabel')
 			),
 		);
 	}

@@ -113,5 +113,17 @@ class uriPps {
 		return is_ssl();
 		//return (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on');
 	}
+	/**
+	 * If url is without http:// - just domain name for example - we will add it here
+	 * @param string $url Url to check
+	 * @return string Checked and corrected URL (if this will be required)
+	 */
+	static public function normal($url) {
+		$url = trim($url);
+		if(strpos($url, 'http') !== 0) {
+			$url = 'http://'. $url;
+		}
+		return $url;
+	}
 }
 

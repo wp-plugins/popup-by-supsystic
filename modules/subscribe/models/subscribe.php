@@ -3,6 +3,8 @@ class subscribeModelPps extends modelPps {
 	private $_dest = '';
 	private $_lastPopup = null;	// Some small internal caching
 	private $_subscribedInternal = true;
+	
+	private $_emailExists = false;
 	public function __construct() {
 		$this->_setTbl('subscribers');
 	}
@@ -168,13 +170,24 @@ class subscribeModelPps extends modelPps {
 							}
 						}
 					}
-				} else
+				} else {
+					$this->setEmailExists(true);
 					$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
+				}
 			} else
 				$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		} else
 			$this->pushError ($this->_getInvalidEmailMsg($popup), 'email');
 		return false;
+	}
+	public function setEmailExists($state) {
+		$this->_emailExists = $state;
+	}
+	public function getEmailExists($email = '') {
+		if(!empty($email)) {
+			$this->setEmailExists( email_exists($email) );
+		}
+		return $this->_emailExists;
 	}
 	public function createWpSubscriber($popup, $email, $username, $d) {
 		$password = wp_generate_password();

@@ -38,14 +38,23 @@ class subscribeControllerPps extends controllerPps {
 					? $lastPopup['params']['tpl']['sub_redirect_url']
 					: false;
 			if(!empty($redirectUrl)) {
-				$redirectUrl = trim($redirectUrl);
+				/*$redirectUrl = trim($redirectUrl);
 				if(strpos($redirectUrl, 'http') !== 0) {
 					$redirectUrl = 'http://'. $redirectUrl;
-				}
-				$res->addData('redirect', $redirectUrl);
+				}*/
+				$res->addData('redirect', uriPps::normal($redirectUrl));
 			}
-		} else
+		} else {
+			$lastPopup = $this->getModel()->getLastPopup();
+			if($lastPopup 
+				&& isset($lastPopup['params']['tpl']['sub_redirect_email_exists']) 
+				&& !empty($lastPopup['params']['tpl']['sub_redirect_email_exists'])
+				&& $this->getModel()->getEmailExists()
+			) {
+				$res->addData('emailExistsRedirect', uriPps::normal($lastPopup['params']['tpl']['sub_redirect_email_exists']));
+			}
 			$res->pushError ($this->getModel()->getErrors());
+		}
 		if(!$res->isAjax()) {
 			if(!$res->error()) {
 				$popupActions = reqPps::getVar('pps_actions_'. $id, 'cookie');

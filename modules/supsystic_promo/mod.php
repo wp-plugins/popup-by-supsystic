@@ -190,7 +190,7 @@ class supsystic_promoPps extends modulePps {
 		if(is_null($isPro)) {
 			// license is always active with PRO - even if license key was not entered, 
 			// add_options module was from the begining of the times in PRO, and will be active only once user will activate license on site
-			$isPro = framePps::_()->getModule('license') && framePps::_()->getModule('add_options');
+			$isPro = framePps::_()->getModule('license') && framePps::_()->getModule('on_exit');
 		}
 		return $isPro;
 	}

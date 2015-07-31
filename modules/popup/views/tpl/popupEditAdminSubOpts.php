@@ -306,6 +306,7 @@
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_redirect_url]', array(
 					'value' => (isset($this->popup['params']['tpl']['sub_redirect_url']) ? esc_url( $this->popup['params']['tpl']['sub_redirect_url'] ) : ''),
+					'attrs' => 'placeholder="http://example.com"',
 				))?>
 			</td>
 		</tr>
@@ -388,6 +389,20 @@
 					'value' => esc_html( isset($this->popup['params']['tpl']['sub_txt_subscriber_mail_message']) 
 						? $this->popup['params']['tpl']['sub_txt_subscriber_mail_message'] 
 						: __('Username: [user_login]<br />Password: [password]<br />[login_url]', PPS_LANG_CODE)),
+				))?>
+			</td>
+		</tr>
+		<tr class="ppsPopupSubEmailTxt" style="display: none;">
+			<th scope="row">
+				<?php _e('Redirect if email already exists', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Link to redirect to if user subscribe - but this email already exists', PPS_LANG_CODE)?>"></i>
+			</th>
+			<td>
+				<?php echo htmlPps::text('params[tpl][sub_redirect_email_exists]', array(
+					'value' => esc_html ( isset($this->popup['params']['tpl']['sub_redirect_email_exists']) 
+						? $this->popup['params']['tpl']['sub_redirect_email_exists'] 
+						: ''),
+					'attrs' => 'placeholder="http://example.com"'
 				))?>
 			</td>
 		</tr>

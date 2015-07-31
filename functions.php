@@ -314,3 +314,11 @@ if(!function_exists('toeMultArrayMap')) {
         return $array;
     }
 }
+/**
+ * Twig require this function, but it is present not on all servers
+ */
+if(!function_exists('hash')) {
+	function hash($method, $data) {
+		return md5($data);
+	}
+}
