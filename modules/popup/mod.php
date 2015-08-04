@@ -112,8 +112,8 @@ class popupPps extends modulePps {
 					if(!$mobileDetect) {
 						importClassPps('Mobile_Detect', PPS_HELPERS_DIR. 'mobileDetect.php');
 						$mobileDetect = new Mobile_Detect();
-						$isMobile = $mobileDetect->isMobile();
 						$isTablet = $mobileDetect->isTablet();
+						$isMobile = !$isTablet && $mobileDetect->isMobile();
 						$isDesktop = !$isMobile && !$isTablet;
 					}
 					$hideShowRevert = isset($p['params']['main']['hide_for_devices_show']) && (int) $p['params']['main']['hide_for_devices_show'];

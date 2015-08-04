@@ -1,3 +1,24 @@
+<?php
+	// Check if PopUp use Google Maps shortcode and there are no Google Maps plugin on site - show warning
+	$warnings = array();
+	if(isset($this->popup['params']['opts_attrs']['txt_block_number']) 
+		&& !empty($this->popup['params']['opts_attrs']['txt_block_number'])
+	) {
+		for($i = 0; $i < $this->popup['params']['opts_attrs']['txt_block_number']; $i++) {
+			if(isset($this->popup['params']['tpl']['txt_'. $i]) 
+				&& !empty($this->popup['params']['tpl']['txt_'. $i])
+				&& strpos($this->popup['params']['tpl']['txt_'. $i], '[google_map_easy') !== false
+				&& !class_exists('frameGmp')
+			) {
+				$warnings[] = sprintf(__('You are using Google Maps in this PopUp, but don\'t have Google Maps Easy plugin installed. You can get it for Free from WordPress site <a target="_blank" href="%s">here</a>, install and start using this PopUp with map.', PPS_LANG_CODE), 'https://wordpress.org/plugins/google-maps-easy/');
+				break;
+			} 
+		}
+	}
+?>
+<?php if(!empty($warnings)) { ?>
+	<div class="alert alert-warning"><?php echo implode('<br />', $warnings)?></div>
+<?php }?>
 <section class="ppsPopupMainOptSect">
 	<span class="ppsOptLabel"><?php _e('When to show PopUp', PPS_LANG_CODE)?></span>
 	<hr />
