@@ -76,9 +76,13 @@ class popupControllerPps extends controllerPps {
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 			<html><head>'
 			. '<meta content="'. get_option('html_type'). '; charset='. get_option('blog_charset'). '" http-equiv="Content-Type">'
-			. $this->_generateSocSharingAssetsForPreview( $this->_prevPopupId )
-			. '</head><body>';
+			//. $this->_generateSocSharingAssetsForPreview( $this->_prevPopupId )
+			. '<style type="text/css"> html { overflow: visible !important; } </style>'
+			. '</head>';
+			wp_head();
+			echo '<body>';
 			echo $this->getView()->generateHtml( $this->_prevPopupId );
+			wp_footer();
 			echo '<body></html>';
 		}
 		exit();

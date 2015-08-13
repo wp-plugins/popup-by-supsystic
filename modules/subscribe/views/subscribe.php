@@ -46,7 +46,11 @@ class subscribeViewPps extends viewPps {
 		return $this->_generateFormEndCommon($popup);
 	}
 	private function _generateFormStartCommon($popup, $key = '') {
-		return '<form class="ppsSubscribeForm'. (empty($key) ? '' : ' ppsSubscribeForm_'. $key).'" action="'. PPS_SITE_URL. '" method="post">';
+		$res = '<form class="ppsSubscribeForm'. (empty($key) ? '' : ' ppsSubscribeForm_'. $key).'" action="'. PPS_SITE_URL. '" method="post">';
+		if(in_array($popup['original_id'], array(31))) {	// For those templates - put message up to the form
+			$res .= '<div class="ppsSubMsg"></div>';
+		}
+		return $res;
 	}
 	private function _generateFormEndCommon($popup) {
 		$res = '';
@@ -54,7 +58,9 @@ class subscribeViewPps extends viewPps {
 		$res .= htmlPps::hidden('action', array('value' => 'subscribe'));
 		$res .= htmlPps::hidden('id', array('value' => $popup['id']));
 		$res .= htmlPps::hidden('_wpnonce', array('value' => wp_create_nonce('subscribe-'. $popup['id'])));
-		$res .= '<div class="ppsSubMsg"></div>';
+		if(!in_array($popup['original_id'], array(31))) {	// For those templates - put message up to the form
+			$res .= '<div class="ppsSubMsg"></div>';
+		}
 		$res .= '</form>';
 		return $res;
 	}

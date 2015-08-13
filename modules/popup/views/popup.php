@@ -57,8 +57,8 @@ class popupViewPps extends viewPps {
 		// !remove this!!!!
 		/*$popup['params']['opts_attrs'] = array(
 			'bg_number' => 2,
-			'txt_block_number' => 1,
-			'video_height_as_popup' => 1,
+			'txt_block_number' => 2,
+			//'video_height_as_popup' => 1,
 		);*/
 		/*$popup['params']['opts_attrs']['txt_block_number'] = 0;
 		$popup['params']['opts_attrs']['video_width_as_popup'] = 1;
@@ -655,6 +655,7 @@ class popupViewPps extends viewPps {
 				'tick' => array('img' => 'tick.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
 				'tick_blue' => array('img' => 'tick_blue.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
 				'ticks' => array('img' => 'ticks.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px')),
+				'pop_icon' => array('img' => 'pop_icon.jpg', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'height' => '30px', 'background-position' => 'left center')),
 			);
 			foreach($this->_bullets as $key => $data) {
 				if(isset($data['img']) && !isset($data['img_url'])) {

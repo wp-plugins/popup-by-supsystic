@@ -3,7 +3,7 @@
  * Plugin Name: PopUp by Supsystic
  * Plugin URI: https://supsystic.com/plugins/popup-plugin/
  * Description: The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
- * Version: 1.2.9
+ * Version: 1.3.0
  * Author: supsystic.com
  * Author URI: https://supsystic.com
  **/
