@@ -77,7 +77,9 @@ class popupControllerPps extends controllerPps {
 			<html><head>'
 			. '<meta content="'. get_option('html_type'). '; charset='. get_option('blog_charset'). '" http-equiv="Content-Type">'
 			//. $this->_generateSocSharingAssetsForPreview( $this->_prevPopupId )
-			. '<style type="text/css"> html { overflow: visible !important; } </style>'
+			. '<style type="text/css"> 
+				html { overflow: visible !important; } 
+				</style>'
 			. '</head>';
 			wp_head();
 			echo '<body>';

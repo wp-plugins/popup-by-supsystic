@@ -338,3 +338,26 @@ function toeSliderMove(event, ui) {
     jQuery('#toeSliderDisplay_'+ id).html( ui.value );
     jQuery('#toeSliderInput_'+ id).val( ui.value ).change();
 }
+function ppsCorrectJqueryUsed() {
+	return (typeof(jQuery.fn.sendFormPps) === 'function');
+}
+function ppsReloadCoreJs(clb, params) {
+	var scriptsHtml = ''
+	,	coreScripts = ['common.js', 'core.js'];
+	for(var i = 0; i < coreScripts.length; i++) {
+		scriptsHtml += '<script type="text/javascript" class="ppsReloadedScript" src="'+ PPS_DATA.jsPath+ coreScripts[ i ]+ '"></script>';
+	}
+	jQuery('head').append( scriptsHtml );
+	if(clb) {
+		_ppsRunClbAfterCoreReload( clb, params );
+	}
+}
+function _ppsRunClbAfterCoreReload(clb, params) {
+	if(ppsCorrectJqueryUsed()) {
+		callUserFuncArray(clb, params);
+		return;
+	}
+	setTimeout(function(){
+		ppsCorrectJqueryUsed(clb, params);
+	}, 500);
+}

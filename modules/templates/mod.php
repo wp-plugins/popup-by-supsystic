@@ -46,6 +46,7 @@ class templatesPps extends modulePps {
 			'PPS_CODE'					=> PPS_CODE,
 			//'ball_loader'				=> PPS_IMG_PATH. 'ajax-loader-ball.gif',
 			//'ok_icon'					=> PPS_IMG_PATH. 'ok-icon.png',
+			'jsPath'					=> PPS_JS_PATH,
 		);
 		if(is_admin()) {
 			$jsData['isPro'] = framePps::_()->getModule('supsystic_promo')->isPro();

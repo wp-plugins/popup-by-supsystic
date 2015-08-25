@@ -101,6 +101,9 @@ class subscribePps extends modulePps {
 						$htmlParams['options'][ $opt['name'] ] = $opt['label'];
 					}
 				}
+				if(isset($f['value']) && !empty($f['value'])) {
+					$htmlParams['value'] = $f['value'];
+				}
 				$inputHtml = htmlPps::$htmlType($name, $htmlParams);
 				if($htmlType == 'selectbox') {
 					$inputHtml = '<label class="ppsSubSelect"><span class="ppsSubSelectLabel">'. $f['label']. ': </span>'. $inputHtml. '</label>';

@@ -227,6 +227,7 @@
 					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][name]', array('value' => isset($f['name']) ? $f['name'] : $k))?>
 					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][html]', array('value' => $f['html']))?>
 					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][label]', array('value' => $f['label']))?>
+					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][value]', array('value' => isset($f['value']) ? $f['value'] : ''))?>
 					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][custom]', array('value' => isset($f['custom']) ? $f['custom'] : 0))?>
 					<?php echo htmlPps::hidden('params[tpl][sub_fields]['. $k. '][mandatory]', array('value' => isset($f['mandatory']) ? $f['mandatory'] : 0))?>
 					<?php if(isset($f['options']) && !empty($f['options'])) {
@@ -242,15 +243,6 @@
 					?>
 				</div>
 			<?php }?>
-			<?php /*?><label class="supsystic-tooltip" title="Email field is mandatory for most of subscribe engines - so it should be always enabled">
-				<?php echo htmlPps::checkbox('enabled_email_subscribe', array('checked' => 1, 'attrs' => 'disabled'))?>
-				<?php _e('Email', PPS_LANG_CODE)?>
-			</label>
-			<label>
-				<?php echo htmlPps::checkbox('params[tpl][enb_sub_name]', array('checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'enb_sub_name')))?>
-				<?php _e('Name', PPS_LANG_CODE)?>
-			</label>
-			<?php */?>
 			<label id="ppsSubAddFieldShell">
 				<a id="ppsSubAddFieldBtn" href="#" class="button button-primary">
 					<i class="fa fa-plus"></i>

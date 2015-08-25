@@ -8,6 +8,7 @@ jQuery(document).ready(function(){
 		jQuery(document).trigger('ppsBeforePopupsInit', ppsPopups);
 		for(var i = 0; i < ppsPopups.length; i++) {
 			jQuery('body').append( ppsPopups[ i ].rendered_html );
+			ppsBindPopupLoad( ppsPopups[ i ] );
 			ppsBindPopupShow( ppsPopups[ i ] );
 			ppsBindPopupClose( ppsPopups[ i ] );
 			ppsBindPopupActions( ppsPopups[ i ] );
@@ -60,6 +61,11 @@ function _ppsBindOnElementClickPopups() {
 			}
 		});
 	}
+}
+function ppsBindPopupLoad( popup ) {
+	var shell = ppsGetPopupShell( popup );
+	// Small hack to start load images from PopUp right after it will be added to show stack
+	shell.show().hide();
 }
 function ppsBindPopupShow( popup ) {
 	_ppsCheckBindVideo({popup: popup});
@@ -255,6 +261,10 @@ function _ppsPopupAddStat( popup, action, smType, isUnique ) {
  * @param {mixed} popup Popup object or it's ID
  */
 function ppsShowPopup( popup, params ) {
+	if(!ppsCorrectJqueryUsed()) {
+		ppsReloadCoreJs(ppsShowPopup, [popup, params]);
+		return;
+	}
 	params = params || {};
 	if(jQuery.isNumeric( popup ))
 		popup = ppsGetPopupById( popup );
