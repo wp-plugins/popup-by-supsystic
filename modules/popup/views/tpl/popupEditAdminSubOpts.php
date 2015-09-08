@@ -125,6 +125,7 @@
 				'constantcontact' => array('label' => __('Constant Contact', PPS_LANG_CODE)), 
 				'campaignmonitor' => array('label' => __('Campaign Monitor', PPS_LANG_CODE)), 
 				'sendgrid' => array('label' => __('SendGrid', PPS_LANG_CODE)),
+				'get_response' => array('label' => __('GetResponse', PPS_LANG_CODE)),
 				'verticalresponse' => array('label' => __('Vertical Response', PPS_LANG_CODE)),
 				'arpreach' => array('label' => __('arpReach', PPS_LANG_CODE)),
 				'sgautorepondeur' => array('label' => __('SG Autorepondeur', PPS_LANG_CODE)),

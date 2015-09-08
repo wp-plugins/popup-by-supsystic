@@ -63,9 +63,23 @@ function _ppsBindOnElementClickPopups() {
 	}
 }
 function ppsBindPopupLoad( popup ) {
-	var shell = ppsGetPopupShell( popup );
-	// Small hack to start load images from PopUp right after it will be added to show stack
-	shell.show().hide();
+	var preloadImgs = jQuery('.ppsPopupPreloadImg_'+ popup.view_id);
+	popup._imgsCount = preloadImgs.size();
+	if(popup._imgsCount) {
+		popup._imgsLoaded = false;
+		popup._imgsLoadedCount = 0;
+		preloadImgs.load(function(){
+			popup._imgsLoadedCount++;
+			if(popup._imgsLoadedCount >= popup._imgsCount) {
+				popup._imgsLoaded = true;
+				var shell = ppsGetPopupShell( popup );
+				shell.trigger('ppsShowPopupAfterAllImgs', popup);
+				console.log(shell);
+			}
+		});
+	} else {
+		popup._imgsLoaded = true;
+	}
 }
 function ppsBindPopupShow( popup ) {
 	_ppsCheckBindVideo({popup: popup});
@@ -268,9 +282,15 @@ function ppsShowPopup( popup, params ) {
 	params = params || {};
 	if(jQuery.isNumeric( popup ))
 		popup = ppsGetPopupById( popup );
+	var shell = ppsGetPopupShell( popup );
+	if(!popup._imgsLoaded) {
+		shell.bind('ppsShowPopupAfterAllImgs', function(){
+			ppsShowPopup( popup, params );
+		});
+		return;
+	}
 	_ppsPopupAddStat( popup, 'show', 0, params.isUnique );	// Save show popup statistics
 	ppsShowBgOverlay( popup );
-	var shell = ppsGetPopupShell( popup );
 	_ppsPositionPopup({shell: shell, popup: popup});
 	if(popup.params.tpl.anim && !popup.resized_for_wnd) {
 		shell.animationDuration( popup.params.tpl.anim_duration, true );

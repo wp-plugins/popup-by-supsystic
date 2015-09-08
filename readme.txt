@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
 Tested up to: 4.3
-Stable tag: 1.3.1
+Stable tag: 1.3.3
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -11,15 +11,19 @@ The Best WordPress PopUp optin plugin to help you gain more subscribers, social 
 
 [Popup by Supsystic](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=description&utm_campaign=popup "Popup WordPress plugin Supsystic") lets you easily create elegant overlapping windows with unlimited features. Pop-ups with Slider, Lightbox, Contact, Subscription forms and more:
 
-* Unlimited Content Customization
 * Auto Open Popups
+* Exit-intent popups allow you to capture lost visitors
 * Contact Form with pop-up
-* Popup Opening Animations
-* Customizable Popup Themes
-* Subscription pop up window (WordPress, MailChimp and Aweber integration)
+* Facebook popup
+* Popup with video
+* Google Maps popup
+* A/B test and statistic
+* Subscription pop up window (WordPress, MailChimp and Aweber integration and more)
 * Theme Builder
 * Responsive Popups
-* Exit-intent popups allow you to capture lost visitors
+* Popup Opening Animations
+* Customizable Popup Themes
+* [Popup Examples](http://supsystic.com/popup-examples?utm_source=wordpress&utm_medium=popup_examples&utm_campaign=popup "Popup Examples")
 
 Popup maker with live preview let you customize pop-up templates without programming skills. Plugin allows you to create popups with any type of content:
 
@@ -78,13 +82,19 @@ Don't forget to press the "Save" button. After all these points you can see the 
 
 == Screenshots ==
 
-1. PopUp plugin admin area
+1. [Popup WordPress plugin](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=first_screenshot&utm_campaign=popup "Popup WordPress plugin")
 
-2. Subscription Pop-up templates
+2. Subscription Pop-up templates. All [Popup Examples](http://supsystic.com/popup-examples?utm_source=wordpress&utm_medium=second_screenshot&utm_campaign=popup "Popup Examples")
 
 3. Facebook like popup
 
 4. Popups with YouTube video
+
+5. PopUp plugin admin area
+
+6. PopUp with google map and contact form
+
+7. Social Buttons and contact form with popup
 
 == Other Notes ==
 
@@ -172,6 +182,18 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 
 == Changelog ==
+
+= 1.3.3 / 08.09.2015 =
+ * More flexible way to pre-load images in PopUp
+ * Make Admin area preview load faster
+ * Additional integrations with Google Maps - https://wordpress.org/plugins/google-maps-easy/
+ * Small code review and improvements
+
+= 1.3.2 / 01.09.2015 =
+ * GetResponse Subscribe integration - PRO
+ * Added sort order to base PopUp Templates
+ * Minor issues fix
+ * Small code review and improvements
 
 = 1.3.1 / 25.08.2015 =
  * Additional Subscribe fields - new field type - Hidden

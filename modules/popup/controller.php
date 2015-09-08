@@ -73,18 +73,29 @@ class popupControllerPps extends controllerPps {
 	}
 	public function outPreviewHtml() {
 		if($this->_prevPopupId) {
+			$this->_prepareGoogleMapAssetsForPreview( $this->_prevPopupId );
+			$popupContent = $this->getView()->generateHtml( $this->_prevPopupId );
 			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 			<html><head>'
 			. '<meta content="'. get_option('html_type'). '; charset='. get_option('blog_charset'). '" http-equiv="Content-Type">'
-			//. $this->_generateSocSharingAssetsForPreview( $this->_prevPopupId )
+			. $this->_generateSocSharingAssetsForPreview( $this->_prevPopupId )
+			. $this->_generateGoogleMapAssetsForPreview( $this->_prevPopupId )
 			. '<style type="text/css"> 
 				html { overflow: visible !important; } 
+				.ppsPopupPreloadImg {
+					width: 1px !important;
+					height: 1px !important;
+					position: absolute !important;
+					top: -9999px !important;
+					left: -9999px !important;
+					opacity: 0 !important;
+				}
 				</style>'
 			. '</head>';
-			wp_head();
+			//wp_head();
 			echo '<body>';
-			echo $this->getView()->generateHtml( $this->_prevPopupId );
-			wp_footer();
+			echo $popupContent;
+			//wp_footer();
 			echo '<body></html>';
 		}
 		exit();
@@ -93,8 +104,12 @@ class popupControllerPps extends controllerPps {
 		$res = '';
 		if(class_exists('SupsysticSocialSharing')) {
 			global $supsysticSocialSharing;
-			if(isset($supsysticSocialSharing) && !empty($supsysticSocialSharing) && method_exists($supsysticSocialSharing, 'getEnvironment')) {
-				$assetsForSocSharePlug = $supsysticSocialSharing->getEnvironment()->getModule('Ui')->getAssets();
+			if(isset($supsysticSocialSharing) 
+				&& !empty($supsysticSocialSharing) 
+				&& method_exists($supsysticSocialSharing, 'getEnvironment')
+				&& ($uiMod = $supsysticSocialSharing->getEnvironment()->getModule('Ui'))
+			) {
+				$assetsForSocSharePlug = $uiMod->getAssets();
 				if(!empty($assetsForSocSharePlug)) {
 					$frontedHookNames = array('wp_enqueue_scripts', $supsysticSocialSharing->getEnvironment()->getConfig()->get('hooks_prefix'). 'before_html_build');
 					foreach($assetsForSocSharePlug as $asset) {
@@ -112,7 +127,7 @@ class popupControllerPps extends controllerPps {
 						}
 					}
 					if(!empty($res)) {
-						$res = '<script type="text/javascript" src="'. includes_url('js/jquery/jquery.js'). '"></script>'
+						$res = $this->_connectMainJsLibsForPrev()
 							. '<script type="text/javascript"> var sssIgnoreSaveStatistics = true; </script>'
 							. $res;
 					}
@@ -120,6 +135,62 @@ class popupControllerPps extends controllerPps {
 			}
 		}
 		return $res;
+	}
+	private function _generateGoogleMapAssetsForPreview($popupId) {
+		$res = '';
+		if(class_exists('frameGmp')) {
+			$scripts = frameGmp::_()->getScripts();
+			if(!empty($scripts)) {
+				frameGmp::_()->getModule('gmap')->getView()->addMapDataToJs();
+				$setAssets = array();
+				$res .= $this->_connectMainJsLibsForPrev();
+				$scVars = frameGmp::_()->getJSVars();
+				foreach($scripts as $s) {
+					if(isset($s['src']) && !empty($s['src']) && !in_array($s['handle'], $setAssets)) {
+						if($scVars && isset($scVars[ $s['handle'] ]) && !empty($scVars[ $s['handle'] ])) {
+							$res .= "<script type='text/javascript'>"; // CDATA and type='text/javascript' is not needed for HTML 5
+							$res .= "/* <![CDATA[ */";
+							foreach($scVars[ $s['handle'] ] as $name => $value) {
+								if($name == 'dataNoJson' && !is_array($value)) {
+									$res .= $value;
+								} else {
+									$res .= "var $name = ". utilsGmp::jsonEncode($value). ";";
+								}
+							}
+							$res .= "/* ]]> */";
+							$res .= "</script>";
+						}
+						$res .= '<script type="text/javascript" src="'. $s['src']. '"></script>';
+						$setAssets[] = $s['handle'];
+					}
+				}
+			}
+			$styles = frameGmp::_()->getStyles();
+			if(!empty($styles)) {
+				$setAssets = array();
+				foreach($styles as $s) {
+					if(isset($s['src']) && !empty($s['src']) && !in_array($s['handle'], $setAssets)) {
+						$res .= '<link rel="stylesheet" type="text/css" href="'. $s['src']. '" />';
+						$setAssets[] = $s['handle'];
+					}
+				}
+			}
+		}
+		return $res;
+	}
+	private function _prepareGoogleMapAssetsForPreview($popupId) {
+		if(class_exists('frameGmp')) {
+			frameGmp::_()->setScriptsInitialized( false );
+			frameGmp::_()->setStylesInitialized( false );
+		}
+	}
+	private function _connectMainJsLibsForPrev() {
+		static $connected = false;
+		if(!$connected) {
+			return '<script type="text/javascript" src="'. includes_url('js/jquery/jquery.js'). '"></script>';
+			$connected = true;
+		}
+		return '';
 	}
 	public function changeTpl() {
 		$res = new responsePps();
@@ -133,7 +204,7 @@ class popupControllerPps extends controllerPps {
 	}
 	public function exportForDb() {
 		$eol = "\r\n";
-		$selectColumns = array('id','label','active','original_id','params','html','css','img_preview','show_on','show_to','show_pages','type_id','date_created');
+		$selectColumns = array('id','label','active','original_id','params','html','css','img_preview','show_on','show_to','show_pages','type_id','date_created','sort_order');
 		$popupList = dbPps::get('SELECT '. implode(',', $selectColumns). ' FROM @__popup WHERE original_id = 0 AND id != 50');
 		$valuesArr = array();
 		

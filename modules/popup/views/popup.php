@@ -30,7 +30,7 @@ class popupViewPps extends viewPps {
 			dispatcherPps::addFilter('mainBreadcrumbs', array($this, 'modifyBreadcrumbsForChangeTpl'));
 		}
 		$this->assign('types', $this->getModel()->getTypes());
-		$this->assign('list', $this->getModel()->getSimpleList(array('active' => 1, 'original_id' => 0)));
+		$this->assign('list', $this->getModel()->setOrderBy('sort_order')->setSortOrder('ASC')->getSimpleList(array('active' => 1, 'original_id' => 0)));
 		$this->assign('changeFor', $changeFor);
 		
 		return parent::getContent('popupAddNewAdmin');
@@ -532,6 +532,8 @@ class popupViewPps extends viewPps {
 		$popup['css'] = $this->_replaceTagsWithTwig( $popup['css'], $popup );
 		$popup['html'] = $this->_replaceTagsWithTwig( $popup['html'], $popup );
 		
+		$popup['html'] .= $this->_generateImgsPreload( $popup );
+		
 		$popup['css'] = dispatcherPps::applyFilters('popupCss', $popup['css'], $popup);
 		$popup['html'] = dispatcherPps::applyFilters('popupHtml', $popup['html'], $popup);
 		
@@ -539,6 +541,17 @@ class popupViewPps extends viewPps {
 				'<style type="text/css">'. $popup['css']. '</style>'. $popup['html'],
 			array('popup' => $popup)
 		);
+	}
+	private function _generateImgsPreload( $popup ) {
+		$res = '';
+		if(isset($popup['params']['opts_attrs']['bg_number']) && !empty($popup['params']['opts_attrs']['bg_number'])) {
+			for($i = 0; $i < $popup['params']['opts_attrs']['bg_number']; $i++) {
+				if($popup['params']['tpl']['bg_type_'. $i] == 'img') {
+					$res .= '<img class="ppsPopupPreloadImg ppsPopupPreloadImg_'. $popup['view_id']. '" src="'. $popup['params']['tpl']['bg_img_'. $i]. '" />';
+				}
+			}
+		}
+		return $res;
 	}
 	private function _generateFbLikeWidget($popup) {
 		$res = '';

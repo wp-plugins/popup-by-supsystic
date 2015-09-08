@@ -38,3 +38,11 @@
 	text-align: center;
 	color: #4ae8ea !important;;
 }
+.ppsPopupPreloadImg {
+	width: 1px !important;
+	height: 1px !important;
+	position: absolute !important;
+	top: -9999px !important;
+	left: -9999px !important;
+	opacity: 0 !important;
+}
