@@ -74,7 +74,6 @@ function ppsBindPopupLoad( popup ) {
 				popup._imgsLoaded = true;
 				var shell = ppsGetPopupShell( popup );
 				shell.trigger('ppsShowPopupAfterAllImgs', popup);
-				console.log(shell);
 			}
 		});
 	} else {

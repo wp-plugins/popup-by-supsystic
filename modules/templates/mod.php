@@ -17,7 +17,9 @@ class templatesPps extends modulePps {
         parent::init();
     }
 	public function loadMediaScripts() {
-		wp_enqueue_media();
+		if(function_exists('wp_enqueue_media')) {
+			wp_enqueue_media();
+		}
 	}
 	public function loadAdminCoreJs() {
 		framePps::_()->addScript('jquery-ui-dialog');

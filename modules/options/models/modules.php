@@ -1,5 +1,8 @@
 <?php
 class modulesModelPps extends modelPps {
+	public function __construct() {
+		$this->_setTbl('modules');
+	}
     public function get($d = array()) {
         if(isset($d['id']) && $d['id'] && is_numeric($d['id'])) {
             $fields = framePps::_()->getTable('modules')->fillFromDB($d['id'])->getFields();

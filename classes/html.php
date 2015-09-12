@@ -566,14 +566,20 @@ class htmlPps {
 		//$out .= '<div style="position: absolute; z-index: 1;" id="'. $pickerId. '"></div>';
 		$out .= '<script type="text/javascript">//<!--
 			jQuery(function(){
-				jQuery("#'. $textId. '").wpColorPicker({
-					change: function(event, ui) {
-						// Find change functiona for this element, if such exist - triger it
-						if(window["wpColorPicker_'. $nameToClass. '_change"]) {
-							window["wpColorPicker_'. $nameToClass. '_change"](event, ui);
+				if(jQuery("#'. $textId. '").wpColorPicker) {
+					jQuery("#'. $textId. '").wpColorPicker({
+						change: function(event, ui) {
+							// Find change functiona for this element, if such exist - triger it
+							if(window["wpColorPicker_'. $nameToClass. '_change"]) {
+								window["wpColorPicker_'. $nameToClass. '_change"](event, ui);
+							}
 						}
-					}
-				});
+					});
+				} else {
+					var $colorInput = jQuery("<input type=\'color\' name=\'"+ jQuery("#'. $textId. '").attr("name")+ "\' />");
+					$colorInput.val( jQuery("#'. $textId. '").val() ).insertAfter( jQuery("#'. $textId. '") );
+					jQuery("#'. $textId. '").remove();
+				}
 			});
 			//--></script>';
 		return $out;
