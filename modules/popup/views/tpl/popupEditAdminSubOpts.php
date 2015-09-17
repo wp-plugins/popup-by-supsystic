@@ -127,6 +127,8 @@
 				'sendgrid' => array('label' => __('SendGrid', PPS_LANG_CODE)),
 				'get_response' => array('label' => __('GetResponse', PPS_LANG_CODE)),
 				'verticalresponse' => array('label' => __('Vertical Response', PPS_LANG_CODE)),
+				'activecampaign' => array('label' => __('Active Campaign', PPS_LANG_CODE)),
+				//'infusionsoft' => array('label' => __('Infusion Soft', PPS_LANG_CODE)),	// Not ready for production - too much questions about their API service
 				'arpreach' => array('label' => __('arpReach', PPS_LANG_CODE)),
 				'sgautorepondeur' => array('label' => __('SG Autorepondeur', PPS_LANG_CODE)),
 			);

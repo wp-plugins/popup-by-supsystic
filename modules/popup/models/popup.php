@@ -113,10 +113,10 @@ class popupModelPps extends modelPps {
 		if(!empty($d['label'])) {
 			if(!empty($d['original_id'])) {
 				$original = $this->getById($d['original_id']);
+				framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('create_from_tpl.'. strtolower(str_replace(' ', '-', $original['label'])));
 				unset($original['id']);
 				$original['label'] = $d['label'];
 				$original['original_id'] = $d['original_id'];
-				framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('create_from_tpl.'. strtolower(str_replace(' ', '-', $original['label'])));
 				return $this->insertFromOriginal( $original );
 			} else
 				$this->pushError (__('Please select PopUp template from list below', PPS_LANG_CODE), 'label');
@@ -192,13 +192,13 @@ class popupModelPps extends modelPps {
 		
 		$res = $this->updateById($d);
 		if($res) {
-			$currentPopup = $this->getById($d['id']);
+			/*$currentPopup = $this->getById($d['id']);
 			$difs = $this->getDifferences($popup, $currentPopup);
 			if(!empty($difs)) {
 				foreach($difs as $dif) {
 					framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('save_popup.'. $dif);
 				}
-			}
+			}*/
 			$this->_bindShowToPages( $d );
 			dispatcherPps::doAction('afterPopUpUpdate', $d);
 		}
@@ -338,12 +338,12 @@ class popupModelPps extends modelPps {
 					}
 				}
 			}
+			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('change_to_tpl.'. strtolower(str_replace(' ', '-', $newTpl['label'])));
 			$newTpl['original_id'] = $newTpl['id'];	// It will be our new original
 			$newTpl['id'] = $currentPopup['id'];
 			$newTpl['label'] = $currentPopup['label'];
 			$newTpl = dispatcherPps::applyFilters('popupChangeTpl', $newTpl, $currentPopup);
 			$newTpl = $this->_escTplData( $newTpl );
-			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('change_to_tpl.'. strtolower(str_replace(' ', '-', $newTpl['label'])));
 			return $this->update( $newTpl, array('id' => $newTpl['id']) );
 		} else
 			$this->pushError (__('Provided data was corrupted', PPS_LANG_CODE));
@@ -480,7 +480,7 @@ class popupModelPps extends modelPps {
 				unset($original['date_created']);
 				$original['label'] = $d['copy_label'];
 				$original['views'] = $original['unique_views'] = $original['actions'] = 0;
-				framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('save_as_copy');
+				//framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('save_as_copy');
 				return $this->insertFromOriginal( $original );
 			} else
 				$this->pushError (__('Invalid ID', PPS_LANG_CODE));

@@ -1,7 +1,7 @@
 <section>
 	<div class="supsystic-item supsystic-panel">
 		<div id="containerWrapper">
-			<div class="supsistic-half-side-box" style="border-right: 1px solid rgba(164, 170, 172, 0.28);">
+			<div class="supsistic-half-side-box supsystic-border-right">
 				<h3><?php _e('FAQ and Documentation', PPS_LANG_CODE)?></h3>
 				<div class="faq-list">
 					<?php foreach($this->faqList as $title => $desc) { ?>
@@ -19,7 +19,7 @@
 					<div style="clear: both;"></div>
 				</div>
 				<div class="video">
-					<h3><?php _e('Video tutorial', PPS_LANG_CODE)?></h3>
+					<h3><?php _e('Video Tutorial', PPS_LANG_CODE)?></h3>
 					<iframe type="text/html"
 							width="80%"
 							height="240px"

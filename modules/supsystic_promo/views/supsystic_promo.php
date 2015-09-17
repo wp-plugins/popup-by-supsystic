@@ -45,7 +45,18 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 			__('Translation', PPS_LANG_CODE)
 				=> sprintf(__('All available languages are provided with the Supsystic Popup plugin. If your language isn’t available, your plugin will be in English by default.<br />
 					Available Translations: English, French, German, Spanish, Russian<br />
-					Translate or update a translation Popup WordPress plugin in your language and get a Premium license for FREE. <a target="_blank" href="%s">Contact us.</a>', PPS_LANG_CODE), $this->getModule()->getMainLink(). '#contact'),
+					Translate or update a translation Popup WordPress plugin in your language and get a Premium license for FREE. <a target="_blank" href="%s">Contact us.</a>', PPS_LANG_CODE), $this->getModule()->getContactLink()),
+		);
+	}
+	public function getMostFaqList() {
+		return array(
+			__("Where's my subscribers?", PPS_LANG_CODE) 
+				=> sprintf(__("By default all subscribers add to the WordPress. 
+					To find your subscribers go to Users tab on the left navigation menu of WordPress admin area. 
+					Also available subscription to the Aweber, MailChimp, MailPoet <a href='%s' target='_blank'>and other</a>. 
+					If you want to add another subscription service - just <a href='%s' target='_blank'>contact us</a> and provide URL of the subscription service.", PPS_LANG_CODE), $this->getModule()->getMainLink(). '#subscribe-to-email-popup-settings', $this->getModule()->getContactLink()),
+			__("PopUp doesn't appear on the website", PPS_LANG_CODE) 
+				=> sprintf(__("If you setup you're PopUp properly, and it still doesn't show on the page - there are can be conflict with your WordPress theme or other plugins. <a href='%s' target='_blank'>Contact us</a> with the URL of the webpage you add popup and screenshots / text of the error messages, if you have one - and we will help you resolve your issue.", PPS_LANG_CODE), $this->getModule()->getContactLink()),
 		);
 	}
 	public function getNewsContent() {
@@ -86,5 +97,20 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 	public function getLayeredStylePromo() {
 		$this->assign('promoLink', $this->getModule()->generateMainLink('utm_source=plugin&utm_medium=layered&utm_campaign=popup'));
 		return parent::getContent('layeredStylePromo');
+	}
+	public function showWelcomePage() {
+		framePps::_()->getModule('templates')->loadJqueryUi();
+		framePps::_()->addStyle('sup.bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+		$createNewLink = framePps::_()->getModule('options')->getTabUrl('popup_add_new');
+		$goToAdminLink = framePps::_()->getModule('options')->getTabUrl('popup');
+		$skipTutorLink = uriPps::_(array('baseUrl' => $goToAdminLink, 'skip_tutorial' => 1));
+		$this->assign('createNewLink', $this->_makeWelcomeLink( $createNewLink ));
+		$this->assign('skipTutorLink', $this->_makeWelcomeLink( $skipTutorLink ));
+		$this->assign('faqList', $this->getMostFaqList());
+		$this->assign('mainLink', $this->getModule()->getMainLink());
+		parent::display('welcomePage');
+	}
+	private function _makeWelcomeLink($link) {
+		return uriPps::_(array('baseUrl' => $link, 'from' => 'welcome-page', 'pl' => PPS_CODE));
 	}
 }

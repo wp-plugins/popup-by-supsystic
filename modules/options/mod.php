@@ -32,11 +32,12 @@ class optionsPps extends modulePps {
 		return array();
 	}
 	public function getAdminPage() {
-		//if(installerPps::isUsed()) {
+		if(installerPps::isUsed()) {
 			return $this->getView()->getAdminPage();
-		/*} else {
+		} else {
+			installerPps::setUsed();	// Show this welcome page - only one time
 			return framePps::_()->getModule('supsystic_promo')->showWelcomePage();
-		}*/
+		}
 	}
 	public function addAdminTab($tabs) {
 		$tabs['settings'] = array(

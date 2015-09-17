@@ -2,7 +2,7 @@
 class installerPps {
 	static public $update_to_version_method = '';
 	static private $_firstTimeActivated = false;
-	static public function init() {
+	static public function init( $isUpdate = false ) {
 		global $wpdb;
 		$wpPrefix = $wpdb->prefix; /* add to 0.0.3 Versiom */
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -182,11 +182,12 @@ class installerPps {
 		update_option(PPS_DB_PREF. 'plug_was_used', 1);
 	}
 	static public function isUsed() {
-		// No welcome page for now
-		return true;
+		//return true;	// No welcome page for now
+		//return 0;
 		return (int) get_option(PPS_DB_PREF. 'plug_was_used');
 	}
 	static public function delete() {
+		self::_checkSendStat('delete');
 		global $wpdb;
 		$wpPrefix = $wpdb->prefix;
 		$wpdb->query("DROP TABLE IF EXISTS `".$wpPrefix.PPS_DB_PREF."modules`");
@@ -200,12 +201,24 @@ class installerPps {
 		delete_option($wpPrefix. PPS_DB_PREF. 'db_version');
 		delete_option($wpPrefix. PPS_DB_PREF. 'db_installed');
 	}
+	static public function deactivate() {
+		self::_checkSendStat('deactivate');
+	}
+	static private function _checkSendStat($statCode) {
+		if(class_exists('framePps') 
+			&& framePps::_()->getModule('supsystic_promo')
+			&& framePps::_()->getModule('options')
+		) {
+			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat( $statCode );
+			framePps::_()->getModule('supsystic_promo')->getModel()->checkAndSend( true );
+		}
+	}
 	static public function update() {
 		global $wpdb;
 		$wpPrefix = $wpdb->prefix; /* add to 0.0.3 Versiom */
 		$currentVersion = get_option($wpPrefix. PPS_DB_PREF. 'db_version', 0);
 		if(!$currentVersion || version_compare(PPS_VERSION, $currentVersion, '>')) {
-			self::init();
+			self::init( true );
 			update_option($wpPrefix. PPS_DB_PREF. 'db_version', PPS_VERSION);
 		}
 	}

@@ -1,10 +1,6 @@
 <?php
 class supsystic_promoPps extends modulePps {
 	private $_mainLink = '';
-	private $_specSymbols = array(
-		'from'	=> array('?', '&'),
-		'to'	=> array('%', '^'),
-	);
 	private $_minDataInStatToSend = 20;	// At least 20 points in table shuld be present before send stats
 	private $_assetsUrl = '';
 	public function __construct($d) {
@@ -15,7 +11,8 @@ class supsystic_promoPps extends modulePps {
 		parent::init();
 		add_action('admin_footer', array($this, 'displayAdminFooter'), 9);
 		if(is_admin()) {
-			$this->checkStatisticStatus();
+			add_action('init', array($this, 'checkWelcome'));
+			add_action('init', array($this, 'checkStatisticStatus'));
 		}
 		$this->weLoveYou();
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
@@ -43,54 +40,9 @@ class supsystic_promoPps extends modulePps {
 	public function getOverviewTabContent() {
 		return $this->getView()->getOverviewTabContent();
 	}
-	// We used such methods - _encodeSlug() and _decodeSlug() - as in slug wp don't understand urlencode() functions
-	private function _encodeSlug($slug) {
-		return str_replace($this->_specSymbols['from'], $this->_specSymbols['to'], $slug);
-	}
-	private function _decodeSlug($slug) {
-		return str_replace($this->_specSymbols['to'], $this->_specSymbols['from'], $slug);
-	}
-	public function decodeSlug($slug) {
-		return $this->_decodeSlug($slug);
-	}
-	public function modifyMainAdminSlug($mainSlug) {
-		$firstTimeLookedToPlugin = !installerPps::isUsed();
-		if($firstTimeLookedToPlugin) {
-			$mainSlug = $this->_getNewAdminMenuSlug($mainSlug);
-		}
-		return $mainSlug;
-	}
-	private function _getWelcomMessageMenuData($option, $modifySlug = true) {
-		return array_merge($option, array(
-			'page_title'	=> __('Welcome to Supsystic Secure', PPS_LANG_CODE),
-			'menu_slug'		=> ($modifySlug ? $this->_getNewAdminMenuSlug( $option['menu_slug'] ) : $option['menu_slug'] ),
-			'function'		=> array($this, 'showWelcomePage'),
-		));
-	}
-	public function addWelcomePageToMenus($options) {
-		$firstTimeLookedToPlugin = !installerPps::isUsed();
-		if($firstTimeLookedToPlugin) {
-			foreach($options as $i => $opt) {
-				$options[$i] = $this->_getWelcomMessageMenuData( $options[$i] );
-			}
-		}
-		return $options;
-	}
-	private function _getNewAdminMenuSlug($menuSlug) {
-		// We can't use "&" symbol in slug - so we used "|" symbol
-		$newSlug = $this->_encodeSlug(str_replace('admin.php?page=', '', $menuSlug));
-		return 'welcome-to-'. framePps::_()->getModule('adminmenu')->getMainSlug(). '|return='. $newSlug;
-	}
-	public function addWelcomePageToMainMenu($option) {
-		$firstTimeLookedToPlugin = !installerPps::isUsed();
-		if($firstTimeLookedToPlugin) {
-			$option = $this->_getWelcomMessageMenuData($option, false);
-		}
-		return $option;
-	}
-	/*public function showWelcomePage() {
+	public function showWelcomePage() {
 		$this->getView()->showWelcomePage();
-	}*/
+	}
 	public function displayAdminFooter() {
 		if(framePps::_()->isAdminPlugPage()) {
 			$this->getView()->displayAdminFooter();
@@ -138,13 +90,17 @@ class supsystic_promoPps extends modulePps {
 		return $this->_preparePromoLink($link, $ref);
 	}
 	public function checkStatisticStatus(){
-		// Do not send usage functionas statitistics
-		return;
-		if(framePps::_()->getModule('options')->isEmpty('send_stats')) {	// Enabled by default
-			framePps::_()->getModule('options')->getModel()->save('send_stats', 1);
-		}
 		$canSend = (int) framePps::_()->getModule('options')->get('send_stats');
-		if($canSend) {
+		if($canSend && framePps::_()->getModule('user')->isAdmin()) {
+			// Before this version we had many wrong data collected taht we don't need at all. Let's clear them.
+			if(PPS_VERSION == '1.3.5') {
+				$clearedTrashStatData = (int) get_option(PPS_DB_PREF. 'cleared_trash_stat_data');
+				if(!$clearedTrashStatData) {
+					$this->getModel()->clearUsageStat();
+					update_option(PPS_DB_PREF. 'cleared_trash_stat_data', 1);
+					return;	// We just cleared whole data - so don't need to even check send stats
+				}
+			}
 			$this->getModel()->checkAndSend();
 		}
 	}
@@ -199,5 +155,19 @@ class supsystic_promoPps extends modulePps {
 			$this->_assetsUrl = framePps::_()->getModule('popup')->getAssetsUrl(). 'promo/';
 		}
 		return $this->_assetsUrl;
+	}
+	public function checkWelcome() {
+		$from = reqPps::getVar('from', 'get');
+		$pl = reqPps::getVar('pl', 'get');
+		if($from == 'welcome-page' && $pl == PPS_CODE && framePps::_()->getModule('user')->isAdmin()) {
+			$welcomeSent = (int) get_option(PPS_DB_PREF. 'welcome_sent');
+			if(!$welcomeSent) {
+				$this->getModel()->welcomePageSaveInfo();
+				update_option(PPS_DB_PREF. 'welcome_sent', 1);
+			}
+		}
+	}
+	public function getContactLink() {
+		return $this->getMainLink(). '#contact';
 	}
 }

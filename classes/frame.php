@@ -115,7 +115,8 @@ class framePps {
 
         register_activation_hook(  PPS_DIR. DS. PPS_MAIN_FILE, array('utilsPps', 'activatePlugin')  ); //See classes/install.php file
         register_uninstall_hook(PPS_DIR. DS. PPS_MAIN_FILE, array('utilsPps', 'deletePlugin'));
-        
+		register_deactivation_hook(PPS_DIR. DS. PPS_MAIN_FILE, array( 'utilsPps', 'deactivatePlugin' ) );
+
 		add_action('init', array($this, 'connectLang'));
         //$operationTime = microtime(true) - $startTime;
     }

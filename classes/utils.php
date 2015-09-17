@@ -368,7 +368,22 @@ class utilsPps {
             installerPps::delete();
         }
     }
-	
+	static public function deactivatePlugin() {
+		global $wpdb;
+        if (function_exists('is_multisite') && is_multisite()) {
+            $orig_id = $wpdb->blogid;
+            $blog_id = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+            foreach ($blog_id as $id) {
+                if (switch_to_blog($id)) {
+                    installerPps::deactivate();
+                } 
+            }
+            switch_to_blog($orig_id);
+            return;
+        } else {
+            installerPps::deactivate();
+        }
+	}
 	static public function isWritable($filename) {
 		return is_writable($filename);
 	}
