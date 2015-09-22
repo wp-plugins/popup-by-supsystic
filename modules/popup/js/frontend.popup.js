@@ -8,6 +8,7 @@ jQuery(document).ready(function(){
 		jQuery(document).trigger('ppsBeforePopupsInit', ppsPopups);
 		for(var i = 0; i < ppsPopups.length; i++) {
 			jQuery('body').append( ppsPopups[ i ].rendered_html );
+			ppsBindPopupLove( ppsPopups[ i ] );
 			ppsBindPopupLoad( ppsPopups[ i ] );
 			ppsBindPopupShow( ppsPopups[ i ] );
 			ppsBindPopupClose( ppsPopups[ i ] );
@@ -60,6 +61,12 @@ function _ppsBindOnElementClickPopups() {
 				}
 			}
 		});
+	}
+}
+function ppsBindPopupLove( popup ) {
+	if(parseInt(toeOptionPps('add_love_link'))) {
+		var $shell = ppsGetPopupShell( popup );
+		$shell.append( toeOptionPps('love_link_html') );
 	}
 }
 function ppsBindPopupLoad( popup ) {

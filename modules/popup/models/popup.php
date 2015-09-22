@@ -4,6 +4,7 @@ class popupModelPps extends modelPps {
 	private $_showPagesList = array();
 	private $_showOnList = array();
 	private $_types = array();
+	private $_linksReplacement = array();
 	public function __construct() {
 		$this->_setTbl('popup');
 	}
@@ -30,40 +31,61 @@ class popupModelPps extends modelPps {
 			$params = stripslashes ($params);
 		return $params;
 	}
+	private function _getLinksReplacement() {
+		if(empty($this->_linksReplacement)) {
+			$this->_linksReplacement = array(
+				'modUrl' => array('url' => $this->getModule()->getModPath(), 'key' => 'PPS_MOD_URL'),
+				'siteUrl' => array('url' => PPS_SITE_URL, 'key' => 'PPS_SITE_URL'),
+				'assetsUrl' => array('url' => $this->getModule()->getAssetsUrl(), 'key' => 'PPS_ASSETS_URL'),
+				'oldAssets' => array('url' => $this->getModule()->getOldAssetsUrl(), 'key' => 'PPS_OLD_ASSETS_URL'),
+			);
+		}
+		return $this->_linksReplacement;
+	}
 	protected function _beforeDbReplace($data) {
-		static $modUrl, $siteUrl, $assetsUrl;
+		static $replaceFrom, $replaceTo;
 		if(is_array($data)) {
 			foreach($data as $k => $v) {
 				$data[ $k ] = $this->_beforeDbReplace($v);
 			}
 		} else {
-			if(!$modUrl)
-				$modUrl = $this->getModule()->getModPath();
-			if(!$siteUrl)
-				$siteUrl = PPS_SITE_URL;
-			if(!$assetsUrl)
-				$assetsUrl = $this->getModule()->getAssetsUrl();
-			$data = str_replace(array($siteUrl, $modUrl), array('[PPS_SITE_URL]', '[PPS_MOD_URL]'), $data);
+			if(!$replaceFrom) {
+				$this->_getLinksReplacement();
+				foreach($this->_linksReplacement as $k => $rData) {
+					if($k == 'oldAssets') {	// Replace old assets urls - to new one
+						$replaceFrom[] = $rData['url'];
+						$replaceTo[] = '['. $this->_linksReplacement['assetsUrl']['key']. ']';
+					} else {
+						$replaceFrom[] = $rData['url'];
+						$replaceTo[] = '['. $rData['key']. ']';
+					}
+				}
+			}
+			$data = str_replace($replaceFrom, $replaceTo, $data);
 		}
 		return $data;
 	}
 	protected function _afterDbReplace($data) {
-		static $modUrl, $siteUrl, $assetsUrl;
+		static $replaceFrom, $replaceTo;
 		if(is_array($data)) {
 			foreach($data as $k => $v) {
 				$data[ $k ] = $this->_afterDbReplace($v);
 			}
 		} else {
-			if(!$modUrl)
-				$modUrl = $this->getModule()->getModPath();
-			if(!$siteUrl)
-				$siteUrl = PPS_SITE_URL;
-			if(!$assetsUrl)
-				$assetsUrl = $this->getModule()->getAssetsUrl();
-			/*Tmp fix - for quick replace all mode URL to assets URL*/
-			$data = str_replace('[PPS_MOD_URL]', '[PPS_ASSETS_URL]', $data);
-			/*****/
-			$data = str_replace(array('[PPS_SITE_URL]', '[PPS_MOD_URL]', '[PPS_ASSETS_URL]'), array($siteUrl, $modUrl, $assetsUrl), $data);
+			if(!$replaceFrom) {
+				$this->_getLinksReplacement();
+				/*Tmp fix - for quick replace all mode URL to assets URL*/
+				$replaceFrom[] = '['. $this->_linksReplacement['modUrl']['key']. ']';
+				$replaceTo[] = '['. $this->_linksReplacement['assetsUrl']['key']. ']';
+				$replaceFrom[] = $this->_linksReplacement['oldAssets']['url'];
+				$replaceTo[] = $this->_linksReplacement['assetsUrl']['url'];
+				/*****/
+				foreach($this->_linksReplacement as $k => $rData) {
+					$replaceFrom[] = '['. $rData['key']. ']';
+					$replaceTo[] = $rData['url'];
+				}
+			}
+			$data = str_replace($replaceFrom, $replaceTo, $data);
 		}
 		return $data;
 	}
@@ -73,7 +95,7 @@ class popupModelPps extends modelPps {
 		if(empty($row['img_preview'])) {
 			$row['img_preview'] = str_replace(' ', '-', strtolower( trim($row['label']) )). '.jpg';
 		}
-		$row['img_preview_url'] = uriPps::_($this->getModule()->getAssetsUrl()/*$this->getModule()->getModPath()*/. 'img/preview/'. $row['img_preview']);
+		$row['img_preview_url'] = uriPps::_($this->getModule()->getAssetsUrl(). 'img/preview/'. $row['img_preview']);
 		$row['view_id'] = $row['id']. '_'. mt_rand(1, 999999);
 		$row = $this->_afterDbReplace($row);
 		$this->getTypes();
@@ -515,5 +537,9 @@ class popupModelPps extends modelPps {
 		} else
 			$this->pushError (__('Invalid ID', PPS_LANG_CODE));
 		return false;
+	}
+	public function setSimpleGetFields() {
+		$this->setSelectFields('id, label, active, views, unique_views, actions, date_created, sort_order');
+		return parent::setSimpleGetFields();
 	}
 }

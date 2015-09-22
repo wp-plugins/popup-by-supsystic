@@ -28,8 +28,12 @@ class optionsPps extends modulePps {
 		return $this->getModel()->isEmpty($code);
 	}
 	public function getAllowedPublicOptions() {
-		// empty for now
-		return array();
+		$allowKeys = array('add_love_link');
+		$res = array();
+		foreach($allowKeys as $k) {
+			$res[ $k ] = $this->get($k);
+		}
+		return $res;
 	}
 	public function getAdminPage() {
 		if(installerPps::isUsed()) {
@@ -111,6 +115,7 @@ class optionsPps extends modulePps {
 					'opts' => array(
 						'send_stats' => array('label' => __('Send usage statistics', PPS_LANG_CODE), 'desc' => __('Send information about what plugin options you prefer to use, this will help us make our solution better for You.', PPS_LANG_CODE), 'def' => '0', 'html' => 'checkboxHiddenVal'),
 						'disable_subscribe_ip_antispam' => array('label' => __('Disable blocking Subscription from same IP', PPS_LANG_CODE), 'desc' => __('By default our plugin have feature to block subscriptions from same IP more then one time per hour - to avoid spam subscribers. But you can disable this feature here.', PPS_LANG_CODE), 'def' => '0', 'html' => 'checkboxHiddenVal'),
+						'add_love_link' => array('label' => __('Enable promo link', PPS_LANG_CODE), 'desc' => __('We are trying to make our plugin better for you, and you can help us with this. Just check this option - and small promotion link will be added in the bottom of your PopUp. This is easy for you - but very helpful for us!', PPS_LANG_CODE), 'def' => '0', 'html' => 'checkboxHiddenVal'),
 						'access_roles' => array('label' => __('User role can use plugin', PPS_LANG_CODE), 'desc' => __('User with next roles will have access to whole plugin from admin area.', PPS_LANG_CODE), 'def' => 'administrator', 'html' => 'selectlist', 'options' => array($this, 'getAvailableUserRolesSelect'), 'pro' => ''),
 					),
 				),

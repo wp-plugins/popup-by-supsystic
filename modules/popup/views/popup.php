@@ -17,7 +17,7 @@ class popupViewPps extends viewPps {
 		framePps::_()->getModule('templates')->loadJqueryUi();
 		framePps::_()->addStyle('admin.popup', $this->getModule()->getModPath(). 'css/admin.popup.css');
 		framePps::_()->addScript('admin.popup', $this->getModule()->getModPath(). 'js/admin.popup.js');
-		framePps::_()->addStyle('magic.min', PPS_CSS_PATH. 'magic.min.css');
+		framePps::_()->getModule('templates')->loadMagicAnims();
 		
 		$changeFor = (int) reqPps::getVar('change_for', 'get');
 		//framePps::_()->addJSVar('admin.popup', 'ppsChangeFor', array($changeFor));
@@ -69,18 +69,8 @@ class popupViewPps extends viewPps {
 		
 		framePps::_()->getModule('templates')->loadJqueryUi();
 		framePps::_()->getModule('templates')->loadSortable();
-		
-		framePps::_()->addStyle('ppsCodemirror', PPS_CSS_PATH. 'codemirror.css');
-		framePps::_()->addStyle('codemirror-addon-hint', PPS_JS_PATH. 'codemirror/addon/hint/show-hint.css');
-		framePps::_()->addScript('ppsCodemirror', PPS_JS_PATH. 'codemirror/codemirror.js');
-		framePps::_()->addScript('codemirror-addon-show-hint', PPS_JS_PATH. 'codemirror/addon/hint/show-hint.js');
-		framePps::_()->addScript('codemirror-addon-xml-hint', PPS_JS_PATH. 'codemirror/addon/hint/xml-hint.js');
-		framePps::_()->addScript('codemirror-addon-html-hint', PPS_JS_PATH. 'codemirror/addon/hint/html-hint.js');
-		framePps::_()->addScript('codemirror-mode-xml', PPS_JS_PATH. 'codemirror/mode/xml/xml.js');
-		framePps::_()->addScript('codemirror-mode-javascript', PPS_JS_PATH. 'codemirror/mode/javascript/javascript.js');
-		framePps::_()->addScript('codemirror-mode-css', PPS_JS_PATH. 'codemirror/mode/css/css.js');
-		framePps::_()->addScript('codemirror-mode-htmlmixed', PPS_JS_PATH. 'codemirror/mode/htmlmixed/htmlmixed.js');
-		
+		framePps::_()->getModule('templates')->loadCodemirror();
+
 		$ppsAddNewUrl = framePps::_()->getModule('options')->getTabUrl('popup_add_new');
 		framePps::_()->addStyle('admin.popup', $this->getModule()->getModPath(). 'css/admin.popup.css');
 		framePps::_()->addScript('admin.popup', $this->getModule()->getModPath(). 'js/admin.popup.js');
@@ -212,10 +202,10 @@ class popupViewPps extends viewPps {
 				'sort_order' => 50),
 		);
 		if($useCommonTabs) {
-			$designTabs['ppsPopupSubscribe'] = array(
-				'title' => __('Subscribe', PPS_LANG_CODE), 
-				'content' => $this->getMainPopupSubTab(),
-				'fa_icon' => 'fa-users',
+			$designTabs['ppsPopupTexts'] = array(
+				'title' => __('Texts', PPS_LANG_CODE), 
+				'content' => $this->getMainPopupTextsTab(),
+				'fa_icon' => 'fa-pencil-square-o',
 				'sort_order' => 30);
 			$designTabs['ppsPopupSm'] = array(
 				'title' => __('Social', PPS_LANG_CODE), 
@@ -239,16 +229,16 @@ class popupViewPps extends viewPps {
 				'fa_icon' => 'fa-picture-o',
 				'sort_order' => 10),
 			'ppsPopupEditors' => array(
-				'title' => __('Code', PPS_LANG_CODE), 
+				'title' => __('CSS / HTML Code', PPS_LANG_CODE), 
 				'content' => $this->getMainPopupCodeTab(),
 				'fa_icon' => 'fa-code',
 				'sort_order' => 999),
 		);
 		if($useCommonTabs) {
-			$tabs['ppsPopupTexts'] = array(
-				'title' => __('Texts', PPS_LANG_CODE), 
-				'content' => $this->getMainPopupTextsTab(),
-				'fa_icon' => 'fa-pencil-square-o',
+			$tabs['ppsPopupSubscribe'] = array(
+				'title' => __('Subscribe', PPS_LANG_CODE), 
+				'content' => $this->getMainPopupSubTab(),
+				'fa_icon' => 'fa-users',
 				'sort_order' => 20);
 		}
 		$tabs = dispatcherPps::applyFilters('popupEditTabs', $tabs, $popup);
@@ -365,7 +355,7 @@ class popupViewPps extends viewPps {
 		return parent::getContent('popupEditAdminCodeOpts');
 	}
 	public function getMainPopupAnimationTab() {
-		framePps::_()->addStyle('magic.min', PPS_CSS_PATH. 'magic.min.css');
+		framePps::_()->getModule('templates')->loadMagicAnims();
 		$this->assign('animationList', $this->getAnimationList());
 		return parent::getContent('popupEditAdminAnimationOpts');
 	}
@@ -684,7 +674,7 @@ class popupViewPps extends viewPps {
 				require_once(PPS_CLASSES_DIR. 'Twig'. DS. 'Autoloader.php');
 			}
 			Twig_Autoloader::register();
-			$this->_twig = new Twig_Environment(new Twig_Loader_String(), array('debug' => 1));
+			$this->_twig = new Twig_Environment(new Twig_Loader_String(), array('debug' => 0));
 			$this->_twig->addFunction(
 				new Twig_SimpleFunction('adjust_brightness', array(
 						$this,

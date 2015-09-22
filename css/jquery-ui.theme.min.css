@@ -221,3 +221,19 @@ thead .ui-jqgrid-labels th[id$='_cb'] .s-ico {
 .ui-slider.ui-widget-content .ui-slider-handle.ui-state-active {
 	border-color: #4ae8ea !important;
 }
+/*font awesome stylized icons*/
+.ui-icon-closethick:before {
+  content: "\f00d";
+}
+.ui-icon-refresh:before {
+  content: "\f021";
+}
+.ui-icon-circle-triangle-s:before {
+  content: "\f0aa";
+}
+.ui-icon-circle-triangle-n:before {
+  content: "\f0ab";
+}
+.ui-icon-search:before {
+  content: "\f002";
+}

@@ -21,7 +21,7 @@ class optionsModelPps extends modelPps {
 			if(!$ignoreDbUpdate) {
 				$this->_updateOptsInDb();
 			}
-			framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('option.'. $optKey);
+			//framePps::_()->getModule('supsystic_promo')->getModel()->saveUsageStat('option.'. $optKey);
 		}
 	}
 	public function getAll() {
@@ -54,6 +54,7 @@ class optionsModelPps extends modelPps {
 	}
     public function saveGroup($d = array()) {
 		if(isset($d['opt_values']) && is_array($d['opt_values']) && !empty($d['opt_values'])) {
+			dispatcherPps::doAction('beforeSaveOpts', $d);
 			foreach($d['opt_values'] as $code => $val) {
 				$this->save($code, $val, true);
 			}

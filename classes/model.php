@@ -223,4 +223,10 @@ abstract class modelPps extends baseObjectPps {
 	public function getTbl() {
 		return $this->_tbl;
 	}
+	/**
+	 * We can re-define this method to not retrive all data - for simple tables
+	 */
+	public function setSimpleGetFields() {
+		return $this;
+	}
 }

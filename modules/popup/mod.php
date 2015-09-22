@@ -2,7 +2,10 @@
 class popupPps extends modulePps {
 	private $_renderedIds = array();
 	private $_addToFooterIds = array();
-	private $_assetsUrl = 'https://supsystic.com/_assets/popup/';
+
+	private $_assetsUrl = '';
+	private $_oldAssetsUrl = 'https://supsystic.com/_assets/popup/';
+
 	public function init() {
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 		add_action('template_redirect', array($this, 'checkPopupShow'));
@@ -228,7 +231,7 @@ class popupPps extends modulePps {
 			framePps::_()->addScript('frontend.popup', $this->getModPath(). 'js/frontend.popup.js');
 			framePps::_()->addJSVar('frontend.popup', $jsListVarName, $popups);
 			framePps::_()->addStyle('frontend.popup', $this->getModPath(). 'css/frontend.popup.css');
-			framePps::_()->addStyle('magic.min', PPS_CSS_PATH. 'magic.min.css');
+			framePps::_()->getModule('templates')->loadMagicAnims();
 			$renderedBefore = true;
 		} else {
 			// We use such "un-professional" method - because in comon - we don't want to collect data for wp_footer output - because unfortunatelly not all themes has it, 
@@ -275,7 +278,13 @@ class popupPps extends modulePps {
 		return $sxGeo->getCountry($ip);
 	}
 	public function getAssetsUrl() {
+		if(empty($this->_assetsUrl)) {
+			$this->_assetsUrl = framePps::_()->getModule('templates')->getCdnUrl(). '_assets/popup/';
+		}
 		return $this->_assetsUrl;
+	}
+	public function getOldAssetsUrl() {
+		return $this->_oldAssetsUrl;
 	}
 	public function checkMenuItemsForPopUps($menuItems) {
 		if(!empty($menuItems)) {

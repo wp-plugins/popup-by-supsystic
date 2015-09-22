@@ -54,8 +54,7 @@
 		<?php _e('Copy & paste next code - into required link to open PopUp on Click', PPS_LANG_CODE)?>:<br />
 		<?php echo htmlPps::text('ppsCopyTextCode', array(
 			'value' => esc_html('['. PPS_SHORTCODE_CLICK. ' id='. $this->popup['id']. ']'),
-			'attrs' => 'class="ppsCopyTextCode supsystic-tooltip-right" title="'. esc_html(sprintf(__('Check screenshot with details - <a onclick="ppsShowTipScreenPopUp(this); return false;" href="%s">here</a>.', PPS_LANG_CODE), $this->getModule()->getModPath(). 'img/show-on-element-click.png')). '"'));?>
-
+			'attrs' => 'class="ppsCopyTextCode supsystic-tooltip-right" title="'. esc_html(sprintf(__('Check screenshot with details - <a onclick="ppsShowTipScreenPopUp(this); return false;" href="%s">here</a>.', PPS_LANG_CODE), $this->getModule()->getAssetsUrl(). 'img/show-on-element-click.png')). '"'));?>
 		<br />
 		<?php _e('Or, if you know HTML basics, - you can insert "onclick" attribute to any of your element from code below', PPS_LANG_CODE)?>:<br />
 		<?php echo htmlPps::text('ppsCopyTextCode', array(

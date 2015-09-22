@@ -32,13 +32,15 @@
 						</div>
 					</div>
 					<div class="row">
-						<h3><?php _e('Video Tutorial', PPS_LANG_CODE)?></h3>
-						<iframe type="text/html"
-								width="90%"
-								height="330px"
-								src="https://www.youtube.com/embed/v8h2k3vvpdM"
-								frameborder="0">
-						</iframe>
+						<div class="col-sm-12">
+							<h3><?php _e('Video Tutorial', PPS_LANG_CODE)?></h3>
+							<iframe type="text/html"
+									width="90%"
+									height="330px"
+									src="https://www.youtube.com/embed/v8h2k3vvpdM"
+									frameborder="0">
+							</iframe>
+						</div>
 					</div>
 				</div>
 				<div class="col-sm-4">
@@ -57,6 +59,7 @@
 					<a href="<?php echo $this->createNewLink;?>" class="button button-primary button-hero"><?php _e("Let's Start!", PPS_LANG_CODE)?></a>
 				</div>
 			</div>
+			<div style="clear: both;"></div>
 		</div>
 	</div>
 </section>

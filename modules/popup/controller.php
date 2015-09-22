@@ -69,7 +69,8 @@ class popupControllerPps extends controllerPps {
 	}
 	public function getPreviewHtml() {
 		$this->_prevPopupId = (int) reqPps::getVar('id', 'get');
-		add_action('init', array($this, 'outPreviewHtml'));
+		$this->outPreviewHtml();
+		//add_action('init', array($this, 'outPreviewHtml'));
 	}
 	public function outPreviewHtml() {
 		if($this->_prevPopupId) {

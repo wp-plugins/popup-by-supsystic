@@ -214,8 +214,8 @@ function getDialogElementPps() {
 }
 
 function toeOptionPps(key) {
-	if(PPS_DATA.options && PPS_DATA.options[ key ] && PPS_DATA.options[ key ].value)
-		return PPS_DATA.options[ key ].value;
+	if(PPS_DATA.options && PPS_DATA.options[ key ])
+		return PPS_DATA.options[ key ];
 	return false;
 }
 function toeLangPps(key) {

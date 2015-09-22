@@ -182,6 +182,7 @@ abstract class controllerPps {
 			->setLimit($limitStart. ', '. $rowsLimit)
 			->setOrderBy( $this->_prepareSortOrder($orderBy) )
 			->setSortOrder( $sortOrder )
+			->setSimpleGetFields()
 			->getFromTbl();
 		
 		$data = $this->_prepareListForTbl( $data );

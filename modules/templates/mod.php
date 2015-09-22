@@ -1,6 +1,11 @@
 <?php
 class templatesPps extends modulePps {
     protected $_styles = array();
+	private $_cdnUrl = 'http://cdn.supsystic.com/';
+	
+	public function getCdnUrl() {
+		return $this->_cdnUrl;
+	}
     public function init() {
         if (is_admin()) {
 			if($isAdminPlugOptsPage = framePps::_()->isAdminPlugOptsPage()) {
@@ -25,16 +30,14 @@ class templatesPps extends modulePps {
 		framePps::_()->addScript('jquery-ui-dialog');
 		framePps::_()->addScript('jquery-ui-slider');
 		framePps::_()->addScript('wp-color-picker');
-		framePps::_()->addScript('tooltipster', PPS_JS_PATH. 'jquery.tooltipster.min.js');
 		framePps::_()->addScript('icheck', PPS_JS_PATH. 'icheck.min.js');
+		$this->loadTooltipster();
 	}
 	public function loadCoreJs() {
 		framePps::_()->addScript('jquery');
 
 		framePps::_()->addScript('commonPps', PPS_JS_PATH. 'common.js');
 		framePps::_()->addScript('corePps', PPS_JS_PATH. 'core.js');
-		
-		//framePps::_()->addScript('selecter', PPS_JS_PATH. 'jquery.fs.selecter.min.js');
 		
 		$ajaxurl = admin_url('admin-ajax.php');
 		$jsData = array(
@@ -44,7 +47,7 @@ class templatesPps extends modulePps {
 			'loader'					=> PPS_LOADER_IMG, 
 			'close'						=> PPS_IMG_PATH. 'cross.gif', 
 			'ajaxurl'					=> $ajaxurl,
-			//'options'					=> framePps::_()->getModule('options')->getAllowedPublicOptions(),
+			'options'					=> framePps::_()->getModule('options')->getAllowedPublicOptions(),
 			'PPS_CODE'					=> PPS_CODE,
 			//'ball_loader'				=> PPS_IMG_PATH. 'ajax-loader-ball.gif',
 			//'ok_icon'					=> PPS_IMG_PATH. 'ok-icon.png',
@@ -56,16 +59,33 @@ class templatesPps extends modulePps {
 		$jsData = dispatcherPps::applyFilters('jsInitVariables', $jsData);
 		framePps::_()->addJSVar('corePps', 'PPS_DATA', $jsData);
 	}
+	public function loadTooltipster() {
+		framePps::_()->addScript('tooltipster', $this->_cdnUrl. 'lib/tooltipster/jquery.tooltipster.min.js');
+		framePps::_()->addStyle('tooltipster', $this->_cdnUrl. 'lib/tooltipster/tooltipster.css');
+	}
+	public function loadSlimscroll() {
+		framePps::_()->addScript('jquery.slimscroll', $this->_cdnUrl. 'js/jquery.slimscroll.js');
+	}
+	public function loadCodemirror() {
+		framePps::_()->addStyle('ppsCodemirror', $this->_cdnUrl. 'lib/codemirror/codemirror.css');
+		framePps::_()->addStyle('codemirror-addon-hint', $this->_cdnUrl. 'lib/codemirror/addon/hint/show-hint.css');
+		framePps::_()->addScript('ppsCodemirror', $this->_cdnUrl. 'lib/codemirror/codemirror.js');
+		framePps::_()->addScript('codemirror-addon-show-hint', $this->_cdnUrl. 'lib/codemirror/addon/hint/show-hint.js');
+		framePps::_()->addScript('codemirror-addon-xml-hint', $this->_cdnUrl. 'lib/codemirror/addon/hint/xml-hint.js');
+		framePps::_()->addScript('codemirror-addon-html-hint', $this->_cdnUrl. 'lib/codemirror/addon/hint/html-hint.js');
+		framePps::_()->addScript('codemirror-mode-xml', $this->_cdnUrl. 'lib/codemirror/mode/xml/xml.js');
+		framePps::_()->addScript('codemirror-mode-javascript', $this->_cdnUrl. 'lib/codemirror/mode/javascript/javascript.js');
+		framePps::_()->addScript('codemirror-mode-css', $this->_cdnUrl. 'lib/codemirror/mode/css/css.js');
+		framePps::_()->addScript('codemirror-mode-htmlmixed', $this->_cdnUrl. 'lib/codemirror/mode/htmlmixed/htmlmixed.js');
+	}
 	public function loadCoreCss() {
 		$this->_styles = array(
 			'stylePps'			=> array('path' => PPS_CSS_PATH. 'style.css', 'for' => 'admin'), 
 			'supsystic-uiPps'	=> array('path' => PPS_CSS_PATH. 'supsystic-ui.css', 'for' => 'admin'), 
 			'dashicons'			=> array('for' => 'admin'),
 			'bootstrap-alerts'	=> array('path' => PPS_CSS_PATH. 'bootstrap-alerts.css', 'for' => 'admin'),
-			'tooltipster'		=> array('path' => PPS_CSS_PATH. 'tooltipster.css', 'for' => 'admin'),
 			'icheck'			=> array('path' => PPS_CSS_PATH. 'jquery.icheck.css', 'for' => 'admin'),
 			//'uniform'			=> array('path' => PPS_CSS_PATH. 'uniform.default.css', 'for' => 'admin'),
-			//'selecter'			=> array('path' => PPS_CSS_PATH. 'jquery.fs.selecter.min.css', 'for' => 'admin'),
 			'wp-color-picker'	=> array('for' => 'admin'),
 		);
 		foreach($this->_styles as $s => $sInfo) {
@@ -91,22 +111,23 @@ class templatesPps extends modulePps {
 		static $loaded = false;
 		if(!$loaded) {
 			$this->loadJqueryUi();
-			framePps::_()->addScript('jq-grid', PPS_JS_PATH. 'jquery.jqGrid.min.js');
-			framePps::_()->addStyle('jq-grid', PPS_CSS_PATH. 'ui.jqgrid.css');
+			framePps::_()->addScript('jq-grid', $this->_cdnUrl. 'lib/jqgrid/jquery.jqGrid.min.js');
+			framePps::_()->addStyle('jq-grid', $this->_cdnUrl. 'lib/jqgrid/ui.jqgrid.css');
 			$langToLoad = utilsPps::getLangCode2Letter();
-			if(!file_exists(PPS_JS_DIR. 'i18n'. DS. 'grid.locale-'. $langToLoad. '.js')) {
+			$availableLocales = array('ar','bg','bg1251','cat','cn','cs','da','de','dk','el','en','es','fa','fi','fr','gl','he','hr','hr1250','hu','id','is','it','ja','kr','lt','mne','nl','no','pl','pt','pt','ro','ru','sk','sr','sr','sv','th','tr','tw','ua','vi');
+			if(!in_array($langToLoad, $availableLocales)) {
 				$langToLoad = 'en';
 			}
-			framePps::_()->addScript('jq-grid-lang', PPS_JS_PATH. 'i18n/grid.locale-'. $langToLoad. '.js');
+			framePps::_()->addScript('jq-grid-lang', $this->_cdnUrl. 'lib/jqgrid/i18n/grid.locale-'. $langToLoad. '.js');
 			$loaded = true;
 		}
 	}
 	public function loadFontAwesome() {
-		framePps::_()->addStyle('font-awesomePps', PPS_CSS_PATH. 'font-awesome.css');
+		framePps::_()->addStyle('font-awesomePps', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 	}
 	public function loadChosenSelects() {
-		framePps::_()->addStyle('jquery.chosen', PPS_CSS_PATH. 'chosen.min.css');
-		framePps::_()->addScript('jquery.chosen', PPS_JS_PATH. 'chosen.jquery.min.js');
+		framePps::_()->addStyle('jquery.chosen', $this->_cdnUrl. 'lib/chosen/chosen.min.css');
+		framePps::_()->addScript('jquery.chosen', $this->_cdnUrl. 'lib/chosen/chosen.jquery.min.js');
 	}
 	public function loadDatePicker() {
 		framePps::_()->addScript('jquery-ui-datepicker');
@@ -114,21 +135,21 @@ class templatesPps extends modulePps {
 	public function loadJqplot() {
 		static $loaded = false;
 		if(!$loaded) {
-			$jqplotDir = 'jqplot/';
+			$jqplotDir = $this->_cdnUrl. 'lib/jqplot/';
 
-			framePps::_()->addStyle('jquery.jqplot', PPS_CSS_PATH. 'jquery.jqplot.min.css');
+			framePps::_()->addStyle('jquery.jqplot', $jqplotDir. 'jquery.jqplot.min.css');
 
-			framePps::_()->addScript('jplot', PPS_JS_PATH. $jqplotDir. 'jquery.jqplot.min.js');
-			framePps::_()->addScript('jqplot.canvasAxisLabelRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasAxisLabelRenderer.min.js');
-			framePps::_()->addScript('jqplot.canvasTextRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasTextRenderer.min.js');
-			framePps::_()->addScript('jqplot.dateAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.dateAxisRenderer.min.js');
-			framePps::_()->addScript('jqplot.canvasAxisTickRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.canvasAxisTickRenderer.min.js');
-			framePps::_()->addScript('jqplot.highlighter', PPS_JS_PATH. $jqplotDir. 'jqplot.highlighter.min.js');
-			framePps::_()->addScript('jqplot.cursor', PPS_JS_PATH. $jqplotDir. 'jqplot.cursor.min.js');
-			framePps::_()->addScript('jqplot.barRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.barRenderer.min.js');
-			framePps::_()->addScript('jqplot.categoryAxisRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.categoryAxisRenderer.min.js');
-			framePps::_()->addScript('jqplot.pointLabels', PPS_JS_PATH. $jqplotDir. 'jqplot.pointLabels.min.js');
-			framePps::_()->addScript('jqplot.pieRenderer', PPS_JS_PATH. $jqplotDir. 'jqplot.pieRenderer.min.js');
+			framePps::_()->addScript('jplot', $jqplotDir. 'jquery.jqplot.min.js');
+			framePps::_()->addScript('jqplot.canvasAxisLabelRenderer', $jqplotDir. 'jqplot.canvasAxisLabelRenderer.min.js');
+			framePps::_()->addScript('jqplot.canvasTextRenderer', $jqplotDir. 'jqplot.canvasTextRenderer.min.js');
+			framePps::_()->addScript('jqplot.dateAxisRenderer', $jqplotDir. 'jqplot.dateAxisRenderer.min.js');
+			framePps::_()->addScript('jqplot.canvasAxisTickRenderer', $jqplotDir. 'jqplot.canvasAxisTickRenderer.min.js');
+			framePps::_()->addScript('jqplot.highlighter', $jqplotDir. 'jqplot.highlighter.min.js');
+			framePps::_()->addScript('jqplot.cursor', $jqplotDir. 'jqplot.cursor.min.js');
+			framePps::_()->addScript('jqplot.barRenderer', $jqplotDir. 'jqplot.barRenderer.min.js');
+			framePps::_()->addScript('jqplot.categoryAxisRenderer', $jqplotDir. 'jqplot.categoryAxisRenderer.min.js');
+			framePps::_()->addScript('jqplot.pointLabels', $jqplotDir. 'jqplot.pointLabels.min.js');
+			framePps::_()->addScript('jqplot.pieRenderer', $jqplotDir. 'jqplot.pieRenderer.min.js');
 			$loaded = true;
 		}
 	}
@@ -141,6 +162,13 @@ class templatesPps extends modulePps {
 
 			framePps::_()->addScript('jquery-ui-draggable');
 			framePps::_()->addScript('jquery-ui-sortable');
+			$loaded = true;
+		}
+	}
+	public function loadMagicAnims() {
+		static $loaded = false;
+		if(!$loaded) {
+			framePps::_()->addStyle('jquery.jqplot', $this->_cdnUrl. 'css/magic.min.css');
 			$loaded = true;
 		}
 	}

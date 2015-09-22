@@ -9,7 +9,8 @@ class supsystic_promoViewPps extends viewPps {
 	}
 	public function getOverviewTabContent() {
 		framePps::_()->getModule('templates')->loadJqueryUi();
-		framePps::_()->addScript('jquery.slimscroll', PPS_JS_PATH. 'jquery.slimscroll.js');
+		
+		framePps::_()->getModule('templates')->loadSlimscroll();
 		framePps::_()->addScript('admin.overview', $this->getModule()->getModPath(). 'js/admin.overview.js');
 		framePps::_()->addStyle('admin.overview', $this->getModule()->getModPath(). 'css/admin.overview.css');
 		$this->assign('mainLink', $this->getModule()->getMainLink());
@@ -100,7 +101,8 @@ Here you can edit css style of the pop-up window.', PPS_LANG_CODE),
 	}
 	public function showWelcomePage() {
 		framePps::_()->getModule('templates')->loadJqueryUi();
-		framePps::_()->addStyle('sup.bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+		framePps::_()->addStyle('sup.bootstrap', framePps::_()->getModule('popup')->getAssetsUrl(). 'css/bootstrap.partial.min.css'/*'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'*/);
+		framePps::_()->addStyle('admin.welcome', $this->getModule()->getModPath(). 'css/admin.welcome.css');
 		$createNewLink = framePps::_()->getModule('options')->getTabUrl('popup_add_new');
 		$goToAdminLink = framePps::_()->getModule('options')->getTabUrl('popup');
 		$skipTutorLink = uriPps::_(array('baseUrl' => $goToAdminLink, 'skip_tutorial' => 1));

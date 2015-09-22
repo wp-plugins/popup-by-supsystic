@@ -6,6 +6,7 @@ class supsystic_promoPps extends modulePps {
 	public function __construct($d) {
 		parent::__construct($d);
 		$this->getMainLink();
+		dispatcherPps::addFilter('jsInitVariables', array($this, 'addMainOpts'));
 	}
 	public function init() {
 		parent::init();
@@ -17,6 +18,7 @@ class supsystic_promoPps extends modulePps {
 		$this->weLoveYou();
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 		dispatcherPps::addFilter('subDestList', array($this, 'addSubDestList'));
+		dispatcherPps::addAction('beforeSaveOpts', array($this, 'checkSaveOpts'));
 	}
 	public function addAdminTab($tabs) {
 		$tabs['overview'] = array(
@@ -31,6 +33,8 @@ class supsystic_promoPps extends modulePps {
 				'campaignmonitor' => array('label' => __('Campaign Monitor - PRO', PPS_LANG_CODE), 'require_confirm' => true),
 				'verticalresponse' => array('label' => __('Vertical Response - PRO', PPS_LANG_CODE), 'require_confirm' => true),
 				'sendgrid' => array('label' => __('SendGrid - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'get_response' => array('label' => __('GetResponse - PRO', PPS_LANG_CODE), 'require_confirm' => true),
+				'activecampaign' => array('label' => __('Active Campaign', PPS_LANG_CODE), 'require_confirm' => true),
 				'arpreach' => array('label' => __('arpReach - PRO', PPS_LANG_CODE), 'require_confirm' => true),
 				'sgautorepondeur' => array('label' => __('SG Autorepondeur - PRO', PPS_LANG_CODE), 'require_confirm' => true),
 			));
@@ -56,6 +60,7 @@ class supsystic_promoPps extends modulePps {
 	public function weLoveYou() {
 		if(!$this->isPro()) {
 			dispatcherPps::addFilter('popupEditTabs', array($this, 'addUserExp'));
+			dispatcherPps::addFilter('popupEditDesignTabs', array($this, 'addUserExpDesign'));
 			dispatcherPps::addFilter('editPopupMainOptsShowOn', array($this, 'showAdditionalmainAdminShowOnOptions'));
 		}
 	}
@@ -63,7 +68,6 @@ class supsystic_promoPps extends modulePps {
 		$this->getView()->showAdditionalmainAdminShowOnOptions($popup);
 	}
 	public function addUserExp($tabs) {
-		$url = $this->getMainLink();
 		$modPath = $this->getAssetsUrl();
 		$tabs['ppsPopupAbTesting'] = array(
 			'title' => __('Testing', PPS_LANG_CODE), 
@@ -75,6 +79,9 @@ class supsystic_promoPps extends modulePps {
 			'avoid_hide_icon' => true,
 			'sort_order' => 55,
 		);
+		return $tabs;
+	}
+	public function addUserExpDesign($tabs) {
 		$tabs['ppsPopupLayeredPopup'] = array(
 			'title' => __('Layered Style', PPS_LANG_CODE), 
 			'content' => $this->getView()->getLayeredStylePromo(),
@@ -169,5 +176,19 @@ class supsystic_promoPps extends modulePps {
 	}
 	public function getContactLink() {
 		return $this->getMainLink(). '#contact';
+	}
+	public function addMainOpts($opts) {
+		$title = 'WordPress PopUp Plugin';
+		$opts['options']['love_link_html'] = '<a title="'. $title. '" style="color: #26bfc1 !important; font-size: 9px; position: absolute; bottom: 15px; right: 15px;" href="'. $this->generateMainLink('utm_source=plugin&utm_medium=love_link&utm_campaign=popup'). '" target="_blank">'
+			. $title
+			. '</a>';
+		return $opts;
+	}
+	public function checkSaveOpts($newValues) {
+		$loveLinkEnb = (int) framePps::_()->getModule('options')->get('add_love_link');
+		$loveLinkEnbNew = isset($newValues['opt_values']['add_love_link']) ? (int) $newValues['opt_values']['add_love_link'] : 0;
+		if($loveLinkEnb != $loveLinkEnbNew) {
+			$this->getModel()->saveUsageStat('love_link.'. ($loveLinkEnbNew ? 'enb' : 'dslb'));
+		}
 	}
 }
