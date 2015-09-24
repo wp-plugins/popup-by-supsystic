@@ -237,3 +237,6 @@ thead .ui-jqgrid-labels th[id$='_cb'] .s-ico {
 .ui-icon-search:before {
   content: "\f002";
 }
+.ui-dialog-titlebar-close::before {	/*disallow other close btns style be here*/
+	content: "" !important;
+}

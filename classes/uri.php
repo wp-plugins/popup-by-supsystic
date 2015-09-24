@@ -21,7 +21,7 @@ class uriPps {
             }
             $link = get_page_link($params['page_id']);
             unset($params['page_id']);
-        } elseif(isset($params['baseUrl'])) {
+        } elseif(is_array($params) && isset($params['baseUrl'])) {
             $link = $params['baseUrl'];
             unset($params['baseUrl']);
         } else {
