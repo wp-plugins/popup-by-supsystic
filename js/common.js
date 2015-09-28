@@ -119,8 +119,13 @@ function extend(Child, Parent) {
     Child.prototype.constructor = Child;
     Child.superclass = Parent.prototype;
 }
-function toeRedirect(url) {
-    document.location.href = url;
+function toeRedirect(url, newWnd) {
+	if(newWnd) {
+		var win = window.open(url, '_blank');
+		win.focus();
+	} else {
+		document.location.href = url;
+	}
 }
 function toeReload(url) {
 	if(url)

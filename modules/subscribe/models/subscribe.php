@@ -38,6 +38,9 @@ class subscribeModelPps extends modelPps {
 								$this->pushError($externalErrors);
 							}
 						}
+						if($res) {
+							$this->checkSendNewNotification($d, $popup);
+						}
 						return $res;
 					}
 				} else
@@ -47,6 +50,51 @@ class subscribeModelPps extends modelPps {
 		} else
 			$this->pushError (__('Empty or invalid ID', PPS_LANG_CODE));
 		return false;
+	}
+	public function checkSendNewNotification($d, $popup) {
+		$adminEmail = get_bloginfo('admin_email');
+		if(!isset($popup['params']['tpl']['sub_new_email'])) {
+			$sendTo = $adminEmail;	// For case when it was just not existed before, but notification should still come
+		} else {
+			$sendTo = isset($popup['params']['tpl']['sub_new_email']) && !empty($popup['params']['tpl']['sub_new_email'])
+				? trim($popup['params']['tpl']['sub_new_email'])
+				: false;
+		}
+		if(!empty($sendTo)) {
+			$blogName = wp_specialchars_decode(get_bloginfo('name'));
+			$emailSubject = empty($blogName) 
+				? __('New Subscriber notification', PPS_LANG_CODE) 
+				: sprintf(__('New Subscriber on %s', PPS_LANG_CODE), $blogName);
+			$emailContent = isset($popup['params']['tpl']['sub_new_message']) && !empty($popup['params']['tpl']['sub_new_message'])
+				? $popup['params']['tpl']['sub_new_message']
+				: __('You have new subscriber on your site <a href="[siteurl]">[sitename]</a>, here us subscriber information:<br />[subscriber_data]', PPS_LANG_CODE);
+			$subscriberDataArr = array();
+			if(isset($popup['params']['tpl']['sub_fields'])
+				&& !empty($popup['params']['tpl']['sub_fields'])
+			) {
+				foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
+					if(isset($d[ $k ])) {
+						$subscriberDataArr[] = sprintf($f['label']. ': %s', $d[ $k ]) . '<br />';
+					}
+				}
+			}
+			$replaceVariables = array(
+				'sitename' => $blogName,
+				'siteurl' => get_bloginfo('wpurl'),
+				'subscriber_data' => implode('<br />', $subscriberDataArr),
+			);
+			foreach($replaceVariables as $k => $v) {
+				$emailSubject = str_replace('['. $k. ']', $v, $emailSubject);
+				$emailContent = str_replace('['. $k. ']', $v, $emailContent);
+			}
+			framePps::_()->getModule('mail')->send($sendTo,
+				$emailSubject,
+				$emailContent,
+				$blogName,
+				$adminEmail,
+				$blogName,
+				$adminEmail);
+		}
 	}
 	public function isSubscribedInternal() {
 		return $this->_subscribedInternal;
@@ -246,27 +294,6 @@ class subscribeModelPps extends modelPps {
 			framePps::_()->getModule('mail')->send($user->user_email,
 				$emailSubject,
 				$emailContent,
-				$blogName,
-				$adminEmail,
-				$blogName,
-				$adminEmail);
-			// Email to admin about new user registration - as simple as we can do - ust copied original wp code
-			$message  = sprintf(__('New user registration on your site %s:'), $blogName) . '<br />';
-			$message .= sprintf(__('Username: %s'), $user->user_login) . '<br />';
-			//$message .= sprintf(__('E-mail: %s'), $user->user_email) . '<br />';
-			if(isset($popup['params']['tpl']['sub_fields'])
-				&& !empty($popup['params']['tpl']['sub_fields'])
-			) {
-				foreach($popup['params']['tpl']['sub_fields'] as $k => $f) {
-					//if(in_array($k, array('name', 'email'))) continue;	// Ignore standard fields
-					if(isset($d[ $k ])) {
-						$message .= sprintf($f['label']. ': %s', $d[ $k ]) . '<br />';
-					}
-				}
-			}
-			framePps::_()->getModule('mail')->send(get_bloginfo('admin_email'),
-				sprintf(__('[%s] New User Registration'), $blogName),
-				$message,
 				$blogName,
 				$adminEmail,
 				$blogName,

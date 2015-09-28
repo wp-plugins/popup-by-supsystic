@@ -192,7 +192,7 @@ function ppsBindPopupSubscribers(popup) {
 								jQuery(self).animateRemovePps( 300 );
 								ppsPopupSubscribeSuccess( popup );
 								if(res.data && res.data.redirect) {
-									toeRedirect(res.data.redirect);
+									toeRedirect(res.data.redirect, parseInt(popup.params.tpl.sub_redirect_new_wnd));
 								}
 							} else {
 								if(res.data && res.data.emailExistsRedirect) {

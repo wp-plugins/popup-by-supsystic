@@ -1,3 +1,4 @@
+var g_ppsSfCurrEditStandardCell = null;
 jQuery(document).ready(function(){
 	// Show/hide additonal subscribe options
 	jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_dest]"]').change(function(){
@@ -54,6 +55,12 @@ jQuery(document).ready(function(){
 		}
     });
 	ppsInitSubFieldsPromoPopup();
+	// Standard subscribe fields edit dialog
+	ppsInitStandardSubFieldsPopup()
+	// Standard subscribe fields toolbar
+	jQuery('#ppoPopupSubFields .ppsSubFieldShell').each(function(){
+		_ppsSfInitStandardFieldToolbar(jQuery(this));
+	});
 });
 function _ppsGetMailchimpKey() {
 	return jQuery.trim( jQuery('#ppsPopupEditForm').find('[name="params[tpl][sub_mailchimp_api_key]"]').val() );
@@ -105,6 +112,77 @@ function ppsInitSubFieldsPromoPopup() {
 		});
 		jQuery('#ppsSubAddFieldBtn').click(function(){
 			$proOptWnd.dialog('open');
+			return false;
+		});
+	}
+}
+function ppsInitStandardSubFieldsPopup() {
+	var $wnd = jQuery('#ppsSfEditFieldsStandardWnd').dialog({
+		modal:    true
+	,	autoOpen: false
+	,	width: 540
+	,	height: jQuery(window).height() - 60
+	,	buttons: {
+			'Ok': function() {
+				if(_ppsSfSaveStandrdSubField($wnd.serializeAnythingPps(false, true), $wnd)) {
+					$wnd.dialog('close');
+				}
+			}
+		,	'Cancel': function() {
+				$wnd.dialog('close');
+			}
+		}
+	});
+}
+function _ppsSfSaveStandrdSubField(data, $wnd) {
+	var errors = {};
+
+	if(data.label) {
+		var cell = g_ppsSfCurrEditStandardCell ? g_ppsSfCurrEditStandardCell : null;
+		_ppsSfFillInSubFieldStandardCell(cell, data);
+		ppsSavePopupChanges();
+		return true;
+	} else
+		errors['label'] = toeLangPps('Please enter Label');
+
+	if($wnd && errors) {
+		toeProcessAjaxResponsePps({error: true, errors: errors}, false, $wnd, true, {btn: $wnd.find('.ui-button:first')});
+	}
+	return false;
+}
+function _ppsSfFillInSubFieldStandardCell(cell, data) {
+	cell.find('[name="params[tpl][sub_fields]['+ data.name+ '][label]"]').val( data.label );
+	if(data.name != 'email') {
+		cell.find('[name="params[tpl][sub_fields]['+ data.name+ '][mandatory]"]').val( data.mandatory ? 1 : 0 );
+	}
+	cell.find('.ppsSubFieldLabel').html( data.label );
+}
+function _ppsSfClearStandardEditForm() {
+	jQuery('#ppsSfEditFieldsStandardWnd').find('input:not([type="checkbox"])').val('');
+	ppsCheckUpdate(jQuery('#ppsSfEditFieldsStandardWnd').find('input[type=checkbox]').removeAttr('checked'));
+	jQuery('#ppsSfEditFieldsStandardWnd').find('.ppsSfFieldSelectOptShell:not(#ppsSfFieldSelectOptShellExl)').remove();
+}
+function _ppsSfInitStandardFieldToolbar(cell) {
+	if(parseInt(cell.find('input[name*="custom"]').val()) === 0) {
+		var toolbarHtml = jQuery('#ppsSfFieldToolbarStandardExl').clone().removeAttr('id');
+		cell.append( toolbarHtml );
+		toolbarHtml.find('.ppsSfFieldSettingsBtn').click(function(){
+			_ppsSfClearStandardEditForm();
+			var $wnd = jQuery('#ppsSfEditFieldsStandardWnd')
+			,	name = cell.attr('data-name');	// cell.data('name') didn't worked correctly here
+
+			$wnd.find('[name="name"]').val( name );
+			$wnd.find('[name="label"]').val( cell.find('input[name*="label"]').val() );
+			parseInt(cell.find('input[name*="mandatory"]').val())
+				? $wnd.find('[name="mandatory"]').attr('checked', 'checked')
+				: $wnd.find('[name="mandatory"]').removeAttr('checked');
+				
+			ppsCheckUpdateArea( $wnd );
+			g_ppsSfCurrEditStandardCell = cell;
+			name == 'email'
+				 ? $wnd.find('.ppsSfMandatoryStandardRow').hide()
+				 : $wnd.find('.ppsSfMandatoryStandardRow').show();
+			$wnd.dialog('open');
 			return false;
 		});
 	}

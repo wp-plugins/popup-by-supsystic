@@ -129,6 +129,7 @@
 				'verticalresponse' => array('label' => __('Vertical Response', PPS_LANG_CODE)),
 				'activecampaign' => array('label' => __('Active Campaign', PPS_LANG_CODE)),
 				//'infusionsoft' => array('label' => __('Infusion Soft', PPS_LANG_CODE)),	// Not ready for production - too much questions about their API service
+				'mailrelay'=> array('label' => __('Mailrelay', PPS_LANG_CODE)),
 				'arpreach' => array('label' => __('arpReach', PPS_LANG_CODE)),
 				'sgautorepondeur' => array('label' => __('SG Autorepondeur', PPS_LANG_CODE)),
 			);
@@ -206,7 +207,7 @@
 				<?php
 					$labelClass = 'ppsSubFieldShell';
 					if($k == 'email')
-						$labelClass .= ' supsystic-tooltip ppsSubFieldEmailShell';
+						$labelClass .= ' supsystic-tooltip-bottom ppsSubFieldEmailShell';
 				?>
 				<div
 					class="<?php echo $labelClass?>"
@@ -303,6 +304,11 @@
 					'value' => (isset($this->popup['params']['tpl']['sub_redirect_url']) ? esc_url( $this->popup['params']['tpl']['sub_redirect_url'] ) : ''),
 					'attrs' => 'placeholder="http://example.com"',
 				))?>
+				<label>
+					<?php echo htmlPps::checkbox('params[tpl][sub_redirect_new_wnd]', array(
+						'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'sub_redirect_new_wnd')))?>
+					<?php _e('Open in a new window (tab)', PPS_LANG_CODE)?>
+				</label>
 			</td>
 		</tr>
 		<tr class="ppsPopupSubEmailTxt" style="display: none;">
@@ -409,6 +415,35 @@
 				<?php echo htmlPps::text('params[tpl][sub_btn_label]', array('value' => $this->popup['params']['tpl']['sub_btn_label']))?>
 			</td>
 		</tr>
+		<tr>
+			<th scope="row">
+				<?php _e('New Subscriber Notification', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Enter the email addresses that should receive notifications (separate by comma). Leave it blank - and you will not get any notifications.', PPS_LANG_CODE)?>"></i>
+			</th>
+			<td>
+				<?php echo htmlPps::text('params[tpl][sub_new_email]', array(
+					'value' => isset($this->popup['params']['tpl']['sub_new_email']) 
+						? $this->popup['params']['tpl']['sub_new_email'] 
+						: $this->adminEmail,
+				))?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<?php _e('New Subscriber Notification email text', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Message that you will receive about new subscribers on your site.', PPS_LANG_CODE)?>"></i>
+				<?php $allowVarsInMail = array('sitename', 'siteurl', 'subscriber_data');?>
+				<div class="description" style=""><?php printf(__('You can use next variables here: %s', PPS_LANG_CODE), '['. implode('], [', $allowVarsInMail).']')?></div>
+			</th>
+			<td>
+				
+				<?php echo htmlPps::textarea('params[tpl][sub_new_message]', array(
+					'value' => isset($this->popup['params']['tpl']['sub_new_message']) 
+						? $this->popup['params']['tpl']['sub_new_message'] 
+						: __('You have new subscriber on your site <a href="[siteurl]">[sitename]</a>, here us subscriber information:<br />[subscriber_data]', PPS_LANG_CODE),
+				))?>
+			</td>
+		</tr>
 	</table>
 </span>
 <!--Add Field promo Wnd-->
@@ -416,4 +451,36 @@
 	<a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=sub_fields&utm_campaign=popup');?>" class="ppsPromoImgUrl">
 		<img src="<?php echo $this->promoModPath?>img/sub-fields-edit.jpg" />
 	</a>
+</div>
+<!--Standard fields toolbar-->
+<div id="ppsSfFieldToolbarStandardExl" class="ppsSfFieldToolbar">
+	<a class="ppsSfFieldSettingsBtn" href="#" title="<?php _e('Settings', PPS_LANG_CODE)?>">
+		<i class="fa fa-gear"></i>
+	</a>
+</div>
+<!--Add/edit standard subscribe fields popup-->
+<div id="ppsSfEditFieldsStandardWnd" title="<?php _e('Subscribe Field Settings', PPS_LANG_CODE)?>" style="display: none;">
+	<table class="form-table">
+		<tr class="ppsSfLabelShell">
+			<th scope="row">
+				<?php _e('Label', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(__('Label that will be visible for your subscribers.', PPS_LANG_CODE))?>"></i>
+			</th>
+			<td>
+				<?php echo htmlPps::text('label')?>
+			</td>
+		</tr>
+		<tr class="ppsSfMandatoryStandardRow">
+			<th scope="row">
+				<?php _e('Mandatory', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(__('Is this field mandatory to fill-in. If yes - then users will not be able to continue without filling-in this field.', PPS_LANG_CODE))?>"></i>
+			</th>
+			<td>
+				<?php echo htmlPps::checkbox('mandatory', array(
+					'value' => 1,
+				))?>
+			</td>
+		</tr>
+	</table>
+	<?php echo htmlPps::hidden('name')?>
 </div>
