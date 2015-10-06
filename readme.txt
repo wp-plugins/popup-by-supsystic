@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
 Tested up to: 4.3.1
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
 
@@ -182,6 +182,12 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 
 == Changelog ==
+
+= 1.3.9 / 06.10.2015 =
+ * Fix small issue for servers, that make auto translate "&" sign to "&amp;" in http_build_query() function
+ * Fixed small issue with MailRelay and SendGrid modules (encryption/decryption saved tokens length)
+ * Fix issue with pre-load images algorithm: for cases when type background selected as Image, but actually no image was selected
+ * "Link Follow" show PopUp options - PRO
 
 = 1.3.8 / 28.09.2015 =
  * Notification about new subscribers for all Subscription services functionality added

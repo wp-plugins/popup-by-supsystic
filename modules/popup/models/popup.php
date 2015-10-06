@@ -308,6 +308,7 @@ class popupModelPps extends modelPps {
 				'after_inactive' => array('id' => 7),
 				'after_comment' => array('id' => 8),
 				'after_checkout' => array('id' => 9),
+				'link_follow' => array('id' => 10),
 			));
 		}
 		return $this->_showPagesList;

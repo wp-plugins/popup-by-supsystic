@@ -8,6 +8,7 @@ class subscribePps extends modulePps {
 				'aweber' => array('label' => __('Aweber', PPS_LANG_CODE)),
 				'mailchimp' => array('label' => __('MailChimp', PPS_LANG_CODE), 'require_confirm' => true),
 				'mailpoet' => array('label' => __('MailPoet', PPS_LANG_CODE), 'require_confirm' => true),
+				//'newsletter' => array('label' => __('Newsletter', PPS_LANG_CODE), 'require_confirm' => true),
 			));
 		}
 		return $this->_destList;

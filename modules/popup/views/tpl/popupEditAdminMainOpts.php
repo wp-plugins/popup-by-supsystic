@@ -12,7 +12,7 @@
 			) {
 				$warnings[] = sprintf(__('You are using Google Maps in this PopUp, but don\'t have Google Maps Easy plugin installed. You can get it for Free from WordPress site <a target="_blank" href="%s">here</a>, install and start using this PopUp with map.', PPS_LANG_CODE), 'https://wordpress.org/plugins/google-maps-easy/');
 				break;
-			} 
+			}
 		}
 	}
 ?>
@@ -90,7 +90,6 @@
 			<?php _e('percents of total scroll', PPS_LANG_CODE)?>
 		</label>
 	</div><br />
-	<?php //dispatcherPps::doAction('editPopupMainOptsShowOn', $this->popup)?>
 	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
 			'attrs' => 'class="ppsProOpt"',
@@ -170,6 +169,27 @@
 			/*'value' => esc_html('<?php echo do_shortcode("['. PPS_SHORTCODE. ' id='. $this->popup['id']. ']")?>'),*/
 			'attrs' => 'class="ppsCopyTextCode"'));?>
 	</div><?php }?><br />
+	<label class="ppsPopupMainOptLbl">
+		<?php echo htmlPps::radiobutton('params[main][show_on]', array(
+			'attrs' => 'class="ppsProOpt"',
+			'value' => 'link_follow',
+			'checked' => htmlPps::checkedOpt($this->popup['params']['main'], 'show_on', 'link_follow')))?>
+		<?php
+			$openByFollowExl = get_bloginfo('wpurl'). '#ppsShowPopUp_'. $this->popup['id'];
+		?>
+		<span class="supsystic-tooltip-right" title="<?php echo esc_html(sprintf(__('Show when user open your site exactly by link, where in the end will be present #ppsShowPopUp_%d. For example <a href="%s" target="_blank">%s</a> (will work only with PRO version).', PPS_LANG_CODE), $this->popup['id'], $openByFollowExl, $openByFollowExl))?>">
+			<?php _e('On Link Follow', PPS_LANG_CODE)?>
+		</span>
+		<?php if(!$this->isPro) {?>
+			<span class="ppsProOptMiniLabel"><a target="_blank" href="<?php echo framePps::_()->getModule('supsystic_promo')->generateMainLink('utm_source=plugin&utm_medium=link_follow&utm_campaign=popup');?>"><?php _e('PRO option', PPS_LANG_CODE)?></a></span>
+		<?php }?>
+	</label>
+	<div id="ppsOptDesc_params_main_show_on_link_follow" style="display: none;" class="ppsOptDescParamsShell">
+		<?php _e('Copy & paste next code - into end of required link on your site', PPS_LANG_CODE)?>:<br />
+		<?php echo htmlPps::text('ppsCopyTextCode', array(
+			'value' => esc_html('#ppsShowPopUp_'. $this->popup['id']),
+			'attrs' => 'class="ppsCopyTextCode"'));?>
+	</div><br />
 </section>
 <section class="ppsPopupMainOptSect">
 	<span class="ppsOptLabel"><?php _e('When to close PopUp', PPS_LANG_CODE)?></span>

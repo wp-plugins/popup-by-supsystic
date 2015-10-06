@@ -120,6 +120,26 @@
 				</th>
 			<?php }?>
 		</tr>
+		<?php /*?><tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_newsletter">
+			<?php if($this->newsletterAvailable) { ?>
+				<th scope="row">
+					<?php _e('Newsletter Subscribe Lists', PPS_LANG_CODE)?>
+				</th>
+				<td>
+					<?php if(!empty($this->newsletterListsSelect)) { ?>
+						<?php echo htmlPps::selectbox('params[tpl][sub_newsletter_list]', array(
+							'value' => (isset($this->popup['params']['tpl']['sub_newsletter_list']) ? $this->popup['params']['tpl']['sub_newsletter_list'] : ''),
+							'options' => $this->newsletterListsSelect))?>
+					<?php } else { ?>
+						<div class="description"><?php printf(__('You have no subscribe lists, <a target="_blank" href="%s">create lists</a> at first, then - select them here.', PPS_LANG_CODE), admin_url('admin.php?page=wysija_subscribers&action=addlist'))?></div>
+					<?php }?>
+				</td>
+			<?php } else { ?>
+				<th scope="row" colspan="2">
+					<div class="description"><?php printf(__('To use this subscribe engine - you must have <a target="_blank" href="%s">Newsletter plugin</a> installed on your site', PPS_LANG_CODE), admin_url('plugin-install.php?tab=search&s=Newsletter'))?></div>
+				</th>
+			<?php }?>
+		</tr><?php */?>
 		<?php
 			$proSubModules = array(
 				'constantcontact' => array('label' => __('Constant Contact', PPS_LANG_CODE)), 

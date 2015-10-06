@@ -28,7 +28,7 @@ class uriPps {
             $link = PPS_URL;
         }
         if(!empty($params)) {
-            $query = is_array($params) ? http_build_query($params) : $params;
+            $query = is_array($params) ? http_build_query($params, '', '&') : $params;
             $link .= (strpos($link, '?') === false ? '?' : '&'). $query;
         }
 		if(self::$_oneHtmlEnc) {

@@ -304,6 +304,7 @@ class popupViewPps extends viewPps {
 	}
 	public function getMainPopupSubTab() {
 		framePps::_()->getModule('subscribe')->loadAdminEditAssets();
+		/*MailPoet check*/
 		$mailPoetAvailable = class_exists('WYSIJA');
 		if($mailPoetAvailable) {
 			$mailPoetLists = WYSIJA::get('list', 'model')->get(array('name', 'list_id'), array('is_enabled' => 1));
@@ -315,8 +316,15 @@ class popupViewPps extends viewPps {
 			}
 			$this->assign('mailPoetListsSelect', $mailPoetListsSelect);
 		}
+		/*Newsletter plugin check*/
+		// Unavailable for now
+		$newsletterAvailable = false;
+		if($newsletterAvailable) {
+
+		}
 		$this->assign('availableUserRoles', framePps::_()->getModule('subscribe')->getAvailableUserRolesForSelect());
 		$this->assign('mailPoetAvailable', $mailPoetAvailable);
+		$this->assign('newsletterAvailable', $newsletterAvailable);
 		return parent::getContent('popupEditAdminSubOpts');
 	}
 	public function getMainPopupSmTab() {
@@ -536,7 +544,7 @@ class popupViewPps extends viewPps {
 		$res = '';
 		if(isset($popup['params']['opts_attrs']['bg_number']) && !empty($popup['params']['opts_attrs']['bg_number'])) {
 			for($i = 0; $i < $popup['params']['opts_attrs']['bg_number']; $i++) {
-				if($popup['params']['tpl']['bg_type_'. $i] == 'img') {
+				if($popup['params']['tpl']['bg_type_'. $i] == 'img' && !empty($popup['params']['tpl']['bg_img_'. $i])) {
 					$res .= '<img class="ppsPopupPreloadImg ppsPopupPreloadImg_'. $popup['view_id']. '" src="'. $popup['params']['tpl']['bg_img_'. $i]. '" />';
 				}
 			}
