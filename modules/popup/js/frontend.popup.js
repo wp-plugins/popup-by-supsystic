@@ -7,6 +7,9 @@ jQuery(document).ready(function(){
 		ppsInitBgOverlay();
 		jQuery(document).trigger('ppsBeforePopupsInit', ppsPopups);
 		for(var i = 0; i < ppsPopups.length; i++) {
+			// Move back from replaced style tags - to normal style tag
+			ppsPopups[ i ].rendered_html = str_replace(ppsPopups[ i ].rendered_html, '<style_replaced>', '<style type="text/css">');
+			ppsPopups[ i ].rendered_html = str_replace(ppsPopups[ i ].rendered_html, '</style_replaced>', '</style>');
 			jQuery('body').append( ppsPopups[ i ].rendered_html );
 			ppsBindPopupLove( ppsPopups[ i ] );
 			ppsBindPopupLoad( ppsPopups[ i ] );
@@ -376,8 +379,8 @@ function _ppsCheckMap(params) {
 			if(map) {	// If map is already there - just refresh it after popup was shown
 				map.refresh();
 			} else {	// If there are no map - but it should be there - just create it
-				var mapId = shell.find('.gmp_map_opts').data('id')
-				,	mapData = gmpGetMapInfoById(mapId);
+				var mapId = shell.find('.gmp_map_opts').data('view-id')
+				,	mapData = gmpGetMapInfoByViewId(mapId);
 				gmpInitMapOnPage( mapData );
 			}
 		});

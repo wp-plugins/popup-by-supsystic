@@ -141,7 +141,7 @@ class popupModelPps extends modelPps {
 				$original['original_id'] = $d['original_id'];
 				return $this->insertFromOriginal( $original );
 			} else
-				$this->pushError (__('Please select PopUp template from list below', PPS_LANG_CODE), 'label');
+				$this->pushError (__('Please select PopUp template from list below', PPS_LANG_CODE));
 		} else
 			$this->pushError (__('Please enter Name', PPS_LANG_CODE), 'label');
 		return false;

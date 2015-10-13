@@ -16,6 +16,6 @@
 	</div>
 	<div class="ppsAdminFooterCell">|</div>
 	<div class="ppsAdminFooterCell">
-		Add your <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/popup-by-supsystic?filter=5#postform">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on wordpsess.org.
+		Add your <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/popup-by-supsystic?filter=5#postform">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on wordpress.org.
 	</div>
 </div>

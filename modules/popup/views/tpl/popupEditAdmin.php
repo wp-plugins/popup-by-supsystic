@@ -1,5 +1,5 @@
 <div id="ppsPopupEditTabs">
-	<section class="supsystic-bar supsystic-sticky sticky-padd-next sticky-save-width" data-prev-height="#supsystic-breadcrumbs" data-next-padding-add="15">
+	<section class="supsystic-bar supsystic-sticky sticky-padd-next sticky-save-width sticky-base-width-auto" data-prev-height="#supsystic-breadcrumbs" data-next-padding-add="15">
 		<h3 class="nav-tab-wrapper" style="margin-bottom: 0px; margin-top: 12px;">
 			<?php $i = 0;?>
 			<?php foreach($this->tabs as $tKey => $tData) { ?>

@@ -118,6 +118,8 @@ jQuery(document).ready(function(){
 		});
 		cloneWidthElement.remove();
 	}
+	// Check for showing review notice after a week usage
+    ppsInitPlugNotices();
 });
 function changeAdminFormPps(formId) {
 	if(jQuery.inArray(formId, ppsAdminFormChanged) == -1)
@@ -179,16 +181,16 @@ function ppsInitStickyItem() {
 					,	usePrevHeight = 0;
 					if(calcPrevHeight) {
 						usePrevHeight = jQuery(calcPrevHeight).outerHeight();
-						
 						currentBorderHeight += usePrevHeight;
 					}
 					if(currentScrollTop > scrollMinPos && !element.hasClass('supsystic-sticky-active')) {	// Start sticking
+						if(element.hasClass('sticky-save-width')) {
+							element.width( element.width() );
+							//element.addClass('sticky-full-width');
+						}
 						element.addClass('supsystic-sticky-active').data('scrollMinPos', scrollMinPos).css({
 							'top': currentBorderHeight
 						});
-						if(element.hasClass('sticky-save-width')) {
-							element.addClass('sticky-full-width');
-						}
 						if(useNextElementPadding) {
 							//element.addClass('supsystic-sticky-active-bordered');
 							var nextElement = element.next();
@@ -197,7 +199,7 @@ function ppsInitStickyItem() {
 								var addToNextPadding = parseInt(element.data('next-padding-add'));
 								addToNextPadding = addToNextPadding ? addToNextPadding : 0;
 								nextElement.css({
-									'padding-top': element.height() + usePrevHeight  + addToNextPadding
+									'padding-top': (element.hasClass('sticky-outer-height') ? element.outerHeight() : element.height()) + usePrevHeight + addToNextPadding
 								});
 							}
 						}
@@ -208,7 +210,10 @@ function ppsInitStickyItem() {
 							//'top': 0
 						});
 						if(element.hasClass('sticky-save-width')) {
-							element.removeClass('sticky-full-width');
+							if(element.hasClass('sticky-base-width-auto')) {
+								element.css('width', 'auto');
+							}
+							//element.removeClass('sticky-full-width');
 						}
 						if(useNextElementPadding) {
 							//element.removeClass('supsystic-sticky-active-bordered');
@@ -377,6 +382,32 @@ function prepareToPlotDate(data) {
 		}
 	}
 	return data;
+}
+function ppsInitPlugNotices() {
+	var $notices = jQuery('.supsystic-admin-notice');
+	if($notices && $notices.size()) {
+		$notices.each(function(){
+			jQuery(this).find('.notice-dismiss').click(function(){
+				var $notice = jQuery(this).parents('.supsystic-admin-notice');
+				if(!$notice.data('stats-sent')) {
+					// User closed this message - that is his choise, let's respect this and save it's saved status
+					jQuery.sendFormPps({
+						data: {mod: 'supsystic_promo', action: 'addNoticeAction', code: $notice.data('code'), choice: 'hide'}
+					});
+				}
+			});
+			jQuery(this).find('[data-statistic-code]').click(function(){
+				var href = jQuery(this).attr('href')
+				,	$notice = jQuery(this).parents('.supsystic-admin-notice');
+				jQuery.sendFormPps({
+					data: {mod: 'supsystic_promo', action: 'addNoticeAction', code: $notice.data('code'), choice: jQuery(this).data('statistic-code')}
+				});
+				$notice.data('stats-sent', 1).find('.notice-dismiss').trigger('click');
+				if(!href || href === '' || href === '#')
+					return false;
+			});
+		});
+	}
 }
 /**
  * Main promo popup will show each time user will try to modify PRO option with free version only

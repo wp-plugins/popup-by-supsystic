@@ -10,7 +10,7 @@ class popupPps extends modulePps {
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 		add_action('template_redirect', array($this, 'checkPopupShow'));
 		add_shortcode(PPS_SHORTCODE_CLICK, array($this, 'showPopupOnClick'));
-		add_action('wp_footer', array($this, 'collectFooterRender'));
+		add_action('wp_footer', array($this, 'collectFooterRender'), 0);
 		add_filter('wp_nav_menu_objects', array($this, 'checkMenuItemsForPopUps'));
 	}
 	public function addAdminTab($tabs) {
@@ -222,7 +222,10 @@ class popupPps extends modulePps {
 			if(!isset($p['params']['tpl']['anim_duration']) || $p['params']['tpl']['anim_duration'] <= 0) {
 				$popups[ $i ]['params']['tpl']['anim_duration'] = 1000;	// 1 second by default
 			}
-			$popups[ $i ]['rendered_html'] = $this->getView()->generateHtml( $p );
+			$popups[ $i ]['rendered_html'] = $this->getView()->generateHtml( $p, array('replace_style_tag' => true) );
+			// Unset those parameters - make data lighter
+			unset($popups[ $i ]['css']);
+			unset($popups[ $i ]['html']);
 			$popups[ $i ]['connect_hash'] = md5(date('m-d-Y'). $popups[ $i ]['id']. NONCE_KEY);
 			$this->_renderedIds[] = $p['id'];
 		}

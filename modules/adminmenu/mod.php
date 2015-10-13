@@ -9,7 +9,13 @@ class adminmenuPps extends modulePps {
 		add_filter('plugin_action_links_'. $plugName, array($this, 'addSettingsLinkForPlug') );
     }
 	public function addSettingsLinkForPlug($links) {
+		$mainLink = 'http://supsystic.com/';
+		$twitterStatus = sprintf(__('Cool WordPress plugins from supsystic.com developers. I tried %s - and this was what I need! #supsystic.com', PPS_LANG_CODE), PPS_WP_PLUGIN_NAME);
 		array_unshift($links, '<a href="'. $this->getMainLink(). '">'. __('Settings', PPS_LANG_CODE). '</a>');
+		array_push($links, '<a title="'. __('More plugins for your WordPress site here!', PPS_LANG_CODE). '" href="'. $mainLink. '" target="_blank">supsystic.com</a>');
+		array_push($links, '<a title="'. __('Spread the word!', PPS_LANG_CODE). '" href="https://www.facebook.com/sharer/sharer.php?u='. urlencode($mainLink). '" target="_blank" class="dashicons-before dashicons-facebook-alt"></a>');
+		array_push($links, '<a title="'. __('Spread the word!', PPS_LANG_CODE). '" href="https://twitter.com/home?status='. urlencode($twitterStatus). '" target="_blank" class="dashicons-before dashicons-twitter"></a>');
+		array_push($links, '<a title="'. __('Spread the word!', PPS_LANG_CODE). '" href="https://plus.google.com/share?url='. urlencode($mainLink). '" target="_blank" class="dashicons-before dashicons-googleplus"></a>');
 		return $links;
 	}
 	public function initMenu() {

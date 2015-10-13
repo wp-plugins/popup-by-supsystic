@@ -19,6 +19,67 @@ class supsystic_promoPps extends modulePps {
 		dispatcherPps::addFilter('mainAdminTabs', array($this, 'addAdminTab'));
 		dispatcherPps::addFilter('subDestList', array($this, 'addSubDestList'));
 		dispatcherPps::addAction('beforeSaveOpts', array($this, 'checkSaveOpts'));
+		add_action('admin_notices', array($this, 'checkAdminPromoNotices'));
+	}
+	public function checkAdminPromoNotices() {
+		if(!framePps::_()->isAdminPlugOptsPage())	// Our notices - only for our plugin pages for now
+			return;
+		$notices = array();
+		// Start usage
+		$startUsage = (int) framePps::_()->getModule('options')->get('start_usage');
+		$currTime = time();
+		$day = 24 * 3600;
+		if($startUsage) {	// Already saved
+			$rateMsg = sprintf(__("<h3>Hey, I noticed you just use %s over a week – that’s awesome!</h3><p>Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.</p>", PPS_LANG_CODE), PPS_WP_PLUGIN_NAME);
+			$rateMsg .= '<p><a href="https://wordpress.org/support/view/plugin-reviews/popup-by-supsystic?rate=5#postform" target="_blank" class="button button-primary" data-statistic-code="done">'. __('Ok, you deserve it', PPS_LANG_CODE). '</a>
+			<a href="#" class="button" data-statistic-code="later">'. __('Nope, maybe later', PPS_LANG_CODE). '</a>
+			<a href="#" class="button" data-statistic-code="hide">'. __('I already did', PPS_LANG_CODE). '</a></p>';
+			$enbPromoLinkMsg = sprintf(__("<h3>More then eleven days with our %s plugin - Congratulations!</h3>", PPS_LANG_CODE), PPS_WP_PLUGIN_NAME);;
+			$enbPromoLinkMsg .= __('<p>On behalf of the entire <a href="https://supsystic.com/" target="_blank">supsystic.com</a> company I would like to thank you for been with us, and I really hope that our software helped you.</p>', PPS_LANG_CODE);
+			$enbPromoLinkMsg .= __('<p>And today, if you want, - you can help us. This is really simple - you can just add small promo link to our site under your PopUps. This is small step for you, but a big help for us! Sure, if you don\'t want - just skip this and continue enjoy our software!</p>', PPS_LANG_CODE);
+			$enbPromoLinkMsg .= '<p><a href="#" class="button button-primary" data-statistic-code="done">'. __('Ok, you deserve it', PPS_LANG_CODE). '</a>
+			<a href="#" class="button" data-statistic-code="later">'. __('Nope, maybe later', PPS_LANG_CODE). '</a>
+			<a href="#" class="button" data-statistic-code="hide">'. __('Skip', PPS_LANG_CODE). '</a></p>';
+			$notices = array(
+				'rate_msg' => array('html' => $rateMsg, 'show_after' => 7 * $day),
+				'enb_promo_link_msg' => array('html' => $enbPromoLinkMsg, 'show_after' => 11 * $day),
+			);
+			foreach($notices as $nKey => $n) {
+				if($currTime - $startUsage <= $n['show_after']) {
+					unset($notices[ $nKey ]);
+					continue;
+				}
+				$done = (int) framePps::_()->getModule('options')->get('done_'. $nKey);
+				if($done) {
+					unset($notices[ $nKey ]);
+					continue;
+				}
+				$hide = (int) framePps::_()->getModule('options')->get('hide_'. $nKey);
+				if($hide) {
+					unset($notices[ $nKey ]);
+					continue;
+				}
+				$later = (int) framePps::_()->getModule('options')->get('later_'. $nKey);
+				if($later && ($currTime - $later) <= 2 * $day) {	// remember each 2 days
+					unset($notices[ $nKey ]);
+					continue;
+				}
+				if($nKey == 'enb_promo_link_msg' && (int)framePps::_()->getModule('options')->get('add_love_link')) {
+					unset($notices[ $nKey ]);
+					continue;
+				}
+			}
+		} else {
+			framePps::_()->getModule('options')->getModel()->save('start_usage', $currTime);
+		}
+		if(!empty($notices)) {
+			$html = '';
+			foreach($notices as $nKey => $n) {
+				$this->getModel()->saveUsageStat($nKey. '.'. 'show', true);
+				$html .= '<div class="updated notice is-dismissible supsystic-admin-notice" data-code="'. $nKey. '">'. $n['html']. '</div>';
+			}
+			echo $html;
+		}
 	}
 	public function addAdminTab($tabs) {
 		$tabs['overview'] = array(

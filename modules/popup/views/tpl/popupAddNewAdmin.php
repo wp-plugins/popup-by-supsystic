@@ -10,21 +10,23 @@
 		<hr />
 		<div id="containerWrapper" style="width: 90%; margin: 40px auto;">
 			<?php if(!$this->changeFor) { ?>
-				<form id="ppsCreatePopupForm">
-					<label>
-						<h3 style="float: left; margin: 10px;"><?php _e('PopUp Name', PPS_LANG_CODE)?>:</h3>
-						<?php echo htmlPps::text('label', array('attrs' => 'style="float: left; width: 60%;"', 'required' => true))?>
-					</label>
-					<button class="button button-primary" style="margin-top: 1px;">
-						<i class="fa fa-check"></i>
-						<?php _e('Save', PPS_LANG_CODE)?>
-					</button>
-					<?php echo htmlPps::hidden('original_id')?>
-					<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>
-					<?php echo htmlPps::hidden('action', array('value' => 'createFromTpl'))?>
-				</form>
-				<div style="clear: both;"></div>
-				<div id="ppsCreatePopupMsg"></div>
+				<div class="supsystic-bar supsystic-sticky sticky-padd-next sticky-save-width sticky-base-width-auto sticky-outer-height">
+					<form id="ppsCreatePopupForm">
+						<label>
+							<h3 style="float: left; margin: 10px;"><?php _e('PopUp Name', PPS_LANG_CODE)?>:</h3>
+							<?php echo htmlPps::text('label', array('attrs' => 'style="float: left; width: 60%;"', 'required' => true))?>
+						</label>
+						<button class="button button-primary" style="margin-top: 1px;">
+							<i class="fa fa-check"></i>
+							<?php _e('Save', PPS_LANG_CODE)?>
+						</button>
+						<?php echo htmlPps::hidden('original_id')?>
+						<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>
+						<?php echo htmlPps::hidden('action', array('value' => 'createFromTpl'))?>
+					</form>
+					<div style="clear: both;"></div>
+					<div id="ppsCreatePopupMsg"></div>
+				</div>
 			<?php }?>
 			<div  class="popup-list">
 				<?php foreach($this->list as $popup) { ?>

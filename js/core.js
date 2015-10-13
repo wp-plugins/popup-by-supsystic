@@ -188,8 +188,8 @@ function toeProcessAjaxResponsePps(res, msgEl, form, sentFromForm, params) {
 				else
 					errorsArr.push( res.errors[name] );
             }
-			if(errorsArr.length && params.btn) {
-				jQuery('<div />').html( errorsArr.join('<br />') ).appendTo('body').dialog({
+			if(errorsArr.length && params.btn && jQuery.fn.dialog) {
+				jQuery('<div title="'+ toeLangPps("Really small warning :)")+ '" />').html( errorsArr.join('<br />') ).appendTo('body').dialog({
 					modal: true
 				,	width: '500px'
 				});

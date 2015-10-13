@@ -21,10 +21,24 @@ class supsystic_promoModelPps extends modelPps {
 		// In any case - give user posibility to move futher
 		return true;
 	}
-	public function saveUsageStat($code) {
+	public function saveUsageStat($code, $unique = false) {
+		if($unique && $this->_checkUniqueStat($code)) {
+			return;
+		}
 		$query = 'INSERT INTO @__usage_stat SET code = "'. dbPps::escape($code). '", visits = 1
 			ON DUPLICATE KEY UPDATE visits = visits + 1';
 		return dbPps::query($query);
+	}
+	private function _checkUniqueStat($code) {
+		$uniqueStats = get_option(PPS_CODE. '_unique_stats');
+		if(empty($uniqueStats))
+			$uniqueStats = array();
+		if(in_array($code, $uniqueStats)) {
+			return true;
+		}
+		$uniqueStats[] = $code;
+		update_option(PPS_CODE. '_unique_stats', $uniqueStats);
+		return false;
 	}
 	public function saveSpentTime($code, $spent) {
 		$spent = (int) $spent;

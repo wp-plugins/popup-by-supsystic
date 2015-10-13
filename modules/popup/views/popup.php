@@ -501,7 +501,8 @@ class popupViewPps extends viewPps {
 		}		
 		return $html;
 	}
-	public function generateHtml($popup) {
+	public function generateHtml($popup, $params = array()) {
+		$replaceStyleTag = isset($params['replace_style_tag']) ? $params['replace_style_tag'] : false;
 		if(is_numeric($popup)) {
 			$popup = $this->getModel()->getById($popup);
 		}
@@ -534,9 +535,14 @@ class popupViewPps extends viewPps {
 		
 		$popup['css'] = dispatcherPps::applyFilters('popupCss', $popup['css'], $popup);
 		$popup['html'] = dispatcherPps::applyFilters('popupHtml', $popup['html'], $popup);
-		
+		// $replaceStyleTag can be used for compability with other plugins minify functionality: 
+		// it will not recognize css in js data as style whye rendering on server side, 
+		// but will be replaced back to normal <style> tag in JS, @see js/frontend.popup.js
 		return $this->_twig->render(
-				'<style type="text/css">'. $popup['css']. '</style>'. $popup['html'],
+				($replaceStyleTag ? '<style_replaced>' : '<style type="text/css">')
+					. $popup['css']
+				. ($replaceStyleTag ? '</style_replaced>' : '</style>')
+				. $popup['html'],
 			array('popup' => $popup)
 		);
 	}

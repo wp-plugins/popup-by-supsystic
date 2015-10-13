@@ -69,13 +69,38 @@ class supsystic_promoControllerPps extends controllerPps {
 		}
         $res->ajaxExec();
 	}
+	public function addNoticeAction() {
+		$res = new responsePps();
+		$code = reqPps::getVar('code', 'post');
+		$choice = reqPps::getVar('choice', 'post');
+		if(!empty($code) && !empty($choice)) {
+			$optModel = framePps::_()->getModule('options')->getModel();
+			switch($choice) {
+				case 'hide':
+					$optModel->save('hide_'. $code, 1);
+					break;
+				case 'later':
+					$optModel->save('later_'. $code, time());
+					break;
+				case 'done':
+					$optModel->save('done_'. $code, 1);
+					if($code == 'enb_promo_link_msg') {
+						$optModel->save('add_love_link', 1);
+					}
+					break;
+			}
+			$this->getModel()->saveUsageStat($code. '.'. $choice, true);
+			$this->getModel()->checkAndSend( true );
+		}
+		$res->ajaxExec();
+	}
 	/**
 	 * @see controller::getPermissions();
 	 */
 	public function getPermissions() {
 		return array(
 			PPS_USERLEVELS => array(
-				PPS_ADMIN => array('welcomePageSaveInfo', 'sendContact')
+				PPS_ADMIN => array('welcomePageSaveInfo', 'sendContact', 'addNoticeAction')
 			),
 		);
 	}
