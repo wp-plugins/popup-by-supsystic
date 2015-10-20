@@ -64,7 +64,7 @@
 		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_mailchimp">
 			<th scope="row">
 				<?php _e('MailChimp API key', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('To find your MailChimp API Key login to your mailchimp account at <a href="%s" target="_blank">%s</a> then from the left main menu, click on your Username, then select "Account" in the flyout menu. From the account page select "Extras", "API Keys". Your API Key will be listed in the table labeled "Your API Keys". Copy / Paste your API key into "MailChimp API key" field here.', PPS_LANG_CODE), 'http://mailchimp.com', 'http://mailchimp.com'))?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php echo esc_html(sprintf(__('To find your MailChimp API Key login to your mailchimp account at <a href="%s" target="_blank">%s</a> then from the left main menu, click on your Username, then select "Account" in the flyout menu. From the account page select "Extras", "API Keys". Your API Key will be listed in the table labeled "Your API Keys". Copy / Paste your API key into "MailChimp API key" field here. For more detailed instruction - check article <a href="%s" target="_blank">here</a>.', PPS_LANG_CODE), 'http://mailchimp.com', 'http://mailchimp.com', 'https://supsystic.com/mailchimp-integration/'))?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::text('params[tpl][sub_mailchimp_api_key]', array(

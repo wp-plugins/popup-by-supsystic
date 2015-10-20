@@ -7,10 +7,8 @@ jQuery(document).ready(function(){
 		ppsInitBgOverlay();
 		jQuery(document).trigger('ppsBeforePopupsInit', ppsPopups);
 		for(var i = 0; i < ppsPopups.length; i++) {
-			// Move back from replaced style tags - to normal style tag
-			ppsPopups[ i ].rendered_html = str_replace(ppsPopups[ i ].rendered_html, '<style_replaced>', '<style type="text/css">');
-			ppsPopups[ i ].rendered_html = str_replace(ppsPopups[ i ].rendered_html, '</style_replaced>', '</style>');
 			jQuery('body').append( ppsPopups[ i ].rendered_html );
+			ppsMovePopupStyles( ppsPopups[ i ] );	// Move back from replaced style tags - to normal style tag
 			ppsBindPopupLove( ppsPopups[ i ] );
 			ppsBindPopupLoad( ppsPopups[ i ] );
 			ppsBindPopupShow( ppsPopups[ i ] );
@@ -65,6 +63,12 @@ function _ppsBindOnElementClickPopups() {
 			}
 		});
 	}
+}
+function ppsMovePopupStyles( popup ) {
+	var $style = jQuery('<style type="text/css" />')
+	,	$replacerTag = jQuery('#ppsPopupStylesHidden_'+ popup.view_id);
+	$style.appendTo('body').html( $replacerTag.html() );
+	$replacerTag.remove();
 }
 function ppsBindPopupLove( popup ) {
 	if(parseInt(toeOptionPps('add_love_link'))) {
@@ -305,6 +309,10 @@ function ppsShowPopup( popup, params ) {
 		shell.animationDuration( popup.params.tpl.anim_duration, true );
 		shell.removeClass(popup.params.tpl.anim.hide_class);
 		shell.addClass('magictime '+ popup.params.tpl.anim.show_class).show();
+		// This need to make properly work responsivness
+		setTimeout(function(){
+			shell.removeClass('magictime '+ popup.params.tpl.anim.show_class);
+		}, parseInt(popup.params.tpl.anim_duration));
 	} else {
 		shell.show();
 	}
@@ -370,6 +378,13 @@ function _ppsCheckStopVideo(params) {
 	}
 }
 function _ppsCheckMap(params) {
+	// For case we need to wait until gmap scripts will be loaded
+	if(typeof(gmpGetMapByViewId) === 'undefined') {
+		setTimeout(function(){
+			_ppsCheckMap(params);
+		}, 1000);
+		return;
+	}
 	params = params || {};
 	var shell = params.shell ? params.shell : ppsGetPopupShell( params.popup );
 	if(shell.find('.gmp_map_opts').size()) {

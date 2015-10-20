@@ -17,7 +17,7 @@
 						});
 					});
 					var locationHash = document.location.hash;
-					if(locationHash && locationHash != '' && $this.find(locationHash)) {
+					if(locationHash && locationHash != '' && $this.find(locationHash) && $this.find(locationHash).size()) {
 						$this.wpTabs('activate', locationHash);
 						if(jQuery(locationHash).size()) {
 							// Avoid scrolling to hashes

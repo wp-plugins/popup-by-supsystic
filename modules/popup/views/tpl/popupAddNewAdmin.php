@@ -50,7 +50,7 @@
 <!--Change tpl wnd-->
 <div id="ppsChangeTplWnd" title="<?php _e('Change Template', PPS_LANG_CODE)?>" style="display: none;">
 	<form id="ppsChangeTplForm">
-		<?php _e('Are you sure want to change your current template - to ')?><span id="ppsChangeTplNewLabel"></span> ?
+		<?php _e('Are you sure want to change your current template - to ', PPS_LANG_CODE)?><span id="ppsChangeTplNewLabel"></span> ?
 		<?php echo htmlPps::hidden('id')?>
 		<?php echo htmlPps::hidden('new_tpl_id')?>
 		<?php echo htmlPps::hidden('mod', array('value' => 'popup'))?>

@@ -28,7 +28,7 @@ class adminmenuPps extends modulePps {
 			'menu_slug' => $mainSlug,
 			'function' => array(framePps::_()->getModule('options'), 'getAdminPage'));
 		$mainMenuPageOptions = dispatcherPps::applyFilters('adminMenuMainOption', $mainMenuPageOptions);
-        add_menu_page($mainMenuPageOptions['page_title'], $mainMenuPageOptions['menu_title'], $mainMenuPageOptions['capability'], $mainMenuPageOptions['menu_slug'], $mainMenuPageOptions['function']/*, 'dashicons-format-gallery'*/);
+        add_menu_page($mainMenuPageOptions['page_title'], $mainMenuPageOptions['menu_title'], $mainMenuPageOptions['capability'], $mainMenuPageOptions['menu_slug'], $mainMenuPageOptions['function'], 'dashicons-align-center');
 		//remove duplicated WP menu item
 		//add_submenu_page($mainMenuPageOptions['menu_slug'], '', '', $mainMenuPageOptions['capability'], $mainMenuPageOptions['menu_slug'], $mainMenuPageOptions['function']);
 		$tabs = framePps::_()->getModule('options')->getTabs();

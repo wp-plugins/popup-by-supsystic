@@ -102,9 +102,10 @@
 		<th scope="row" class="col-w-1perc">
 			<?php _e('Background overlay opacity', PPS_LANG_CODE)?>
 		</th>
-		<td class="col-w-1perc" colspan="4">
+		<td class="col-w-1perc">
 			<?php echo htmlPps::slider('params[tpl][bg_overlay_opacity]', array('value' => $this->popup['params']['tpl']['bg_overlay_opacity'], 'min' => 0, 'max' => 1, 'step' => 0.1))?>
 		</td>
+		<td colspan="3"></td>
 	</tr>
 <?php for($i = 0; $i < $this->popup['params']['opts_attrs']['bg_number']; $i++) { ?>
 	<tr>
@@ -118,7 +119,7 @@
 			<?php echo htmlPps::imgGalleryBtn('params[tpl][bg_img_'. $i. ']', array('onChange' => 'ppsShowImgPrev', 'attrs' => 'data-iter="'. $i. '" class="button button-sup-small"', 'value' => $this->popup['params']['tpl']['bg_img_'. $i]))?>
 		</td>
 		<td class="col-w-1perc ppsBgTypeShell ppsBgTypeShell_<?php echo $i?> ppsBgTypeImgShell_<?php echo $i?>" style="padding-top: 10px; min-width: 100px;">
-			<img src="" style="max-width: 500px;" class="ppsBgImgPrev_<?php echo $i?>" />
+			<img src="" style="max-width: 300px;" class="ppsBgImgPrev_<?php echo $i?>" />
 		</td>
 		<td class="col-w-1perc ppsBgTypeShell ppsBgTypeShell_<?php echo $i?> ppsBgTypeColorShell_<?php echo $i?>" style="line-height: 40px;">
 			<?php echo htmlPps::colorpicker('params[tpl][bg_color_'. $i. ']', array('value' => $this->popup['params']['tpl']['bg_color_'. $i]))?>

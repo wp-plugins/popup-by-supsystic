@@ -78,6 +78,10 @@ class subscribePps extends modulePps {
 			if(isset($f['enb']) && $f['enb']) {
 				$htmlType = $f['html'];
 				$name = $k;
+				// Will not work for now - almost all templates detect it in CSS as [type="text"], and there are no styles for [type="email"]
+				/*if($k == 'email') {
+					$htmlType = 'email';
+				}*/
 				if($popup && isset($popup['params']) 
 					&& isset($popup['params']['tpl']['sub_dest'])
 					&& $popup['params']['tpl']['sub_dest'] == 'aweber'
@@ -104,6 +108,9 @@ class subscribePps extends modulePps {
 				}
 				if(isset($f['value']) && !empty($f['value'])) {
 					$htmlParams['value'] = $f['value'];
+				}
+				if(isset($f['mandatory']) && !empty($f['mandatory']) && (int)$f['mandatory']) {
+					$htmlParams['required'] = true;
 				}
 				$inputHtml = htmlPps::$htmlType($name, $htmlParams);
 				if($htmlType == 'selectbox') {

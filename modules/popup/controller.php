@@ -198,7 +198,8 @@ class popupControllerPps extends controllerPps {
 		if($this->getModel()->changeTpl(reqPps::get('post'))) {
 			$res->addMessage(__('Done', PPS_LANG_CODE));
 			$id = (int) reqPps::getVar('id', 'post');
-			$res->addData('edit_link', $this->getModule()->getEditLink( $id ));
+			// Redirect after change template - to Design tab, as change tpl btn is located there - so, user was at this tab before changing tpl
+			$res->addData('edit_link', $this->getModule()->getEditLink( $id, 'ppsPopupTpl' ));
 		} else
 			$res->pushError ($this->getModel()->getErrors());
 		return $res->ajaxExec();

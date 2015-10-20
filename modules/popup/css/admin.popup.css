@@ -311,3 +311,8 @@ a.ppsSwitchShowHideOptLink:hover {
 #ppsPopupEditableLabelTxt {
 	display: none;
 }
+/*Bg opacity slider*/
+#toeSliderDisplay_paramstplbg_overlay_opacity {
+	font-weight: bold;
+	text-align: center;
+}

@@ -1,17 +1,18 @@
 ﻿=== PopUp by Supsystic ===
 Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
-Tags: mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, pop up, exit popup, layer popup, simple popup, wordpress popup, popup form, popup contact form, popup subscription, modal, modal window, popup lock
+Tags: automatic popup, html popup, mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, optinmonster, pop up, exit popup, layer popup, lightbox popup, simple popup, wordpress popup, popup form, popup contact form, popup builder, popup subscription, modal, modal window, popup lock, video popup, youtube popup, social popup, lead
 Tested up to: 4.3.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 
-The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers or advertisement. Responsive pop-ups with friendly options
+The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers and customers. Responsive popups with lead generator
 
 == Description ==
 
 [Popup by Supsystic](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=description&utm_campaign=popup "Popup WordPress plugin Supsystic") lets you easily create elegant overlapping windows with unlimited features. Pop-ups with Slider, Lightbox, Contact, Subscription forms and more:
 
 * Auto Open Popups
+* Social Popups
 * Exit-intent popups allow you to capture lost visitors
 * Contact Form with pop-up
 * Facebook popup
@@ -42,13 +43,14 @@ Using popup windows was once frowned on as a ploy used by marketers who were jus
 
 Not all popups are necessary as soon as a page loads. Consider a delayed pop-up for your site. There are a variety of options for this, including pop ups that only show on scroll, on click, or after a certain amount of time on the WordPress site.
 
-= Subscription popup = 
+= Subscription Popup = 
 
 Popup email forms have huge potential when it comes to list building, and even if you hate them, there's no doubt that they work. Professional bloggers unanimously agree that they increase subscription rates, and have had great success with them.
 
-= Translations in your language =
+= Translations Popup Plugin in Your Language =
 
-You have an incredible opportunity to get PRO version for free. Make Translation of the plugin! It will be amazing if you take advantage of this offer!
+You have an incredible opportunity to get PRO version for free. Make Translation of the PopUp plugin! It will be amazing if you take advantage of this offer!
+Available translations:
 
 * English
 * French
@@ -56,14 +58,23 @@ You have an incredible opportunity to get PRO version for free. Make Translation
 * German
 * Russian
 
-= Support =
+= Popup Plugin Support =
 
 If you have any problem or feature request for the Popup by Supsystic, please [let us know](http://supsystic.com/plugins/popup-plugin?utm_source=wordpress&utm_medium=contactus&utm_campaign=popup "Contact Us")!
 
+= Do YOU Need PopUp or Optin? =
+
+Popups work… really, really, really well. I’ve yet to see a case study where optin popups decreased the site’s conversion rate, and I’ve seen countless case studies where popups catapulted CRO by as high as 250 - 400%.
+
+Popup can collect emails and you can adjust where it displays on your website, as well as how often it displays. Fully customizable popup optin, with access to numerous templates and data collection options.
+
+Many of your site’s visitors may never land on your pages again. You have one chance to convert them into a lead or capture them as part of your regular audience with popup.
+
+Popups allow you to stick a CTA front and center, demanding an action. If readers liked your content, they will be much more likely to give you their email when asked then to search your site for a sidebar popup social subscription box. 
 
 == Installation ==
 
-= First time Popup Supsystic user =
+= First Time Popup Supsystic user =
 
 Thank you for choosing  Popup Supsystic! Open page of our plug-in admin panel WordPress and you will see two menu items: "Add New", "All Pop-Ups". 
 
@@ -72,12 +83,12 @@ Don't forget to press the "Save" button. After all these points you can see the 
 
 = To install a plugin via FTP, you must =
 
-1. Download the plugin
-2. Unarchive the plugin
+1. Download the Popup plugin
+2. Unarchive the Popup plugin
 3. Copy the folder with plugin
 4. Open ftp \wp-content\plugins\
 5. Paste the plug-ins folder in the folder
-6. Go to admin panel => open item "Plugins" => activate the plugin 
+6. Go to admin panel => open item "Plugins" => activate the Popup by Supsytic plugin 
 
 
 == Screenshots ==
@@ -98,15 +109,15 @@ Don't forget to press the "Save" button. After all these points you can see the 
 
 == Other Notes ==
 
-Popup by Supsystic is very simple to install and use. The plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image/video, or links from “YouTube” and “Vimeo”. The Popup has its merits, as in:
+Popup by Supsystic is very simple to install and use. The popup plugin has a very peculiar feature as in image/video popup  allowing to watch them in the very same window with a specific animated effect just by clicking on the thumbnails of the image / video popup, or links from “YouTube” and “Vimeo”. The Popup has its merits, as in:
 
 1. Immediate operation after activation, no need for additional image/video configurations or short coding
 
-2. Wide range of settings to configure the plugin and make it work for different tasks.
+2. Wide range of settings to configure the optin plugin and make it work for different tasks.
 
 More options of the Popup by Supsystic plugin:
 
-* modal window templates customization
+* modal optin popup window templates customization
 * font size customization
 * color customization,
 * wide range of styles set in the General Options section to make look the site more attractive
@@ -115,9 +126,9 @@ More options of the Popup by Supsystic plugin:
 
 Main Features:
 
-= Content Customization =
+= Optin Content Customization =
 
-Use Popup Builder to compile different popups using varied content. Using Short Codes, HTML, and other codes provides popups with vide range of options. Popup Maker is similar in a way to WordPress when talking about adding content and popups.
+Use Popup Builder and Lead Generator to compile different popups using varied content. Using Short Codes, HTML, and other codes provides popups with vide range of options. Popup Maker is similar in a way to WordPress when talking about adding content and popups.
 
 = Using Popups =
 
@@ -139,9 +150,9 @@ Auto Open Popups are the critical plugin that Modal Window uses when working wit
 
 WordPress Popup Plugin has a popup customization feature to make the final set based on several different opening animations.
 
-= Theme Builder =
+= Lead Theme Builder =
 
-Theme has many options to use to the advantage to make the website popups look good, like:
+Optin theme has many options to use to the advantage to make the website popups look good, like:
 
 * Background Overlay,
 * Popup Container,
@@ -156,18 +167,9 @@ Responsive Popups tool set is used to create popups ready to be used for any dev
 
 Small size, Reliable with wide option range.
 
-The plugin is as light. The website work will not be damaged. Popups will operate at a very high level with optimal uptime using optimization techniques and program enhancement. 
+The plugin is as light. The website work will not be damaged. Popups will operate at a very high level with optimal uptime using optimization techniques and program enhancement.
 
-*Check other WordPress plugins:*
-
-* [Backup by Supsystic](https://wordpress.org/plugins/backup-by-supsystic/ "Backup and Restoration plugin")
-* [Grid Gallery](https://wordpress.org/plugins/gallery-by-supsystic/ "Grid Gallery plugin")
-* [Google Maps](https://wordpress.org/plugins/google-maps-easy/ "Google Maps plugin")
-* [Slider by Supsystic](https://wordpress.org/plugins/slider-by-supsystic/ "Slider plugin")
-* [Security and Firewall](https://wordpress.org/plugins/security-by-supsystic/ "Security solution")
-
-
-= Our plugins =
+= Our Plugins =
 
 * [Social Share Buttons by Supsystic](https://wordpress.org/plugins/social-share-buttons-by-supsystic/ "Social Share Buttons by Supsystic")
 * [Data Tables Generator by Supsystic](https://wordpress.org/plugins/data-tables-generator-by-supsystic/ "Data Tables Generator by Supsystic")
@@ -183,13 +185,25 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 == Changelog ==
 
+= 1.4.1 / 21.10.2015 =
+ * Added HTML5 Subscribe fields validation on client side - fast and light!
+ * Small fix to make proper work responsiveness + animation feature when need to reduce size after PopUp will be shown
+ * Fix issue for compatibility with styles output on some mobile devices
+ * Admin WordPress more pretty menu icon
+ * Additional clarification link to documentation about MailChimp usage
+ * Improve usability - move to Design tab after template was changed
+ * Backgrounds images preview in admin area - max width to 300px
+ * Admin area -> Make Background opacity slider - smaller
+ * Small fix for Find Us and Map style PopUp templates
+ * Admin area - fixes for small devices
+
 = 1.4.0 / 13.10.2015 =
  * Compatibility with Minification functionality (provided by other plugins, for example - W3 Total Cache)
  * Make PopUp data for frontend - lighter by removing unused on frontend variables
  * Small spelling issues fix
- * Fixed template Map style
+ * Fixed optin template Map style
  * Fix issue with displaying PopUps and Google Maps in it (when Maps didn't load it's scripts correctly on some themes)
- * Admin interface design small improvements - make it more userfriendly
+ * Admin lead generator interface design small improvements - make it more userfriendly
  * More interactions with our users - just trying improve software for your needs!
  * Small fix for SendGrid admin js issue
 

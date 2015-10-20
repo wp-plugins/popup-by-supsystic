@@ -75,9 +75,12 @@ jQuery.fn.sendFormPps = function(params) {
         jQuery(form).find('*').removeClass('ppsInputError');
     }
 	if(msgEl && !params.btn) {
-		jQuery(msgEl).removeClass('ppsSuccessMsg')
-			.removeClass('ppsErrorMsg')
-			.showLoaderPps();
+		jQuery(msgEl)
+			.removeClass('ppsSuccessMsg')
+			.removeClass('ppsErrorMsg');
+		if(!params.btn) {
+			jQuery(msgEl).showLoaderPps();
+		}
 	} 
 	if(params.btn) {
 		jQuery(params.btn).attr('disabled', 'disabled');
@@ -164,7 +167,8 @@ function toeProcessAjaxResponsePps(res, msgEl, form, sentFromForm, params) {
     if(typeof(res) == 'object') {
         if(res.error) {
             if(msgEl) {
-                jQuery(msgEl).removeClass('ppsSuccessMsg')
+                jQuery(msgEl)
+					.removeClass('ppsSuccessMsg')
 					.addClass('ppsErrorMsg');
             }
 			var errorsArr = [];
@@ -188,7 +192,7 @@ function toeProcessAjaxResponsePps(res, msgEl, form, sentFromForm, params) {
 				else
 					errorsArr.push( res.errors[name] );
             }
-			if(errorsArr.length && params.btn && jQuery.fn.dialog) {
+			if(errorsArr.length && params.btn && jQuery.fn.dialog && !msgEl) {
 				jQuery('<div title="'+ toeLangPps("Really small warning :)")+ '" />').html( errorsArr.join('<br />') ).appendTo('body').dialog({
 					modal: true
 				,	width: '500px'
@@ -196,7 +200,8 @@ function toeProcessAjaxResponsePps(res, msgEl, form, sentFromForm, params) {
 			}
         } else if(res.messages.length) {
             if(msgEl) {
-                jQuery(msgEl).removeClass('ppsErrorMsg')
+                jQuery(msgEl)
+					.removeClass('ppsErrorMsg')
 					.addClass('ppsSuccessMsg');
                 for(var i in res.messages) {
                     jQuery(msgEl).append(res.messages[i]).append('<br />');

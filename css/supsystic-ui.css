@@ -758,3 +758,34 @@ input[type="color"] {
 .supsystic-plugin .wp-color-result {
 	height: auto;
 }
+@media screen and (max-width: 1024px) {
+	.supsystic-plugin .supsystic-content .supsystic-navigation {
+		width: 35px;
+	}
+	.supsystic-plugin .supsystic-content .supsystic-container,
+	.supsystic-breadcrumbs {
+		margin-left: 35px;
+	}
+	.supsystic-navigation .sup-tab-label {
+		display: none;
+	}
+	.supsystic-breadcrumb-el,
+	.breadcrumbs-separator {
+		display: none;
+	}
+	.supsystic-plugin .chosen-container.chosen-container-multi {
+		min-width: 50px;
+		max-width: 100px;
+	}
+	#ppsPopupMainControllsShell {
+		padding-right: 45px !important;
+	}
+}
+@media screen and (max-width: 800px) {
+	.supsystic-item .ppsPopupMainOptSect {
+		float: none;
+		max-width: 100%;
+		width: 100%;
+		padding-right: 0;
+	}
+}

@@ -186,6 +186,9 @@ class htmlPps {
         $out = '';
 		$params['attrs'] = isset($params['attrs']) ? $params['attrs'] : '';
 		$params['attrs'] .= self::_dataToAttrs($params);
+		if(isset($params['required']) && $params['required']) {
+			$params['attrs'] .= ' required ';	// HTML5 "required" validation attr
+		}
         $out .= '<select name="'. $name. '" '. (isset($params['attrs']) ? $params['attrs'] : ''). '>';
         if(!empty($params['options'])) {
             foreach($params['options'] as $k => $v) {

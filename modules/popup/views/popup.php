@@ -55,6 +55,7 @@ class popupViewPps extends viewPps {
 		
 		$useCommonTabs = in_array($popup['type'], array(PPS_COMMON, PPS_VIDEO));
 		// !remove this!!!!
+		//$popup['params']['opts_attrs']['bg_number'] = 2;
 		/*$popup['params']['opts_attrs'] = array(
 			'bg_number' => 2,
 			'txt_block_number' => 2,
@@ -539,9 +540,9 @@ class popupViewPps extends viewPps {
 		// it will not recognize css in js data as style whye rendering on server side, 
 		// but will be replaced back to normal <style> tag in JS, @see js/frontend.popup.js
 		return $this->_twig->render(
-				($replaceStyleTag ? '<style_replaced>' : '<style type="text/css">')
+				($replaceStyleTag ? '<span style="display: none;" id="ppsPopupStylesHidden_'. $popup['view_id']. '">' : '<style type="text/css">')
 					. $popup['css']
-				. ($replaceStyleTag ? '</style_replaced>' : '</style>')
+				. ($replaceStyleTag ? '</span>' : '</style>')
 				. $popup['html'],
 			array('popup' => $popup)
 		);

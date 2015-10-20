@@ -41,6 +41,8 @@ function ppsAdjustPreviewSize() {
 	}
 }
 function ppsInitChangePopupDialog() {
+	// Pre-select current PopUp template
+	jQuery('.popup-list-item[data-id="'+ ppsOriginalPopup.original_id+ '"]').addClass('active');
 	var $container = jQuery('#ppsChangeTplWnd').dialog({
 		modal:    true
 	,	autoOpen: false
@@ -103,6 +105,7 @@ function ppsInitCreatePopupDialog() {
 	jQuery('#ppsCreatePopupForm').submit(function(){
 		jQuery(this).sendFormPps({
 			btn: jQuery(this).find('button')
+		,	msgElID: 'ppsCreatePopupMsg'
 		,	onSuccess: function(res) {
 				if(!res.error && res.data.edit_link) {
 					toeRedirect( res.data.edit_link );
