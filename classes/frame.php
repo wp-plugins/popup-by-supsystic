@@ -331,6 +331,8 @@ class framePps {
      */
     public function addScript($handle, $src = '', $deps = array(), $ver = false, $in_footer = false, $vars = array()) {
 		$src = empty($src) ? $src : uriPps::_($src);
+		if(!$ver)
+			$ver = PPS_VERSION;
         if($this->_scriptsInitialized) {
             wp_enqueue_script($handle, $src, $deps, $ver, $in_footer);
         } else {
@@ -378,6 +380,8 @@ class framePps {
     
     public function addStyle($handle, $src = false, $deps = array(), $ver = false, $media = 'all') {
 		$src = empty($src) ? $src : uriPps::_($src);
+		if(!$ver)
+			$ver = PPS_VERSION;
 		if($this->_stylesInitialized) {
 			wp_enqueue_style($handle, $src, $deps, $ver, $media);
 		} else {

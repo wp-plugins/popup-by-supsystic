@@ -146,6 +146,9 @@ jQuery(document).ready(function(){
 		}
 	}).change();
 	jQuery('.chosen').chosen();
+	jQuery('.chosen.chosen-responsive').each(function(){
+		jQuery(this).next('.chosen-container').addClass('chosen-responsive');
+	})
 	// Animation effect change
 	jQuery('.ppsPopupAnimEffLabel').each(function(){
 		var key = jQuery(this).data('key');

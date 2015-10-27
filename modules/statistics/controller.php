@@ -37,7 +37,7 @@ class statisticsControllerPps extends controllerPps {
 			$popup = framePps::_()->getModule('popup')->getModel()->getById( $id );
 			importClassPps('filegeneratorPps');
 			importClassPps('csvgeneratorPps');
-			$csvGenerator = new csvgeneratorPps(sprintf(__('Statistics for "%s"', PPS_LANG_CODE), htmlspecialchars( $popup['label'] )));
+			$csvGenerator = new csvgeneratorPps(sprintf(__('Statistics for %s', PPS_LANG_CODE), htmlspecialchars( $popup['label'] )));
 			$labels = array(
 				'date' => __('Date', PPS_LANG_CODE),
 				'views' => __('Views', PPS_LANG_CODE),

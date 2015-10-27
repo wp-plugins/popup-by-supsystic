@@ -326,6 +326,7 @@ class popupViewPps extends viewPps {
 		$this->assign('availableUserRoles', framePps::_()->getModule('subscribe')->getAvailableUserRolesForSelect());
 		$this->assign('mailPoetAvailable', $mailPoetAvailable);
 		$this->assign('newsletterAvailable', $newsletterAvailable);
+		$this->assign('wpCsvExportUrl', uriPps::mod('subscribe', 'getWpCsvList', array('id' => $this->popup['id'])));
 		return parent::getContent('popupEditAdminSubOpts');
 	}
 	public function getMainPopupSmTab() {
@@ -668,8 +669,8 @@ class popupViewPps extends viewPps {
 			$this->_bullets = array(
 				'none' => array('label' => __('None (standard)', PPS_LANG_CODE)),
 				'classy_blue' => array('img' => 'classy_blue.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'margin-bottom' => '15px')),
-				'circle_green' => array('img' => 'circle_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'margin-bottom' => '15px')),
-				'lists_green' => array('img' => 'lists_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'margin-bottom' => '15px')),
+				'circle_green' => array('img' => 'circle_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px')),
+				'lists_green' => array('img' => 'lists_green.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'margin-bottom' => '10px', 'min-height' => '25px')),
 				'tick' => array('img' => 'tick.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'margin-bottom' => '15px')),
 				'tick_blue' => array('img' => 'tick_blue.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'margin-bottom' => '15px')),
 				'ticks' => array('img' => 'ticks.png', 'add_style' => array('list-style' => 'outside none none !important', 'background-repeat' => 'no-repeat', 'padding-left' => '30px', 'line-height' => '100%', 'margin-bottom' => '15px')),

@@ -84,9 +84,9 @@ jQuery(document).ready(function(){
 	var tooltipsterSettings = {
 		contentAsHTML: true
 	,	interactive: true
-	,	speed: 250
+	,	speed: 0
 	,	delay: 0
-	,	animation: 'swing'
+	//,	animation: 'swing'
 	,	maxWidth: 450
 	};
 	if(jQuery('.supsystic-tooltip').size()) {

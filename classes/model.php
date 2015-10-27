@@ -80,6 +80,8 @@ abstract class modelPps extends baseObjectPps {
 		return $this;
 	}
 	public function setSelectFields($selectFields) {
+		if(is_array($selectFields))
+			$selectFields = implode(',', $selectFields);
 		$this->_selectFields = $selectFields;
 		return $this;
 	}

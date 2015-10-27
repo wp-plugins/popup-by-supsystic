@@ -255,7 +255,7 @@
 		<?php _e('Show on next pages / posts', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsOptDesc_params_main_show_pages_show_on_pages" style="display: none;" class="ppsOptDescParamsShell">
-		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
+		<?php echo htmlPps::selectlist('show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedShowPages, 'attrs' => 'class="chosen chosen-responsive" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
 	</div><br />
 	<label class="ppsPopupMainOptLbl">
 		<?php echo htmlPps::radiobutton('params[main][show_pages]', array(
@@ -264,7 +264,7 @@
 		<?php _e('Don\'t show on next pages / posts', PPS_LANG_CODE)?>
 	</label>
 	<div id="ppsOptDesc_params_main_show_pages_not_show_on_pages" style="display: none;" class="ppsOptDescParamsShell">
-		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
+		<?php echo htmlPps::selectlist('not_show_pages_list', array('options' => $this->allPagesForSelect, 'value' => $this->selectedHidePages, 'attrs' => 'class="chosen chosen-responsive" data-placeholder="'. __('Choose Pages', PPS_LANG_CODE). '"'))?>
 	</div>
 </section>
 <section class="ppsPopupMainOptSect">
@@ -367,7 +367,7 @@
 		<?php echo htmlPps::selectlist('params[main][hide_for_countries][]', array(
 			'options' => $this->countriesForSelect, 
 			'value' => (isset($this->popup['params']['main']['hide_for_countries']) ? $this->popup['params']['main']['hide_for_countries'] : array()), 
-			'attrs' => 'class="chosen" data-placeholder="'. __('Choose countries', PPS_LANG_CODE). '"'))?>
+			'attrs' => 'class="chosen chosen-responsive" data-placeholder="'. __('Choose countries', PPS_LANG_CODE). '"'))?>
 	</label><br />
 	<label class="ppsPopupMainOptLbl">
 		<span class="supsystic-tooltip" title="<?php echo esc_html(__('Click to revert feature function: from Hide - to Show, and vice versa.', PPS_LANG_CODE))?>">
@@ -383,7 +383,7 @@
 		<?php echo htmlPps::selectlist('params[main][hide_for_languages][]', array(
 			'options' => $this->languagesForSelect, 
 			'value' => (isset($this->popup['params']['main']['hide_for_languages']) ? $this->popup['params']['main']['hide_for_languages'] : array()), 
-			'attrs' => 'class="chosen" data-placeholder="'. __('Choose languages', PPS_LANG_CODE). '"'))?>
+			'attrs' => 'class="chosen chosen-responsive" data-placeholder="'. __('Choose languages', PPS_LANG_CODE). '"'))?>
 		<?php } else { ?>
 			<div class="alert alert-danger"><?php _e('This feature is supported only in WordPress version 4.0.0 or higher', PPS_LANG_CODE)?></div>
 		<?php }?>

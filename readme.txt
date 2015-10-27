@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: automatic popup, html popup, mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, optinmonster, pop up, exit popup, layer popup, lightbox popup, simple popup, wordpress popup, popup form, popup contact form, popup builder, popup subscription, modal, modal window, popup lock, video popup, youtube popup, social popup, lead
 Tested up to: 4.3.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers and customers. Responsive popups with lead generator
 
@@ -184,6 +184,17 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 
 == Changelog ==
+
+= 1.4.2 / 27.10.2015 =
+ * Minor issues fix for "List Building", "Bonus" and "Smart" PopUp templates
+ * Remove admin tooltips animation - just to check now it will be look like
+ * Small fixes for preview templates Pink and Discount
+ * Export subscribers to WordPress users list as CSV file (all subscribers - confirmed and unconfirmed too)
+ * Fix small issue with possible empty REQUEST php array
+ * Make custom selects in admin area - responsive
+ * Fix List Green and Green Dots bullets
+ * Change version for js and css files each time new version is release - to avoid using browser cache
+ * Small fixes for Business and Map style PopUp templates
 
 = 1.4.1 / 21.10.2015 =
  * Added HTML5 Subscribe fields validation on client side - fast and light!

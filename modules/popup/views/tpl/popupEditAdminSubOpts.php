@@ -23,7 +23,7 @@
 		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_wordpress">
 			<th scope="row">
 				<?php _e('Create user after subscribe with role', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Use this only if you are really need it. Remember! After you change this option - your new subscriber will have more privileges than usual subscribers, so be careful with this option!', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Use this only if you are really need it. Remember! After you change this option - your new subscriber will have more privileges than usual subscribers, so be careful with this option!', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::selectbox('params[tpl][sub_wp_create_user_role]', array(
@@ -34,11 +34,20 @@
 		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_wordpress">
 			<th scope="row">
 				<?php _e('Create Subscriber without confirmation', PPS_LANG_CODE)?>
-				<i class="fa fa-question supsystic-tooltip" title="<?php echo _e('Usually, after user subscribe, we send email with confirmation link - to confirm email addres, and only after usee will click on link from this email - we will create new subscriber. This option allow you to create subscriber - right after subscription, without email confirmation process.', PPS_LANG_CODE)?>"></i>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Usually, after user subscribe, we send email with confirmation link - to confirm email addres, and only after usee will click on link from this email - we will create new subscriber. This option allow you to create subscriber - right after subscription, without email confirmation process.', PPS_LANG_CODE)?>"></i>
 			</th>
 			<td>
 				<?php echo htmlPps::checkbox('params[tpl][sub_ignore_confirm]', array(
 					'checked' => htmlPps::checkedOpt($this->popup['params']['tpl'], 'sub_ignore_confirm')))?>
+			</td>
+		</tr>
+		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_wordpress">
+			<th scope="row">
+				<?php _e('Export Subscribers', PPS_LANG_CODE)?>
+				<i class="fa fa-question supsystic-tooltip" title="<?php _e('Export all subscribers, who subscribed using WordPress "Subscribe to" method, as CSV file.', PPS_LANG_CODE)?>"></i>
+			</th>
+			<td>
+				<a href="<?php echo $this->wpCsvExportUrl;?>" class="button"><?php _e('Get CSV List', PPS_LANG_CODE)?></a>
 			</td>
 		</tr>
 		<tr class="ppsPopupSubDestOpts ppsPopupSubDestOpts_aweber">

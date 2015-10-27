@@ -4,8 +4,8 @@ class subscribeControllerPps extends controllerPps {
 		$res = new responsePps();
 		$data = reqPps::get('post');
 		$id = isset($data['id']) ? (int) $data['id'] : 0;
-		$nonce = $_REQUEST['_wpnonce'];
-		if(!wp_verify_nonce($_REQUEST['_wpnonce'], 'subscribe-'. $id)) {
+		$nonce = isset($_REQUEST['_wpnonce']) ? $_REQUEST['_wpnonce'] : reqPps::getVar('_wpnonce');
+		if(!wp_verify_nonce($nonce, 'subscribe-'. $id)) {
 			die('Some error with your request.........');
 		}
 		if($this->getModel()->subscribe(reqPps::get('post'), true)) {
@@ -93,10 +93,49 @@ class subscribeControllerPps extends controllerPps {
 			$res->pushError ($this->getModel()->getErrors());
 		return $res->ajaxExec();
 	}
+	public function getWpCsvList() {
+		$id = (int) reqPps::getVar('id');
+		$popup = framePps::_()->getModule('popup')->getModel()->getById( $id );
+
+		importClassPps('filegeneratorPps');
+		importClassPps('csvgeneratorPps');
+		//var_dump($popup['label']); exit();
+		$csvGenerator = new csvgeneratorPps(sprintf(__('Subscribed to %s', PPS_LANG_CODE), htmlspecialchars( $popup['label'] )));
+		$labels = array(
+			'username' => __('Username', PPS_LANG_CODE),
+			'email' => __('Email', PPS_LANG_CODE),
+			'activated' => __('Activated', PPS_LANG_CODE),
+			'popup_id' => __('PopUp ID', PPS_LANG_CODE),
+			'date_created' => __('Date Created', PPS_LANG_CODE),
+		);
+		$selectFields = array_keys( $labels );
+		$list = $this->getModel()->setSelectFields( $selectFields )->setWhere(array('popup_id' => $id))->getFromTbl();
+		$row = $cell = 0;
+		foreach($labels as $l) {
+			$csvGenerator->addCell($row, $cell, $l);
+			$cell++;
+		}
+		$row = 1;
+		if(!empty($list)) {
+			foreach($list as $s) {
+				$cell = 0;
+				foreach($labels as $k => $l) {
+					$csvGenerator->addCell($row, $cell, $s[ $k ]);
+					$cell++;
+				}
+				$row++;
+			}
+		} else {
+			$cell = 0;
+			$csvGenerator->addCell($row, $cell, __('There are no subscribers for now', PPS_LANG_CODE));
+		}
+		$csvGenerator->generate();
+		
+	}
 	public function getPermissions() {
 		return array(
 			PPS_USERLEVELS => array(
-				PPS_ADMIN => array('getMailchimpLists')
+				PPS_ADMIN => array('getMailchimpLists', 'getWpCsvList')
 			),
 		);
 	}
