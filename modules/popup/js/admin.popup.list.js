@@ -57,10 +57,6 @@ jQuery(document).ready(function(){
 			jQuery('#ppsPopupRemoveGroupBtn').attr('disabled', 'disabled');
 			jQuery('#cb_'+ tblId).prop('indeterminate', false);
 			jQuery('#cb_'+ tblId).removeAttr('checked');
-			if(jQuery('#'+ tblId).jqGrid('getGridParam', 'records'))	// If we have at least one row - allow to clear whole list
-				jQuery('#ppsPopupClearBtn').removeAttr('disabled');
-			else
-				jQuery('#ppsPopupClearBtn').attr('disabled', 'disabled');
 			// Custom checkbox manipulation
 			ppsInitCustomCheckRadio('#'+ jQuery(this).attr('id') );
 			ppsCheckUpdate('#cb_'+ jQuery(this).attr('id'));
@@ -123,20 +119,5 @@ jQuery(document).ready(function(){
 		}
 		return false;
 	});
-	jQuery('#ppsPopupClearBtn').click(function(){
-		if(confirm(toeLangPps('Clear whole popup list?'))) {
-			jQuery.sendFormPps({
-				btn: this
-			,	data: {mod: 'popup', action: 'clear'}
-			,	onSuccess: function(res) {
-					if(!res.error) {
-						jQuery('#ppsPopupTbl').trigger( 'reloadGrid' );
-					}
-				}
-			});
-		}
-		return false;
-	});
-	
 	ppsInitCustomCheckRadio('#'+ tblId+ '_cb');
 });

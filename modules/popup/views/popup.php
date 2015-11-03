@@ -365,7 +365,8 @@ class popupViewPps extends viewPps {
 		return parent::getContent('popupEditAdminCodeOpts');
 	}
 	public function getMainPopupAnimationTab() {
-		framePps::_()->getModule('templates')->loadMagicAnims();
+		//framePps::_()->getModule('templates')->loadMagicAnims();
+		framePps::_()->getModule('templates')->loadCssAnims();
 		$this->assign('animationList', $this->getAnimationList());
 		return parent::getContent('popupEditAdminAnimationOpts');
 	}
@@ -400,6 +401,46 @@ class popupViewPps extends viewPps {
 				'space_up' => array('label' => __('Space up', PPS_LANG_CODE), 'show_class' => 'spaceInUp', 'hide_class' => 'spaceOutUp'),
 				'space_down' => array('label' => __('Space down', PPS_LANG_CODE), 'show_class' => 'spaceInDown', 'hide_class' => 'spaceOutDown'),
 			);
+			foreach($this->_animationList as $k => $v) {
+				if($k == 'none') continue;
+				$this->_animationList[ $k ]['old'] = true;
+			}
+			$this->_animationList = array_merge($this->_animationList, array(
+				'bounce' => array('label' => __('Bounce', PPS_LANG_CODE), 'show_class' => 'bounceIn', 'hide_class' => 'bounceOut'),
+				'bounce_up' => array('label' => __('Bounce Up', PPS_LANG_CODE), 'show_class' => 'bounceInUp', 'hide_class' => 'bounceOutUp'),
+				'bounce_down' => array('label' => __('Bounce Down', PPS_LANG_CODE), 'show_class' => 'bounceInDown', 'hide_class' => 'bounceOutDown'),
+				'bounce_left' => array('label' => __('Bounce Left', PPS_LANG_CODE), 'show_class' => 'bounceInLeft', 'hide_class' => 'bounceOutLeft'),
+				'bounce_right' => array('label' => __('Bounce Right', PPS_LANG_CODE), 'show_class' => 'bounceInRight', 'hide_class' => 'bounceOutRight'),
+				
+				'fade' => array('label' => __('Fade', PPS_LANG_CODE), 'show_class' => 'fadeIn', 'hide_class' => 'fadeOut'),
+				'fade_up' => array('label' => __('Fade Up', PPS_LANG_CODE), 'show_class' => 'fadeInUp', 'hide_class' => 'fadeOutUp'),
+				'fade_down' => array('label' => __('Fade Down', PPS_LANG_CODE), 'show_class' => 'fadeInDown', 'hide_class' => 'fadeOutDown'),
+				'fade_left' => array('label' => __('Fade Left', PPS_LANG_CODE), 'show_class' => 'fadeInLeft', 'hide_class' => 'fadeOutLeft'),
+				'fade_right' => array('label' => __('Fade Right', PPS_LANG_CODE), 'show_class' => 'fadeInRight', 'hide_class' => 'fadeOutRight'),
+				
+				'flip_x' => array('label' => __('Flip X', PPS_LANG_CODE), 'show_class' => 'flipInX', 'hide_class' => 'flipOutX'),
+				'flip_y' => array('label' => __('Flip Y', PPS_LANG_CODE), 'show_class' => 'flipInY', 'hide_class' => 'flipOutY'),
+
+				'rotate' => array('label' => __('Rotate', PPS_LANG_CODE), 'show_class' => 'rotateIn', 'hide_class' => 'rotateOut'),
+				'rotate_up_left' => array('label' => __('Rotate Up Left', PPS_LANG_CODE), 'show_class' => 'rotateInUpLeft', 'hide_class' => 'rotateOutUpLeft'),
+				'rotate_up_right' => array('label' => __('Rotate Up Right', PPS_LANG_CODE), 'show_class' => 'rotateInUpRight', 'hide_class' => 'rotateOutUpRight'),
+				'rotate_down_left' => array('label' => __('Rotate Down Left', PPS_LANG_CODE), 'show_class' => 'rotateInDownLeft', 'hide_class' => 'rotateOutDownLeft'),
+				'rotate_down_right' => array('label' => __('Rotate Down Right', PPS_LANG_CODE), 'show_class' => 'rotateInDownRight', 'hide_class' => 'rotateOutDownRight'),
+				
+				'slide_up' => array('label' => __('Slide Up', PPS_LANG_CODE), 'show_class' => 'slideInUp', 'hide_class' => 'slideOutUp'),
+				'slide_down' => array('label' => __('Slide Down', PPS_LANG_CODE), 'show_class' => 'slideInDown', 'hide_class' => 'slideOutDown'),
+				'slide_left' => array('label' => __('Slide Left', PPS_LANG_CODE), 'show_class' => 'slideInLeft', 'hide_class' => 'slideOutLeft'),
+				'slide_right' => array('label' => __('Slide Right', PPS_LANG_CODE), 'show_class' => 'slideInRight', 'hide_class' => 'slideOutRight'),
+				
+				'zoom' => array('label' => __('Zoom', PPS_LANG_CODE), 'show_class' => 'zoomIn', 'hide_class' => 'zoomOut'),
+				'zoom_up' => array('label' => __('Zoom Up', PPS_LANG_CODE), 'show_class' => 'zoomInUp', 'hide_class' => 'zoomOutUp'),
+				'zoom_down' => array('label' => __('Zoom Down', PPS_LANG_CODE), 'show_class' => 'zoomInDown', 'hide_class' => 'zoomOutDown'),
+				'zoom_left' => array('label' => __('Zoom Left', PPS_LANG_CODE), 'show_class' => 'zoomInLeft', 'hide_class' => 'zoomOutLeft'),
+				'zoom_right' => array('label' => __('Zoom Right', PPS_LANG_CODE), 'show_class' => 'zoomInRight', 'hide_class' => 'zoomOutRight'),
+				
+				'light_speed' => array('label' => __('Light Speed', PPS_LANG_CODE), 'show_class' => 'lightSpeedIn', 'hide_class' => 'lightSpeedOut'),
+				'roll' => array('label' => __('Rolling!', PPS_LANG_CODE), 'show_class' => 'rollIn', 'hide_class' => 'rollOut'),
+			));
 		}
 		return $this->_animationList;
 	}

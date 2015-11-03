@@ -62,7 +62,7 @@ jQuery(document).ready(function(){
 					if(!ppsSaveWithoutPreviewUpdate)
 						ppsRefreshPreview();
 				}
-				ppsSaveWithoutPreviewUpdate = false
+				ppsSaveWithoutPreviewUpdate = false;
 			}
 		});
 		return false;
@@ -148,12 +148,14 @@ jQuery(document).ready(function(){
 	jQuery('.chosen').chosen();
 	jQuery('.chosen.chosen-responsive').each(function(){
 		jQuery(this).next('.chosen-container').addClass('chosen-responsive');
-	})
+	});
 	// Animation effect change
 	jQuery('.ppsPopupAnimEffLabel').each(function(){
 		var key = jQuery(this).data('key');
 		if(key != 'none') {
-			jQuery(this).addClass('magictime');
+			// magictime was old animation lib
+			//jQuery(this).addClass('magictime');
+			jQuery(this).addClass('animated');
 			jQuery(this).mouseover(function(){
 				if(!jQuery(this).data('anim-started')) {
 					jQuery(this).data('anim-started', 1);

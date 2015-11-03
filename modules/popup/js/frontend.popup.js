@@ -1,3 +1,4 @@
+var g_ppsWindowLoaded = false;
 jQuery(document).ready(function(){
 	if(typeof(ppsPopupsFromFooter) !== 'undefined' && ppsPopupsFromFooter && ppsPopupsFromFooter.length) {
 		ppsPopups = typeof(ppsPopups) === 'undefined' ? [] : ppsPopups;
@@ -25,6 +26,19 @@ jQuery(document).ready(function(){
 				}
 			}
 		});
+		// For case when for some reason jQuery(window).load() will not trigger - 
+		// make it work correctly with re-position and re-sizing in any case
+		setTimeout(function(){
+			g_ppsWindowLoaded = true;
+		}, 5000);
+	}
+});
+jQuery(window).load(function(){
+	g_ppsWindowLoaded = true;
+	for(var i = 0; i < ppsPopups.length; i++) {
+		if(ppsPopups[ i ].is_visible) {
+			_ppsPositionPopup({popup: ppsPopups[ i ]});
+		}
 	}
 });
 function _ppsBindOnElementClickPopups() {
@@ -304,15 +318,11 @@ function ppsShowPopup( popup, params ) {
 	}
 	_ppsPopupAddStat( popup, 'show', 0, params.isUnique );	// Save show popup statistics
 	ppsShowBgOverlay( popup );
-	_ppsPositionPopup({shell: shell, popup: popup});
+	if(g_ppsWindowLoaded) {
+		_ppsPositionPopup({shell: shell, popup: popup});
+	}
 	if(popup.params.tpl.anim && !popup.resized_for_wnd) {
-		shell.animationDuration( popup.params.tpl.anim_duration, true );
-		shell.removeClass(popup.params.tpl.anim.hide_class);
-		shell.addClass('magictime '+ popup.params.tpl.anim.show_class).show();
-		// This need to make properly work responsivness
-		setTimeout(function(){
-			shell.removeClass('magictime '+ popup.params.tpl.anim.show_class);
-		}, parseInt(popup.params.tpl.anim_duration));
+		_ppsHandlePopupAnimationShow( popup, shell );
 	} else {
 		shell.show();
 	}
@@ -326,6 +336,24 @@ function ppsShowPopup( popup, params ) {
 	popup.is_visible = true;
 	popup.is_rendered = true;	// Rendered at least one time
 	jQuery(document).trigger('ppsAfterPopupsActionShow', popup);
+}
+function _ppsHandlePopupAnimationShow( popup, shell ) {
+	var preAnimClass = popup.params.tpl.anim.old ? 'magictime' : 'animated';
+	shell.animationDuration( popup.params.tpl.anim_duration, true );
+	shell.removeClass(popup.params.tpl.anim.hide_class);
+	shell.addClass(preAnimClass+ ' '+ popup.params.tpl.anim.show_class).show();
+	// This need to make properly work responsivness
+	setTimeout(function(){
+		shell.removeClass(preAnimClass+ ' '+ popup.params.tpl.anim.show_class);
+	}, parseInt(popup.params.tpl.anim_duration));
+}
+function _ppsHandlePopupAnimationHide( popup, shell ) {
+	var preAnimClass = popup.params.tpl.anim.old ? 'magictime' : 'animated';
+	shell.removeClass(popup.params.tpl.anim.show_class).addClass(popup.params.tpl.anim.hide_class);
+	setTimeout(function(){
+		shell.removeClass( preAnimClass ).hide();
+		ppsHideBgOverlay( popup );
+	}, popup.params.tpl.anim_duration );
 }
 function _ppsIframesForReload(params) {
 	var popup = params.popup
@@ -446,7 +474,8 @@ function _ppsPositionPopup( params ) {
 		,	shellHeight = shell.outerHeight()
 		,	resized = false
 		,	compareWidth = wndWidth - 10	// less then 10px
-		,	compareHeight = wndHeight - 10;	// less then 10px
+		,	compareHeight = wndHeight - 10	// less then 10px
+		,	resizeDivision = 1;
 		
 		if(shellHeight >= compareHeight) {
 			var initialHeight = parseInt(shell.data('init-height'));
@@ -454,10 +483,7 @@ function _ppsPositionPopup( params ) {
 				initialHeight = shellHeight;
 				shell.data('init-height', initialHeight);
 			}
-			var division = compareHeight / initialHeight;
-			shell.zoom( division );
-			shellWidth = shell.outerWidth();
-			shellHeight = shell.outerHeight();
+			resizeDivision = compareHeight / initialHeight;
 			resized = true;
 		}
 		if(shellWidth >= compareWidth) {
@@ -466,11 +492,16 @@ function _ppsPositionPopup( params ) {
 				initialWidth = shellWidth;
 				shell.data('init-width', initialWidth);
 			}
-			var division = compareWidth / initialWidth;
-			shell.zoom( division );
+			var widthDivision = compareWidth / initialWidth;
+			if(widthDivision < resizeDivision) {
+				resizeDivision = widthDivision;
+			}
+			resized = true;
+		}
+		if(resized) {
+			shell.zoom( resizeDivision );
 			shellWidth = shell.outerWidth();
 			shellHeight = shell.outerHeight();
-			resized = true;
 		}
 		params.popup.resized_for_wnd = resized;
 		jQuery(document).trigger('ppsResize', {popup: params.popup, shell: shell, wndWidth: wndWidth, wndHeight: wndHeight});
@@ -489,11 +520,7 @@ function ppsClosePopup(popup) {
 		popup = ppsGetPopupById( popup );
 	var shell = ppsGetPopupShell( popup );
 	if(popup.params.tpl.anim) {
-		shell.removeClass(popup.params.tpl.anim.show_class).addClass(popup.params.tpl.anim.hide_class);
-		setTimeout(function(){
-			shell.hide();
-			ppsHideBgOverlay( popup );
-		}, popup.params.tpl.anim_duration );
+		_ppsHandlePopupAnimationHide( popup, shell );
 	} else {
 		shell.hide();
 		ppsHideBgOverlay( popup );

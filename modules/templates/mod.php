@@ -179,7 +179,14 @@ class templatesPps extends modulePps {
 	public function loadMagicAnims() {
 		static $loaded = false;
 		if(!$loaded) {
-			framePps::_()->addStyle('jquery.jqplot', $this->_cdnUrl. 'css/magic.min.css');
+			framePps::_()->addStyle('magic.anim', $this->_cdnUrl. 'css/magic.min.css');
+			$loaded = true;
+		}
+	}
+	public function loadCssAnims() {
+		static $loaded = false;
+		if(!$loaded) {
+			framePps::_()->addStyle('animate.styles', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css');
 			$loaded = true;
 		}
 	}

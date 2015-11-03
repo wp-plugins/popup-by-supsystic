@@ -84,9 +84,9 @@ class popupPps extends modulePps {
 		}
 		$condition .= ")";
 		$condition = dispatcherPps::applyFilters('popupCheckCondition', $condition);
-		if($this->getModel()->abDeactivated()) {
+		/*if($this->getModel()->abDeactivated()) {
 			$condition .= ' AND ab_id = 0';
-		}
+		}*/
 		$popups = $this->_beforeRender( $this->getModel()->addWhere( $condition )->getFromTbl() );
  		if(!empty($popups)) {
 			$popups = dispatcherPps::applyFilters('popupListBeforeRender', $popups);
@@ -234,7 +234,24 @@ class popupPps extends modulePps {
 			framePps::_()->addScript('frontend.popup', $this->getModPath(). 'js/frontend.popup.js');
 			framePps::_()->addJSVar('frontend.popup', $jsListVarName, $popups);
 			framePps::_()->addStyle('frontend.popup', $this->getModPath(). 'css/frontend.popup.css');
-			framePps::_()->getModule('templates')->loadMagicAnims();
+			// Detect what animation library should be loaded. Be advised that they can be used both in same time.
+			$loadOldAnims = $loadNewAnims = false;
+			foreach($popups as $p) {
+				if($loadOldAnims && $loadNewAnims) break;
+				if(isset($p['params'], $p['params']['tpl'], $p['params']['tpl']['anim']) && !empty($p['params']['tpl']['anim'])) {
+					if(isset($p['params']['tpl']['anim']['old']) && $p['params']['tpl']['anim']['old']) {
+						$loadOldAnims = true;
+					} else {
+						$loadNewAnims = true;
+					}
+				}
+			}
+			if($loadOldAnims) {
+				framePps::_()->getModule('templates')->loadMagicAnims();
+			}
+			if($loadNewAnims) {
+				framePps::_()->getModule('templates')->loadCssAnims();
+			}
 			$renderedBefore = true;
 		} else {
 			// We use such "un-professional" method - because in comon - we don't want to collect data for wp_footer output - because unfortunatelly not all themes has it, 

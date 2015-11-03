@@ -202,17 +202,20 @@ class subscribeModelPps extends modelPps {
 							$username = trim($d['name']);
 						}
 						$username = $this->_getUsernameFromEmail($email, $username);
-						if(isset($popup['params']['tpl']['sub_ignore_confirm']) && $popup['params']['tpl']['sub_ignore_confirm']) {
+						$ignoreConfirm = isset($popup['params']['tpl']['sub_ignore_confirm']) && $popup['params']['tpl']['sub_ignore_confirm'];
+						$confirmHash = md5($email. NONCE_KEY);
+						$popupSubId = $this->insert(array(
+							'username' => $username,
+							'email' => $email,
+							'hash' => $confirmHash,
+							'popup_id' => $popup['id'],
+							'all_data' => utilsPps::serialize( $d ),
+							'activated' => $ignoreConfirm ? 1 : 0,
+						));
+						if($ignoreConfirm) {
 							return $this->createWpSubscriber($popup, $email, $username, $d);
 						} else {
-							$confirmHash = md5($email. NONCE_KEY);
-							if($this->insert(array(
-								'username' => $username,
-								'email' => $email,
-								'hash' => $confirmHash,
-								'popup_id' => $popup['id'],
-								'all_data' => utilsPps::serialize( $d ),
-							))) {
+							if($popupSubId) {
 								$this->sendWpUserConfirm($username, $email, $confirmHash, $popup);
 								return true;
 							}

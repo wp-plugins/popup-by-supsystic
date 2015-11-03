@@ -792,3 +792,9 @@ input[type="color"] {
 		padding-right: 0;
 	}
 }
+/*tables - jqgrid - responsivness*/
+@media (max-width: 1280px) {
+	.supsystic-tbl-pagination-shell .ui-pg-table .ui-paging-info {
+		display: none !important;
+	}
+}

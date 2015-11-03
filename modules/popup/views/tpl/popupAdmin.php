@@ -8,11 +8,6 @@
 						<?php _e('Delete selected', PPS_LANG_CODE)?>
 					</button>
 				</li>
-				<li title="<?php _e('Clear All')?>">
-					<button class="button" id="ppsPopupClearBtn" disabled data-toolbar-button>
-						<?php _e('Clear', PPS_LANG_CODE)?>
-					</button>
-				</li>
 				<li title="<?php _e('Search', PPS_LANG_CODE)?>">
 					<input id="ppsPopupTblSearchTxt" type="text" name="tbl_search" placeholder="<?php _e('Search', PPS_LANG_CODE)?>">
 				</li>

@@ -15,6 +15,9 @@
 			}
 		}
 	}
+	if(isset($this->popup['ab_id']) && !empty($this->popup['ab_id'])) {
+		$warnings[] = __('Please be advised that you are editing AB Test PopUp. This mean that independent of options you select in Main settings - there will be always only one PopUp: Base or one from AB Test.', PPS_LANG_CODE);
+	}
 ?>
 <?php if(!empty($warnings)) { ?>
 	<div class="alert alert-warning"><?php echo implode('<br />', $warnings)?></div>

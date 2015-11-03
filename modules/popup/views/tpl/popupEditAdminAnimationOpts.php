@@ -7,6 +7,7 @@
 <div class="ppsPopupOptRow">
 	<div id="ppsPopupAnimOptsShell">
 		<?php foreach($this->animationList as $aKey => $aData) { ?>
+		<?php if(isset($aData['old']) && $aData['old']) continue;?>
 		<div class="ppsPopupAnimEff">
 			<div class="ppsPopupAnimEffLabel" 
 				data-label="<?php echo $aData['label']?>"
