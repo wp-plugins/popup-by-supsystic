@@ -203,7 +203,7 @@ function toeProcessAjaxResponsePps(res, msgEl, form, sentFromForm, params) {
                 jQuery(msgEl)
 					.removeClass('ppsErrorMsg')
 					.addClass('ppsSuccessMsg');
-                for(var i in res.messages) {
+                for(var i = 0; i < res.messages.length; i++) {
                     jQuery(msgEl).append(res.messages[i]).append('<br />');
                 }
             }

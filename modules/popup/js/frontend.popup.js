@@ -591,9 +591,34 @@ function ppsBindPopupActions(popup) {
 			}
 		});
 	}
+	// Check build-in PopUp subscribe links
 	if(shell.find('.ppsSmLink').size()) {
 		shell.find('.ppsSmLink').click(function(){
 			_ppsPopupSetActionDone(popup, 'share', jQuery(this).data('type'));
+		});
+	}
+	// Check Social Share by Supsystic plugin links in PopUp
+	if(shell.find('.supsystic-social-sharing').size()) {
+		shell.find('.supsystic-social-sharing a').click(function(){
+			var socHost = this.hostname
+			,	socType = '';	// Social network type key
+			if(socHost && socHost != '') {
+				switch(socHost) {
+					case 'www.facebook.com': 
+						socType = 'facebook'; 
+						break;
+					case 'plus.google.com':
+						socType = 'googleplus'; 
+						break;
+					case 'twitter.com':
+						socType = 'twitter'; 
+						break;
+					default:
+						socType = socHost;
+						break;
+				}
+				_ppsPopupSetActionDone(popup, 'share', socType);
+			}
 		});
 	}
 	if(shell.find('.fb-like-box').size()) {
