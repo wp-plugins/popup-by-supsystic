@@ -124,7 +124,8 @@ class modInstallerPps {
             foreach($modules as $m) {
                 $modDataArr = utilsPps::xmlNodeAttrsToArr($m);
                 if(!empty($modDataArr)) {
-                    if(framePps::_()->moduleExists($modDataArr['code'])) { //If module Exists - just activate it
+					//If module Exists - just activate it, we can't check this using framePps::moduleExists because this will not work for multy-site WP
+                    if(framePps::_()->getTable('modules')->exists($modDataArr['code'], 'code') /*framePps::_()->moduleExists($modDataArr['code'])*/) {
                         self::activate($modDataArr);
                     } else {                                           //  if not - install it
                         if(!self::install($modDataArr, $locations['plugDir'])) {

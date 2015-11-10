@@ -99,7 +99,7 @@ class subscribeControllerPps extends controllerPps {
 
 		importClassPps('filegeneratorPps');
 		importClassPps('csvgeneratorPps');
-		//var_dump($popup['label']); exit();
+
 		$csvGenerator = new csvgeneratorPps(sprintf(__('Subscribed to %s', PPS_LANG_CODE), htmlspecialchars( $popup['label'] )));
 		$labels = array(
 			'username' => __('Username', PPS_LANG_CODE),
