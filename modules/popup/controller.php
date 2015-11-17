@@ -139,7 +139,7 @@ class popupControllerPps extends controllerPps {
 	}
 	private function _generateGoogleMapAssetsForPreview($popupId) {
 		$res = '';
-		if(class_exists('frameGmp')) {
+		if(class_exists('frameGmp') && defined('GMP_VERSION_PLUGIN')) {
 			$scripts = frameGmp::_()->getScripts();
 			if(!empty($scripts)) {
 				frameGmp::_()->getModule('gmap')->getView()->addMapDataToJs();
@@ -180,7 +180,7 @@ class popupControllerPps extends controllerPps {
 		return $res;
 	}
 	private function _prepareGoogleMapAssetsForPreview($popupId) {
-		if(class_exists('frameGmp')) {
+		if(class_exists('frameGmp') && defined('GMP_VERSION_PLUGIN')) {
 			frameGmp::_()->setScriptsInitialized( false );
 			frameGmp::_()->setStylesInitialized( false );
 		}
@@ -206,8 +206,9 @@ class popupControllerPps extends controllerPps {
 	}
 	public function exportForDb() {
 		$eol = "\r\n";
+		$forPro = (int) reqPps::getVar('for_pro');
 		$selectColumns = array('id','label','active','original_id','params','html','css','img_preview','show_on','show_to','show_pages','type_id','date_created','sort_order');
-		$popupList = dbPps::get('SELECT '. implode(',', $selectColumns). ' FROM @__popup WHERE original_id = 0 AND id != 50');
+		$popupList = dbPps::get('SELECT '. implode(',', $selectColumns). ' FROM @__popup WHERE original_id = 0 AND '. ($forPro ? 'id >= 50' : 'id < 50'));
 		$valuesArr = array();
 		
 		$allKeys = array();

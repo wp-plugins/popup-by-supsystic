@@ -102,8 +102,8 @@ class popupModelPps extends modelPps {
 		$row['type'] = isset($row['type_id']) && isset($this->_types[ $row['type_id'] ]) ? $this->_types[ $row['type_id'] ]['code'] : 'common';
 		if(!isset($row['params']['tpl']['sub_fields'])) {
 			$row['params']['tpl']['sub_fields'] = array(
-				'email' => array('label' => __('E-Mail'), 'html' => 'text', 'enb' => true, 'mandatory' => true, 'name' => 'email'),
-				'name' => array('label' => __('Name'), 'html' => 'text', 'enb' => (isset($row['params']['tpl']['enb_sub_name']) && $row['params']['tpl']['enb_sub_name']), 'name' => 'name'),
+				'email' => array('label' => __('E-Mail', PPS_LANG_CODE), 'html' => 'text', 'enb' => true, 'mandatory' => true, 'name' => 'email'),
+				'name' => array('label' => __('Name', PPS_LANG_CODE), 'html' => 'text', 'enb' => (isset($row['params']['tpl']['enb_sub_name']) && $row['params']['tpl']['enb_sub_name']), 'name' => 'name'),
 			);
 		} else {
 			// Saving Enabling name field for old field database sctructure - to not lose this field for old popups

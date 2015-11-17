@@ -300,6 +300,7 @@ function _ppsPopupAddStat( popup, action, smType, isUnique ) {
 /**
  * Show popup
  * @param {mixed} popup Popup object or it's ID
+ * @param {objext} params Additional parameters to display
  */
 function ppsShowPopup( popup, params ) {
 	if(!ppsCorrectJqueryUsed()) {

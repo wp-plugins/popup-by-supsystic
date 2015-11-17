@@ -3,7 +3,7 @@ Contributors: supsystic.com
 Donate link: http://supsystic.com/plugins/popup-plugin
 Tags: automatic popup, html popup, mailing list pop-up, pop over, pop-up, popover, popup, responsive popup, optin, optinmonster, pop up, exit popup, layer popup, lightbox popup, simple popup, wordpress popup, popup form, popup contact form, popup builder, popup subscription, modal, modal window, popup lock, video popup, youtube popup, social popup, lead
 Tested up to: 4.3.1
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 
 The Best WordPress PopUp optin plugin to help you gain more subscribers, social followers and customers. Responsive popups with lead generator
 
@@ -188,6 +188,13 @@ The plugin is as light. The website work will not be damaged. Popups will operat
 
 
 == Changelog ==
+
+= 1.4.6 / 17.11.2015 =
+ * Small code improvements
+ * "Map style" PopUp template small fix
+ * Minor spelling issues fix
+ * Small fix for "List Building Layered" PRO template
+ * Added Spanish (Colombia) language
 
 = 1.4.5 / 10.11.2015 =
  * Fixed issue with PRO for multi-sites
